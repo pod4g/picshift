@@ -17,6 +17,24 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg,webp,wasm,json}'],
         globIgnores: ['_routes.json', '_worker.js/**', '_headers', '_redirects'],
         navigateFallback: null,
+        manifestTransforms: [
+          async (entries) => {
+            const manifest = entries.map((entry) => {
+              // HTML pages are precached without trailing slash (e.g. "zh", "privacy")
+              // but browsers request them with trailing slash ("zh/", "privacy/").
+              // Append "/" so precache keys match navigation requests.
+              if (
+                entry.url !== '' &&
+                !entry.url.endsWith('/') &&
+                !entry.url.match(/\.[a-zA-Z0-9]+$/i)
+              ) {
+                return { ...entry, url: entry.url + '/' };
+              }
+              return entry;
+            });
+            return { manifest };
+          },
+        ],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
