@@ -15,6 +15,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg,webp,wasm,json}'],
+        globIgnores: ['_routes.json', '_worker.js/**', '_headers', '_redirects'],
         navigateFallback: null,
         runtimeCaching: [
           {
