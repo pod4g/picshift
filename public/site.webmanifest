@@ -1,1 +1,15 @@
-{"name":"PicShift","short_name":"PicShift","background_color":"#1a2332","display":"standalone","icons":[{"sizes":"192x192","src":"/android-chrome-192x192.png","type":"image/png"},{"sizes":"512x512","src":"/android-chrome-512x512.png","type":"image/png"}],"theme_color":"#6366f1"}
+{
+  "name": "PicShift",
+  "short_name": "PicShift",
+  "description": "Free browser-based image converter. Convert HEIC, WebP, PNG, JPG, AVIF instantly — no upload required.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#1a2332",
+  "theme_color": "#6366f1",
+  "categories": ["utilities", "photo"],
+  "icons": [
+    { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
