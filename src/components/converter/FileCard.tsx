@@ -111,7 +111,7 @@ export default function FileCard({ file, onRemove, onDownload, onCompare }: File
               {file.outputSize > file.size ? (
                 <span className="group relative font-medium text-warning cursor-help">
                   {getSizeReduction(file.size, file.outputSize)}
-                  <span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 w-64 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-xs leading-relaxed text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100 dark:bg-gray-700">
+                  <span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 w-52 sm:w-64 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-xs leading-relaxed text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100 dark:bg-gray-700">
                     {getSizeIncreaseTip(t, file.outputExt)}
                     <span className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-gray-900 dark:border-t-gray-700" />
                   </span>

@@ -46,8 +46,8 @@ export default function DropZone({ onFiles, accept = '.heic,.heif,.jpg,.jpeg,.pn
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={`
-        relative flex min-h-[200px] cursor-pointer flex-col items-center justify-center
-        rounded-xl border-2 border-dashed p-8 transition-all duration-200
+        relative flex min-h-[160px] sm:min-h-[200px] cursor-pointer flex-col items-center justify-center
+        rounded-xl border-2 border-dashed p-5 sm:p-8 transition-all duration-200
         focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
         ${
           isDragOver
@@ -57,7 +57,7 @@ export default function DropZone({ onFiles, accept = '.heic,.heif,.jpg,.jpeg,.pn
       `}
     >
       <svg
-        className={`mb-4 h-12 w-12 transition-colors duration-200 ${
+        className={`mb-3 sm:mb-4 h-10 w-10 sm:h-12 sm:w-12 transition-colors duration-200 ${
           isDragOver ? 'text-primary-500' : 'text-text-secondary'
         }`}
         fill="none"

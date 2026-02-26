@@ -251,21 +251,21 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
       {/* Full-page drag overlay */}
       {fullPage && pageDragOver && (
         <div className="pointer-events-none fixed inset-0 z-40 flex items-center justify-center bg-primary-500/10 backdrop-blur-[2px]">
-          <div className="rounded-2xl border-2 border-dashed border-primary-500 bg-card-bg/90 px-12 py-10 shadow-lg">
+          <div className="rounded-2xl border-2 border-dashed border-primary-500 bg-card-bg/90 px-8 py-6 sm:px-12 sm:py-10 shadow-lg mx-4">
             <div className="flex flex-col items-center gap-3">
-              <svg className="h-12 w-12 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <svg className="h-10 w-10 sm:h-12 sm:w-12 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
               </svg>
-              <p className="text-lg font-semibold text-primary-500">{t.dropAnywhere}</p>
+              <p className="text-base sm:text-lg font-semibold text-primary-500">{t.dropAnywhere}</p>
             </div>
           </div>
         </div>
       )}
 
       {/* Main card */}
-      <div className="rounded-xl border border-border bg-card-bg p-6 shadow-sm">
+      <div className="rounded-xl border border-border bg-card-bg p-4 sm:p-6 shadow-sm">
         {/* Controls */}
-        <div className="mb-6 flex flex-wrap items-center gap-4">
+        <div className="mb-4 sm:mb-6 flex flex-wrap items-center gap-3 sm:gap-4">
           {!defaultOutputFormat && !keepSmaller && (
             <FormatSelector
               value={outputFormat}

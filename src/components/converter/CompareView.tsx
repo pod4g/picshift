@@ -148,16 +148,16 @@ export default function CompareView({
         </svg>
       </button>
 
-      <div className="flex w-full max-w-5xl flex-col gap-4">
+      <div className="flex w-full max-w-5xl flex-col gap-3 sm:gap-4">
         {/* Header: labels + view mode toggle */}
-        <div className="flex items-center justify-between text-sm text-white">
-          <div className="flex items-center gap-2 rounded-lg bg-black/50 px-3 py-1.5">
+        <div className="flex items-center justify-between gap-2 text-xs sm:text-sm text-white">
+          <div className="flex items-center gap-1.5 sm:gap-2 rounded-lg bg-black/50 px-2 py-1 sm:px-3 sm:py-1.5">
             <span className="font-medium">{t.original}</span>
             <span className="text-white/70">{formatSize(originalSize)}</span>
           </div>
 
           {/* View mode toggle */}
-          <div className="flex items-center gap-1 rounded-lg bg-black/50 p-1">
+          <div className="flex items-center gap-1 rounded-lg bg-black/50 p-1 shrink-0">
             {/* Slider icon */}
             <button
               type="button"
@@ -187,7 +187,7 @@ export default function CompareView({
             </button>
           </div>
 
-          <div className="flex items-center gap-2 rounded-lg bg-black/50 px-3 py-1.5">
+          <div className="flex items-center gap-1.5 sm:gap-2 rounded-lg bg-black/50 px-2 py-1 sm:px-3 sm:py-1.5">
             <span className="font-medium">{t.converted}</span>
             <span className="text-white/70">{formatSize(convertedSize)}</span>
           </div>
@@ -229,7 +229,7 @@ export default function CompareView({
           {viewMode === 'slider' && (
             <div
               ref={containerRef}
-              className="relative aspect-video w-full select-none overflow-hidden rounded-xl bg-black"
+              className="relative aspect-[3/4] sm:aspect-video w-full select-none overflow-hidden rounded-xl bg-black"
               onPointerDown={handlePointerDown}
               onPointerMove={handlePointerMove}
               onPointerUp={handlePointerUp}
@@ -279,7 +279,7 @@ export default function CompareView({
 
           {/* Side-by-side view */}
           {viewMode === 'side-by-side' && (
-            <div className="flex aspect-video w-full gap-2 overflow-hidden rounded-xl bg-black">
+            <div className="flex flex-col sm:flex-row aspect-[3/4] sm:aspect-video w-full gap-1 sm:gap-2 overflow-hidden rounded-xl bg-black">
               <div className="relative flex flex-1 items-center justify-center overflow-hidden">
                 <img
                   src={originalUrl}
@@ -287,7 +287,7 @@ export default function CompareView({
                   className="max-h-full max-w-full object-contain"
                   draggable={false}
                 />
-                <span className="absolute bottom-3 left-3 rounded bg-black/60 px-2 py-1 text-xs text-white">
+                <span className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 rounded bg-black/60 px-2 py-1 text-xs text-white">
                   {t.original}
                 </span>
               </div>
@@ -298,7 +298,7 @@ export default function CompareView({
                   className="max-h-full max-w-full object-contain"
                   draggable={false}
                 />
-                <span className="absolute bottom-3 right-3 rounded bg-black/60 px-2 py-1 text-xs text-white">
+                <span className="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 rounded bg-black/60 px-2 py-1 text-xs text-white">
                   {t.converted}
                 </span>
               </div>
