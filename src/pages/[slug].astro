@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import PrivacyBadge from '../components/seo/PrivacyBadge.astro';
+import HowTo from '../components/seo/HowTo.astro';
+import FAQ from '../components/seo/FAQ.astro';
+import Converter from '../components/converter/Converter';
+import { TOOL_PAGES } from '../data/tools';
+import { getPageTranslations } from '../i18n/translations';
+import { getUI } from '../i18n/ui';
+import type { ToolPageConfig } from '../types';
+
+const lang = 'en' as const;
+
+export function getStaticPaths() {
+  return TOOL_PAGES.map((tool) => ({
+    params: { slug: tool.slug },
+    props: { tool },
+  }));
+}
+
+interface Props {
+  tool: ToolPageConfig;
+}
+
+const { tool } = Astro.props;
+const pageTranslations = getPageTranslations(lang);
+const toolTranslation = pageTranslations.tools[tool.slug];
+
+const title = toolTranslation?.title || tool.title;
+const description = toolTranslation?.description || tool.description;
+const h1 = toolTranslation?.h1 || tool.h1;
+const introText = toolTranslation?.introText || tool.introText;
+const howToSteps = toolTranslation?.howToSteps || tool.howToSteps;
+const t = getUI(lang);
+const faqs = [...(toolTranslation?.faqs || tool.faqs), { q: t.sizeIncreaseFaqQ, a: t.sizeIncreaseFaqA }];
+
+const canonical = `https://picshift.app/${tool.slug}`;
+const pagePath = `/${tool.slug}`;
+---
+
+<Layout title={title} description={description} canonical={canonical} lang={lang} pagePath={pagePath}>
+  <Header lang={lang} pagePath={pagePath} />
+
+  <main class="flex-1">
+    <div class="max-w-5xl mx-auto px-4 py-8">
+      <!-- Page heading -->
+      <div class="mb-6">
+        <h1 class="text-3xl md:text-4xl font-bold text-text-primary mb-3">
+          {h1}
+        </h1>
+        <p class="text-lg text-text-secondary max-w-2xl">
+          {introText}
+        </p>
+      </div>
+
+      <!-- Privacy badge -->
+      <div class="mb-6">
+        <PrivacyBadge lang={lang} />
+      </div>
+
+      <!-- Converter island -->
+      <div class="bg-card-bg rounded-xl border border-border shadow-sm p-4 md:p-6 mb-8">
+        <Converter
+          client:load
+          defaultInputFormat={tool.defaultInputFormat}
+          defaultOutputFormat={tool.defaultOutputFormat}
+          keepSmaller={tool.slug === 'image-compressor'}
+          lang={lang}
+        />
+      </div>
+
+      <!-- How-to section -->
+      <HowTo steps={howToSteps} toolName={h1} lang={lang} />
+
+      <!-- FAQ section -->
+      <FAQ faqs={faqs} lang={lang} />
+    </div>
+  </main>
+
+  <Footer lang={lang} />
+</Layout>

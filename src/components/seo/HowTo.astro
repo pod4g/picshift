@@ -1,0 +1,42 @@
+---
+import { getUI } from '../../i18n';
+import type { Locale } from '../../i18n/config';
+
+interface Props {
+  steps: string[];
+  toolName: string;
+  lang?: Locale;
+}
+
+const { steps, toolName, lang = 'en' } = Astro.props;
+const ui = getUI(lang);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: `${ui.howToPrefix}${toolName}`,
+  step: steps.map((text, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    text,
+  })),
+};
+---
+
+<section class="mt-12">
+  <h2 class="text-2xl font-bold text-text-primary mb-6">
+    {ui.howToPrefix}{toolName}
+  </h2>
+  <div class="space-y-4">
+    {steps.map((step, i) => (
+      <div class="flex items-start gap-4">
+        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary-500 text-white flex items-center justify-center text-sm font-semibold">
+          {i + 1}
+        </div>
+        <p class="text-text-secondary pt-1 leading-relaxed">{step}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

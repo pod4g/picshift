@@ -1,0 +1,138 @@
+---
+import { SUPPORTED_LOCALES, LOCALE_CONFIG } from '../i18n/config';
+import type { Locale } from '../i18n/config';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  lang?: Locale;
+  pagePath?: string;
+}
+
+const { title, description, canonical, lang = 'en', pagePath = '/' } = Astro.props;
+const canonicalUrl = canonical || Astro.url.href;
+const ogImage = new URL('/og-image.png', Astro.site).href;
+
+const localeConfig = LOCALE_CONFIG[lang];
+const hrefLang = localeConfig.hrefLang;
+const dir = localeConfig.dir;
+
+// Build hreflang alternate links
+const siteBase = 'https://picshift.app';
+const normalizedPath = pagePath === '/' ? '' : pagePath;
+
+function buildHrefLangUrl(locale: Locale): string {
+  if (locale === 'en') return `${siteBase}${pagePath}`;
+  return `${siteBase}/${locale}${normalizedPath || '/'}`;
+}
+
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang={hrefLang} dir={dir} class="dark">
+  <head>
+    <!-- Theme: apply dark/light class before paint to avoid flash -->
+    <script is:inline>
+      (function() {
+        var t = localStorage.getItem('picshift_theme');
+        if (t === 'light') {
+          document.documentElement.classList.remove('dark');
+        }
+        // Default is dark (class already set on html)
+      })();
+    </script>
+    <!-- Language auto-detection and redirect -->
+    <script is:inline>
+      (function() {
+        var stored = localStorage.getItem('picshift_lang');
+        if (stored && stored !== 'en') {
+          var path = window.location.pathname;
+          var locales = ['zh','zh-Hant','es','fr','de','ja','ko','pt','ru','ar','it'];
+          var isOnLocale = locales.some(function(l) { return path.startsWith('/' + l + '/') || path === '/' + l; });
+          if (!isOnLocale && locales.indexOf(stored) !== -1) {
+            window.location.replace('/' + stored + path);
+            return;
+          }
+        }
+        if (stored) return;
+        if (/bot|crawl|spider/i.test(navigator.userAgent)) return;
+        var langs = navigator.languages || [navigator.language];
+        var supported = {zh:1,'zh-Hant':1,es:1,fr:1,de:1,ja:1,ko:1,pt:1,ru:1,ar:1,it:1};
+        for (var i = 0; i < langs.length; i++) {
+          var l = langs[i].toLowerCase();
+          if (supported[l]) { doRedirect(l); return; }
+          if (l.indexOf('zh') === 0) {
+            if (l.indexOf('tw') !== -1 || l.indexOf('hant') !== -1 || l.indexOf('hk') !== -1 || l.indexOf('mo') !== -1) { doRedirect('zh-Hant'); return; }
+            doRedirect('zh'); return;
+          }
+          if (l.indexOf('pt') === 0) { doRedirect('pt'); return; }
+          var prefix = l.split('-')[0];
+          if (supported[prefix]) { doRedirect(prefix); return; }
+        }
+        function doRedirect(lang) {
+          localStorage.setItem('picshift_lang', lang);
+          var path = window.location.pathname;
+          var locales = ['zh','zh-Hant','es','fr','de','ja','ko','pt','ru','ar','it'];
+          var isOnLocale = locales.some(function(l) { return path.startsWith('/' + l + '/') || path === '/' + l; });
+          if (!isOnLocale) {
+            window.location.replace('/' + lang + path);
+          }
+        }
+      })();
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Hreflang alternate links -->
+    {SUPPORTED_LOCALES.map((locale) => (
+      <link rel="alternate" hreflang={LOCALE_CONFIG[locale].hrefLang} href={buildHrefLangUrl(locale)} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={buildHrefLangUrl('en' as Locale)} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="PicShift" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Umami Analytics (production only) -->
+    {import.meta.env.PROD && (
+      <script
+        defer
+        src="https://analytics.picshift.app/script.js"
+        data-website-id="REPLACE_ME"
+      />
+    )}
+  </head>
+  <body class="min-h-screen flex flex-col bg-page-bg text-text-primary font-sans">
+    <slot />
+  </body>
+</html>

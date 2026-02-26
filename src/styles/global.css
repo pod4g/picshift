@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-500: #6366f1;
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4338ca;
+  --color-secondary-500: #8b5cf6;
+  --color-accent: #06b6d4;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-page-bg: #eef1f8;
+  --color-card-bg: #ffffff;
+  --color-drop-bg: #f1f5f9;
+  --color-drop-hover: #ede9fe;
+  --color-text-primary: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-border: #e2e8f0;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: var(--color-page-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dark mode overrides */
+html.dark {
+  --color-primary-500: #818cf8;
+  --color-primary-600: #6366f1;
+  --color-primary-700: #4f46e5;
+  --color-secondary-500: #a78bfa;
+  --color-page-bg: #1a2332;
+  --color-card-bg: #1f2e40;
+  --color-drop-bg: #1f2e40;
+  --color-drop-hover: #2a3a50;
+  --color-text-primary: #e8edf5;
+  --color-text-secondary: #8fa3be;
+  --color-border: #2d3f54;
+  color-scheme: dark;
+}
+
+/* Hero title gradient */
+.hero-gradient {
+  background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+html.dark .hero-gradient {
+  background: linear-gradient(90deg, #60a5fa 0%, #a78bfa 50%, #d8b4fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Download button pulse glow — plays 3 times then stops */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+  50% { opacity: 0.85; box-shadow: 0 0 16px 4px rgba(99, 102, 241, 0.45); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 0.8s ease-in-out 3;
+}
+
+/* Thin translucent scrollbar for compare thumbnail strip */
+.compare-thumbstrip {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255 255 255 / 0.2) transparent;
+}
+.compare-thumbstrip::-webkit-scrollbar {
+  height: 4px;
+}
+.compare-thumbstrip::-webkit-scrollbar-track {
+  background: transparent;
+}
+.compare-thumbstrip::-webkit-scrollbar-thumb {
+  background: rgba(255 255 255 / 0.2);
+  border-radius: 2px;
+}

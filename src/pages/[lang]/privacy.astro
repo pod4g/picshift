@@ -1,0 +1,64 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { SUPPORTED_LOCALES } from '../../i18n';
+import { getPageTranslations } from '../../i18n/translations';
+import type { Locale } from '../../i18n/config';
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES
+    .filter((l) => l !== 'en')
+    .map((l) => ({
+      params: { lang: l },
+      props: { lang: l },
+    }));
+}
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const pageTranslations = getPageTranslations(lang);
+const privacy = pageTranslations.privacy;
+
+const title = privacy.title;
+const description = privacy.description;
+---
+
+<Layout title={title} description={description} lang={lang} pagePath="/privacy">
+  <Header lang={lang} pagePath="/privacy" />
+
+  <main class="flex-1">
+    <div class="max-w-3xl mx-auto px-4 py-12">
+      <h1 class="text-3xl md:text-4xl font-bold text-text-primary mb-8">
+        {privacy.title.replace(' | PicShift', '')}
+      </h1>
+
+      <div class="space-y-8 text-text-secondary leading-relaxed">
+        {privacy.sections.map((section) => (
+          <section>
+            <h2 class="text-xl font-semibold text-text-primary mb-3">
+              {section.heading}
+            </h2>
+            <p set:html={section.content} />
+            {section.items && (
+              <ul class="list-disc list-inside mt-3 space-y-1">
+                {section.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            )}
+          </section>
+        ))}
+
+        <p class="text-sm text-text-secondary pt-4 border-t border-border">
+          {privacy.lastUpdated}
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <Footer lang={lang} />
+</Layout>

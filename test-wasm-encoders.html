@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WASM Encoder Benchmark</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, system-ui, sans-serif; background: #0f0f0f; color: #e0e0e0; padding: 24px; }
+  h1 { font-size: 20px; margin-bottom: 16px; }
+  .drop-zone {
+    border: 2px dashed #444; border-radius: 12px; padding: 40px; text-align: center;
+    cursor: pointer; margin-bottom: 24px; transition: border-color .2s;
+  }
+  .drop-zone:hover, .drop-zone.dragover { border-color: #6366f1; }
+  .drop-zone input { display: none; }
+  #status { margin-bottom: 16px; font-size: 14px; color: #999; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #222; }
+  th { color: #999; font-weight: 600; font-size: 12px; text-transform: uppercase; }
+  .better { color: #10b981; font-weight: 600; }
+  .worse { color: #f59e0b; }
+  .pct { font-size: 12px; color: #999; margin-left: 4px; }
+  .section { margin-top: 32px; }
+  .section h2 { font-size: 16px; margin-bottom: 12px; color: #a0a0a0; }
+  .loading { display: inline-block; width: 12px; height: 12px; border: 2px solid #6366f1; border-top-color: transparent; border-radius: 50%; animation: spin .6s linear infinite; margin-right: 6px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<h1>WASM Encoder Benchmark: Browser Native vs WASM</h1>
+
+<div class="drop-zone" id="dropZone">
+  <p>Drop images here or click to select (supports JPG, PNG, WebP)</p>
+  <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.webp" multiple>
+</div>
+
+<div>
+  Quality: <input type="range" id="quality" min="1" max="100" value="85"> <span id="qualityLabel">85%</span>
+</div>
+
+<div id="status"></div>
+
+<div class="section" id="resultsSection" style="display:none">
+  <h2>Results</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>File</th>
+        <th>Original</th>
+        <th>Format</th>
+        <th>Browser Native</th>
+        <th>WASM</th>
+        <th>Savings</th>
+      </tr>
+    </thead>
+    <tbody id="resultsBody"></tbody>
+  </table>
+</div>
+
+<script type="module">
+// ---- Import WASM encoders from CDN (ESM) ----
+// We use jSquash for all three — consistent API
+import { encode as encodeWebP } from 'https://cdn.jsdelivr.net/npm/@jsquash/webp@1.5.0/encode.js';
+import { optimise as optimisePng } from 'https://cdn.jsdelivr.net/npm/@jsquash/oxipng@2.3.0/optimise.js';
+
+// MozJPEG: jSquash also has @jsquash/jpeg
+import { encode as encodeMozJpeg } from 'https://cdn.jsdelivr.net/npm/@jsquash/jpeg@1.5.0/encode.js';
+
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const statusEl = document.getElementById('status');
+const resultsSection = document.getElementById('resultsSection');
+const resultsBody = document.getElementById('resultsBody');
+const qualitySlider = document.getElementById('quality');
+const qualityLabel = document.getElementById('qualityLabel');
+
+qualitySlider.addEventListener('input', () => {
+  qualityLabel.textContent = qualitySlider.value + '%';
+});
+
+dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  handleFiles(Array.from(e.dataTransfer.files));
+});
+fileInput.addEventListener('change', () => handleFiles(Array.from(fileInput.files)));
+
+function formatSize(bytes) {
+  if (bytes === 0) return '0 B';
+  const k = 1024;
+  const sizes = ['B', 'KB', 'MB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+}
+
+async function fileToImageData(file) {
+  const bitmap = await createImageBitmap(file);
+  const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(bitmap, 0, 0);
+  bitmap.close();
+  return { imageData: ctx.getImageData(0, 0, canvas.width, canvas.height), canvas };
+}
+
+async function handleFiles(files) {
+  const quality = Number(qualitySlider.value);
+  resultsBody.innerHTML = '';
+  resultsSection.style.display = 'block';
+
+  for (const file of files) {
+    statusEl.innerHTML = `<span class="loading"></span>Processing: ${file.name}...`;
+
+    try {
+      const { imageData, canvas } = await fileToImageData(file);
+      const ext = file.name.split('.').pop().toLowerCase();
+
+      // Determine which formats to test based on input
+      const tests = [];
+
+      // Test JPEG
+      tests.push({
+        format: 'JPEG',
+        nativeFn: () => canvas.convertToBlob({ type: 'image/jpeg', quality: quality / 100 }),
+        wasmFn: () => encodeMozJpeg(imageData, { quality }),
+        wasmName: 'MozJPEG',
+      });
+
+      // Test PNG (quality doesn't apply — lossless optimization)
+      tests.push({
+        format: 'PNG',
+        nativeFn: () => canvas.convertToBlob({ type: 'image/png' }),
+        wasmFn: async () => {
+          const nativePng = await canvas.convertToBlob({ type: 'image/png' });
+          const buffer = await nativePng.arrayBuffer();
+          return optimisePng(buffer, { level: 3 });
+        },
+        wasmName: 'OxiPNG',
+      });
+
+      // Test WebP
+      tests.push({
+        format: 'WebP',
+        nativeFn: () => canvas.convertToBlob({ type: 'image/webp', quality: quality / 100 }),
+        wasmFn: () => encodeWebP(imageData, { quality }),
+        wasmName: 'libwebp',
+      });
+
+      for (const test of tests) {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${file.name}</td><td>${formatSize(file.size)}</td><td>${test.format}</td><td><span class="loading"></span></td><td><span class="loading"></span></td><td>—</td>`;
+        resultsBody.appendChild(row);
+
+        try {
+          // Browser native
+          const t0 = performance.now();
+          const nativeBlob = await test.nativeFn();
+          const nativeTime = performance.now() - t0;
+          const nativeSize = nativeBlob.size;
+
+          // WASM
+          const t1 = performance.now();
+          const wasmResult = await test.wasmFn();
+          const wasmTime = performance.now() - t1;
+          const wasmSize = wasmResult instanceof Blob ? wasmResult.size
+            : wasmResult instanceof ArrayBuffer ? wasmResult.byteLength
+            : wasmResult.byteLength ?? wasmResult.length ?? 0;
+
+          const savings = ((1 - wasmSize / nativeSize) * 100).toFixed(1);
+          const isBetter = wasmSize < nativeSize;
+
+          const cells = row.children;
+          cells[3].textContent = `${formatSize(nativeSize)} (${nativeTime.toFixed(0)}ms)`;
+          cells[4].innerHTML = `${formatSize(wasmSize)} (${wasmTime.toFixed(0)}ms) <span class="pct">[${test.wasmName}]</span>`;
+          cells[5].innerHTML = isBetter
+            ? `<span class="better">-${Math.abs(savings)}%</span>`
+            : `<span class="worse">+${Math.abs(savings)}%</span>`;
+        } catch (err) {
+          const cells = row.children;
+          cells[3].textContent = 'error';
+          cells[4].textContent = err.message;
+          cells[5].textContent = '—';
+        }
+      }
+    } catch (err) {
+      statusEl.textContent = `Error processing ${file.name}: ${err.message}`;
+    }
+  }
+
+  statusEl.textContent = 'Done.';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+---
+import { getUI, localePath } from '../../i18n';
+import type { Locale } from '../../i18n/config';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const ui = getUI(lang);
+---
+
+<footer class="bg-drop-bg border-t border-border mt-auto">
+  <div class="max-w-5xl mx-auto px-4 py-8">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-text-secondary">
+        {ui.copyright}
+      </p>
+
+      <div class="flex items-center gap-1.5 text-sm text-success font-medium">
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+          />
+        </svg>
+        {ui.privacyMessage}
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a
+          href={localePath('/privacy', lang)}
+          class="text-sm text-text-secondary hover:text-text-primary transition-colors"
+        >
+          {ui.privacyPolicy}
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
