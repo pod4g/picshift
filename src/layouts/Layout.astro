@@ -110,7 +110,6 @@ import '../styles/global.css';
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
 
     <title>{title}</title>
@@ -155,6 +154,9 @@ import '../styles/global.css';
     />
 
     <!-- Analytics: Cloudflare Web Analytics (auto-injected by Cloudflare Pages) -->
+
+    <!-- PWA: Service Worker registration (production only) -->
+    {import.meta.env.PROD && <script is:inline src="/registerSW.js"></script>}
   </head>
   <body class="min-h-screen flex flex-col bg-page-bg text-text-primary font-sans">
     <slot />
