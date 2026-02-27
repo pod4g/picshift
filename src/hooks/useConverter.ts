@@ -9,6 +9,7 @@ import { OUTPUT_MIME, OUTPUT_EXT } from '../types';
 import { triggerDownload } from '../lib/download';
 import { StreamingZip } from '../lib/zip';
 import { isAcceptedFile, MAX_FILE_SIZE, MAX_FILE_COUNT, MAX_TOTAL_SIZE } from '../lib/format-utils';
+import { trackConvertFile, trackConvertError, trackDownloadZip, trackDownloadSingle, trackCompareOpen, trackClearAll } from '../lib/analytics';
 
 /** Derive InputFormat from file extension (fallback for sync addFiles). */
 function extToInputFormat(filename: string): InputFormat {
@@ -155,6 +156,7 @@ export function useConverter(options?: {
       const worker = getWorker();
 
       updateFile(file.id, { status: 'converting', progress: 0 });
+      const fileStartTime = Date.now();
 
       // Determine the effective output format for this file
       const fileOutputKey = compressMode ? inputToOutputKey(file.originalFile.name) : outputFormat;
@@ -195,6 +197,14 @@ export function useConverter(options?: {
             flushedToZip: true,
             decodedOriginalBlob: msg.originalPreview ?? null,
           });
+
+          trackConvertFile(
+            file.inputFormat,
+            fileOutputKey,
+            file.size / 1024,
+            outputBlob.size / 1024,
+            Date.now() - fileStartTime,
+          );
         }
 
         if (msg.status === 'error') {
@@ -202,6 +212,7 @@ export function useConverter(options?: {
             status: 'error',
             error: msg.error,
           });
+          trackConvertError(file.inputFormat, msg.error ?? 'unknown');
         }
 
         // Return worker to pool for reuse
@@ -321,6 +332,7 @@ export function useConverter(options?: {
   const clearAll = useCallback(() => {
     // Revoke all thumbnail URLs
     setFiles((prev) => {
+      trackClearAll(prev.length);
       prev.forEach((f) => {
         if (f.thumbnailUrl) URL.revokeObjectURL(f.thumbnailUrl);
       });
@@ -352,7 +364,8 @@ export function useConverter(options?: {
     const pad = (n: number) => String(n).padStart(2, '0');
     const ts = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
     zipRef.current.download(`picshift-converted-${ts}.zip`);
-  }, []);
+    trackDownloadZip(files.filter((f) => f.status === 'done').length);
+  }, [files]);
 
   // ---------------------------------------------------------------------------
   // Download single -- re-convert on demand
@@ -363,9 +376,11 @@ export function useConverter(options?: {
       const file = files.find((f) => f.id === id);
       if (!file || !file.outputBlob) return;
 
-      const ext = file.outputExt ?? (OUTPUT_EXT[compressMode ? inputToOutputKey(file.originalFile.name) : outputFormat] ?? '.bin');
+      const fileOutputKey = compressMode ? inputToOutputKey(file.originalFile.name) : outputFormat;
+      const ext = file.outputExt ?? (OUTPUT_EXT[fileOutputKey] ?? '.bin');
       const fileName = file.originalFile.name.replace(/\.[^.]+$/, '') + ext;
       triggerDownload(file.outputBlob, fileName);
+      trackDownloadSingle(fileOutputKey);
     },
     [files, outputFormat, compressMode],
   );
@@ -455,6 +470,7 @@ export function useConverter(options?: {
     async (id: string) => {
       const file = files.find((f) => f.id === id);
       if (!file) return;
+      trackCompareOpen();
 
       const cmpOutputKey = compressMode ? inputToOutputKey(file.originalFile.name) : outputFormat;
 

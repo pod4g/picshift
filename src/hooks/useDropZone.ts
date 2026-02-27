@@ -2,7 +2,7 @@ import { useState, useRef, useCallback } from 'react';
 import type { DragEvent } from 'react';
 
 interface UseDropZoneOptions {
-  onFiles: (files: File[]) => void;
+  onFiles: (files: File[], source?: 'drop' | 'click' | 'paste') => void;
 }
 
 export function useDropZone({ onFiles }: UseDropZoneOptions) {
@@ -36,7 +36,7 @@ export function useDropZone({ onFiles }: UseDropZoneOptions) {
       if (!dt?.files.length) return;
 
       const files = Array.from(dt.files);
-      onFiles(files);
+      onFiles(files, 'drop');
     },
     [onFiles],
   );

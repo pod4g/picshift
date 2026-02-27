@@ -4,7 +4,7 @@ import { useLang } from '../../i18n/LangContext';
 import { getUI } from '../../i18n/ui';
 
 interface DropZoneProps {
-  onFiles: (files: File[]) => void;
+  onFiles: (files: File[], source?: 'drop' | 'click' | 'paste') => void;
   accept?: string;
 }
 
@@ -24,7 +24,7 @@ export default function DropZone({ onFiles, accept = '.heic,.heif,.jpg,.jpeg,.pn
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
     if (files && files.length > 0) {
-      onFiles(Array.from(files));
+      onFiles(Array.from(files), 'click');
       e.target.value = '';
     }
   }

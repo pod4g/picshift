@@ -4,6 +4,7 @@ import { useConverter } from '../../hooks/useConverter';
 import { loadPreferences, savePreferences } from '../../lib/preferences';
 import { formatSize } from '../../lib/format-utils';
 import type { InputFormat, OutputFormatKey } from '../../types';
+import { trackFileAdd, trackFileFormat, trackFormatSelect, trackConvertComplete, trackPwaInstall } from '../../lib/analytics';
 import { LangProvider } from '../../i18n/LangContext';
 import { getUI } from '../../i18n/ui';
 import type { Locale } from '../../i18n/config';
@@ -99,6 +100,7 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
     (fmt: OutputFormatKey) => {
       userSelectedFormat.current = true;
       setOutputFormat(fmt);
+      trackFormatSelect(fmt);
     },
     [setOutputFormat],
   );
@@ -106,12 +108,22 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
   // Smart default: when first files are added and user hasn't manually picked a format, guess from input
   // Skip in compress mode — each file keeps its own format
   const handleAddFiles = useCallback(
-    (incoming: File[]) => {
+    (incoming: File[], source: 'drop' | 'click' | 'paste' = 'click') => {
       if (!keepSmaller && files.length === 0 && !defaultOutputFormat && !userSelectedFormat.current && incoming.length > 0) {
         const guessed = guessOutputFormat(incoming[0].name);
         setOutputFormat(guessed);
       }
       addFiles(incoming);
+
+      // Analytics
+      const totalSizeKb = incoming.reduce((sum, f) => sum + f.size, 0) / 1024;
+      trackFileAdd(incoming.length, source, totalSizeKb);
+      const formatCounts: Record<string, number> = {};
+      incoming.forEach((f) => {
+        const ext = f.name.split('.').pop()?.toLowerCase() ?? 'unknown';
+        formatCounts[ext] = (formatCounts[ext] || 0) + 1;
+      });
+      Object.entries(formatCounts).forEach(([fmt, count]) => trackFileFormat(fmt, count));
     },
     [addFiles, files.length, defaultOutputFormat, setOutputFormat, keepSmaller],
   );
@@ -162,10 +174,22 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
     prevFileCountRef.current = totalCount;
   }, [totalCount]);
 
-  // Confetti + scroll to download when all files finish
+  // Confetti + scroll to download + analytics when all files finish
   useEffect(() => {
     if (allFinished && completedCount > 0 && !confettiFiredRef.current) {
       confettiFiredRef.current = true;
+
+      // Analytics: convert_complete
+      const totalInput = files.reduce((sum, f) => sum + f.size, 0);
+      const totalOutput = files.filter(f => f.status === 'done').reduce((sum, f) => sum + f.outputSize, 0);
+      trackConvertComplete({
+        count: completedCount,
+        to: outputFormat,
+        duration_ms: conversionTimeMs ?? 0,
+        input_kb: totalInput / 1024,
+        output_kb: totalOutput / 1024,
+        saved_pct: totalInput > 0 ? (1 - totalOutput / totalInput) * 100 : 0,
+      });
       const duration = 1500;
       const end = Date.now() + duration;
       const frame = () => {
@@ -198,7 +222,7 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
       const items = e.clipboardData?.files;
       if (!items || items.length === 0) return;
       e.preventDefault();
-      handleAddFiles(Array.from(items));
+      handleAddFiles(Array.from(items), 'paste');
     };
     document.addEventListener('paste', onPaste);
     return () => document.removeEventListener('paste', onPaste);
@@ -245,7 +269,7 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
       const target = e.target as HTMLElement;
       if (target.closest?.('[data-dropzone]')) return;
       if (e.dataTransfer?.files.length) {
-        handleAddFiles(Array.from(e.dataTransfer.files));
+        handleAddFiles(Array.from(e.dataTransfer.files), 'drop');
       }
     };
 
@@ -402,6 +426,7 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
           <button
             type="button"
             onClick={async () => {
+              trackPwaInstall();
               try {
                 await installPrompt.prompt();
                 await installPrompt.userChoice;
