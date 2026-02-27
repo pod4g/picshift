@@ -63,6 +63,18 @@ function isHeic(file: File): boolean {
   return name.endsWith('.heic') || name.endsWith('.heif');
 }
 
+function getInputMime(file: File): string {
+  if (file.type) return file.type;
+  const ext = file.name.toLowerCase().split('.').pop() || '';
+  const map: Record<string, string> = {
+    jpg: 'image/jpeg', jpeg: 'image/jpeg',
+    png: 'image/png',
+    webp: 'image/webp',
+    avif: 'image/avif',
+  };
+  return map[ext] || '';
+}
+
 function postProgress(id: string, progress: number): void {
   const msg: WorkerResponse = { id, status: 'progress', progress };
   self.postMessage(msg);
@@ -147,6 +159,31 @@ async function wasmEncodeWebp(
   }
 }
 
+let avifInit: Promise<void> | null = null;
+
+async function wasmEncodeAvif(
+  imageData: ImageData,
+  quality: number,
+): Promise<Blob | null> {
+  try {
+    const { init, default: encode } = await import('@jsquash/avif/encode');
+    if (!avifInit) {
+      avifInit = (async () => {
+        const buf = await fetch('/wasm/avif_enc.wasm').then((r) =>
+          r.arrayBuffer(),
+        );
+        const mod = await WebAssembly.compile(buf);
+        await init(mod);
+      })();
+    }
+    await avifInit;
+    const buffer = await encode(imageData, { quality, speed: 6 });
+    return new Blob([buffer], { type: 'image/avif' });
+  } catch {
+    return null;
+  }
+}
+
 // ---- Main handler ----
 
 self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
@@ -160,7 +197,25 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
       const heic2any = (await import('heic2any')).default;
       const converted = await heic2any({ blob: file, toType: 'image/png' });
       sourceBlob = Array.isArray(converted) ? converted[0] : converted;
-      postProgress(id, 10);
+
+      // Send early thumbnail so user sees a preview while encoding continues
+      try {
+        const earlyBitmap = await createImageBitmap(sourceBlob, {
+          resizeWidth: 200,
+          resizeQuality: 'medium',
+        });
+        const earlyCanvas = new OffscreenCanvas(earlyBitmap.width, earlyBitmap.height);
+        const earlyCtx = earlyCanvas.getContext('2d');
+        if (earlyCtx) {
+          earlyCtx.drawImage(earlyBitmap, 0, 0);
+          const earlyThumb = await earlyCanvas.convertToBlob({ type: 'image/jpeg', quality: 0.6 });
+          const earlyMsg: WorkerResponse = { id, status: 'progress', progress: 10, thumbnail: earlyThumb };
+          self.postMessage(earlyMsg);
+        }
+        earlyBitmap.close();
+      } catch {
+        postProgress(id, 10);
+      }
     } else {
       sourceBlob = file;
     }
@@ -179,32 +234,40 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
     bitmap.close();
 
     // Step 3 - Export to target format (WASM first, native fallback)
-    const imageData = ctx.getImageData(0, 0, width, height);
+    let imageData: ImageData | null = ctx.getImageData(0, 0, width, height);
     let outputBlob: Blob;
 
     if (outputFormat === 'image/jpeg') {
       outputBlob =
-        (await wasmEncodeJpeg(imageData, quality)) ??
+        (await wasmEncodeJpeg(imageData!, quality)) ??
         (await canvas.convertToBlob({ type: outputFormat, quality: quality / 100 }));
     } else if (outputFormat === 'image/png') {
       const nativePng = await canvas.convertToBlob({ type: 'image/png' });
       outputBlob = (await wasmOptimizePng(nativePng)) ?? nativePng;
     } else if (outputFormat === 'image/webp') {
       outputBlob =
-        (await wasmEncodeWebp(imageData, quality)) ??
+        (await wasmEncodeWebp(imageData!, quality)) ??
+        (await canvas.convertToBlob({ type: outputFormat, quality: quality / 100 }));
+    } else if (outputFormat === 'image/avif') {
+      outputBlob =
+        (await wasmEncodeAvif(imageData!, quality)) ??
         (await canvas.convertToBlob({ type: outputFormat, quality: quality / 100 }));
     } else {
-      // AVIF and other formats — native only
       outputBlob = await canvas.convertToBlob({
         type: outputFormat,
         quality: quality / 100,
       });
     }
 
-    // Step 3.5 - For compressor mode: if output is larger than input, keep original
+    // Release raw pixel data (~W*H*4 bytes) before thumbnail generation
+    imageData = null;
+
+    // Step 3.5 - Keep original if re-encoded result is larger
+    // Applies in compressor mode (keepSmaller) or when input/output formats match
     let finalBlob: Blob = outputBlob;
     let keptOriginal = false;
-    if (keepSmaller && outputBlob.size >= file.size && !isHeic(file)) {
+    const sameFormat = !isHeic(file) && getInputMime(file) === outputFormat;
+    if ((keepSmaller || sameFormat) && outputBlob.size >= file.size) {
       finalBlob = file;
       keptOriginal = true;
     }

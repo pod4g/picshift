@@ -35,7 +35,7 @@ function inputToOutputKey(filename: string): OutputFormatKey {
 // Constants
 // ---------------------------------------------------------------------------
 
-const MAX_WORKERS = 2;
+const MAX_WORKERS = Math.min(navigator.hardwareConcurrency || 2, 4);
 const MAX_COMPARE_CACHE = 10;
 
 // ---------------------------------------------------------------------------
@@ -74,7 +74,8 @@ export function useConverter(options?: {
   const [compareLoading, setCompareLoading] = useState(false);
 
   // Refs that survive re-renders
-  const workersRef = useRef<Worker[]>([]);
+  const workerPoolRef = useRef<Worker[]>([]);
+  const idleWorkersRef = useRef<Worker[]>([]);
   const queueRef = useRef<ConvertFile[]>([]);
   const activeCountRef = useRef(0);
   const zipRef = useRef<StreamingZip | null>(null);
@@ -100,14 +101,24 @@ export function useConverter(options?: {
   // Worker helpers
   // ---------------------------------------------------------------------------
 
-  /** Create (or reuse) a worker and return it. */
+  /** Get an idle worker from the pool, or create a new one. */
   const getWorker = useCallback((): Worker => {
+    if (idleWorkersRef.current.length > 0) {
+      return idleWorkersRef.current.pop()!;
+    }
     const w = new Worker(
       new URL('../workers/convert-worker.ts', import.meta.url),
       { type: 'module' },
     );
-    workersRef.current.push(w);
+    workerPoolRef.current.push(w);
     return w;
+  }, []);
+
+  /** Return a worker to the idle pool for reuse. */
+  const releaseWorker = useCallback((worker: Worker) => {
+    worker.onmessage = null;
+    worker.onerror = null;
+    idleWorkersRef.current.push(worker);
   }, []);
 
   /** Update a single file entry by id. */
@@ -146,7 +157,11 @@ export function useConverter(options?: {
         const msg = e.data;
 
         if (msg.status === 'progress') {
-          updateFile(msg.id, { progress: msg.progress });
+          const patch: Partial<ConvertFile> = { progress: msg.progress };
+          if (msg.thumbnail) {
+            patch.thumbnailUrl = URL.createObjectURL(msg.thumbnail);
+          }
+          updateFile(msg.id, patch);
           return;
         }
 
@@ -154,6 +169,13 @@ export function useConverter(options?: {
           const outputBlob = msg.blob!;
           const thumbnailBlob = msg.thumbnail!;
           const thumbUrl = URL.createObjectURL(thumbnailBlob);
+
+          // Revoke early preview thumbnail URL if any
+          setFiles(prev => {
+            const existing = prev.find(f => f.id === msg.id);
+            if (existing?.thumbnailUrl) URL.revokeObjectURL(existing.thumbnailUrl);
+            return prev;
+          });
 
           // If worker kept the original file (output was larger), use original extension
           const ext = msg.keptOriginal
@@ -181,9 +203,8 @@ export function useConverter(options?: {
           });
         }
 
-        // Cleanup worker
-        worker.terminate();
-        workersRef.current = workersRef.current.filter((w) => w !== worker);
+        // Return worker to pool for reuse
+        releaseWorker(worker);
         activeCountRef.current--;
 
         // Continue with next queued file
@@ -195,8 +216,9 @@ export function useConverter(options?: {
           status: 'error',
           error: err.message || 'Worker error',
         });
+        // Terminate broken worker and remove from pool
         worker.terminate();
-        workersRef.current = workersRef.current.filter((w) => w !== worker);
+        workerPoolRef.current = workerPoolRef.current.filter((w) => w !== worker);
         activeCountRef.current--;
         processQueue();
       };
@@ -211,7 +233,7 @@ export function useConverter(options?: {
       };
       worker.postMessage(req);
     }
-  }, [getWorker, updateFile, outputFormat, quality, keepSmaller, compressMode]);
+  }, [getWorker, releaseWorker, updateFile, outputFormat, quality, keepSmaller, compressMode]);
 
   // ---------------------------------------------------------------------------
   // Public API
@@ -290,9 +312,10 @@ export function useConverter(options?: {
       return [];
     });
     queueRef.current = [];
-    // Terminate all workers
-    workersRef.current.forEach((w) => w.terminate());
-    workersRef.current = [];
+    // Terminate all workers in the pool
+    workerPoolRef.current.forEach((w) => w.terminate());
+    workerPoolRef.current = [];
+    idleWorkersRef.current = [];
     activeCountRef.current = 0;
     zipRef.current = null;
     // Revoke all cached compare URLs

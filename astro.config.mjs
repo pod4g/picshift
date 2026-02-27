@@ -15,7 +15,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg,webp,wasm,json,woff2}'],
-        globIgnores: ['_routes.json', '_worker.js/**', '_headers', '_redirects'],
+        globIgnores: ['_routes.json', '_worker.js/**', '_headers', '_redirects', '**/*avif_enc*'],
         navigateFallback: null,
         manifestTransforms: [
           async (entries) => {
