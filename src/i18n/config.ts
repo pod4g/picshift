@@ -86,6 +86,21 @@ export interface UIStrings {
   // PWA install prompt
   pwaInstallPrompt: string;
   pwaInstallButton: string;
+  // Tech showcase
+  techSectionTitle: string;
+  techSectionSubtitle: string;
+  techMozjpegTitle: string;
+  techMozjpegDesc: string;
+  techOxipngTitle: string;
+  techOxipngDesc: string;
+  techImagequantTitle: string;
+  techImagequantDesc: string;
+  techWebpTitle: string;
+  techWebpDesc: string;
+  techAvifTitle: string;
+  techAvifDesc: string;
+  techWorkerPoolTitle: string;
+  techWorkerPoolDesc: string;
   // Comparison table (homepage)
   comparisonTitle: string;
   compColPicShift: string;
