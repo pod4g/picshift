@@ -20,6 +20,7 @@ export interface ConvertFile {
   thumbnailUrl: string | null;
   error: string | null;
   flushedToZip: boolean;
+  decodedOriginalBlob: Blob | null;
 }
 
 export interface UserPreferences {
@@ -53,6 +54,7 @@ export interface WorkerResponse {
   progress?: number;
   blob?: Blob;
   thumbnail?: Blob;
+  originalPreview?: Blob;
   keptOriginal?: boolean;
   error?: string;
 }

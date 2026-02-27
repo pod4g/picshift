@@ -51,6 +51,7 @@ interface WorkerResponse {
   progress?: number;
   blob?: Blob;
   thumbnail?: Blob;
+  originalPreview?: Blob;
   keptOriginal?: boolean;
   error?: string;
 }
@@ -192,8 +193,9 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
   try {
     // Step 1 - Decode HEIC if needed, otherwise use file directly
     let sourceBlob: Blob;
+    const heicInput = isHeic(file);
 
-    if (isHeic(file)) {
+    if (heicInput) {
       const heic2any = (await import('heic2any')).default;
       const converted = await heic2any({ blob: file, toType: 'image/png' });
       sourceBlob = Array.isArray(converted) ? converted[0] : converted;
@@ -303,6 +305,7 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
       status: 'done',
       blob: finalBlob,
       thumbnail,
+      originalPreview: heicInput ? sourceBlob : undefined,
       keptOriginal,
     };
     self.postMessage(doneMsg);

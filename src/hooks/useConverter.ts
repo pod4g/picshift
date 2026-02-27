@@ -193,6 +193,7 @@ export function useConverter(options?: {
             outputSize: outputBlob.size,
             outputExt: ext,
             flushedToZip: true,
+            decodedOriginalBlob: msg.originalPreview ?? null,
           });
         }
 
@@ -261,6 +262,7 @@ export function useConverter(options?: {
         outputExt: null,
         error: null,
         flushedToZip: false,
+        decodedOriginalBlob: null,
       }));
 
       // Enforce max file count and total size inside the updater
@@ -384,12 +386,32 @@ export function useConverter(options?: {
     [],
   );
 
-  /** Decode HEIC/HEIF originals to displayable PNG via worker. */
+  /** Decode HEIC/HEIF originals to displayable blob.
+   *  Priority: cached blob → native browser decode → worker (heic2any) fallback. */
   const decodeOriginal = useCallback(
     async (file: ConvertFile): Promise<Blob> => {
       const needsDecode = ['heic', 'heif'].includes(file.inputFormat);
       if (!needsDecode) return file.originalFile;
 
+      // 1. Use cached preview from conversion
+      if (file.decodedOriginalBlob) return file.decodedOriginalBlob;
+
+      // 2. Try native browser HEIC decode (fast on macOS Safari/Chrome)
+      try {
+        const bitmap = await createImageBitmap(file.originalFile);
+        const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+        const ctx = canvas.getContext('2d')!;
+        ctx.drawImage(bitmap, 0, 0);
+        bitmap.close();
+        const blob = await canvas.convertToBlob({ type: 'image/png' });
+        // Cache for future compare opens
+        updateFile(file.id, { decodedOriginalBlob: blob });
+        return blob;
+      } catch {
+        // No native HEIC support — fall through to worker decode
+      }
+
+      // 3. Worker decode fallback (heic2any — slow)
       const decodeWorker = new Worker(
         new URL('../workers/convert-worker.ts', import.meta.url),
         { type: 'module' },
@@ -409,6 +431,8 @@ export function useConverter(options?: {
         });
       });
       decodeWorker.terminate();
+      // Cache for future compare opens
+      updateFile(file.id, { decodedOriginalBlob: blob });
       return blob;
     },
     [],
