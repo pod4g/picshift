@@ -108,6 +108,134 @@ async function wasmEncodeJpeg(
   }
 }
 
+let imagequantInit: Promise<{ memory: WebAssembly.Memory }> | null = null;
+
+async function wasmQuantizePng(
+  imageData: ImageData,
+  quality: number,
+  canvas: OffscreenCanvas,
+  ctx: OffscreenCanvasRenderingContext2D,
+): Promise<Blob | null> {
+  try {
+    const mod = await import('@panda-ai/imagequant');
+    const init = mod.default;
+    const { quantize_image } = mod;
+
+    if (!imagequantInit) {
+      imagequantInit = (async () => {
+        const buf = await fetch('/wasm/imagequant_bg.wasm').then((r) =>
+          r.arrayBuffer(),
+        );
+        const wasmMod = await WebAssembly.compile(buf);
+        return await init(wasmMod);
+      })();
+    }
+    const initOutput = await imagequantInit;
+
+    const { width, height, data } = imageData;
+    const pixels = new Uint8Array(data.buffer);
+    // 85-94: max palette (256 colors) for best quality quantization
+    // 1-84: exponential curve mapped to 2-256, seamless at quality 84
+    const maxColors = quality >= 85
+      ? 256
+      : Math.max(2, Math.round(Math.pow(2, (quality / 84) * 8)));
+
+    // imagequant always quantizes to 256 colors (ignores max_colors param),
+    // so we always pass 256 and reduce further ourselves when needed.
+    const result = quantize_image(pixels, width, height, 256);
+
+    // Extract palette + indices from result
+    let palette: Uint8Array;
+    let indices: Uint8Array;
+
+    if (typeof result.palette_ptr === 'function') {
+      const mem = new Uint8Array(initOutput.memory.buffer);
+      palette = mem.slice(
+        result.palette_ptr(),
+        result.palette_ptr() + result.palette_len(),
+      );
+      indices = mem.slice(
+        result.indices_ptr(),
+        result.indices_ptr() + result.indices_len(),
+      );
+      result.free();
+    } else if (result.palette && result.indices) {
+      // Always copy — result arrays may be views into WASM memory, and
+      // we mutate indices during secondary color reduction.
+      palette = new Uint8Array(result.palette);
+      indices = new Uint8Array(result.indices);
+    } else {
+      console.error('[imagequant] unexpected result shape:', typeof result, Object.keys(result));
+      return null;
+    }
+
+    // --- Secondary color reduction when maxColors < 256 ---
+    if (maxColors < 256) {
+      // Count frequency of each palette index
+      const freq = new Uint32Array(256);
+      for (let i = 0; i < indices.length; i++) freq[indices[i]]++;
+
+      // Rank indices by frequency (descending)
+      const ranked = Array.from({ length: 256 }, (_, i) => i);
+      ranked.sort((a, b) => freq[b] - freq[a]);
+
+      // Keep top maxColors indices, map the rest to nearest kept color
+      const kept = new Set(ranked.slice(0, maxColors));
+      const remap = new Uint8Array(256);
+
+      for (let i = 0; i < 256; i++) {
+        if (kept.has(i)) {
+          remap[i] = i;
+        } else {
+          // Find nearest kept color (Euclidean distance in RGBA)
+          let bestDist = Infinity;
+          let bestIdx = ranked[0];
+          const r1 = palette[i * 4], g1 = palette[i * 4 + 1],
+                b1 = palette[i * 4 + 2], a1 = palette[i * 4 + 3];
+          for (const k of kept) {
+            const dr = r1 - palette[k * 4];
+            const dg = g1 - palette[k * 4 + 1];
+            const db = b1 - palette[k * 4 + 2];
+            const da = a1 - palette[k * 4 + 3];
+            const dist = dr * dr + dg * dg + db * db + da * da;
+            if (dist < bestDist) {
+              bestDist = dist;
+              bestIdx = k;
+            }
+          }
+          remap[i] = bestIdx;
+        }
+      }
+
+      // Apply remapping
+      for (let i = 0; i < indices.length; i++) {
+        indices[i] = remap[indices[i]];
+      }
+    }
+
+    // Reconstruct RGBA pixels from quantized palette + indices
+    const newPixels = new Uint8ClampedArray(width * height * 4);
+    for (let i = 0; i < indices.length; i++) {
+      const pi = indices[i] * 4;
+      const oi = i * 4;
+      newPixels[oi] = palette[pi];
+      newPixels[oi + 1] = palette[pi + 1];
+      newPixels[oi + 2] = palette[pi + 2];
+      newPixels[oi + 3] = palette[pi + 3];
+    }
+
+    // Re-render quantized pixels to canvas and export as PNG
+    ctx.putImageData(new ImageData(newPixels, width, height), 0, 0);
+    const pngBlob = await canvas.convertToBlob({ type: 'image/png' });
+
+    // Further optimize with oxipng (may convert to indexed PNG automatically)
+    return (await wasmOptimizePng(pngBlob)) ?? pngBlob;
+  } catch (err) {
+    console.error('[imagequant] quantization failed:', err);
+    return null;
+  }
+}
+
 let pngInit: Promise<void> | null = null;
 
 async function wasmOptimizePng(
@@ -180,7 +308,8 @@ async function wasmEncodeAvif(
     await avifInit;
     const buffer = await encode(imageData, { quality, speed: 6 });
     return new Blob([buffer], { type: 'image/avif' });
-  } catch {
+  } catch (err) {
+    console.error('[avif] WASM encode failed:', err);
     return null;
   }
 }
@@ -244,16 +373,33 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
         (await wasmEncodeJpeg(imageData!, quality)) ??
         (await canvas.convertToBlob({ type: outputFormat, quality: quality / 100 }));
     } else if (outputFormat === 'image/png') {
-      const nativePng = await canvas.convertToBlob({ type: 'image/png' });
-      outputBlob = (await wasmOptimizePng(nativePng)) ?? nativePng;
+      if (quality >= 95) {
+        // Lossless: native PNG + oxipng optimization only
+        const nativePng = await canvas.convertToBlob({ type: 'image/png' });
+        outputBlob = (await wasmOptimizePng(nativePng)) ?? nativePng;
+      } else {
+        // Lossy quantization (pngquant-style) + oxipng optimization
+        // 85-94: max palette (256 colors) — best quality quantization
+        // 1-84: exponential mapping — fewer colors for smaller files
+        const quantized = await wasmQuantizePng(imageData!, quality, canvas, ctx);
+        if (quantized) {
+          outputBlob = quantized;
+        } else {
+          const nativePng = await canvas.convertToBlob({ type: 'image/png' });
+          outputBlob = (await wasmOptimizePng(nativePng)) ?? nativePng;
+        }
+      }
     } else if (outputFormat === 'image/webp') {
       outputBlob =
         (await wasmEncodeWebp(imageData!, quality)) ??
         (await canvas.convertToBlob({ type: outputFormat, quality: quality / 100 }));
     } else if (outputFormat === 'image/avif') {
+      // AVIF quality scale differs from JPEG: AVIF 50 ≈ JPEG 85 visual quality.
+      // Map UI quality (1-100) to AVIF range so slider feels consistent across formats.
+      const avifQuality = Math.max(1, Math.round(quality * 0.6));
       outputBlob =
-        (await wasmEncodeAvif(imageData!, quality)) ??
-        (await canvas.convertToBlob({ type: outputFormat, quality: quality / 100 }));
+        (await wasmEncodeAvif(imageData!, avifQuality)) ??
+        (await canvas.convertToBlob({ type: outputFormat, quality: avifQuality / 100 }));
     } else {
       outputBlob = await canvas.convertToBlob({
         type: outputFormat,

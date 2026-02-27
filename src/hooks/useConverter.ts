@@ -125,7 +125,14 @@ export function useConverter(options?: {
   const updateFile = useCallback(
     (id: string, patch: Partial<ConvertFile>) => {
       setFiles((prev) =>
-        prev.map((f) => (f.id === id ? { ...f, ...patch } : f)),
+        prev.map((f) => {
+          if (f.id !== id) return f;
+          // Revoke old thumbnail URL when replaced (e.g. early preview → final)
+          if (patch.thumbnailUrl && f.thumbnailUrl && patch.thumbnailUrl !== f.thumbnailUrl) {
+            URL.revokeObjectURL(f.thumbnailUrl);
+          }
+          return { ...f, ...patch };
+        }),
       );
     },
     [],
@@ -170,13 +177,6 @@ export function useConverter(options?: {
           const thumbnailBlob = msg.thumbnail!;
           const thumbUrl = URL.createObjectURL(thumbnailBlob);
 
-          // Revoke early preview thumbnail URL if any
-          setFiles(prev => {
-            const existing = prev.find(f => f.id === msg.id);
-            if (existing?.thumbnailUrl) URL.revokeObjectURL(existing.thumbnailUrl);
-            return prev;
-          });
-
           // If worker kept the original file (output was larger), use original extension
           const ext = msg.keptOriginal
             ? ('.' + (file.originalFile.name.split('.').pop()?.toLowerCase() ?? 'bin'))
@@ -208,8 +208,15 @@ export function useConverter(options?: {
         releaseWorker(worker);
         activeCountRef.current--;
 
-        // Continue with next queued file
-        processQueue();
+        // Continue with next queued file, or release workers if batch done
+        if (queueRef.current.length > 0) {
+          processQueue();
+        } else if (activeCountRef.current === 0) {
+          // All conversions complete — terminate idle workers to free WASM heaps
+          idleWorkersRef.current.forEach((w) => w.terminate());
+          idleWorkersRef.current = [];
+          workerPoolRef.current = [];
+        }
       };
 
       worker.onerror = (err) => {
@@ -221,7 +228,13 @@ export function useConverter(options?: {
         worker.terminate();
         workerPoolRef.current = workerPoolRef.current.filter((w) => w !== worker);
         activeCountRef.current--;
-        processQueue();
+        if (queueRef.current.length > 0) {
+          processQueue();
+        } else if (activeCountRef.current === 0) {
+          idleWorkersRef.current.forEach((w) => w.terminate());
+          idleWorkersRef.current = [];
+          workerPoolRef.current = [];
+        }
       };
 
       // Send work to the worker

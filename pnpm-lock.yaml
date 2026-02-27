@@ -57,6 +57,9 @@ importers:
       '@jsquash/webp':
         specifier: ^1.5.0
         version: 1.5.0
+      '@panda-ai/imagequant':
+        specifier: ^0.2.0
+        version: 0.2.0
       '@types/canvas-confetti':
         specifier: ^1.9.0
         version: 1.9.0
@@ -1117,6 +1120,9 @@ packages:
 
   '@oslojs/encoding@1.1.0':
     resolution: {integrity: sha512-70wQhgYmndg4GCPxPPxPGevRKqTIJ2Nh4OkiMWmDAVYsTQ+Ta7Sq+rPevXyXGdzr30/qZBnyOalCszoMxlyldQ==}
+
+  '@panda-ai/imagequant@0.2.0':
+    resolution: {integrity: sha512-MMe6eOa6Z/myfKW1cCvApfi+NVQIuSBB164qRfzexqx7mhqWK3gHQLKItoiWgUJkm9B9yR6EYE9P9zpF2uI1WA==}
 
   '@rolldown/pluginutils@1.0.0-beta.27':
     resolution: {integrity: sha512-+d0F4MKMCbeVUJwG96uQ4SgAznZNSq93I3V+9NHA4OpvqG8mRCpGdKmK8l/dl02h2CCDHwW2FqilnTyDcAnqjA==}
@@ -4469,6 +4475,8 @@ snapshots:
       wasm-feature-detect: 1.8.0
 
   '@oslojs/encoding@1.1.0': {}
+
+  '@panda-ai/imagequant@0.2.0': {}
 
   '@rolldown/pluginutils@1.0.0-beta.27': {}
 

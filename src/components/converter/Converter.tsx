@@ -71,7 +71,7 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
   const [conversionTimeMs, setConversionTimeMs] = useState<number | null>(null);
   const [installPrompt, setInstallPrompt] = useState<any>(null);
   const [showInstallBanner, setShowInstallBanner] = useState(false);
-  const userSelectedFormat = useRef(false);
+  const userSelectedFormat = useRef(!!defaultOutputFormat || initPrefs.outputFormat !== 'jpg');
   const conversionStartRef = useRef<number | null>(null);
   const confettiFiredRef = useRef(false);
   const fileListEndRef = useRef<HTMLDivElement>(null);
@@ -301,7 +301,7 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
             value={quality}
             onChange={setQuality}
             disabled={isConverting}
-            visible={keepSmaller || outputFormat !== 'png'}
+            visible
           />
           {(quality !== 85 || (!defaultOutputFormat && !keepSmaller && outputFormat !== 'jpg')) && !isConverting && (
             <button

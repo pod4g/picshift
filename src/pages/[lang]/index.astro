@@ -54,7 +54,7 @@ const description = pageTranslations.home.description;
       </div>
 
       <div class="max-w-3xl mx-auto">
-        <Converter client:load fullPage lang={lang} />
+        <Converter client:only="react" fullPage lang={lang} />
       </div>
     </section>
 
