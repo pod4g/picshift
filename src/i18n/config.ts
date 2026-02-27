@@ -83,6 +83,20 @@ export interface UIStrings {
   // Compare navigation
   comparePrev: string;
   compareNext: string;
+  // Comparison table (homepage)
+  comparisonTitle: string;
+  compColPicShift: string;
+  compColUpload: string;
+  compColSingle: string;
+  compColDesktop: string;
+  compRowNoUpload: string;
+  compRowHeic: string;
+  compRowBatch: string;
+  compRowCompare: string;
+  compRowOffline: string;
+  compRowNoInstall: string;
+  compRowFree: string;
+  compRowZeroTrace: string;
 }
 
 /** Tool page translation */

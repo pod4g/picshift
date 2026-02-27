@@ -95,6 +95,64 @@ const description = pageTranslations.home.description;
       </div>
     </section>
 
+    <!-- Comparison Table -->
+    <section class="pb-12 sm:pb-16 px-4">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-xl sm:text-2xl font-bold text-text-primary text-center mb-6 sm:mb-8">
+          {ui.comparisonTitle}
+        </h2>
+        <div class="overflow-x-auto rounded-xl border border-border bg-card-bg shadow-sm">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border">
+                <th class="text-left py-3 px-4 font-medium text-text-secondary"></th>
+                <th class="py-3 px-3 font-bold text-primary-500 text-center">{ui.compColPicShift}</th>
+                <th class="py-3 px-3 font-medium text-text-secondary text-center">{ui.compColUpload}</th>
+                <th class="py-3 px-3 font-medium text-text-secondary text-center">{ui.compColSingle}</th>
+                <th class="py-3 px-3 font-medium text-text-secondary text-center">{ui.compColDesktop}</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              {[
+                [ui.compRowNoUpload, true, false, true, true],
+                [ui.compRowHeic, true, false, true, true],
+                [ui.compRowBatch, true, true, false, true],
+                [ui.compRowCompare, true, false, true, false],
+                [ui.compRowOffline, true, false, true, true],
+                [ui.compRowNoInstall, true, true, true, false],
+                [ui.compRowFree, true, false, true, true],
+                [ui.compRowZeroTrace, true, false, true, true],
+              ].map(([label, ps, upload, single, desktop]) => (
+                <tr class="hover:bg-drop-bg/50 transition-colors">
+                  <td class="py-3 px-4 font-medium text-text-primary whitespace-nowrap">{label}</td>
+                  <td class="py-3 px-3 text-center">
+                    {ps
+                      ? <span class="text-success text-lg">&#10003;</span>
+                      : <span class="text-error text-lg">&#10007;</span>}
+                  </td>
+                  <td class="py-3 px-3 text-center">
+                    {upload
+                      ? <span class="text-success text-lg">&#10003;</span>
+                      : <span class="text-error text-lg">&#10007;</span>}
+                  </td>
+                  <td class="py-3 px-3 text-center">
+                    {single
+                      ? <span class="text-success text-lg">&#10003;</span>
+                      : <span class="text-error text-lg">&#10007;</span>}
+                  </td>
+                  <td class="py-3 px-3 text-center">
+                    {desktop
+                      ? <span class="text-success text-lg">&#10003;</span>
+                      : <span class="text-error text-lg">&#10007;</span>}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
     <!-- Features Section -->
     <section class="pb-12 sm:pb-20 px-4">
       <div class="max-w-5xl mx-auto">
