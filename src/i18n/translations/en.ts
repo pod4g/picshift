@@ -5,7 +5,7 @@ const en: PageTranslations = {
     title:
       'PicShift - Free Image Converter | HEIC, WebP, PNG, JPG, AVIF | No Upload',
     description:
-      'Convert images instantly in your browser. HEIC to JPG, WebP to PNG, and more. 100% private — your photos never leave your device. Free, no limits, no sign-up.',
+      'Convert images instantly in your browser — without uploading. HEIC to JPG, WebP to PNG, AVIF and more. 100% private, works offline. Free, no limits, no sign-up.',
   },
   privacy: {
     title: 'Privacy Policy | PicShift',

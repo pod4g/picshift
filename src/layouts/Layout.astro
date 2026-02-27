@@ -13,7 +13,7 @@ interface Props {
 const { title, description, canonical, lang = 'en', pagePath = '/' } = Astro.props;
 const siteBase = 'https://picshift.app';
 const canonicalUrl = canonical || (lang === 'en' ? `${siteBase}${pagePath}` : `${siteBase}/${lang}${pagePath === '/' ? '/' : pagePath}`);
-const ogImage = `${siteBase}/android-chrome-512x512.png`;
+const ogImage = `${siteBase}/og-image.png`;
 
 const localeConfig = LOCALE_CONFIG[lang];
 const hrefLang = localeConfig.hrefLang;
@@ -110,6 +110,7 @@ import '../styles/global.css';
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="generator" content={Astro.generator} />
 
     <title>{title}</title>
@@ -128,8 +129,8 @@ import '../styles/global.css';
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="512" />
-    <meta property="og:image:height" content="512" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="PicShift" />
     <meta property="og:locale" content={OG_LOCALE[lang] || 'en_US'} />
     {SUPPORTED_LOCALES.filter((l) => l !== lang).map((l) => (

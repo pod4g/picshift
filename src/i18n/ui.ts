@@ -61,6 +61,8 @@ const ui: Record<Locale, UIStrings> = {
     compRowNoInstall: 'No install needed',
     compRowFree: 'Free, no watermark',
     compRowZeroTrace: 'Zero data retention',
+    pwaInstallPrompt: 'Install PicShift to convert images anytime, even offline',
+    pwaInstallButton: 'Install',
   },
 
   zh: {
@@ -124,6 +126,8 @@ const ui: Record<Locale, UIStrings> = {
     compRowNoInstall: '无需安装',
     compRowFree: '免费，无水印',
     compRowZeroTrace: '零数据残留',
+    pwaInstallPrompt: '安装 PicShift，随时转换图片，离线也能用',
+    pwaInstallButton: '安装',
   },
 
   'zh-Hant': {
@@ -187,6 +191,8 @@ const ui: Record<Locale, UIStrings> = {
     compRowNoInstall: '無需安裝',
     compRowFree: '免費，無浮水印',
     compRowZeroTrace: '零數據殘留',
+    pwaInstallPrompt: '安裝 PicShift，隨時轉換圖片，離線也能用',
+    pwaInstallButton: '安裝',
   },
 
   es: {
@@ -250,6 +256,8 @@ const ui: Record<Locale, UIStrings> = {
     compRowNoInstall: 'Sin instalación',
     compRowFree: 'Gratis, sin marca de agua',
     compRowZeroTrace: 'Cero retención de datos',
+    pwaInstallPrompt: 'Instala PicShift para convertir imágenes en cualquier momento, incluso sin conexión',
+    pwaInstallButton: 'Instalar',
   },
 
   fr: {
@@ -313,6 +321,8 @@ const ui: Record<Locale, UIStrings> = {
     compRowNoInstall: 'Aucune installation',
     compRowFree: 'Gratuit, sans filigrane',
     compRowZeroTrace: 'Aucune rétention de données',
+    pwaInstallPrompt: 'Installez PicShift pour convertir vos images à tout moment, même hors ligne',
+    pwaInstallButton: 'Installer',
   },
 
   de: {
@@ -376,6 +386,8 @@ const ui: Record<Locale, UIStrings> = {
     compRowNoInstall: 'Keine Installation',
     compRowFree: 'Kostenlos, kein Wasserzeichen',
     compRowZeroTrace: 'Keine Datenrückstände',
+    pwaInstallPrompt: 'Installieren Sie PicShift, um Bilder jederzeit zu konvertieren, auch offline',
+    pwaInstallButton: 'Installieren',
   },
 
   ja: {
@@ -448,6 +460,8 @@ const ui: Record<Locale, UIStrings> = {
     compRowNoInstall: 'インストール不要',
     compRowFree: '無料・透かしなし',
     compRowZeroTrace: 'データ残留ゼロ',
+    pwaInstallPrompt: 'PicShift をインストールして、オフラインでもいつでも画像を変換',
+    pwaInstallButton: 'インストール',
   },
 
   ko: {
@@ -520,6 +534,8 @@ const ui: Record<Locale, UIStrings> = {
     compRowNoInstall: '설치 불필요',
     compRowFree: '무료, 워터마크 없음',
     compRowZeroTrace: '데이터 잔류 제로',
+    pwaInstallPrompt: 'PicShift를 설치하면 오프라인에서도 언제든 이미지를 변환할 수 있습니다',
+    pwaInstallButton: '설치',
   },
 
   pt: {
@@ -583,6 +599,8 @@ const ui: Record<Locale, UIStrings> = {
     compRowNoInstall: 'Sem instalação',
     compRowFree: 'Grátis, sem marca d\'água',
     compRowZeroTrace: 'Zero retenção de dados',
+    pwaInstallPrompt: 'Instale o PicShift para converter imagens a qualquer momento, mesmo offline',
+    pwaInstallButton: 'Instalar',
   },
 
   ru: {
@@ -671,6 +689,8 @@ const ui: Record<Locale, UIStrings> = {
     compRowNoInstall: 'Без установки',
     compRowFree: 'Бесплатно, без водяных знаков',
     compRowZeroTrace: 'Нулевое хранение данных',
+    pwaInstallPrompt: 'Установите PicShift для конвертации изображений в любое время, даже офлайн',
+    pwaInstallButton: 'Установить',
   },
 
   ar: {
@@ -759,6 +779,8 @@ const ui: Record<Locale, UIStrings> = {
     compRowNoInstall: 'بدون تثبيت',
     compRowFree: 'مجاني، بدون علامة مائية',
     compRowZeroTrace: 'صفر احتفاظ بالبيانات',
+    pwaInstallPrompt: 'ثبّت PicShift لتحويل الصور في أي وقت، حتى بدون إنترنت',
+    pwaInstallButton: 'تثبيت',
   },
 
   it: {
@@ -822,6 +844,8 @@ const ui: Record<Locale, UIStrings> = {
     compRowNoInstall: 'Nessuna installazione',
     compRowFree: 'Gratuito, senza filigrana',
     compRowZeroTrace: 'Zero conservazione dati',
+    pwaInstallPrompt: 'Installa PicShift per convertire immagini in qualsiasi momento, anche offline',
+    pwaInstallButton: 'Installa',
   },
 };
 

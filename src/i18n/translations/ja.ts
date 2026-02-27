@@ -5,7 +5,7 @@ const ja: PageTranslations = {
     title:
       'PicShift - 無料画像変換ツール | HEIC, WebP, PNG, JPG, AVIF対応 | アップロード不要',
     description:
-      'ブラウザで画像を瞬時に変換。HEIC→JPG、WebP→PNGなど多数対応。100%プライベート処理で写真がデバイスから出ることはありません。無料・無制限・登録不要。',
+      'ブラウザで画像を瞬時に変換——アップロード不要。HEIC→JPG、WebP→PNG、AVIFなど多数対応。100%プライベート処理、オフラインでも動作。無料・無制限・登録不要。',
   },
   privacy: {
     title: 'プライバシーポリシー | PicShift',

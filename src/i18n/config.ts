@@ -83,6 +83,9 @@ export interface UIStrings {
   // Compare navigation
   comparePrev: string;
   compareNext: string;
+  // PWA install prompt
+  pwaInstallPrompt: string;
+  pwaInstallButton: string;
   // Comparison table (homepage)
   comparisonTitle: string;
   compColPicShift: string;

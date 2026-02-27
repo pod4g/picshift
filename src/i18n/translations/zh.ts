@@ -5,7 +5,7 @@ const zh: PageTranslations = {
     title:
       'PicShift - 免费在线图片格式转换器 | HEIC、WebP、PNG、JPG、AVIF | 无需上传',
     description:
-      '在浏览器中即时转换图片格式。支持 HEIC 转 JPG、WebP 转 PNG 等多种格式。100% 隐私保护——照片不会离开您的设备。免费、无限制、无需注册。',
+      '在浏览器中即时转换图片格式——无需上传。支持 HEIC 转 JPG、WebP 转 PNG、AVIF 等多种格式。100% 隐私保护，支持离线使用。免费、无限制、无需注册。',
   },
   privacy: {
     title: '隐私政策 | PicShift',

@@ -69,6 +69,8 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
 
   const [pageDragOver, setPageDragOver] = useState(false);
   const [conversionTimeMs, setConversionTimeMs] = useState<number | null>(null);
+  const [installPrompt, setInstallPrompt] = useState<any>(null);
+  const [showInstallBanner, setShowInstallBanner] = useState(false);
   const userSelectedFormat = useRef(false);
   const conversionStartRef = useRef<number | null>(null);
   const confettiFiredRef = useRef(false);
@@ -76,6 +78,16 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
   const downloadRef = useRef<HTMLDivElement>(null);
   const prevFileCountRef = useRef(0);
   const dragCounter = useRef(0);
+
+  // Listen for PWA install prompt
+  useEffect(() => {
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setInstallPrompt(e);
+    };
+    window.addEventListener('beforeinstallprompt', handler);
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
 
   // Persist preferences when user changes format or quality
   useEffect(() => {
@@ -120,6 +132,18 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
       setConversionTimeMs(Date.now() - conversionStartRef.current);
     }
   }, [isConverting, allFinished, totalCount, conversionTimeMs]);
+
+  // Show PWA install banner after first conversion completes
+  useEffect(() => {
+    if (
+      allFinished &&
+      completedCount > 0 &&
+      installPrompt &&
+      !localStorage.getItem('picshift_pwa_dismissed')
+    ) {
+      setShowInstallBanner(true);
+    }
+  }, [allFinished, completedCount, installPrompt]);
 
   // Scroll download button into view once summary bar has rendered
   useEffect(() => {
@@ -365,6 +389,43 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
             allFinished={allFinished}
             onDownloadAll={downloadAll}
           />
+        </div>
+      )}
+
+      {/* PWA install banner */}
+      {showInstallBanner && (
+        <div className="flex items-center gap-3 rounded-lg border border-primary-500/20 bg-primary-500/10 px-4 py-3">
+          <svg className="h-5 w-5 shrink-0 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M12 1.5v11.25m0 0 3-3m-3 3-3-3" />
+          </svg>
+          <p className="flex-1 text-sm text-text-primary">{t.pwaInstallPrompt}</p>
+          <button
+            type="button"
+            onClick={async () => {
+              try {
+                await installPrompt.prompt();
+                await installPrompt.userChoice;
+              } catch {}
+              setShowInstallBanner(false);
+              setInstallPrompt(null);
+            }}
+            className="shrink-0 rounded-md bg-primary-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-primary-600"
+          >
+            {t.pwaInstallButton}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              localStorage.setItem('picshift_pwa_dismissed', 'true');
+              setShowInstallBanner(false);
+            }}
+            className="shrink-0 rounded-md p-1 text-text-secondary transition-colors hover:text-text-primary"
+            aria-label="Dismiss"
+          >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
       )}
 
