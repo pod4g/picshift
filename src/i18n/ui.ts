@@ -77,6 +77,7 @@ const ui: Record<Locale, UIStrings> = {
     techAvifDesc: 'AV1-based image encoding delivering next-generation compression efficiency.',
     techWorkerPoolTitle: 'Worker Pool',
     techWorkerPoolDesc: 'Multi-threaded parallel conversion that fully utilizes your multi-core CPU.',
+    maxFilesWarning: 'For optimal performance, up to 200 files at a time. {dropped} files were skipped — download your files, then Clear All or refresh to add more.',
   },
 
   zh: {
@@ -142,7 +143,7 @@ const ui: Record<Locale, UIStrings> = {
     compRowZeroTrace: '零数据残留',
     pwaInstallPrompt: '安装 PicShift，随时转换图片，离线也能用',
     pwaInstallButton: '安装',
-    techSectionTitle: '行业领先编解码器驱动',
+    techSectionTitle: '由行业领先编解码器驱动',
     techSectionSubtitle: '专业级编码器编译为 WebAssembly，在浏览器中实现原生速度',
     techMozjpegTitle: 'MozJPEG',
     techMozjpegDesc: '高级 JPEG 编码器，比标准编码器输出小 10–15%。',
@@ -156,6 +157,7 @@ const ui: Record<Locale, UIStrings> = {
     techAvifDesc: '基于 AV1 的图像编码，提供次世代压缩效率。',
     techWorkerPoolTitle: '工作线程池',
     techWorkerPoolDesc: '多线程并行转换，充分利用多核 CPU。',
+    maxFilesWarning: '为保证性能，每次最多处理 200 张图片。已跳过 {dropped} 张，请先下载文件，然后点击「全部清除」或刷新页面再添加。',
   },
 
   'zh-Hant': {
@@ -221,7 +223,7 @@ const ui: Record<Locale, UIStrings> = {
     compRowZeroTrace: '零數據殘留',
     pwaInstallPrompt: '安裝 PicShift，隨時轉換圖片，離線也能用',
     pwaInstallButton: '安裝',
-    techSectionTitle: '業界領先編解碼器驅動',
+    techSectionTitle: '由業界領先編解碼器驅動',
     techSectionSubtitle: '專業級編碼器編譯為 WebAssembly，在瀏覽器中實現原生速度',
     techMozjpegTitle: 'MozJPEG',
     techMozjpegDesc: '進階 JPEG 編碼器，比標準編碼器輸出小 10–15%。',
@@ -235,6 +237,7 @@ const ui: Record<Locale, UIStrings> = {
     techAvifDesc: '基於 AV1 的影像編碼，提供次世代壓縮效率。',
     techWorkerPoolTitle: '工作執行緒池',
     techWorkerPoolDesc: '多執行緒並行轉換，充分利用多核 CPU。',
+    maxFilesWarning: '為確保效能，每次最多處理 200 張圖片。已跳過 {dropped} 張，請先下載檔案，然後點擊「全部清除」或重新整理頁面再新增。',
   },
 
   es: {
@@ -314,6 +317,7 @@ const ui: Record<Locale, UIStrings> = {
     techAvifDesc: 'Codificación de imagen basada en AV1 con eficiencia de compresión de próxima generación.',
     techWorkerPoolTitle: 'Worker Pool',
     techWorkerPoolDesc: 'Conversión paralela multihilo que aprovecha al máximo tu CPU multinúcleo.',
+    maxFilesWarning: 'Para un rendimiento óptimo, máximo 200 archivos a la vez. Se omitieron {dropped} archivos — descarga tus archivos, luego Borrar todo o actualiza la página para agregar más.',
   },
 
   fr: {
@@ -393,6 +397,7 @@ const ui: Record<Locale, UIStrings> = {
     techAvifDesc: 'Encodage d\'image basé sur AV1 offrant une efficacité de compression de nouvelle génération.',
     techWorkerPoolTitle: 'Worker Pool',
     techWorkerPoolDesc: 'Conversion parallèle multithreadée exploitant pleinement votre CPU multicœur.',
+    maxFilesWarning: 'Pour des performances optimales, 200 fichiers maximum \u00e0 la fois. {dropped} fichiers ont \u00e9t\u00e9 ignor\u00e9s — t\u00e9l\u00e9chargez vos fichiers, puis Tout effacer ou rafra\u00eechir la page pour en ajouter.',
   },
 
   de: {
@@ -472,6 +477,7 @@ const ui: Record<Locale, UIStrings> = {
     techAvifDesc: 'AV1-basierte Bildkodierung mit Kompressionseffizienz der nächsten Generation.',
     techWorkerPoolTitle: 'Worker Pool',
     techWorkerPoolDesc: 'Multithreaded parallele Konvertierung, die Ihre Mehrkern-CPU voll ausnutzt.',
+    maxFilesWarning: 'F\u00fcr optimale Leistung maximal 200 Dateien auf einmal. {dropped} Dateien wurden \u00fcbersprungen — laden Sie Ihre Dateien herunter, dann Alle l\u00f6schen oder Seite neu laden, um weitere hinzuzuf\u00fcgen.',
   },
 
   ja: {
@@ -560,6 +566,7 @@ const ui: Record<Locale, UIStrings> = {
     techAvifDesc: 'AV1 ベースの画像エンコーディングで次世代の圧縮効率を実現。',
     techWorkerPoolTitle: 'ワーカープール',
     techWorkerPoolDesc: 'マルチスレッド並列変換でマルチコア CPU をフル活用。',
+    maxFilesWarning: 'パフォーマンスのため、一度に最大200ファイルです。{dropped} ファイルがスキップされました — ファイルをダウンロード後、「すべてクリア」またはページを更新して追加してください。',
   },
 
   ko: {
@@ -648,6 +655,7 @@ const ui: Record<Locale, UIStrings> = {
     techAvifDesc: 'AV1 기반 이미지 인코딩으로 차세대 압축 효율 제공.',
     techWorkerPoolTitle: '워커 풀',
     techWorkerPoolDesc: '멀티스레드 병렬 변환으로 멀티코어 CPU를 최대한 활용.',
+    maxFilesWarning: '최적의 성능을 위해 한 번에 최대 200개 파일을 처리합니다. {dropped}개 파일이 건너뛰어졌습니다 — 파일을 다운로드한 후 모두 지우기 또는 페이지 새로고침으로 추가하세요.',
   },
 
   pt: {
@@ -727,6 +735,7 @@ const ui: Record<Locale, UIStrings> = {
     techAvifDesc: 'Codificação de imagem baseada em AV1 com eficiência de compressão de próxima geração.',
     techWorkerPoolTitle: 'Worker Pool',
     techWorkerPoolDesc: 'Conversão paralela multithread que aproveita ao máximo sua CPU multinúcleo.',
+    maxFilesWarning: 'Para desempenho ideal, máximo de 200 arquivos por vez. {dropped} arquivos foram ignorados — baixe seus arquivos, depois Limpar tudo ou atualize a página para adicionar mais.',
   },
 
   ru: {
@@ -831,6 +840,7 @@ const ui: Record<Locale, UIStrings> = {
     techAvifDesc: 'Кодирование изображений на основе AV1 с эффективностью сжатия нового поколения.',
     techWorkerPoolTitle: 'Worker Pool',
     techWorkerPoolDesc: 'Многопоточная параллельная конвертация с полным использованием многоядерного CPU.',
+    maxFilesWarning: 'Для оптимальной производительности — до 200 файлов за раз. {dropped} файлов пропущено — скачайте файлы, затем «Очистить всё» или обновите страницу, чтобы добавить ещё.',
   },
 
   ar: {
@@ -935,6 +945,7 @@ const ui: Record<Locale, UIStrings> = {
     techAvifDesc: 'ترميز صور قائم على AV1 بكفاءة ضغط من الجيل التالي.',
     techWorkerPoolTitle: 'مجمع العمال',
     techWorkerPoolDesc: 'تحويل متوازي متعدد الخيوط يستغل معالجك متعدد النوى بالكامل.',
+    maxFilesWarning: 'لضمان الأداء الأمثل، الحد الأقصى 200 ملف في المرة. تم تخطي {dropped} ملفات — حم\u0651ل ملفاتك ثم مسح الكل أو أعد تحميل الصفحة لإضافة المزيد.',
   },
 
   it: {
@@ -1014,6 +1025,7 @@ const ui: Record<Locale, UIStrings> = {
     techAvifDesc: 'Codifica immagini basata su AV1 con efficienza di compressione di nuova generazione.',
     techWorkerPoolTitle: 'Worker Pool',
     techWorkerPoolDesc: 'Conversione parallela multithread che sfrutta appieno la CPU multicore.',
+    maxFilesWarning: 'Per prestazioni ottimali, massimo 200 file alla volta. {dropped} file sono stati saltati — scarica i tuoi file, poi Cancella tutto o aggiorna la pagina per aggiungerne altri.',
   },
 };
 

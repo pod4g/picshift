@@ -1,41 +1,4 @@
-// Polyfill: heic2any requires DOM APIs (window, document, Canvas) that don't exist
-// in Web Workers. We shim them with Worker equivalents.
-const workerSelf = self as unknown as Record<string, unknown>;
-
-if (typeof window === 'undefined') {
-  workerSelf.window = self;
-}
-
-if (typeof document === 'undefined') {
-  workerSelf.document = {
-    createElement(tag: string) {
-      if (tag === 'canvas') {
-        // Return an OffscreenCanvas that behaves like a regular canvas.
-        // heic2any sets .width/.height and calls .getContext('2d'), then .toBlob().
-        const canvas = new OffscreenCanvas(1, 1);
-        // heic2any calls canvas.toBlob(callback, type, quality) — DOM Canvas API.
-        // OffscreenCanvas only has convertToBlob(). Shim toBlob to bridge the gap.
-        (canvas as unknown as Record<string, unknown>).toBlob = function (
-          callback: (blob: Blob) => void,
-          type?: string,
-          quality?: number,
-        ) {
-          (canvas as OffscreenCanvas)
-            .convertToBlob({ type: type as ImageEncodeType | undefined, quality })
-            .then(callback);
-        };
-        return canvas;
-      }
-      return {};
-    },
-  };
-}
-
 // ---- Worker-local type declarations (not imported) ----
-
-// OffscreenCanvas.convertToBlob expects ImageEncodeType but it's not
-// available in the worker type scope. It's just a string at runtime.
-type ImageEncodeType = string;
 
 interface WorkerRequest {
   id: string;
@@ -79,6 +42,51 @@ function getInputMime(file: File): string {
 function postProgress(id: string, progress: number): void {
   const msg: WorkerResponse = { id, status: 'progress', progress };
   self.postMessage(msg);
+}
+
+// ---- libheif-js WASM HEIC decoder (lazy-init) ----
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let libheifModule: any = null;
+
+async function initLibheif() {
+  if (libheifModule) return libheifModule;
+  const mod = await import('libheif-js/libheif-wasm/libheif-bundle.mjs');
+  const factory = mod.default;
+  if (typeof factory === 'function') {
+    const result = factory();
+    // Handle both sync and async (Promise) factory returns
+    libheifModule = result && typeof result.then === 'function' ? await result : result;
+  } else {
+    libheifModule = factory;
+  }
+  return libheifModule;
+}
+
+async function decodeHeicWasm(file: File): Promise<ImageData> {
+  const libheif = await initLibheif();
+  const buffer = await file.arrayBuffer();
+  const decoder = new libheif.HeifDecoder();
+  const images = decoder.decode(new Uint8Array(buffer));
+  if (!images || images.length === 0) throw new Error('Failed to decode HEIC');
+
+  const image = images[0];
+  const width = image.get_width();
+  const height = image.get_height();
+
+  const canvas = new OffscreenCanvas(width, height);
+  const ctx = canvas.getContext('2d');
+  if (!ctx) throw new Error('Failed to get 2d context for HEIC decode');
+  const imageData = ctx.createImageData(width, height);
+
+  await new Promise<void>((resolve, reject) => {
+    image.display(imageData, (displayData: unknown) => {
+      if (!displayData) reject(new Error('HEIC display failed'));
+      else resolve();
+    });
+  });
+
+  return imageData;
 }
 
 // ---- WASM encoder helpers (return Blob on success, null → fallback to native) ----
@@ -320,49 +328,63 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
   const { id, file, outputFormat, quality, keepSmaller } = e.data;
 
   try {
-    // Step 1 - Decode HEIC if needed, otherwise use file directly
-    let sourceBlob: Blob;
+    // Step 1 - Decode source image to OffscreenCanvas
     const heicInput = isHeic(file);
+    let canvas: OffscreenCanvas;
+    let ctx: OffscreenCanvasRenderingContext2D;
+    let originalPreviewBlob: Blob | undefined;
 
     if (heicInput) {
-      const heic2any = (await import('heic2any')).default;
-      const converted = await heic2any({ blob: file, toType: 'image/png' });
-      sourceBlob = Array.isArray(converted) ? converted[0] : converted;
-
-      // Send early thumbnail so user sees a preview while encoding continues
       try {
-        const earlyBitmap = await createImageBitmap(sourceBlob, {
-          resizeWidth: 200,
-          resizeQuality: 'medium',
-        });
-        const earlyCanvas = new OffscreenCanvas(earlyBitmap.width, earlyBitmap.height);
-        const earlyCtx = earlyCanvas.getContext('2d');
-        if (earlyCtx) {
-          earlyCtx.drawImage(earlyBitmap, 0, 0);
-          const earlyThumb = await earlyCanvas.convertToBlob({ type: 'image/jpeg', quality: 0.6 });
-          const earlyMsg: WorkerResponse = { id, status: 'progress', progress: 10, thumbnail: earlyThumb };
-          self.postMessage(earlyMsg);
-        }
-        earlyBitmap.close();
-      } catch {
+        // Try native browser HEIC decode first (Safari 17.6+)
+        const bitmap = await createImageBitmap(file);
+        canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+        ctx = canvas.getContext('2d')!;
+        ctx.drawImage(bitmap, 0, 0);
+        bitmap.close();
+        originalPreviewBlob = file; // Safari renders HEIC natively
         postProgress(id, 10);
+      } catch {
+        // Native not available — fall back to libheif-js WASM decode
+        const heicImageData = await decodeHeicWasm(file);
+        canvas = new OffscreenCanvas(heicImageData.width, heicImageData.height);
+        ctx = canvas.getContext('2d')!;
+        ctx.putImageData(heicImageData, 0, 0);
+
+        // Generate renderable preview for compare view (browsers can't display HEIC)
+        originalPreviewBlob = await canvas.convertToBlob({ type: 'image/jpeg', quality: 0.9 });
+
+        // Send early thumbnail so user sees a preview while encoding continues
+        try {
+          const earlyBitmap = await createImageBitmap(originalPreviewBlob, {
+            resizeWidth: 200,
+            resizeQuality: 'medium',
+          });
+          const earlyCanvas = new OffscreenCanvas(earlyBitmap.width, earlyBitmap.height);
+          const earlyCtx = earlyCanvas.getContext('2d');
+          if (earlyCtx) {
+            earlyCtx.drawImage(earlyBitmap, 0, 0);
+            const earlyThumb = await earlyCanvas.convertToBlob({ type: 'image/jpeg', quality: 0.6 });
+            const earlyMsg: WorkerResponse = { id, status: 'progress', progress: 10, thumbnail: earlyThumb };
+            self.postMessage(earlyMsg);
+          }
+          earlyBitmap.close();
+        } catch {
+          postProgress(id, 10);
+        }
       }
     } else {
-      sourceBlob = file;
+      const bitmap = await createImageBitmap(file);
+      canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+      ctx = canvas.getContext('2d')!;
+      ctx.drawImage(bitmap, 0, 0);
+      bitmap.close();
     }
 
     postProgress(id, 50);
 
-    // Step 2 - Create ImageBitmap and draw to OffscreenCanvas
-    const bitmap = await createImageBitmap(sourceBlob);
-    const { width, height } = bitmap;
-
-    const canvas = new OffscreenCanvas(width, height);
-    const ctx = canvas.getContext('2d');
-    if (!ctx) throw new Error('Failed to get 2d context');
-
-    ctx.drawImage(bitmap, 0, 0);
-    bitmap.close();
+    // Step 2 - Canvas is ready, get dimensions
+    const { width, height } = canvas;
 
     // Step 3 - Export to target format (WASM first, native fallback)
     let imageData: ImageData | null = ctx.getImageData(0, 0, width, height);
@@ -451,7 +473,7 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
       status: 'done',
       blob: finalBlob,
       thumbnail,
-      originalPreview: heicInput ? sourceBlob : undefined,
+      originalPreview: originalPreviewBlob,
       keptOriginal,
     };
     self.postMessage(doneMsg);

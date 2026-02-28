@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import type { ConvertFile } from '../../types';
 import { useLang } from '../../i18n/LangContext';
 import { getUI } from '../../i18n/ui';
@@ -35,6 +36,51 @@ export default function FileCard({ file, onRemove, onDownload, onCompare }: File
   const isConverting = file.status === 'converting';
   const isQueued = file.status === 'queued';
 
+  // Smooth progress animation — directly manipulates DOM via ref to avoid re-renders
+  const barRef = useRef<HTMLDivElement>(null);
+  const currentRef = useRef(0);
+  const targetRef = useRef(0);
+  const rafRef = useRef<number>();
+  // Per-file creep variation based on file size so bars don't all look identical
+  const creepFactorRef = useRef(0.6 + (file.size % 100) / 100 * 0.8); // 0.6–1.4
+
+  useEffect(() => {
+    targetRef.current = file.progress;
+  }, [file.progress]);
+
+  useEffect(() => {
+    if (!isConverting) {
+      currentRef.current = 0;
+      return;
+    }
+
+    const creepFactor = creepFactorRef.current;
+
+    const tick = () => {
+      const target = targetRef.current;
+      const current = currentRef.current;
+
+      if (current < target - 0.3) {
+        // Fast approach toward real checkpoint
+        const step = Math.max(0.2, (target - current) * 0.05);
+        currentRef.current = Math.min(current + step, target);
+      } else if (current < 95) {
+        // Slow optimistic creep past checkpoint — rate decays the further past we go
+        const overshoot = Math.max(0, current - target);
+        const creepRate = Math.max(0.005, 0.06 * creepFactor / (1 + overshoot * 0.12));
+        currentRef.current = Math.min(current + creepRate, 95);
+      }
+
+      if (barRef.current) {
+        barRef.current.style.width = `${currentRef.current}%`;
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, [isConverting]);
+
   // Show converted extension once done
   const displayName = (isDone && file.outputExt)
     ? file.name.replace(/\.[^.]+$/, file.outputExt)
@@ -45,7 +91,10 @@ export default function FileCard({ file, onRemove, onDownload, onCompare }: File
   return (
     <div className="flex items-center gap-3 rounded-lg border border-border bg-card-bg p-3 shadow-sm transition-all duration-150 hover:shadow-md">
       {/* Thumbnail */}
-      <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-md bg-drop-bg">
+      <div
+        className={`flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-md bg-drop-bg${isDone ? ' cursor-pointer hover:ring-2 hover:ring-primary-500 hover:ring-offset-1 transition-shadow' : ''}`}
+        onClick={isDone ? () => onCompare(file.id) : undefined}
+      >
         {file.thumbnailUrl ? (
           <img
             src={file.thumbnailUrl}
@@ -125,12 +174,13 @@ export default function FileCard({ file, onRemove, onDownload, onCompare }: File
           )}
         </div>
 
-        {/* Progress bar */}
+        {/* Progress bar — animated via ref, no transition needed */}
         {isConverting && (
           <div className="h-1.5 w-full overflow-hidden rounded-full bg-border">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 transition-all duration-300"
-              style={{ width: `${file.progress}%` }}
+              ref={barRef}
+              className="h-full rounded-full bg-gradient-to-r from-primary-500 to-secondary-500"
+              style={{ width: '0%' }}
             />
           </div>
         )}
@@ -144,29 +194,16 @@ export default function FileCard({ file, onRemove, onDownload, onCompare }: File
       {/* Actions */}
       <div className="flex shrink-0 items-center gap-1">
         {isDone && (
-          <>
-            <button
-              type="button"
-              onClick={() => onCompare(file.id)}
-              title="Compare original and converted"
-              className="rounded-md p-1.5 text-text-secondary transition-colors hover:bg-drop-bg hover:text-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-              </svg>
-            </button>
-            <button
-              type="button"
-              onClick={() => onDownload(file.id)}
-              title="Download converted file"
-              className="rounded-md p-1.5 text-text-secondary transition-colors hover:bg-drop-bg hover:text-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-              </svg>
-            </button>
-          </>
+          <button
+            type="button"
+            onClick={() => onDownload(file.id)}
+            title="Download converted file"
+            className="rounded-md p-1.5 text-text-secondary transition-colors hover:bg-drop-bg hover:text-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
+          >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+            </svg>
+          </button>
         )}
         <button
           type="button"

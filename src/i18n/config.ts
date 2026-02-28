@@ -101,6 +101,8 @@ export interface UIStrings {
   techAvifDesc: string;
   techWorkerPoolTitle: string;
   techWorkerPoolDesc: string;
+  // Toast / warnings
+  maxFilesWarning: string;
   // Comparison table (homepage)
   comparisonTitle: string;
   compColPicShift: string;

@@ -66,6 +66,8 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
     completedCount,
     totalCount,
     isConverting,
+    droppedCount,
+    dismissDroppedWarning,
   } = useConverter({ keepSmaller, compressMode: keepSmaller, initialFormat: initPrefs.outputFormat, initialQuality: initPrefs.quality });
 
   const [pageDragOver, setPageDragOver] = useState(false);
@@ -291,6 +293,13 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
     };
   }, [fullPage, handleAddFiles]);
 
+  // Auto-dismiss dropped-files warning after 8 seconds
+  useEffect(() => {
+    if (droppedCount === 0) return;
+    const timer = setTimeout(dismissDroppedWarning, 15000);
+    return () => clearTimeout(timer);
+  }, [droppedCount, dismissDroppedWarning]);
+
   const acceptExtensions = defaultInputFormat
     ? `.${defaultInputFormat}${defaultInputFormat === 'jpg' ? ',.jpeg' : ''}${defaultInputFormat === 'heic' ? ',.heif' : ''}`
     : '.heic,.heif,.jpg,.jpeg,.png,.webp,.avif,.bmp';
@@ -379,6 +388,28 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
           </div>
         )}
       </div>
+
+      {/* Dropped files warning toast — fixed to bottom center of viewport */}
+      {droppedCount > 0 && (
+        <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2">
+          <div className="flex items-center gap-3 rounded-lg border border-warning/30 bg-card-bg shadow-lg px-4 py-3 max-w-lg w-[calc(100vw-2rem)]">
+            <svg className="h-5 w-5 shrink-0 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+            </svg>
+            <p className="flex-1 text-sm text-text-primary">{tpl(t.maxFilesWarning, { dropped: droppedCount })}</p>
+            <button
+              type="button"
+              onClick={dismissDroppedWarning}
+              className="shrink-0 rounded-md p-1 text-text-secondary transition-colors hover:text-text-primary"
+              aria-label="Dismiss"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Batch summary */}
       {allFinished && completedCount > 0 && conversionTimeMs !== null && (() => {

@@ -69,7 +69,7 @@ export default defineConfig({
       rollupOptions: {
         output: {
           manualChunks: {
-            heic: ['heic2any'],
+            heic: ['libheif-js'],
             zip: ['fflate'],
           },
         },

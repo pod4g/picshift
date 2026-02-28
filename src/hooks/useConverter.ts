@@ -73,6 +73,7 @@ export function useConverter(options?: {
   const [quality, setQuality] = useState<number>(options?.initialQuality ?? 85);
   const [compareState, setCompareState] = useState<CompareState | null>(null);
   const [compareLoading, setCompareLoading] = useState(false);
+  const [droppedCount, setDroppedCount] = useState(0);
 
   // Refs that survive re-renders
   const workerPoolRef = useRef<Worker[]>([]);
@@ -292,7 +293,10 @@ export function useConverter(options?: {
       // Enforce max file count and total size inside the updater
       setFiles((prev) => {
         const remaining = Math.max(0, MAX_FILE_COUNT - prev.length);
-        if (remaining === 0) return prev;
+        if (remaining === 0) {
+          setDroppedCount(newEntries.length);
+          return prev;
+        }
 
         const currentTotal = prev.reduce((sum, f) => sum + f.size, 0);
         let budget = MAX_TOTAL_SIZE - currentTotal;
@@ -303,7 +307,13 @@ export function useConverter(options?: {
           budget -= entry.size;
           toAdd.push(entry);
         }
-        if (toAdd.length === 0) return prev;
+        if (toAdd.length === 0) {
+          setDroppedCount(newEntries.length);
+          return prev;
+        }
+
+        const dropped = newEntries.length - toAdd.length;
+        if (dropped > 0) setDroppedCount(dropped);
 
         queueRef.current.push(...toAdd);
         queueMicrotask(() => processQueue());
@@ -415,7 +425,7 @@ export function useConverter(options?: {
   );
 
   /** Decode HEIC/HEIF originals to displayable blob.
-   *  Priority: cached blob → native browser decode → worker (heic2any) fallback. */
+   *  Priority: cached blob → native browser decode → worker (libheif-js WASM) fallback. */
   const decodeOriginal = useCallback(
     async (file: ConvertFile): Promise<Blob> => {
       const needsDecode = ['heic', 'heif'].includes(file.inputFormat);
@@ -439,7 +449,7 @@ export function useConverter(options?: {
         // No native HEIC support — fall through to worker decode
       }
 
-      // 3. Worker decode fallback (heic2any — slow)
+      // 3. Worker decode fallback (libheif-js WASM)
       const decodeWorker = new Worker(
         new URL('../workers/convert-worker.ts', import.meta.url),
         { type: 'module' },
@@ -560,6 +570,8 @@ export function useConverter(options?: {
   // Return value
   // ---------------------------------------------------------------------------
 
+  const dismissDroppedWarning = useCallback(() => setDroppedCount(0), []);
+
   return {
     files,
     outputFormat,
@@ -579,5 +591,7 @@ export function useConverter(options?: {
     completedCount,
     totalCount,
     isConverting,
+    droppedCount,
+    dismissDroppedWarning,
   };
 }
