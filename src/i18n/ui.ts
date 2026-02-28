@@ -34,7 +34,7 @@ const ui: Record<Locale, UIStrings> = {
     privateDesc:
       'All processing happens locally in your browser. No files are ever uploaded to any server.',
     freeTitle: 'Completely Free',
-    freeDesc: 'No sign-up, no watermarks, no file limits. Just open and convert.',
+    freeDesc: 'No sign-up, no watermarks. Convert up to 200 files at once.',
     howToPrefix: 'How to ',
     faqTitle: 'Frequently Asked Questions',
     compressImages: 'Compress Images',
@@ -113,7 +113,7 @@ const ui: Record<Locale, UIStrings> = {
       '\u6240\u6709\u5904\u7406\u5747\u5728\u6d4f\u89c8\u5668\u672c\u5730\u5b8c\u6210\u3002\u6587\u4ef6\u7edd\u4e0d\u4f1a\u4e0a\u4f20\u5230\u4efb\u4f55\u670d\u52a1\u5668\u3002',
     freeTitle: '\u5b8c\u5168\u514d\u8d39',
     freeDesc:
-      '\u65e0\u9700\u6ce8\u518c\uff0c\u65e0\u6c34\u5370\uff0c\u65e0\u6587\u4ef6\u9650\u5236\u3002\u6253\u5f00\u5373\u7528\u3002',
+      '\u65e0\u9700\u6ce8\u518c\uff0c\u65e0\u6c34\u5370\u3002\u4e00\u6b21\u6700\u591a\u8f6c\u6362 200 \u5f20\u56fe\u7247\u3002',
     howToPrefix: '\u5982\u4f55',
     faqTitle: '\u5e38\u89c1\u95ee\u9898',
     compressImages: '\u538b\u7f29\u56fe\u7247',
@@ -192,7 +192,7 @@ const ui: Record<Locale, UIStrings> = {
       '\u6240\u6709\u8655\u7406\u5747\u5728\u700f\u89bd\u5668\u672c\u5730\u5b8c\u6210\u3002\u6a94\u6848\u7d55\u4e0d\u6703\u4e0a\u50b3\u5230\u4efb\u4f55\u4f3a\u670d\u5668\u3002',
     freeTitle: '\u5b8c\u5168\u514d\u8cbb',
     freeDesc:
-      '\u7121\u9700\u8a3b\u518a\uff0c\u7121\u6c34\u5370\uff0c\u7121\u6a94\u6848\u9650\u5236\u3002\u958b\u555f\u5373\u7528\u3002',
+      '\u7121\u9700\u8a3b\u518a\uff0c\u7121\u6c34\u5370\u3002\u4e00\u6b21\u6700\u591a\u8f49\u63db 200 \u5f35\u5716\u7247\u3002',
     howToPrefix: '\u5982\u4f55',
     faqTitle: '\u5e38\u898b\u554f\u984c',
     compressImages: '\u58d3\u7e2e\u5716\u7247',
@@ -271,7 +271,7 @@ const ui: Record<Locale, UIStrings> = {
       'Todo el procesamiento ocurre localmente en tu navegador. Ning\u00fan archivo se sube a ning\u00fan servidor.',
     freeTitle: 'Completamente gratis',
     freeDesc:
-      'Sin registro, sin marcas de agua, sin l\u00edmites de archivos. Solo abre y convierte.',
+      'Sin registro, sin marcas de agua. Convierte hasta 200 archivos a la vez.',
     howToPrefix: 'C\u00f3mo ',
     faqTitle: 'Preguntas frecuentes',
     compressImages: 'Comprimir im\u00e1genes',
@@ -350,7 +350,7 @@ const ui: Record<Locale, UIStrings> = {
       'Tout le traitement s\u2019effectue localement dans votre navigateur. Aucun fichier n\u2019est jamais envoy\u00e9 vers un serveur.',
     freeTitle: 'Enti\u00e8rement gratuit',
     freeDesc:
-      'Pas d\u2019inscription, pas de filigrane, pas de limite de fichiers. Ouvrez et convertissez.',
+      'Pas d\u2019inscription, pas de filigrane. Convertissez jusqu\u2019\u00e0 200 fichiers \u00e0 la fois.',
     howToPrefix: 'Comment ',
     faqTitle: 'Questions fr\u00e9quentes',
     compressImages: 'Compresser les images',
@@ -429,7 +429,7 @@ const ui: Record<Locale, UIStrings> = {
       'Die gesamte Verarbeitung erfolgt lokal in Ihrem Browser. Keine Dateien werden jemals auf einen Server hochgeladen.',
     freeTitle: 'Komplett kostenlos',
     freeDesc:
-      'Keine Anmeldung, keine Wasserzeichen, keine Dateilimits. Einfach \u00f6ffnen und konvertieren.',
+      'Keine Anmeldung, keine Wasserzeichen. Bis zu 200 Dateien auf einmal konvertieren.',
     howToPrefix: 'So funktioniert: ',
     faqTitle: 'H\u00e4ufig gestellte Fragen',
     compressImages: 'Bilder komprimieren',
@@ -517,7 +517,7 @@ const ui: Record<Locale, UIStrings> = {
       '\u3059\u3079\u3066\u306e\u51e6\u7406\u306f\u30d6\u30e9\u30a6\u30b6\u5185\u3067\u30ed\u30fc\u30ab\u30eb\u306b\u5b9f\u884c\u3002\u30d5\u30a1\u30a4\u30eb\u304c\u30b5\u30fc\u30d0\u30fc\u306b\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u3055\u308c\u308b\u3053\u3068\u306f\u3042\u308a\u307e\u305b\u3093\u3002',
     freeTitle: '\u5b8c\u5168\u7121\u6599',
     freeDesc:
-      '\u767b\u9332\u4e0d\u8981\u3001\u900f\u304b\u3057\u306a\u3057\u3001\u30d5\u30a1\u30a4\u30eb\u5236\u9650\u306a\u3057\u3002\u958b\u3044\u3066\u3059\u3050\u5909\u63db\u3002',
+      '\u767b\u9332\u4e0d\u8981\u3001\u900f\u304b\u3057\u306a\u3057\u3002\u4e00\u5ea6\u306b\u6700\u5927200\u30d5\u30a1\u30a4\u30eb\u307e\u3067\u5909\u63db\u53ef\u80fd\u3002',
     howToPrefix: '\u4f7f\u3044\u65b9\uff1a',
     faqTitle: '\u3088\u304f\u3042\u308b\u8cea\u554f',
     compressImages: '\u753b\u50cf\u3092\u5727\u7e2e',
@@ -605,7 +605,7 @@ const ui: Record<Locale, UIStrings> = {
       '\ubaa8\ub4e0 \ucc98\ub9ac\ub294 \ube0c\ub77c\uc6b0\uc800\uc5d0\uc11c \ub85c\uceec\ub85c \uc218\ud589\ub429\ub2c8\ub2e4. \ud30c\uc77c\uc774 \uc11c\ubc84\ub85c \uc5c5\ub85c\ub4dc\ub418\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.',
     freeTitle: '\uc644\uc804 \ubb34\ub8cc',
     freeDesc:
-      '\ud68c\uc6d0\uac00\uc785 \uc5c6\uc74c, \uc6cc\ud130\ub9c8\ud06c \uc5c6\uc74c, \ud30c\uc77c \uc81c\ud55c \uc5c6\uc74c. \uc5f4\uace0 \ubc14\ub85c \ubcc0\ud658\ud558\uc138\uc694.',
+      '\ud68c\uc6d0\uac00\uc785 \uc5c6\uc74c, \uc6cc\ud130\ub9c8\ud06c \uc5c6\uc74c. \ud55c \ubc88\uc5d0 \ucd5c\ub300 200\uac1c \ud30c\uc77c \ubcc0\ud658 \uac00\ub2a5.',
     howToPrefix: '\uc0ac\uc6a9\ubc95: ',
     faqTitle: '\uc790\uc8fc \ubb3b\ub294 \uc9c8\ubb38',
     compressImages: '\uc774\ubbf8\uc9c0 \uc555\ucd95',
@@ -684,7 +684,7 @@ const ui: Record<Locale, UIStrings> = {
       'Todo o processamento acontece localmente no seu navegador. Nenhum arquivo \u00e9 enviado para qualquer servidor.',
     freeTitle: 'Completamente gr\u00e1tis',
     freeDesc:
-      'Sem cadastro, sem marcas d\u2019\u00e1gua, sem limites de arquivo. Apenas abra e converta.',
+      'Sem cadastro, sem marcas d\u2019\u00e1gua. Converta at\u00e9 200 arquivos de uma vez.',
     howToPrefix: 'Como ',
     faqTitle: 'Perguntas frequentes',
     compressImages: 'Comprimir imagens',
@@ -786,7 +786,7 @@ const ui: Record<Locale, UIStrings> = {
     freeTitle:
       '\u041f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0431\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u043e',
     freeDesc:
-      '\u0411\u0435\u0437 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438, \u0431\u0435\u0437 \u0432\u043e\u0434\u044f\u043d\u044b\u0445 \u0437\u043d\u0430\u043a\u043e\u0432, \u0431\u0435\u0437 \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u0438\u0439. \u041f\u0440\u043e\u0441\u0442\u043e \u043e\u0442\u043a\u0440\u043e\u0439\u0442\u0435 \u0438 \u043a\u043e\u043d\u0432\u0435\u0440\u0442\u0438\u0440\u0443\u0439\u0442\u0435.',
+      '\u0411\u0435\u0437 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438, \u0431\u0435\u0437 \u0432\u043e\u0434\u044f\u043d\u044b\u0445 \u0437\u043d\u0430\u043a\u043e\u0432. \u041a\u043e\u043d\u0432\u0435\u0440\u0442\u0438\u0440\u0443\u0439\u0442\u0435 \u0434\u043e 200 \u0444\u0430\u0439\u043b\u043e\u0432 \u0437\u0430 \u0440\u0430\u0437.',
     howToPrefix: '\u041a\u0430\u043a ',
     faqTitle:
       '\u0427\u0430\u0441\u0442\u043e \u0437\u0430\u0434\u0430\u0432\u0430\u0435\u043c\u044b\u0435 \u0432\u043e\u043f\u0440\u043e\u0441\u044b',
@@ -890,7 +890,7 @@ const ui: Record<Locale, UIStrings> = {
     freeTitle:
       '\u0645\u062c\u0627\u0646\u064a \u062a\u0645\u0627\u0645\u064b\u0627',
     freeDesc:
-      '\u0628\u062f\u0648\u0646 \u062a\u0633\u062c\u064a\u0644\u060c \u0628\u062f\u0648\u0646 \u0639\u0644\u0627\u0645\u0627\u062a \u0645\u0627\u0626\u064a\u0629\u060c \u0628\u062f\u0648\u0646 \u0642\u064a\u0648\u062f. \u0627\u0641\u062a\u062d \u0648\u062d\u0648\u0651\u0644 \u0641\u0642\u0637.',
+      '\u0628\u062f\u0648\u0646 \u062a\u0633\u062c\u064a\u0644\u060c \u0628\u062f\u0648\u0646 \u0639\u0644\u0627\u0645\u0627\u062a \u0645\u0627\u0626\u064a\u0629. \u062d\u0648\u0651\u0644 \u062d\u062a\u0649 200 \u0645\u0644\u0641 \u062f\u0641\u0639\u0629 \u0648\u0627\u062d\u062f\u0629.',
     howToPrefix: '\u0643\u064a\u0641\u064a\u0629 ',
     faqTitle:
       '\u0627\u0644\u0623\u0633\u0626\u0644\u0629 \u0627\u0644\u0634\u0627\u0626\u0639\u0629',
@@ -971,7 +971,7 @@ const ui: Record<Locale, UIStrings> = {
       'Tutta l\u2019elaborazione avviene localmente nel tuo browser. Nessun file viene mai caricato su alcun server.',
     freeTitle: 'Completamente gratuito',
     freeDesc:
-      'Nessuna registrazione, nessun watermark, nessun limite di file. Apri e converti.',
+      'Nessuna registrazione, nessun watermark. Converti fino a 200 file alla volta.',
     howToPrefix: 'Come ',
     faqTitle: 'Domande frequenti',
     compressImages: 'Comprimi immagini',

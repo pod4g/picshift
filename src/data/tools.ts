@@ -31,7 +31,7 @@ export const TOOL_PAGES: ToolPageConfig[] = [
     slug: 'heic-to-jpg',
     title: 'HEIC to JPG Converter - Free, Private, No Upload | PicShift',
     description:
-      'Convert HEIC photos to JPG instantly in your browser. 100% private — files never leave your device. Free, no limits, no sign-up.',
+      'Convert HEIC photos to JPG instantly in your browser. 100% private — files never leave your device. Free, up to 200 files, no sign-up.',
     defaultInputFormat: 'heic',
     defaultOutputFormat: 'jpg',
     h1: 'Convert HEIC to JPG',

@@ -5,7 +5,7 @@ const pt: PageTranslations = {
     title:
       'PicShift - Conversor de Imagens Gratuito | HEIC, WebP, PNG, JPG, AVIF | Sem Upload',
     description:
-      'Converta imagens instantaneamente no seu navegador \u2014 sem upload. HEIC para JPG, WebP para PNG, AVIF e muito mais. 100% privado, funciona offline. Gratuito, sem limites, sem cadastro.',
+      'Converta imagens instantaneamente no seu navegador \u2014 sem upload. HEIC para JPG, WebP para PNG, AVIF e muito mais. 100% privado, funciona offline. Gratuito, até 200 arquivos, sem cadastro.',
   },
   privacy: {
     title: 'Pol\u00edtica de Privacidade | PicShift',
@@ -36,15 +36,14 @@ const pt: PageTranslations = {
       {
         heading: 'Seus dados',
         content:
-          'Sem conta, sem cadastro, sem dados pessoais armazenados. Suas imagens convertidas existem apenas no seu dispositivo e desaparecem quando voc\u00ea fecha a p\u00e1gina. N\u00e3o temos banco de dados de usu\u00e1rios ou arquivos \u2014 porque n\u00e3o precisamos.',
+          'Sem conta, sem cadastro, sem dados pessoais armazenados. Suas imagens convertidas existem apenas no seu dispositivo e desaparecem quando voc\u00ea fecha ou atualiza a p\u00e1gina. N\u00e3o temos banco de dados de usu\u00e1rios ou arquivos \u2014 porque n\u00e3o precisamos.',
       },
       {
         heading: 'Sem an\u00fancios, sem venda de dados',
         content:
           'O PicShift n\u00e3o tem an\u00fancios e n\u00e3o vende dados. Os \u00fanicos servi\u00e7os externos que usamos s\u00e3o:',
         items: [
-          'Um servi\u00e7o de fontes para o estilo de texto desta p\u00e1gina',
-          'Um contador an\u00f4nimo de visitantes sem cookies ou rastreamento pessoal',
+          'Umami, uma ferramenta de an\u00e1lise de c\u00f3digo aberto \u2014 contagem an\u00f4nima de visitantes sem cookies ou rastreamento pessoal',
         ],
       },
       {
@@ -64,7 +63,7 @@ const pt: PageTranslations = {
       title:
         'Conversor de HEIC para JPG - Gratuito, Privado, Sem Upload | PicShift',
       description:
-        'Converta fotos HEIC para JPG instantaneamente no seu navegador. 100% privado \u2014 os arquivos nunca saem do seu dispositivo. Gratuito, sem limites, sem cadastro.',
+        'Converta fotos HEIC para JPG instantaneamente no seu navegador. 100% privado \u2014 os arquivos nunca saem do seu dispositivo. Gratuito, até 200 arquivos, sem cadastro.',
       h1: 'Converter HEIC para JPG',
       introText:
         'Converta suas fotos HEIC do iPhone para o formato JPG instantaneamente. Tudo acontece no seu navegador \u2014 suas fotos nunca saem do seu dispositivo.',
@@ -84,7 +83,7 @@ const pt: PageTranslations = {
         },
         {
           q: 'Quantos arquivos posso converter de uma vez?',
-          a: 'N\u00e3o h\u00e1 um limite r\u00edgido. Recomendamos at\u00e9 100 arquivos por vez para melhor desempenho. Se voc\u00ea tiver mais, basta fazer v\u00e1rios lotes.',
+          a: 'Voc\u00ea pode converter at\u00e9 200 arquivos de uma vez. Para melhor desempenho com grandes lotes, recomendamos 100 ou menos.',
         },
         {
           q: 'Vou perder qualidade de imagem?',
