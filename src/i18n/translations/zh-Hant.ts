@@ -5,7 +5,7 @@ const zhTW: PageTranslations = {
     title:
       'PicShift - 免費線上圖片格式轉換器 | HEIC、WebP、PNG、JPG、AVIF | 無需上傳',
     description:
-      '在瀏覽器中即時轉換圖片格式——無需上傳。支援 HEIC 轉 JPG、WebP 轉 PNG、AVIF 等多種格式。100% 隱私保護，支援離線使用。免費、單次最多200張、免註冊。',
+      '在瀏覽器中即時轉換圖片格式——無需上傳。支援 HEIC 轉 JPG、WebP 轉 PNG、AVIF 等多種格式。100% 隱私保護，支援離線使用。免費、無限制、免註冊。',
   },
   privacy: {
     title: '隱私權政策 | PicShift',
@@ -61,7 +61,7 @@ const zhTW: PageTranslations = {
     'heic-to-jpg': {
       title: 'HEIC 轉 JPG 轉換器 - 免費、保護隱私、無需上傳 | PicShift',
       description:
-        '在瀏覽器中即時將 HEIC 照片轉換為 JPG 格式。100% 隱私保護——檔案絕不離開您的裝置。免費、單次最多200張、免註冊。',
+        '在瀏覽器中即時將 HEIC 照片轉換為 JPG 格式。100% 隱私保護——檔案絕不離開您的裝置。免費、無限制、免註冊。',
       h1: '將 HEIC 轉換為 JPG',
       introText:
         '即時將 iPhone HEIC 照片轉換為 JPG 格式。所有處理皆在瀏覽器中完成——您的照片不會離開裝置。',

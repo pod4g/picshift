@@ -5,7 +5,7 @@ const en: PageTranslations = {
     title:
       'PicShift - Free Image Converter | HEIC, WebP, PNG, JPG, AVIF | No Upload',
     description:
-      'Convert images instantly in your browser — without uploading. HEIC to JPG, WebP to PNG, AVIF and more. 100% private, works offline. Free, up to 200 files, no sign-up.',
+      'Convert images instantly in your browser — without uploading. HEIC to JPG, WebP to PNG, AVIF and more. 100% private, works offline. Free, no limits, no sign-up.',
   },
   privacy: {
     title: 'Privacy Policy | PicShift',
@@ -62,7 +62,7 @@ const en: PageTranslations = {
     'heic-to-jpg': {
       title: 'HEIC to JPG Converter - Free, Private, No Upload | PicShift',
       description:
-        'Convert HEIC photos to JPG instantly in your browser. 100% private — files never leave your device. Free, up to 200 files, no sign-up.',
+        'Convert HEIC photos to JPG instantly in your browser. 100% private — files never leave your device. Free, no limits, no sign-up.',
       h1: 'Convert HEIC to JPG',
       introText:
         'Convert your iPhone HEIC photos to JPG format instantly. Everything happens in your browser — your photos never leave your device.',

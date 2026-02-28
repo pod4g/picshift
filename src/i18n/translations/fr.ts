@@ -5,7 +5,7 @@ const fr: PageTranslations = {
     title:
       "PicShift - Convertisseur d'Images Gratuit | HEIC, WebP, PNG, JPG, AVIF | Sans Telechargement",
     description:
-      "Convertissez vos images instantanement dans votre navigateur, sans telechargement. HEIC en JPG, WebP en PNG, AVIF et plus. 100% prive, fonctionne hors ligne. Gratuit, jusqu'\u00e0 200 fichiers, sans inscription.",
+      "Convertissez vos images instantanement dans votre navigateur, sans telechargement. HEIC en JPG, WebP en PNG, AVIF et plus. 100% prive, fonctionne hors ligne. Gratuit, sans limite, sans inscription.",
   },
   privacy: {
     title: 'Politique de Confidentialite | PicShift',
@@ -63,7 +63,7 @@ const fr: PageTranslations = {
       title:
         'Convertisseur HEIC en JPG - Gratuit, Prive, Sans Envoi | PicShift',
       description:
-        "Convertissez vos photos HEIC en JPG instantanement dans votre navigateur. 100% prive : les fichiers ne quittent jamais votre appareil. Gratuit, jusqu'\u00e0 200 fichiers, sans inscription.",
+        "Convertissez vos photos HEIC en JPG instantanement dans votre navigateur. 100% prive : les fichiers ne quittent jamais votre appareil. Gratuit, sans limite, sans inscription.",
       h1: 'Convertir HEIC en JPG',
       introText:
         "Convertissez vos photos HEIC d'iPhone en format JPG instantanement. Tout se passe dans votre navigateur : vos photos ne quittent jamais votre appareil.",

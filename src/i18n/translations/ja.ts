@@ -5,7 +5,7 @@ const ja: PageTranslations = {
     title:
       'PicShift - 無料画像変換ツール | HEIC, WebP, PNG, JPG, AVIF対応 | アップロード不要',
     description:
-      'ブラウザで画像を瞬時に変換——アップロード不要。HEIC→JPG、WebP→PNG、AVIFなど多数対応。100%プライベート処理、オフラインでも動作。無料・最大200ファイル・登録不要。',
+      'ブラウザで画像を瞬時に変換——アップロード不要。HEIC→JPG、WebP→PNG、AVIFなど多数対応。100%プライベート処理、オフラインでも動作。無料・無制限・登録不要。',
   },
   privacy: {
     title: 'プライバシーポリシー | PicShift',
@@ -62,7 +62,7 @@ const ja: PageTranslations = {
     'heic-to-jpg': {
       title: 'HEIC→JPG変換 - 無料・プライベート・アップロード不要 | PicShift',
       description:
-        'HEICの写真をブラウザで瞬時にJPGに変換。100%プライベート処理でファイルがデバイスの外に出ることはありません。無料・最大200ファイル・登録不要。',
+        'HEICの写真をブラウザで瞬時にJPGに変換。100%プライベート処理でファイルがデバイスの外に出ることはありません。無料・無制限・登録不要。',
       h1: 'HEICをJPGに変換',
       introText:
         'iPhoneのHEIC写真をJPG形式に瞬時に変換できます。すべての処理はブラウザ内で完結するため、写真がデバイスの外に出ることはありません。',

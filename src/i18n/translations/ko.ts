@@ -5,7 +5,7 @@ const ko: PageTranslations = {
     title:
       'PicShift - 무료 이미지 변환기 | HEIC, WebP, PNG, JPG, AVIF | 업로드 불필요',
     description:
-      '브라우저에서 이미지를 즉시 변환하세요 — 업로드 불필요. HEIC→JPG, WebP→PNG, AVIF 등 다양한 형식을 지원해요. 100% 프라이버시 보호, 오프라인에서도 작동. 무료, 최대 200개 파일, 가입 불필요.',
+      '브라우저에서 이미지를 즉시 변환하세요 — 업로드 불필요. HEIC→JPG, WebP→PNG, AVIF 등 다양한 형식을 지원해요. 100% 프라이버시 보호, 오프라인에서도 작동. 무료, 무제한, 가입 불필요.',
   },
   privacy: {
     title: '개인정보처리방침 | PicShift',
@@ -62,7 +62,7 @@ const ko: PageTranslations = {
     'heic-to-jpg': {
       title: 'HEIC→JPG 변환 - 무료, 프라이버시 보호, 업로드 불필요 | PicShift',
       description:
-        'HEIC 사진을 브라우저에서 즉시 JPG로 변환하세요. 100% 프라이버시 보호 - 파일이 기기 밖으로 나가지 않아요. 무료, 최대 200개 파일, 가입 불필요.',
+        'HEIC 사진을 브라우저에서 즉시 JPG로 변환하세요. 100% 프라이버시 보호 - 파일이 기기 밖으로 나가지 않아요. 무료, 무제한, 가입 불필요.',
       h1: 'HEIC를 JPG로 변환',
       introText:
         'iPhone의 HEIC 사진을 JPG 형식으로 즉시 변환하세요. 모든 처리는 브라우저에서 이루어지며, 사진이 기기 밖으로 나가지 않아요.',
