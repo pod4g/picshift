@@ -80,6 +80,11 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
   const prevFileCountRef = useRef(0);
   const dragCounter = useRef(0);
 
+  // Remove server-rendered skeleton once React has mounted
+  useEffect(() => {
+    document.getElementById('converter-skeleton')?.remove();
+  }, []);
+
   // Listen for PWA install prompt
   useEffect(() => {
     const handler = (e: Event) => {

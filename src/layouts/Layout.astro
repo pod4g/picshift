@@ -146,7 +146,9 @@ import '../styles/global.css';
     <!-- Structured Data -->
     {orgSchema && <script type="application/ld+json" set:html={orgSchema} />}
 
-    <!-- Inter font: self-hosted (see global.css @font-face) -->
+    <!-- Inter font: preload key weights to avoid layout shift -->
+    <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-700.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Analytics: Umami (privacy-friendly, no cookies) -->
     {import.meta.env.PROD && <script defer src="https://cloud.umami.is/script.js" data-website-id="5e8e298a-edc6-4bb7-a7cb-04714bffc9c0"></script>}
