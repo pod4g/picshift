@@ -2,6 +2,35 @@ import type { ToolPageConfig } from '../types'
 
 export const TOOL_PAGES: ToolPageConfig[] = [
   {
+    slug: 'image-resizer',
+    title: 'Image Resizer - Resize Images Online Free & Private | PicShift',
+    description:
+      'Resize images in your browser. Preset sizes or custom dimensions. 100% private, no upload.',
+    defaultInputFormat: null,
+    h1: 'Resize Images',
+    introText:
+      'Resize your images to exact dimensions or common presets. Everything happens in your browser — your images never leave your device.',
+    howToSteps: [
+      'Upload your images by dragging them into the box above, or click to browse.',
+      'Pick a size preset or enter custom dimensions.',
+      'Choose output format and quality, then download.',
+    ],
+    faqs: [
+      {
+        q: 'What resize presets are available?',
+        a: 'PicShift offers Max 1920px (long edge), Max 1080px, 50% scale, and a Custom mode where you can enter exact pixel dimensions or a percentage.',
+      },
+      {
+        q: 'Does resizing reduce image quality?',
+        a: 'Downscaling uses high-quality resampling. You can also adjust the quality slider to control compression. The combination of resize + compression gives you the best control over file size.',
+      },
+      {
+        q: 'Can I resize and convert format at the same time?',
+        a: 'Yes. You can change both the output format (JPG, PNG, WebP, AVIF) and the dimensions in a single step.',
+      },
+    ],
+  },
+  {
     slug: 'image-compressor',
     title:
       'Image Compressor - Reduce File Size Online, Free & Private | PicShift',

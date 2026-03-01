@@ -3,7 +3,7 @@ import confetti from 'canvas-confetti';
 import { useConverter } from '../../hooks/useConverter';
 import { loadPreferences, savePreferences } from '../../lib/preferences';
 import { formatSize } from '../../lib/format-utils';
-import type { InputFormat, OutputFormatKey } from '../../types';
+import type { InputFormat, OutputFormatKey, ResizeOption } from '../../types';
 import { trackFileAdd, trackFileFormat, trackFormatSelect, trackConvertComplete, trackPwaInstall } from '../../lib/analytics';
 import { LangProvider } from '../../i18n/LangContext';
 import { getUI } from '../../i18n/ui';
@@ -11,6 +11,7 @@ import type { Locale } from '../../i18n/config';
 import { tpl } from '../../i18n/index';
 import DropZone from './DropZone';
 import FormatSelector from './FormatSelector';
+import ResizeSelector from './ResizeSelector';
 import QualitySlider from './QualitySlider';
 import FileList from './FileList';
 import DownloadAll from './DownloadAll';
@@ -23,6 +24,8 @@ interface ConverterProps {
   fullPage?: boolean;
   /** When true, keep the original file if conversion produces a larger output. */
   keepSmaller?: boolean;
+  /** When true, resize controls default to an active preset (e.g. image-resizer tool page). */
+  resizeDefault?: boolean;
   lang?: Locale;
 }
 
@@ -40,19 +43,27 @@ function guessOutputFormat(filename: string): OutputFormatKey {
   return map[ext] ?? 'jpg';
 }
 
-export default function Converter({ defaultInputFormat, defaultOutputFormat, fullPage = false, keepSmaller = false, lang = 'en' }: ConverterProps) {
+export default function Converter({ defaultInputFormat, defaultOutputFormat, fullPage = false, keepSmaller = false, resizeDefault = false, lang = 'en' }: ConverterProps) {
   // Compute initial format & quality eagerly (no useEffect) to avoid flicker
   const [initPrefs] = useState(() => {
-    if (defaultOutputFormat) return { outputFormat: defaultOutputFormat, quality: 85 };
+    if (defaultOutputFormat) return { outputFormat: defaultOutputFormat, quality: 85 } as ReturnType<typeof loadPreferences>;
     return loadPreferences();
   });
+
+  // Always use a stable default for initial render to match SSR output.
+  // Saved resize preference is applied after hydration via useEffect below.
+  const initialResize: ResizeOption = resizeDefault
+    ? { preset: 'max-1920' }
+    : { preset: 'original' };
 
   const {
     files,
     outputFormat,
     quality,
+    resizeOption,
     setOutputFormat,
     setQuality,
+    setResizeOption,
     addFiles,
     removeFile,
     clearAll,
@@ -68,7 +79,7 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
     isConverting,
     droppedCount,
     dismissDroppedWarning,
-  } = useConverter({ keepSmaller, compressMode: keepSmaller, initialFormat: initPrefs.outputFormat, initialQuality: initPrefs.quality });
+  } = useConverter({ keepSmaller, compressMode: keepSmaller, initialFormat: initPrefs.outputFormat, initialQuality: initPrefs.quality, initialResize });
 
   const [pageDragOver, setPageDragOver] = useState(false);
   const [conversionTimeMs, setConversionTimeMs] = useState<number | null>(null);
@@ -87,6 +98,14 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
     document.getElementById('converter-skeleton')?.remove();
   }, []);
 
+  // Apply saved resize preference after hydration (avoids SSR mismatch)
+  useEffect(() => {
+    if (!resizeDefault && initPrefs.resize) {
+      setResizeOption(initPrefs.resize);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Listen for PWA install prompt
   useEffect(() => {
     const handler = (e: Event) => {
@@ -97,10 +116,10 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
     return () => window.removeEventListener('beforeinstallprompt', handler);
   }, []);
 
-  // Persist preferences when user changes format or quality
+  // Persist preferences when user changes format, quality, or resize
   useEffect(() => {
-    savePreferences({ outputFormat, quality });
-  }, [outputFormat, quality]);
+    savePreferences({ outputFormat, quality, resize: resizeOption });
+  }, [outputFormat, quality, resizeOption]);
 
   // Wrap setOutputFormat to track manual user selection
   const handleFormatChange = useCallback(
@@ -327,44 +346,55 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
       {/* Main card */}
       <div className="rounded-xl border border-border bg-card-bg p-4 sm:p-6 shadow-sm">
         {/* Controls */}
-        <div className="mb-4 sm:mb-6 flex flex-wrap items-center gap-3 sm:gap-4">
-          {!defaultOutputFormat && !keepSmaller && (
-            <FormatSelector
-              value={outputFormat}
-              onChange={handleFormatChange}
+        <div className="mb-4 sm:mb-6 flex items-center justify-between gap-3 sm:gap-4">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+            {!defaultOutputFormat && !keepSmaller && (
+              <FormatSelector
+                value={outputFormat}
+                onChange={handleFormatChange}
+                disabled={isConverting}
+              />
+            )}
+            <ResizeSelector
+              value={resizeOption}
+              onChange={setResizeOption}
               disabled={isConverting}
+              originalWidth={files.find((f) => f.originalWidth)?.originalWidth}
+              originalHeight={files.find((f) => f.originalHeight)?.originalHeight}
             />
-          )}
-          <QualitySlider
-            value={quality}
-            onChange={setQuality}
-            disabled={isConverting}
-            visible
-          />
-          {(quality !== 85 || (!defaultOutputFormat && !keepSmaller && outputFormat !== 'jpg')) && !isConverting && (
-            <button
-              type="button"
-              onClick={() => {
-                setQuality(85);
-                if (!defaultOutputFormat && !keepSmaller) {
-                  setOutputFormat('jpg');
-                  userSelectedFormat.current = false;
-                }
-              }}
-              className="rounded-md px-2 py-1 text-xs text-text-secondary transition-colors hover:text-primary-500 hover:bg-primary-500/10 focus:outline-none"
-              title={t.resetDefaults}
-            >
-              <svg className="inline-block w-3.5 h-3.5 mr-0.5 -mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-              </svg>
-              {t.resetDefaults}
-            </button>
-          )}
+            <div className="w-24 sm:w-36 shrink-0">
+              <QualitySlider
+                value={quality}
+                onChange={setQuality}
+                disabled={isConverting}
+                visible
+              />
+            </div>
+            {(quality !== 85 || (!defaultOutputFormat && !keepSmaller && outputFormat !== 'jpg') || resizeOption.preset !== 'original') && !isConverting && (
+              <button
+                type="button"
+                onClick={() => {
+                  setQuality(85);
+                  setResizeOption({ preset: 'original' });
+                  if (!defaultOutputFormat && !keepSmaller) {
+                    setOutputFormat('jpg');
+                    userSelectedFormat.current = false;
+                  }
+                }}
+                className="cursor-pointer rounded-md p-1.5 text-text-secondary transition-colors hover:text-primary-500 hover:bg-primary-500/10 focus:outline-none"
+                title={t.resetDefaults}
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+                </svg>
+              </button>
+            )}
+          </div>
           {hasFiles && (
             <button
               type="button"
               onClick={clearAll}
-              className="ml-auto rounded-lg border border-border px-4 py-1.5 text-sm font-medium text-text-secondary transition-colors hover:border-error hover:text-error focus:outline-none focus:ring-2 focus:ring-error focus:ring-offset-1"
+              className="shrink-0 cursor-pointer text-xs text-text-secondary transition-colors hover:text-error focus:outline-none"
             >
               {t.clearAll}
             </button>

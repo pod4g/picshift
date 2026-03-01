@@ -103,6 +103,35 @@ export interface UIStrings {
   techWorkerPoolDesc: string;
   // Toast / warnings
   maxFilesWarning: string;
+  // Format tooltip (use {format} placeholder)
+  convertTo: string;
+  // Resize
+  resizeLabel: string;
+  resizeOriginal: string;
+  resizeMax2560: string;
+  resizeMax1920: string;
+  resizeMax1080: string;
+  resizeMax800: string;
+  resizeThreeQuarter: string;
+  resizeHalf: string;
+  resizeCustom: string;
+  // Resize preset descriptions
+  resizeOriginalDesc: string;
+  resizeMax2560Desc: string;
+  resizeMax1920Desc: string;
+  resizeMax1080Desc: string;
+  resizeMax800Desc: string;
+  resizeThreeQuarterDesc: string;
+  resizeHalfDesc: string;
+  resizeCustomDesc: string;
+  resizePixels: string;
+  resizePercentage: string;
+  resizeWidth: string;
+  resizeHeight: string;
+  resizeLockAspect: string;
+  resizeUnlockAspect: string;
+  resizeOriginalSize: string;
+  resizeImages: string;
   // Comparison table (homepage)
   comparisonTitle: string;
   compColPicShift: string;

@@ -1,4 +1,4 @@
-import type { UserPreferences } from '../types';
+import type { UserPreferences, ResizeOption } from '../types';
 
 const STORAGE_KEY = 'picshift_prefs';
 
@@ -21,6 +21,7 @@ export function loadPreferences(): UserPreferences {
     return {
       outputFormat: parsed.outputFormat ?? DEFAULT_PREFERENCES.outputFormat,
       quality: parsed.quality ?? DEFAULT_PREFERENCES.quality,
+      resize: parsed.resize as ResizeOption | undefined,
     };
   } catch {
     return { ...DEFAULT_PREFERENCES };

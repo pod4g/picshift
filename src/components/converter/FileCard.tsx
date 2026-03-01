@@ -81,12 +81,25 @@ export default function FileCard({ file, onRemove, onDownload, onCompare }: File
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
   }, [isConverting]);
 
-  // Show converted extension once done
+  // Show converted extension + resize dimensions once done
+  const resized = isDone && file.outputWidth && file.outputHeight
+    && file.originalWidth && file.originalHeight
+    && (file.outputWidth !== file.originalWidth || file.outputHeight !== file.originalHeight);
+  const dimSuffix = resized ? `_${file.outputWidth}x${file.outputHeight}` : '';
   const displayName = (isDone && file.outputExt)
-    ? file.name.replace(/\.[^.]+$/, file.outputExt)
+    ? file.name.replace(/\.[^.]+$/, dimSuffix + file.outputExt)
     : file.name;
   const truncatedName =
     displayName.length > 28 ? displayName.slice(0, 14) + '...' + displayName.slice(-10) : displayName;
+
+  // Build dimension tooltip
+  let dimTooltip = '';
+  if (file.originalWidth && file.originalHeight) {
+    dimTooltip = `${file.originalWidth}×${file.originalHeight}`;
+    if (resized) {
+      dimTooltip += ` → ${file.outputWidth}×${file.outputHeight}`;
+    }
+  }
 
   return (
     <div className="flex items-center gap-3 rounded-lg border border-border bg-card-bg p-3 shadow-sm transition-all duration-150 hover:shadow-md">
@@ -121,7 +134,7 @@ export default function FileCard({ file, onRemove, onDownload, onCompare }: File
       {/* Info */}
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <div className="flex items-center gap-2">
-          <span className="truncate text-sm font-medium text-text-primary" title={displayName}>
+          <span className="truncate text-sm font-medium text-text-primary" title={dimTooltip || undefined}>
             {truncatedName}
           </span>
 

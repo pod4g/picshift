@@ -277,6 +277,22 @@ const de: PageTranslations = {
         },
       ],
     },
+    'image-resizer': {
+      title: 'Bilder Skalieren - Kostenlos und Privat | PicShift',
+      description: 'Bilder im Browser skalieren. Voreingestellte Größen oder benutzerdefinierte Abmessungen. 100% privat, kein Upload.',
+      h1: 'Bilder Skalieren',
+      introText: 'Skalieren Sie Ihre Bilder auf exakte Abmessungen oder gängige Voreinstellungen. Alles geschieht in Ihrem Browser — Ihre Bilder verlassen nie Ihr Gerät.',
+      howToSteps: [
+        'Ziehen Sie Ihre Bilder in den Bereich oben, oder klicken Sie zum Durchsuchen.',
+        'Wählen Sie eine Größenvoreinstellung oder geben Sie benutzerdefinierte Abmessungen ein.',
+        'Wählen Sie Ausgabeformat und Qualität, dann laden Sie herunter.',
+      ],
+      faqs: [
+        { q: 'Welche Größenvoreinstellungen sind verfügbar?', a: 'PicShift bietet Max 1920px (lange Seite), Max 1080px, 50% Skalierung und einen benutzerdefinierten Modus für exakte Pixel-Abmessungen oder Prozentangaben.' },
+        { q: 'Verringert das Skalieren die Bildqualität?', a: 'Die Verkleinerung verwendet hochwertige Neuabtastung. Sie können auch den Qualitätsregler anpassen, um die Komprimierung zu steuern.' },
+        { q: 'Kann ich gleichzeitig skalieren und das Format konvertieren?', a: 'Ja. Sie können sowohl das Ausgabeformat (JPG, PNG, WebP, AVIF) als auch die Abmessungen in einem Schritt ändern.' },
+      ],
+    },
     'image-compressor': {
       title:
         'Bildkomprimierer - Dateigroesse Online Reduzieren, Kostenlos & Privat | PicShift',

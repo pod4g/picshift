@@ -6,6 +6,7 @@ interface WorkerRequest {
   outputFormat: string; // 'image/jpeg' | 'image/png' | 'image/webp' | 'image/avif'
   quality: number; // 1-100
   keepSmaller?: boolean;
+  resize?: { maxWidth?: number; maxHeight?: number; scale?: number; exact?: boolean };
 }
 
 interface WorkerResponse {
@@ -17,6 +18,10 @@ interface WorkerResponse {
   originalPreview?: Blob;
   keptOriginal?: boolean;
   error?: string;
+  sourceWidth?: number;
+  sourceHeight?: number;
+  outputWidth?: number;
+  outputHeight?: number;
 }
 
 // ---- Helpers ----
@@ -322,34 +327,113 @@ async function wasmEncodeAvif(
   }
 }
 
+// ---- Resize helper ----
+
+/** Compute final dimensions from source size + resize params. Returns undefined if no resize needed. */
+function computeResizeDims(
+  srcW: number,
+  srcH: number,
+  resize?: WorkerRequest['resize'],
+): { w: number; h: number } | undefined {
+  if (!resize) return undefined;
+
+  let maxW = resize.maxWidth;
+  let maxH = resize.maxHeight;
+  let exact = resize.exact ?? false;
+
+  if (resize.scale) {
+    maxW = Math.round(srcW * resize.scale);
+    maxH = Math.round(srcH * resize.scale);
+    exact = true;
+  }
+
+  if (!maxW && !maxH) return undefined;
+
+  let w = srcW;
+  let h = srcH;
+
+  if (exact) {
+    if (maxW) w = maxW;
+    if (maxH) h = maxH;
+  } else {
+    if (maxW && w > maxW) {
+      h = Math.round(h * (maxW / w));
+      w = maxW;
+    }
+    if (maxH && h > maxH) {
+      w = Math.round(w * (maxH / h));
+      h = maxH;
+    }
+  }
+
+  w = Math.max(1, Math.min(w, 16384));
+  h = Math.max(1, Math.min(h, 16384));
+
+  if (w === srcW && h === srcH) return undefined;
+  return { w, h };
+}
+
 // ---- Main handler ----
 
 self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
-  const { id, file, outputFormat, quality, keepSmaller } = e.data;
+  const { id, file, outputFormat, quality, keepSmaller, resize } = e.data;
 
   try {
-    // Step 1 - Decode source image to OffscreenCanvas
+    // Step 1 - Decode source image to OffscreenCanvas (with resize fused when possible)
     const heicInput = isHeic(file);
     let canvas: OffscreenCanvas;
     let ctx: OffscreenCanvasRenderingContext2D;
     let originalPreviewBlob: Blob | undefined;
+    let sourceWidth: number;
+    let sourceHeight: number;
 
     if (heicInput) {
       try {
         // Try native browser HEIC decode first (Safari 17.6+)
-        const bitmap = await createImageBitmap(file);
-        canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+        const probeBitmap = await createImageBitmap(file);
+        const srcW = probeBitmap.width;
+        const srcH = probeBitmap.height;
+        probeBitmap.close();
+        const dims = computeResizeDims(srcW, srcH, resize);
+
+        // Re-decode with resize in one step (avoids full-size canvas allocation)
+        const finalBitmap = dims
+          ? await createImageBitmap(file, { resizeWidth: dims.w, resizeHeight: dims.h, resizeQuality: 'high' })
+          : await createImageBitmap(file);
+        canvas = new OffscreenCanvas(finalBitmap.width, finalBitmap.height);
         ctx = canvas.getContext('2d')!;
-        ctx.drawImage(bitmap, 0, 0);
-        bitmap.close();
+        ctx.drawImage(finalBitmap, 0, 0);
+        finalBitmap.close();
+
+        sourceWidth = srcW;
+        sourceHeight = srcH;
         originalPreviewBlob = file; // Safari renders HEIC natively
         postProgress(id, 10);
       } catch {
         // Native not available — fall back to libheif-js WASM decode
         const heicImageData = await decodeHeicWasm(file);
-        canvas = new OffscreenCanvas(heicImageData.width, heicImageData.height);
-        ctx = canvas.getContext('2d')!;
-        ctx.putImageData(heicImageData, 0, 0);
+        sourceWidth = heicImageData.width;
+        sourceHeight = heicImageData.height;
+
+        const dims = computeResizeDims(sourceWidth, sourceHeight, resize);
+        if (dims) {
+          // Decode to temporary canvas, then resize via createImageBitmap
+          const tmpCanvas = new OffscreenCanvas(sourceWidth, sourceHeight);
+          const tmpCtx = tmpCanvas.getContext('2d')!;
+          tmpCtx.putImageData(heicImageData, 0, 0);
+          const resizedBitmap = await createImageBitmap(tmpCanvas, {
+            resizeWidth: dims.w, resizeHeight: dims.h, resizeQuality: 'high',
+          });
+          canvas = new OffscreenCanvas(resizedBitmap.width, resizedBitmap.height);
+          ctx = canvas.getContext('2d')!;
+          ctx.drawImage(resizedBitmap, 0, 0);
+          resizedBitmap.close();
+          // tmpCanvas is now eligible for GC — full-size memory released
+        } else {
+          canvas = new OffscreenCanvas(sourceWidth, sourceHeight);
+          ctx = canvas.getContext('2d')!;
+          ctx.putImageData(heicImageData, 0, 0);
+        }
 
         // Generate renderable preview for compare view (browsers can't display HEIC)
         originalPreviewBlob = await canvas.convertToBlob({ type: 'image/jpeg', quality: 0.9 });
@@ -374,11 +458,42 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
         }
       }
     } else {
-      const bitmap = await createImageBitmap(file);
-      canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
-      ctx = canvas.getContext('2d')!;
-      ctx.drawImage(bitmap, 0, 0);
-      bitmap.close();
+      // Non-HEIC: fuse decode + resize into a single createImageBitmap call when possible
+      if (resize) {
+        // Probe source dimensions (lightweight — bitmap is closed immediately)
+        const probeBitmap = await createImageBitmap(file);
+        sourceWidth = probeBitmap.width;
+        sourceHeight = probeBitmap.height;
+        probeBitmap.close();
+        const dims = computeResizeDims(sourceWidth, sourceHeight, resize);
+
+        if (dims) {
+          // Decode with target size directly — never allocates full-size canvas
+          const resizedBitmap = await createImageBitmap(file, {
+            resizeWidth: dims.w, resizeHeight: dims.h, resizeQuality: 'high',
+          });
+          canvas = new OffscreenCanvas(resizedBitmap.width, resizedBitmap.height);
+          ctx = canvas.getContext('2d')!;
+          ctx.drawImage(resizedBitmap, 0, 0);
+          resizedBitmap.close();
+        } else {
+          // Resize computed to no-op (e.g. max-1920 on a 1000px image)
+          const bitmap = await createImageBitmap(file);
+          canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+          ctx = canvas.getContext('2d')!;
+          ctx.drawImage(bitmap, 0, 0);
+          bitmap.close();
+        }
+      } else {
+        // No resize — single decode, no probe overhead
+        const bitmap = await createImageBitmap(file);
+        sourceWidth = bitmap.width;
+        sourceHeight = bitmap.height;
+        canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+        ctx = canvas.getContext('2d')!;
+        ctx.drawImage(bitmap, 0, 0);
+        bitmap.close();
+      }
     }
 
     postProgress(id, 50);
@@ -475,6 +590,10 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
       thumbnail,
       originalPreview: originalPreviewBlob,
       keptOriginal,
+      sourceWidth,
+      sourceHeight,
+      outputWidth: canvas.width,
+      outputHeight: canvas.height,
     };
     self.postMessage(doneMsg);
   } catch (err: unknown) {

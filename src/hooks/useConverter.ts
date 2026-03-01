@@ -4,6 +4,7 @@ import type {
   InputFormat,
   OutputFormatKey,
   WorkerResponse,
+  ResizeOption,
 } from '../types';
 import { OUTPUT_MIME, OUTPUT_EXT } from '../types';
 import { triggerDownload } from '../lib/download';
@@ -39,6 +40,27 @@ function inputToOutputKey(filename: string): OutputFormatKey {
 const MAX_WORKERS = Math.min(navigator.hardwareConcurrency || 2, 4);
 const MAX_COMPARE_CACHE = 10;
 
+function resolveResize(
+  option: ResizeOption,
+): { maxWidth?: number; maxHeight?: number; scale?: number; exact?: boolean } | undefined {
+  switch (option.preset) {
+    case 'original': return undefined;
+    case 'max-2560': return { maxWidth: 2560, maxHeight: 2560 };
+    case 'max-1920': return { maxWidth: 1920, maxHeight: 1920 };
+    case 'max-1080': return { maxWidth: 1080, maxHeight: 1080 };
+    case 'max-800': return { maxWidth: 800, maxHeight: 800 };
+    case 'three-quarter': return { scale: 0.75 };
+    case 'half':
+      return { scale: 0.5 };
+    case 'custom':
+      if (option.customMode === 'percentage') {
+        return { scale: (option.percentage ?? 100) / 100 };
+      }
+      // pixels mode — exact user-provided dimensions
+      return { maxWidth: option.width, maxHeight: option.height, exact: true };
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Compare state type
 // ---------------------------------------------------------------------------
@@ -65,12 +87,14 @@ export function useConverter(options?: {
   compressMode?: boolean;
   initialFormat?: OutputFormatKey;
   initialQuality?: number;
+  initialResize?: ResizeOption;
 }) {
   const keepSmaller = options?.keepSmaller ?? false;
   const compressMode = options?.compressMode ?? false;
   const [files, setFiles] = useState<ConvertFile[]>([]);
   const [outputFormat, setOutputFormat] = useState<OutputFormatKey>(options?.initialFormat ?? 'jpg');
   const [quality, setQuality] = useState<number>(options?.initialQuality ?? 85);
+  const [resizeOption, setResizeOption] = useState<ResizeOption>(options?.initialResize ?? { preset: 'original' });
   const [compareState, setCompareState] = useState<CompareState | null>(null);
   const [compareLoading, setCompareLoading] = useState(false);
   const [droppedCount, setDroppedCount] = useState(0);
@@ -163,6 +187,9 @@ export function useConverter(options?: {
       const fileOutputKey = compressMode ? inputToOutputKey(file.originalFile.name) : outputFormat;
       const fileOutputMime = OUTPUT_MIME[fileOutputKey];
 
+      // Resolve resize params from preset (before onmessage to avoid TDZ reference)
+      const resizeParams = resolveResize(resizeOption);
+
       worker.onmessage = async (e: MessageEvent<WorkerResponse>) => {
         const msg = e.data;
 
@@ -184,8 +211,11 @@ export function useConverter(options?: {
           const ext = msg.keptOriginal
             ? ('.' + (file.originalFile.name.split('.').pop()?.toLowerCase() ?? 'bin'))
             : (OUTPUT_EXT[fileOutputKey] ?? '.bin');
+          // Append dimensions to filename when resize was applied
+          const dimSuffix = (resizeParams && msg.outputWidth && msg.outputHeight)
+            ? `_${msg.outputWidth}x${msg.outputHeight}` : '';
           const baseName =
-            file.originalFile.name.replace(/\.[^.]+$/, '') + ext;
+            file.originalFile.name.replace(/\.[^.]+$/, '') + dimSuffix + ext;
           await zipRef.current!.addFile(baseName, outputBlob);
 
           updateFile(msg.id, {
@@ -197,6 +227,10 @@ export function useConverter(options?: {
             outputExt: ext,
             flushedToZip: true,
             decodedOriginalBlob: msg.originalPreview ?? null,
+            originalWidth: msg.sourceWidth,
+            originalHeight: msg.sourceHeight,
+            outputWidth: msg.outputWidth,
+            outputHeight: msg.outputHeight,
           });
 
           trackConvertFile(
@@ -256,10 +290,11 @@ export function useConverter(options?: {
         outputFormat: fileOutputMime,
         quality,
         keepSmaller,
+        resize: resizeParams,
       };
       worker.postMessage(req);
     }
-  }, [getWorker, releaseWorker, updateFile, outputFormat, quality, keepSmaller, compressMode]);
+  }, [getWorker, releaseWorker, updateFile, outputFormat, quality, keepSmaller, compressMode, resizeOption]);
 
   // ---------------------------------------------------------------------------
   // Public API
@@ -289,6 +324,14 @@ export function useConverter(options?: {
         flushedToZip: false,
         decodedOriginalBlob: null,
       }));
+
+      // Eager dimension detection: read width/height for each file asynchronously
+      for (const entry of newEntries) {
+        createImageBitmap(entry.originalFile).then((bitmap) => {
+          updateFile(entry.id, { originalWidth: bitmap.width, originalHeight: bitmap.height });
+          bitmap.close();
+        }).catch(() => { /* HEIC or unsupported — dimensions detected on worker side */ });
+      }
 
       // Enforce max file count and total size inside the updater
       setFiles((prev) => {
@@ -388,7 +431,11 @@ export function useConverter(options?: {
 
       const fileOutputKey = compressMode ? inputToOutputKey(file.originalFile.name) : outputFormat;
       const ext = file.outputExt ?? (OUTPUT_EXT[fileOutputKey] ?? '.bin');
-      const fileName = file.originalFile.name.replace(/\.[^.]+$/, '') + ext;
+      const resized = file.outputWidth && file.outputHeight
+        && file.originalWidth && file.originalHeight
+        && (file.outputWidth !== file.originalWidth || file.outputHeight !== file.originalHeight);
+      const dimSuffix = resized ? `_${file.outputWidth}x${file.outputHeight}` : '';
+      const fileName = file.originalFile.name.replace(/\.[^.]+$/, '') + dimSuffix + ext;
       triggerDownload(file.outputBlob, fileName);
       trackDownloadSingle(fileOutputKey);
     },
@@ -576,8 +623,10 @@ export function useConverter(options?: {
     files,
     outputFormat,
     quality,
+    resizeOption,
     setOutputFormat,
     setQuality,
+    setResizeOption,
     addFiles,
     removeFile,
     clearAll,

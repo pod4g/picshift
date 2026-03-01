@@ -277,6 +277,22 @@ const es: PageTranslations = {
         },
       ],
     },
+    'image-resizer': {
+      title: 'Redimensionar Imágenes - Gratis y Privado | PicShift',
+      description: 'Redimensiona imágenes en tu navegador. Tamaños predefinidos o dimensiones personalizadas. 100% privado, sin subir archivos.',
+      h1: 'Redimensionar Imágenes',
+      introText: 'Redimensiona tus imágenes a dimensiones exactas o presets comunes. Todo sucede en tu navegador — tus imágenes nunca salen de tu dispositivo.',
+      howToSteps: [
+        'Sube tus imágenes arrastrándolas al cuadro de arriba, o haz clic para explorar.',
+        'Elige un tamaño predefinido o introduce dimensiones personalizadas.',
+        'Elige el formato de salida y la calidad, luego descarga.',
+      ],
+      faqs: [
+        { q: '¿Qué presets de tamaño están disponibles?', a: 'PicShift ofrece Máx 1920px (lado largo), Máx 1080px, escala al 50%, y un modo Personalizado donde puedes introducir dimensiones exactas en píxeles o un porcentaje.' },
+        { q: '¿Redimensionar reduce la calidad de la imagen?', a: 'La reducción de escala utiliza remuestreo de alta calidad. También puedes ajustar el control de calidad para controlar la compresión.' },
+        { q: '¿Puedo redimensionar y convertir formato al mismo tiempo?', a: 'Sí. Puedes cambiar tanto el formato de salida (JPG, PNG, WebP, AVIF) como las dimensiones en un solo paso.' },
+      ],
+    },
     'image-compressor': {
       title:
         'Compresor de Imagenes - Reduce el Tamano Online, Gratis y Privado | PicShift',

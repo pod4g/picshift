@@ -19,12 +19,12 @@ export default function QualitySlider({
   if (!visible) return null;
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-1">
       <div className="flex items-center justify-between">
-        <label htmlFor="quality-slider" className="text-sm font-medium text-text-primary">
+        <label htmlFor="quality-slider" className="text-xs font-semibold text-text-secondary uppercase tracking-wide">
           {t.qualityLabel}
         </label>
-        <span className="text-sm font-medium text-primary-500">{value}%</span>
+        <span className="text-xs font-medium text-primary-500">{value}%</span>
       </div>
       <input
         id="quality-slider"

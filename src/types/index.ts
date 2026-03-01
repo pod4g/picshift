@@ -6,6 +6,20 @@ export type OutputFormatKey = 'jpg' | 'png' | 'webp' | 'avif';
 
 export type FileStatus = 'queued' | 'converting' | 'done' | 'error';
 
+// Resize types
+export type ResizePreset = 'original' | 'max-2560' | 'max-1920' | 'max-1080' | 'max-800' | 'three-quarter' | 'half' | 'custom';
+export type ResizeCustomMode = 'pixels' | 'percentage';
+
+export interface ResizeOption {
+  preset: ResizePreset;
+  customMode?: ResizeCustomMode;
+  width?: number;
+  height?: number;
+  percentage?: number;
+  lockAspectRatio?: boolean;
+  lockedRatio?: number; // width/height, captured when lock is toggled on
+}
+
 export interface ConvertFile {
   id: string;
   originalFile: File;
@@ -21,11 +35,16 @@ export interface ConvertFile {
   error: string | null;
   flushedToZip: boolean;
   decodedOriginalBlob: Blob | null;
+  originalWidth?: number;
+  originalHeight?: number;
+  outputWidth?: number;
+  outputHeight?: number;
 }
 
 export interface UserPreferences {
   outputFormat: OutputFormatKey;
   quality: number;
+  resize?: ResizeOption;
 }
 
 export interface ToolPageConfig {
@@ -46,6 +65,7 @@ export interface WorkerRequest {
   outputFormat: OutputFormat;
   quality: number;
   keepSmaller?: boolean;
+  resize?: { maxWidth?: number; maxHeight?: number; scale?: number; exact?: boolean };
 }
 
 export interface WorkerResponse {
@@ -57,6 +77,10 @@ export interface WorkerResponse {
   originalPreview?: Blob;
   keptOriginal?: boolean;
   error?: string;
+  sourceWidth?: number;
+  sourceHeight?: number;
+  outputWidth?: number;
+  outputHeight?: number;
 }
 
 export const OUTPUT_MIME: Record<OutputFormatKey, OutputFormat> = {
