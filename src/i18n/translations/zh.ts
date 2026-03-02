@@ -303,7 +303,7 @@ const zh: PageTranslations = {
         },
         {
           q: '支持哪些格式的压缩？',
-          a: '可以压缩 JPG、PNG、WebP、HEIC 和 AVIF 格式的图片。输出格式可选 JPG、PNG 或 WebP。',
+          a: '可以压缩 JPG、PNG、WebP、HEIC 和 AVIF 格式的图片。输出格式可选 JPG、PNG、WebP 或 AVIF。',
         },
       ],
     },

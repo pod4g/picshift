@@ -46,6 +46,47 @@ const faqs = [...(toolTranslation?.faqs || tool.faqs), { q: t.sizeIncreaseFaqQ, 
 
 const canonical = `https://picshift.app/${lang}/${tool.slug}`;
 const pagePath = `/${tool.slug}`;
+const localizedHomeUrl = `https://picshift.app/${lang}/`;
+const softwareApplicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: h1,
+  applicationCategory: 'MultimediaApplication',
+  applicationSubCategory: 'Image Converter',
+  operatingSystem: 'Web Browser',
+  isAccessibleForFree: true,
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  description,
+  inLanguage: lang,
+  url: canonical,
+  publisher: {
+    '@type': 'Organization',
+    name: 'PicShift',
+    url: 'https://picshift.app',
+  },
+};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: localizedHomeUrl,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: h1,
+      item: canonical,
+    },
+  ],
+};
 ---
 
 <Layout title={title} description={description} canonical={canonical} lang={lang} pagePath={pagePath}>
@@ -82,6 +123,9 @@ const pagePath = `/${tool.slug}`;
 
       <!-- How-to section -->
       <HowTo steps={howToSteps} toolName={h1} lang={lang} />
+
+      <script type="application/ld+json" set:html={JSON.stringify(softwareApplicationSchema)} />
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
       <!-- FAQ section -->
       <FAQ faqs={faqs} lang={lang} />

@@ -1,43 +1,75 @@
-# Astro Starter Kit: Minimal
+# PicShift
 
-```sh
-pnpm create astro@latest -- --template minimal
+PicShift 是一个浏览器端图片转换与压缩工具，核心特点是 **本地处理、零上传、隐私优先**。
+
+- 支持输入：HEIC/HEIF、JPG/JPEG、PNG、WebP、AVIF、BMP
+- 支持输出：JPG、PNG、WebP、AVIF
+- 支持批量转换、ZIP 下载、分屏对比、尺寸调整
+- 支持多语言路由与 SEO 静态页面生成
+
+## 技术栈
+
+- **框架**：Astro 5（静态输出）
+- **交互层**：React 19（Astro Islands）
+- **样式**：Tailwind CSS 4
+- **转换引擎**：Web Worker + OffscreenCanvas + WASM 编码器
+- **HEIC 解码**：浏览器原生优先，回退 `libheif-js`
+- **打包下载**：`fflate` 流式 ZIP
+- **PWA**：`@vite-pwa/astro`
+
+## 本地开发
+
+```bash
+pnpm install
+pnpm dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+默认启动地址：`http://localhost:4321`
 
-## 🚀 Project Structure
+## 常用命令
 
-Inside of your Astro project, you'll see the following folders and files:
+- `pnpm dev`：启动开发环境
+- `pnpm build`：构建生产产物
+- `pnpm preview`：本地预览构建结果
+- `pnpm astro ...`：执行 Astro CLI 命令
+
+## 目录结构
 
 ```text
-/
-├── public/
+picshift/
 ├── src/
-│   └── pages/
-│       └── index.astro
+│   ├── pages/                    # 页面与路由（含多语言动态路由）
+│   ├── components/               # UI 组件（Astro + React）
+│   ├── hooks/                    # 核心状态与任务调度
+│   ├── workers/                  # 图片转换 Worker
+│   ├── lib/                      # 工具函数（zip、download、preferences 等）
+│   ├── i18n/                     # 多语言配置与文案
+│   ├── data/                     # 工具页面配置（slug、title、faq 等）
+│   └── types/                    # 类型定义
+├── public/                       # 静态资源
+├── docs/                         # PRD 与技术文档
+├── astro.config.mjs
 └── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 路由策略
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- `/`：英文首页
+- `/{lang}/`：非英文首页（如 `/zh/`）
+- `/{slug}`：英文工具页（由 `src/data/tools.ts` 驱动）
+- `/{lang}/{slug}`：非英文工具页
+- `/privacy` 与 `/{lang}/privacy`：隐私页
 
-Any static assets, like images, can be placed in the `public/` directory.
+## 关键实现说明
 
-## 🧞 Commands
+- 转换任务由 `useConverter` 统一调度，使用 worker 池并发处理
+- worker 内完成解码、编码、缩略图生成、进度回传
+- 批量结果在转换过程中持续写入流式 ZIP，减少高峰内存
+- 对比视图支持原图/转换图分屏，按需复用缓存与重建结果
 
-All commands are run from the root of the project, from a terminal:
+## 相关文档
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+- 产品需求：`docs/PRD.md`
+- 技术规格：`docs/tech-spec.md`
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+> 当前仓库以“代码即现实”为准，文档会随实现持续更新。

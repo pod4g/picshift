@@ -290,14 +290,14 @@ const de: PageTranslations = {
       faqs: [
         { q: 'Welche Größenvoreinstellungen sind verfügbar?', a: 'PicShift bietet Max 1920px (lange Seite), Max 1080px, 50% Skalierung und einen benutzerdefinierten Modus für exakte Pixel-Abmessungen oder Prozentangaben.' },
         { q: 'Verringert das Skalieren die Bildqualität?', a: 'Die Verkleinerung verwendet hochwertige Neuabtastung. Sie können auch den Qualitätsregler anpassen, um die Komprimierung zu steuern.' },
-        { q: 'Kann ich gleichzeitig skalieren und das Format konvertieren?', a: 'Ja. Sie können sowohl das Ausgabeformat (JPG, PNG, WebP, AVIF) als auch die Abmessungen in einem Schritt ändern.' },
+        { q: 'Kann ich gleichzeitig skalieren und das Format konvertieren?', a: 'Ja. Sie können sowohl das Ausgabeformat (JPG, PNG, WebP, AVIF) als auch die Abmessungen in einem Schritt ändern. Wenn Sie primär Dateigröße sparen möchten, nutzen Sie zusätzlich /de/image-compressor.' },
       ],
     },
     'image-compressor': {
       title:
-        'Bildkomprimierer - Dateigroesse Online Reduzieren, Kostenlos & Privat | PicShift',
+        'Bildkomprimierer Kostenlos - Dateigröße online reduzieren | PicShift',
       description:
-        'Komprimieren Sie Bilder in Ihrem Browser. Reduzieren Sie die Groesse von JPG-, PNG- und WebP-Dateien bei hervorragender Qualitaet. 100% privat, ohne Upload.',
+        'Komprimieren Sie Bilder in Ihrem Browser. Reduzieren Sie die Größe von JPG-, PNG-, WebP-, HEIC- und AVIF-Dateien bei hoher Qualität. 100% privat, ohne Upload.',
       h1: 'Bilder komprimieren',
       introText:
         'Reduzieren Sie die Dateigroesse Ihrer Bilder bei gleichbleibender visueller Qualitaet. Passen Sie den Qualitaetsregler an, um die perfekte Balance zu finden.',
@@ -313,7 +313,7 @@ const de: PageTranslations = {
         },
         {
           q: 'Welche Formate kann ich komprimieren?',
-          a: 'Sie koennen JPG-, PNG-, WebP-, HEIC- und AVIF-Bilder komprimieren. Das Ausgabeformat kann JPG, PNG oder WebP sein.',
+          a: 'Sie koennen JPG-, PNG-, WebP-, HEIC- und AVIF-Bilder komprimieren. Das Ausgabeformat kann JPG, PNG, WebP oder AVIF sein.',
         },
       ],
     },

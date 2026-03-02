@@ -315,7 +315,7 @@ const it: PageTranslations = {
         },
         {
           q: 'Quali formati posso comprimere?',
-          a: 'Puoi comprimere immagini JPG, PNG, WebP, HEIC e AVIF. Il formato di output pu\u00f2 essere JPG, PNG o WebP.',
+          a: 'Puoi comprimere immagini JPG, PNG, WebP, HEIC e AVIF. Il formato di output pu\u00f2 essere JPG, PNG, WebP o AVIF.',
         },
       ],
     },

@@ -1,0 +1,309 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { SUPPORTED_LOCALES } from '../../i18n';
+import type { Locale } from '../../i18n/config';
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES
+    .filter((l) => l !== 'en')
+    .map((l) => ({
+      params: { lang: l },
+      props: { lang: l },
+    }));
+}
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const pagePath = '/jpg-png-to-heic';
+const canonical = `https://picshift.app/${lang}/jpg-png-to-heic`;
+
+const localized: Record<Locale, {
+  title: string;
+  description: string;
+  h1: string;
+  lead: string;
+  alternativesTitle: string;
+  alternatives: string[];
+  faqTitle: string;
+  faq: Array<{ q: string; a: string }>;
+}> = {
+  en: {
+    title: 'JPG/PNG to HEIC or HEIF - Support Status & Alternatives | PicShift',
+    description: "Need JPG/PNG to HEIC/HEIF? PicShift currently doesn't export HEIC/HEIF. See alternatives.",
+    h1: 'JPG/PNG to HEIC/HEIF: Is It Supported?',
+    lead: 'PicShift currently does not export .heic/.heif. It supports HEIC/HEIF input, and outputs JPG, PNG, WebP, and AVIF.',
+    alternativesTitle: 'Best alternatives right now',
+    alternatives: [
+      'Image Compressor for smaller JPG/PNG files',
+      'JPG to WebP for smaller web assets',
+      'PNG to JPG for compatibility scenarios',
+    ],
+    faqTitle: 'FAQ',
+    faq: [
+      { q: 'Can PicShift convert JPG to HEIC/HEIF?', a: 'Not yet. Export currently supports JPG, PNG, WebP, and AVIF.' },
+      { q: 'Can PicShift convert PNG to HEIC/HEIF?', a: 'Not yet. HEIC/HEIF are currently supported as input only.' },
+    ],
+  },
+  zh: {
+    title: 'JPG/PNG 转 HEIC 或 HEIF - 支持状态与替代方案 | PicShift',
+    description: '想把 JPG/PNG 转成 HEIC/HEIF？PicShift 当前不支持导出 HEIC/HEIF，这里提供可行替代方案。',
+    h1: 'JPG/PNG 转 HEIC/HEIF：现在支持吗？',
+    lead: 'PicShift 当前不支持导出 .heic/.heif。支持 HEIC/HEIF 输入，输出支持 JPG、PNG、WebP、AVIF。',
+    alternativesTitle: '当前可用替代方案',
+    alternatives: [
+      '图片压缩工具：先压缩 JPG/PNG 以减小体积',
+      'JPG 转 WebP：网页场景更省体积',
+      'PNG 转 JPG：兼容性场景更常用',
+    ],
+    faqTitle: '常见问题',
+    faq: [
+      { q: 'PicShift 可以把 JPG 转成 HEIC/HEIF 吗？', a: '暂时不支持。当前导出仅支持 JPG、PNG、WebP、AVIF。' },
+      { q: 'PicShift 可以把 PNG 转成 HEIC/HEIF 吗？', a: '暂时不支持。HEIC/HEIF 目前仅支持作为输入。' },
+    ],
+  },
+  'zh-Hant': {
+    title: 'JPG/PNG 轉 HEIC 或 HEIF - 支援狀態與替代方案 | PicShift',
+    description: '想把 JPG/PNG 轉成 HEIC/HEIF？PicShift 目前不支援匯出 HEIC/HEIF，這裡提供替代方案。',
+    h1: 'JPG/PNG 轉 HEIC/HEIF：目前支援嗎？',
+    lead: 'PicShift 目前不支援匯出 .heic/.heif。支援 HEIC/HEIF 輸入，輸出支援 JPG、PNG、WebP、AVIF。',
+    alternativesTitle: '目前可用替代方案',
+    alternatives: [
+      '圖片壓縮工具：先壓縮 JPG/PNG 以縮小檔案',
+      'JPG 轉 WebP：網頁場景更省空間',
+      'PNG 轉 JPG：常見相容性流程',
+    ],
+    faqTitle: '常見問題',
+    faq: [
+      { q: 'PicShift 可以把 JPG 轉成 HEIC/HEIF 嗎？', a: '暫時不支援。目前匯出僅支援 JPG、PNG、WebP、AVIF。' },
+      { q: 'PicShift 可以把 PNG 轉成 HEIC/HEIF 嗎？', a: '暫時不支援。HEIC/HEIF 目前僅支援作為輸入。' },
+    ],
+  },
+  es: {
+    title: 'JPG/PNG a HEIC o HEIF - estado y alternativas | PicShift',
+    description: '¿Quieres convertir JPG/PNG a HEIC/HEIF? PicShift aún no exporta HEIC/HEIF. Aquí tienes alternativas.',
+    h1: 'JPG/PNG a HEIC/HEIF: ¿está disponible?',
+    lead: 'PicShift no exporta .heic/.heif por ahora. Sí admite HEIC/HEIF como entrada y exporta JPG, PNG, WebP y AVIF.',
+    alternativesTitle: 'Mejores alternativas ahora',
+    alternatives: [
+      'Compresor de imágenes para reducir tamaño de JPG/PNG',
+      'JPG a WebP para archivos web más ligeros',
+      'PNG a JPG para escenarios de compatibilidad',
+    ],
+    faqTitle: 'FAQ',
+    faq: [
+      { q: '¿PicShift convierte JPG a HEIC/HEIF?', a: 'Todavía no. La exportación actual es JPG, PNG, WebP y AVIF.' },
+      { q: '¿PicShift convierte PNG a HEIC/HEIF?', a: 'Todavía no. HEIC/HEIF se admite por ahora solo como entrada.' },
+    ],
+  },
+  fr: {
+    title: 'JPG/PNG vers HEIC ou HEIF - état et alternatives | PicShift',
+    description: "Besoin de convertir JPG/PNG en HEIC/HEIF ? PicShift n'exporte pas encore HEIC/HEIF. Voir les alternatives.",
+    h1: 'JPG/PNG vers HEIC/HEIF : est-ce pris en charge ?',
+    lead: "PicShift n'exporte pas encore .heic/.heif. HEIC/HEIF est accepté en entrée, avec sortie JPG, PNG, WebP et AVIF.",
+    alternativesTitle: 'Meilleures alternatives pour le moment',
+    alternatives: [
+      "Compresseur d'images pour réduire la taille des JPG/PNG",
+      'JPG vers WebP pour des fichiers web plus légers',
+      'PNG vers JPG pour les besoins de compatibilité',
+    ],
+    faqTitle: 'FAQ',
+    faq: [
+      { q: 'PicShift peut-il convertir JPG en HEIC/HEIF ?', a: "Pas encore. L'export actuel est JPG, PNG, WebP et AVIF." },
+      { q: 'PicShift peut-il convertir PNG en HEIC/HEIF ?', a: 'Pas encore. HEIC/HEIF est actuellement pris en charge seulement en entrée.' },
+    ],
+  },
+  de: {
+    title: 'JPG/PNG zu HEIC oder HEIF - Status und Alternativen | PicShift',
+    description: 'JPG/PNG zu HEIC/HEIF konvertieren? PicShift exportiert HEIC/HEIF derzeit nicht. Hier sind Alternativen.',
+    h1: 'JPG/PNG zu HEIC/HEIF: Wird es unterstützt?',
+    lead: 'PicShift exportiert .heic/.heif derzeit nicht. HEIC/HEIF wird als Eingabe unterstützt, Ausgabe ist JPG, PNG, WebP und AVIF.',
+    alternativesTitle: 'Aktuell beste Alternativen',
+    alternatives: [
+      'Bildkomprimierer für kleinere JPG/PNG-Dateien',
+      'JPG zu WebP für leichtere Web-Dateien',
+      'PNG zu JPG für Kompatibilitätsfälle',
+    ],
+    faqTitle: 'FAQ',
+    faq: [
+      { q: 'Kann PicShift JPG in HEIC/HEIF konvertieren?', a: 'Noch nicht. Export derzeit nur in JPG, PNG, WebP und AVIF.' },
+      { q: 'Kann PicShift PNG in HEIC/HEIF konvertieren?', a: 'Noch nicht. HEIC/HEIF wird derzeit nur als Eingabe unterstützt.' },
+    ],
+  },
+  ja: {
+    title: 'JPG/PNGをHEIC・HEIFに変換 - 対応状況と代替手段 | PicShift',
+    description: 'JPG/PNGをHEIC/HEIFに変換したい方向け。PicShiftは現在HEIC/HEIF出力に非対応です。代替手段を案内します。',
+    h1: 'JPG/PNG→HEIC/HEIFは対応していますか？',
+    lead: 'PicShiftは現在 .heic/.heif の出力に対応していません。HEIC/HEIF入力には対応し、出力はJPG・PNG・WebP・AVIFです。',
+    alternativesTitle: '現在のおすすめ代替手段',
+    alternatives: [
+      '画像圧縮ツール：JPG/PNGを軽量化',
+      'JPG→WebP：Web向けに容量削減',
+      'PNG→JPG：互換性優先の運用',
+    ],
+    faqTitle: 'よくある質問',
+    faq: [
+      { q: 'PicShiftでJPGをHEIC/HEIFに変換できますか？', a: '現在は非対応です。出力はJPG・PNG・WebP・AVIFに対応しています。' },
+      { q: 'PicShiftでPNGをHEIC/HEIFに変換できますか？', a: '現在は非対応です。HEIC/HEIFは入力としてのみ対応しています。' },
+    ],
+  },
+  ko: {
+    title: 'JPG/PNG를 HEIC 또는 HEIF로 변환 - 지원 상태와 대안 | PicShift',
+    description: 'JPG/PNG를 HEIC/HEIF로 변환하려면? PicShift는 아직 HEIC/HEIF 내보내기를 지원하지 않습니다. 대안을 확인하세요.',
+    h1: 'JPG/PNG→HEIC/HEIF, 현재 지원되나요?',
+    lead: 'PicShift는 현재 .heic/.heif 내보내기를 지원하지 않습니다. HEIC/HEIF 입력은 지원하며 출력은 JPG, PNG, WebP, AVIF입니다.',
+    alternativesTitle: '현재 추천 대안',
+    alternatives: [
+      '이미지 압축으로 JPG/PNG 용량 줄이기',
+      'JPG→WebP로 웹 파일 경량화',
+      'PNG→JPG로 호환성 확보',
+    ],
+    faqTitle: 'FAQ',
+    faq: [
+      { q: 'PicShift에서 JPG를 HEIC/HEIF로 변환할 수 있나요?', a: '아직은 지원하지 않습니다. 출력은 JPG, PNG, WebP, AVIF를 지원합니다.' },
+      { q: 'PicShift에서 PNG를 HEIC/HEIF로 변환할 수 있나요?', a: '아직은 지원하지 않습니다. HEIC/HEIF는 현재 입력만 지원합니다.' },
+    ],
+  },
+  pt: {
+    title: 'JPG/PNG para HEIC ou HEIF - status e alternativas | PicShift',
+    description: 'Precisa converter JPG/PNG para HEIC/HEIF? O PicShift ainda não exporta HEIC/HEIF. Veja alternativas.',
+    h1: 'JPG/PNG para HEIC/HEIF: é suportado?',
+    lead: 'O PicShift ainda não exporta .heic/.heif. HEIC/HEIF é aceito como entrada; saída atual: JPG, PNG, WebP e AVIF.',
+    alternativesTitle: 'Melhores alternativas no momento',
+    alternatives: [
+      'Compressor de imagem para reduzir JPG/PNG',
+      'JPG para WebP para arquivos web menores',
+      'PNG para JPG para cenários de compatibilidade',
+    ],
+    faqTitle: 'FAQ',
+    faq: [
+      { q: 'O PicShift converte JPG para HEIC/HEIF?', a: 'Ainda não. A exportação atual é JPG, PNG, WebP e AVIF.' },
+      { q: 'O PicShift converte PNG para HEIC/HEIF?', a: 'Ainda não. HEIC/HEIF é suportado atualmente apenas como entrada.' },
+    ],
+  },
+  ru: {
+    title: 'JPG/PNG в HEIC или HEIF - статус и альтернативы | PicShift',
+    description: 'Нужно конвертировать JPG/PNG в HEIC/HEIF? PicShift пока не экспортирует HEIC/HEIF. Вот альтернативы.',
+    h1: 'JPG/PNG в HEIC/HEIF: поддерживается?',
+    lead: 'PicShift пока не поддерживает экспорт .heic/.heif. Вход HEIC/HEIF поддерживается, выход: JPG, PNG, WebP и AVIF.',
+    alternativesTitle: 'Лучшие альтернативы сейчас',
+    alternatives: [
+      'Сжатие изображений для JPG/PNG',
+      'JPG в WebP для более легких web-файлов',
+      'PNG в JPG для совместимости',
+    ],
+    faqTitle: 'FAQ',
+    faq: [
+      { q: 'PicShift может конвертировать JPG в HEIC/HEIF?', a: 'Пока нет. Экспорт сейчас только в JPG, PNG, WebP и AVIF.' },
+      { q: 'PicShift может конвертировать PNG в HEIC/HEIF?', a: 'Пока нет. HEIC/HEIF сейчас поддерживаются только как вход.' },
+    ],
+  },
+  ar: {
+    title: 'تحويل JPG/PNG إلى HEIC أو HEIF - حالة الدعم والبدائل | PicShift',
+    description: 'تحتاج تحويل JPG/PNG إلى HEIC/HEIF؟ PicShift لا يدعم تصدير HEIC/HEIF حاليًا. تعرّف على البدائل.',
+    h1: 'هل تحويل JPG/PNG إلى HEIC/HEIF مدعوم؟',
+    lead: 'PicShift لا يدعم تصدير .heic/.heif حاليًا. يدعم إدخال HEIC/HEIF، ومخرجاته الحالية JPG وPNG وWebP وAVIF.',
+    alternativesTitle: 'أفضل البدائل حاليًا',
+    alternatives: [
+      'ضغط الصور لتقليل حجم JPG/PNG',
+      'JPG إلى WebP لملفات ويب أصغر',
+      'PNG إلى JPG لسيناريوهات التوافق',
+    ],
+    faqTitle: 'الأسئلة الشائعة',
+    faq: [
+      { q: 'هل يمكن لـ PicShift تحويل JPG إلى HEIC/HEIF؟', a: 'ليس بعد. التصدير الحالي يدعم JPG وPNG وWebP وAVIF.' },
+      { q: 'هل يمكن لـ PicShift تحويل PNG إلى HEIC/HEIF؟', a: 'ليس بعد. HEIC/HEIF مدعومان حاليًا كإدخال فقط.' },
+    ],
+  },
+  it: {
+    title: 'JPG/PNG in HEIC o HEIF - stato e alternative | PicShift',
+    description: 'Vuoi convertire JPG/PNG in HEIC/HEIF? PicShift non esporta ancora HEIC/HEIF. Ecco le alternative.',
+    h1: 'JPG/PNG in HEIC/HEIF: è supportato?',
+    lead: 'PicShift non esporta ancora .heic/.heif. HEIC/HEIF è supportato in input; output disponibili: JPG, PNG, WebP e AVIF.',
+    alternativesTitle: 'Migliori alternative al momento',
+    alternatives: [
+      'Compressore immagini per ridurre JPG/PNG',
+      'JPG in WebP per file web più leggeri',
+      'PNG in JPG per esigenze di compatibilità',
+    ],
+    faqTitle: 'FAQ',
+    faq: [
+      { q: 'PicShift converte JPG in HEIC/HEIF?', a: 'Non ancora. L’export attuale è JPG, PNG, WebP e AVIF.' },
+      { q: 'PicShift converte PNG in HEIC/HEIF?', a: 'Non ancora. HEIC/HEIF è attualmente supportato solo in input.' },
+    ],
+  },
+};
+
+const content = localized[lang];
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: `https://picshift.app/${lang}/`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: content.h1,
+      item: canonical,
+    },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: content.faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+
+<Layout title={content.title} description={content.description} canonical={canonical} lang={lang} pagePath={pagePath}>
+  <Header lang={lang} pagePath={pagePath} />
+  <main class="flex-1">
+    <div class="max-w-3xl mx-auto px-4 py-8 sm:py-12">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary mb-4">
+        {content.h1}
+      </h1>
+      <p class="text-text-secondary text-base sm:text-lg mb-6">{content.lead}</p>
+
+      <section class="mb-6 bg-card-bg border border-border rounded-xl p-4 sm:p-5">
+        <h2 class="text-xl font-semibold text-text-primary mb-2">{content.alternativesTitle}</h2>
+        <ul class="list-disc list-inside text-text-secondary space-y-1">
+          <li><a class="text-primary-500 hover:underline" href={`/${lang}/image-compressor`}>Image Compressor</a> — {content.alternatives[0]}</li>
+          <li><a class="text-primary-500 hover:underline" href={`/${lang}/jpg-to-webp`}>JPG to WebP</a> — {content.alternatives[1]}</li>
+          <li><a class="text-primary-500 hover:underline" href={`/${lang}/png-to-jpg`}>PNG to JPG</a> — {content.alternatives[2]}</li>
+        </ul>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-xl font-semibold text-text-primary">{content.faqTitle}</h2>
+        {content.faq.map((item) => (
+          <article class="bg-card-bg border border-border rounded-xl p-4 sm:p-5">
+            <h3 class="font-semibold text-text-primary mb-2">{item.q}</h3>
+            <p class="text-text-secondary">{item.a}</p>
+          </article>
+        ))}
+      </section>
+
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+      <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Layout>

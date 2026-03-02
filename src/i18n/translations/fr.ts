@@ -3,9 +3,9 @@ import type { PageTranslations } from '../config'
 const fr: PageTranslations = {
   home: {
     title:
-      "PicShift - Convertisseur d'Images Gratuit | HEIC, WebP, PNG, JPG, AVIF | Sans Telechargement",
+      "PicShift - Convertisseur d'Images Gratuit | HEIC, WebP, PNG, JPG, AVIF | Sans Téléchargement",
     description:
-      "Convertissez vos images instantanement dans votre navigateur, sans telechargement. HEIC en JPG, WebP en PNG, AVIF et plus. 100% prive, fonctionne hors ligne. Gratuit, sans limite, sans inscription.",
+      "Convertissez vos images instantanément dans votre navigateur, sans téléchargement. HEIC en JPG, WebP en PNG, AVIF et plus. 100% privé, fonctionne hors ligne. Gratuit, sans limite, sans inscription.",
   },
   privacy: {
     title: 'Politique de Confidentialite | PicShift',
@@ -290,17 +290,17 @@ const fr: PageTranslations = {
       faqs: [
         { q: 'Quels préréglages de taille sont disponibles ?', a: 'PicShift propose Max 1920px (côté long), Max 1080px, échelle 50%, et un mode Personnalisé pour entrer des dimensions exactes en pixels ou un pourcentage.' },
         { q: 'Le redimensionnement réduit-il la qualité de l\'image ?', a: 'La réduction d\'échelle utilise un rééchantillonnage de haute qualité. Vous pouvez aussi ajuster le curseur de qualité pour contrôler la compression.' },
-        { q: 'Puis-je redimensionner et convertir le format en même temps ?', a: 'Oui. Vous pouvez changer le format de sortie (JPG, PNG, WebP, AVIF) et les dimensions en une seule étape.' },
+        { q: 'Puis-je redimensionner et convertir le format en même temps ?', a: 'Oui. Vous pouvez changer le format de sortie (JPG, PNG, WebP, AVIF) et les dimensions en une seule étape. Pour réduire surtout le poids, utilisez aussi /fr/image-compressor.' },
       ],
     },
     'image-compressor': {
       title:
-        "Compresseur d'Images - Reduisez la Taille en Ligne, Gratuit et Prive | PicShift",
+        "Compresseur d'Images Gratuit - Réduire la Taille en Ligne | PicShift",
       description:
-        'Compressez vos images dans votre navigateur. Reduisez la taille des fichiers JPG, PNG et WebP tout en conservant une excellente qualite. 100% prive, sans envoi.',
-      h1: 'Compresser des Images',
+        'Compressez vos images dans votre navigateur. Réduisez la taille des fichiers JPG, PNG, WebP, HEIC et AVIF tout en conservant une excellente qualité. 100% privé, sans envoi.',
+      h1: 'Compresser des Images Gratuitement',
       introText:
-        "Reduisez la taille de vos fichiers image tout en conservant la qualite visuelle. Ajustez le curseur de qualite pour trouver l'equilibre parfait.",
+        "Réduisez la taille de vos fichiers image tout en conservant la qualité visuelle. Ajustez le curseur de qualité pour trouver l'équilibre idéal.",
       howToSteps: [
         'Glissez-deposez vos images dans la zone ci-dessus, ou cliquez pour les parcourir.',
         'Ajustez le curseur de qualite pour controler le niveau de compression.',
@@ -313,7 +313,7 @@ const fr: PageTranslations = {
         },
         {
           q: 'Quels formats puis-je compresser ?',
-          a: 'Vous pouvez compresser des images JPG, PNG, WebP, HEIC et AVIF. Le format de sortie peut etre JPG, PNG ou WebP.',
+          a: 'Vous pouvez compresser des images JPG, PNG, WebP, HEIC et AVIF. Le format de sortie peut être JPG, PNG, WebP ou AVIF.',
         },
       ],
     },

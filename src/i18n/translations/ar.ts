@@ -309,7 +309,7 @@ const ar: PageTranslations = {
         },
         {
           q: 'ما الصيغ التي يمكنني ضغطها؟',
-          a: 'يمكنك ضغط صور JPG و PNG و WebP و HEIC و AVIF. يمكن أن تكون صيغة الإخراج JPG أو PNG أو WebP.',
+          a: 'يمكنك ضغط صور JPG و PNG و WebP و HEIC و AVIF. يمكن أن تكون صيغة الإخراج JPG أو PNG أو WebP أو AVIF.',
         },
       ],
     },

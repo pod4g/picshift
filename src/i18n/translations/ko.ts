@@ -304,7 +304,7 @@ const ko: PageTranslations = {
         },
         {
           q: '어떤 형식을 압축할 수 있나요?',
-          a: 'JPG, PNG, WebP, HEIC, AVIF 이미지를 압축할 수 있어요. 출력 형식은 JPG, PNG, WebP 중에서 선택할 수 있어요.',
+          a: 'JPG, PNG, WebP, HEIC, AVIF 이미지를 압축할 수 있어요. 출력 형식은 JPG, PNG, WebP, AVIF 중에서 선택할 수 있어요.',
         },
       ],
     },

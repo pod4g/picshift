@@ -323,7 +323,7 @@ const ru: PageTranslations = {
         },
         {
           q: 'Какие форматы можно сжимать?',
-          a: 'Вы можете сжимать изображения JPG, PNG, WebP, HEIC и AVIF. Формат вывода может быть JPG, PNG или WebP.',
+          a: 'Вы можете сжимать изображения JPG, PNG, WebP, HEIC и AVIF. Формат вывода может быть JPG, PNG, WebP или AVIF.',
         },
       ],
     },
