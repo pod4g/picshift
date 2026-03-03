@@ -145,7 +145,7 @@ export default function FileCard({ file, onRemove, onDownload, onCompare }: File
             </span>
           )}
           {isConverting && (
-            <span className="shrink-0 animate-pulse rounded-full bg-primary-500/10 px-2 py-0.5 text-xs text-primary-500">
+            <span className="shrink-0 animate-pulse rounded-full bg-primary-500/15 px-2 py-0.5 text-xs text-text-primary">
               {t.converting}
             </span>
           )}

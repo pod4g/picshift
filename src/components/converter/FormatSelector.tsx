@@ -40,7 +40,6 @@ export default function FormatSelector({ value, onChange, disabled = false }: Fo
     updateSlider();
   }, [updateSlider]);
 
-  // Recalculate on resize (font size may differ between mobile/desktop)
   useEffect(() => {
     const observer = new ResizeObserver(updateSlider);
     if (containerRef.current) observer.observe(containerRef.current);
@@ -49,11 +48,10 @@ export default function FormatSelector({ value, onChange, disabled = false }: Fo
 
   return (
     <div>
-      <div ref={containerRef} className="relative flex rounded-lg border border-primary-500/30 bg-primary-500/10 p-0.5">
-        {/* Sliding highlight */}
+      <div ref={containerRef} className="relative flex overflow-hidden rounded-lg border border-border bg-drop-bg p-0.5">
         {slider && (
           <div
-            className="absolute top-0.5 bottom-0.5 rounded-md bg-primary-500 shadow-sm transition-all duration-200 ease-out"
+            className="pointer-events-none absolute top-0.5 bottom-0.5 rounded-md bg-indigo-300 shadow-sm transition-all duration-200 ease-out dark:bg-indigo-400"
             style={{ left: slider.left, width: slider.width }}
           />
         )}
@@ -66,13 +64,13 @@ export default function FormatSelector({ value, onChange, disabled = false }: Fo
             onClick={() => onChange(key)}
             title={tpl(t.convertTo, { format: label })}
             className={`
-              relative z-10 cursor-pointer rounded-md px-2.5 py-1 sm:px-4 sm:py-1.5 text-xs sm:text-sm font-bold transition-colors duration-200
+              relative z-10 flex-1 cursor-pointer rounded-md px-2.5 py-1 sm:px-4 sm:py-1.5 text-xs sm:text-sm font-bold transition-colors duration-200
               focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1
               disabled:cursor-not-allowed disabled:opacity-50
               ${
                 value === key
-                  ? 'text-white'
-                  : 'text-primary-500 hover:bg-primary-500/10'
+                  ? 'text-slate-900 dark:text-slate-950'
+                  : 'text-text-primary/90 hover:text-text-primary'
               }
             `}
           >

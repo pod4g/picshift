@@ -334,10 +334,10 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
         <div className="pointer-events-none fixed inset-0 z-40 flex items-center justify-center bg-primary-500/10 backdrop-blur-[2px]">
           <div className="rounded-2xl border-2 border-dashed border-primary-500 bg-card-bg/90 px-8 py-6 sm:px-12 sm:py-10 shadow-lg mx-4">
             <div className="flex flex-col items-center gap-3">
-              <svg className="h-10 w-10 sm:h-12 sm:w-12 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <svg className="h-10 w-10 sm:h-12 sm:w-12 text-primary-700 dark:text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
               </svg>
-              <p className="text-base sm:text-lg font-semibold text-primary-500">{t.dropAnywhere}</p>
+              <p className="text-base sm:text-lg font-semibold text-primary-700 dark:text-primary-500">{t.dropAnywhere}</p>
             </div>
           </div>
         </div>
@@ -485,7 +485,7 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
       {/* PWA install banner */}
       {showInstallBanner && (
         <div className="flex items-center gap-3 rounded-lg border border-primary-500/20 bg-primary-500/10 px-4 py-3">
-          <svg className="h-5 w-5 shrink-0 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="h-5 w-5 shrink-0 text-primary-700 dark:text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M12 1.5v11.25m0 0 3-3m-3 3-3-3" />
           </svg>
           <p className="flex-1 text-sm text-text-primary">{t.pwaInstallPrompt}</p>

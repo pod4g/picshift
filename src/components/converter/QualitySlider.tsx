@@ -24,7 +24,7 @@ export default function QualitySlider({
         <label htmlFor="quality-slider" className="text-xs font-semibold text-text-secondary uppercase tracking-wide">
           {t.qualityLabel}
         </label>
-        <span className="text-xs font-medium text-primary-500">{value}%</span>
+        <span className="text-xs font-medium text-text-primary">{value}%</span>
       </div>
       <input
         id="quality-slider"

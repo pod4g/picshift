@@ -222,7 +222,7 @@ export default function ResizeSelector({
           focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1
           disabled:cursor-not-allowed disabled:opacity-50
           ${value.preset !== 'original'
-            ? 'border-primary-500/50 bg-primary-500/10 text-primary-500'
+            ? 'border-primary-500/60 bg-primary-500/15 text-text-primary'
             : 'border-border bg-card-bg text-text-primary hover:border-primary-500/30'}
         `}
       >
@@ -247,7 +247,7 @@ export default function ResizeSelector({
               className={`
                 block w-full px-3 py-1.5 text-left text-sm transition-colors
                 ${value.preset === key
-                  ? 'bg-primary-500/10 text-primary-500 font-medium'
+                  ? 'bg-primary-500/15 text-text-primary font-semibold'
                   : idx === highlightedIndex
                     ? 'bg-drop-bg text-text-primary'
                     : 'text-text-primary hover:bg-drop-bg'}
@@ -277,7 +277,7 @@ export default function ResizeSelector({
               onClick={() => handleCustomModeChange('pixels')}
               className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
                 value.customMode === 'pixels'
-                  ? 'bg-primary-500 text-white'
+                  ? 'bg-primary-600 dark:bg-primary-500 text-white dark:text-slate-950'
                   : 'text-text-secondary hover:text-text-primary'
               }`}
             >
@@ -289,7 +289,7 @@ export default function ResizeSelector({
               onClick={() => handleCustomModeChange('percentage')}
               className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
                 value.customMode === 'percentage'
-                  ? 'bg-primary-500 text-white'
+                  ? 'bg-primary-600 dark:bg-primary-500 text-white dark:text-slate-950'
                   : 'text-text-secondary hover:text-text-primary'
               }`}
             >
@@ -341,7 +341,7 @@ export default function ResizeSelector({
                   title={value.lockAspectRatio ? t.resizeUnlockAspect : t.resizeLockAspect}
                   className={`rounded-md p-1 transition-colors ${
                     value.lockAspectRatio
-                      ? 'text-primary-500 hover:bg-primary-500/10'
+                      ? 'text-primary-700 dark:text-primary-500 hover:bg-primary-500/10'
                       : 'text-text-secondary hover:bg-drop-bg'
                   }`}
                 >

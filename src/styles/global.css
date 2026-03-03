@@ -31,12 +31,12 @@
 }
 
 @theme {
-  --color-primary-500: #6366f1;
-  --color-primary-600: #4f46e5;
-  --color-primary-700: #4338ca;
+  --color-primary-500: #4f46e5;
+  --color-primary-600: #4338ca;
+  --color-primary-700: #3730a3;
   --color-secondary-500: #8b5cf6;
   --color-accent: #06b6d4;
-  --color-success: #10b981;
+  --color-success: #047857;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
   --color-page-bg: #eef1f8;
@@ -44,7 +44,7 @@
   --color-drop-bg: #f1f5f9;
   --color-drop-hover: #ede9fe;
   --color-text-primary: #1e293b;
-  --color-text-secondary: #64748b;
+  --color-text-secondary: #475569;
   --color-border: #e2e8f0;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
@@ -63,12 +63,13 @@ html.dark {
   --color-primary-600: #6366f1;
   --color-primary-700: #4f46e5;
   --color-secondary-500: #a78bfa;
+  --color-success: #34d399;
   --color-page-bg: #1a2332;
   --color-card-bg: #1f2e40;
   --color-drop-bg: #1f2e40;
   --color-drop-hover: #2a3a50;
   --color-text-primary: #e8edf5;
-  --color-text-secondary: #8fa3be;
+  --color-text-secondary: #a4b7cf;
   --color-border: #2d3f54;
   color-scheme: dark;
 }
