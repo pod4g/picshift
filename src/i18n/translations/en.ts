@@ -15,41 +15,41 @@ const en: PageTranslations = {
       {
         heading: 'The Short Version',
         content:
-          'Your images stay on your device — always. PicShift converts images right inside your browser. Nothing is uploaded to the internet. We never see, store, or have access to your photos.',
+          'PicShift converts images inside your browser on your device. Source files and converted binaries are not uploaded to PicShift servers for conversion, and we do not store image content on our backend.',
       },
       {
         heading: 'How It Works',
         content:
-          "When you convert an image with PicShift, everything happens on your own device. Your files are never sent to any server. In fact, you can turn off your internet connection and PicShift will still work perfectly — that's how local it is.",
+          'When you choose a file, your browser reads it into local memory, runs conversion with in-browser codecs (including WebAssembly paths), and creates a downloadable result locally. Conversion does not require an account session or file upload pipeline.',
       },
       {
         heading: 'What We Track',
         content:
-          "We count basic things like how many people visit PicShift so we can improve it. That's it. Specifically:",
+          'We measure product usage with privacy-focused analytics for reliability and product decisions. Specifically:',
         items: [
-          "We don't use cookies",
-          "We don't know who you are",
-          "We can't see what images you convert",
-          "We don't track you across websites",
+          'No analytics cookies are used for this purpose',
+          'We do not build cross-site behavioral profiles',
+          'Analytics events do not include image content or converted file binaries',
+          'We do not associate conversion activity with a personal account identity',
         ],
       },
       {
         heading: 'Your Data',
         content:
-          "There is no account, no sign-up, no personal data stored anywhere. Your converted images exist only on your device and disappear when you close or refresh the page. We have no database of users or files — because we don't need one.",
+          'PicShift conversion works without sign-up. Temporary processing data stays in your browser runtime during conversion, and in-memory buffers are cleared by the browser lifecycle after completion or tab close. Files you download are saved only where you choose on your device.',
       },
       {
         heading: 'No Ads, No Selling Data',
         content:
-          'PicShift has no ads and does not sell any data. The only external services we use are:',
+          'PicShift does not sell user data. The external service currently used is:',
         items: [
-          'Umami, an open-source analytics tool — anonymous visitor counting with no cookies or personal tracking',
+          'Umami (open-source analytics) for aggregate traffic and usage metrics',
         ],
       },
       {
         heading: 'Changes to This Policy',
         content:
-          "If we update this policy, we'll update this page. Our core promise will never change: your images stay on your device and are never uploaded.",
+          'When this policy changes, we update this page and the Last updated date. The core processing model remains local conversion in the browser without server-side file conversion storage.',
       },
       {
         heading: 'Contact',
@@ -60,9 +60,9 @@ const en: PageTranslations = {
   },
   tools: {
     'heic-to-jpg': {
-      title: 'HEIC to JPG Converter - Free, Private, No Upload | PicShift',
+      title: 'HEIC to JPG Converter - iPhone Photos to JPG | PicShift',
       description:
-        'Convert HEIC photos to JPG instantly in your browser. 100% private — files never leave your device. Free, no limits, no sign-up.',
+        'Convert iPhone HEIC photos to JPG for Windows, websites, and uploads. Local browser processing with no file upload.',
       h1: 'Convert HEIC to JPG',
       introText:
         'Convert your iPhone HEIC photos to JPG format instantly. Everything happens in your browser — your photos never leave your device.',
@@ -91,9 +91,9 @@ const en: PageTranslations = {
       ],
     },
     'heic-to-png': {
-      title: 'HEIC to PNG Converter - Free, Private, No Upload | PicShift',
+      title: 'HEIC to PNG Converter - Lossless PNG Export | PicShift',
       description:
-        'Convert HEIC photos to PNG format in your browser. Lossless quality, 100% private, no upload required.',
+        'Convert HEIC photos to lossless PNG for editing and design handoff. Runs in your browser with no upload.',
       h1: 'Convert HEIC to PNG',
       introText:
         'Convert your iPhone HEIC photos to lossless PNG format. All processing happens locally in your browser.',
@@ -109,14 +109,14 @@ const en: PageTranslations = {
         },
         {
           q: 'Are PNG files larger than JPG?',
-          a: 'Yes, PNG files are typically 2-5x larger than JPG because PNG is lossless. If file size matters more than perfect quality, consider converting to JPG instead.',
+          a: 'Yes, PNG files are 2-5x larger than JPG in standard photo workflows because PNG is lossless. If file size matters more than perfect quality, convert to JPG instead.',
         },
       ],
     },
     'heic-to-webp': {
-      title: 'HEIC to WebP Converter - Free, Private, No Upload | PicShift',
+      title: 'HEIC to WebP Converter - Smaller Web Images | PicShift',
       description:
-        'Convert HEIC photos to WebP format in your browser. Smaller files, great quality, 100% private.',
+        'Convert HEIC photos to WebP for smaller image payloads and faster page delivery. Local-only browser conversion.',
       h1: 'Convert HEIC to WebP',
       introText:
         'Convert your iPhone HEIC photos to the modern WebP format. WebP offers 25-34% smaller files than JPG at the same quality.',
@@ -137,9 +137,9 @@ const en: PageTranslations = {
       ],
     },
     'webp-to-jpg': {
-      title: 'WebP to JPG Converter - Free, Private, No Upload | PicShift',
+      title: 'WebP to JPG Converter - Open Anywhere | PicShift',
       description:
-        'Convert WebP images to JPG format in your browser. Free, private, no upload needed.',
+        'Convert WebP to JPG for email, social uploads, and older software compatibility. No upload, runs locally.',
       h1: 'Convert WebP to JPG',
       introText:
         'Convert WebP images to the universally compatible JPG format. All processing happens locally in your browser.',
@@ -151,14 +151,14 @@ const en: PageTranslations = {
       faqs: [
         {
           q: 'Why convert WebP to JPG?',
-          a: 'While WebP is widely supported in browsers, some older applications, email clients, and social media platforms may not accept WebP. JPG is the most universally compatible image format.',
+          a: 'WebP is widely supported in browsers, and some older applications, email clients, and social media platforms do not accept WebP. JPG is the most universally compatible image format.',
         },
       ],
     },
     'webp-to-png': {
-      title: 'WebP to PNG Converter - Free, Private, No Upload | PicShift',
+      title: 'WebP to PNG Converter for Lossless Transparency | PicShift',
       description:
-        'Convert WebP images to lossless PNG format in your browser. Free, private, no upload.',
+        'Convert WebP images to lossless PNG when you need pixel-stable output and transparency workflows.',
       h1: 'Convert WebP to PNG',
       introText:
         'Convert WebP images to lossless PNG format. Perfect for when you need transparency or lossless quality.',
@@ -175,9 +175,9 @@ const en: PageTranslations = {
       ],
     },
     'png-to-jpg': {
-      title: 'PNG to JPG Converter - Free, Private, No Upload | PicShift',
+      title: 'PNG to JPG Converter - Reduce PNG Size | PicShift',
       description:
-        'Convert PNG images to JPG format in your browser. Reduce file size while keeping great quality.',
+        'Convert PNG to JPG to reduce file size for faster uploads and sharing. Browser-based processing without file upload.',
       h1: 'Convert PNG to JPG',
       introText:
         "Convert PNG images to JPG to reduce file size. Great for photos saved as PNG that don't need transparency.",
@@ -194,9 +194,9 @@ const en: PageTranslations = {
       ],
     },
     'jpg-to-png': {
-      title: 'JPG to PNG Converter - Free, Private, No Upload | PicShift',
+      title: 'JPG to PNG Converter - Editing and Re-export | PicShift',
       description:
-        'Convert JPG images to lossless PNG format in your browser. Free, private, no upload.',
+        'Convert JPG images to PNG when you need stable editing and repeated re-export without additional lossy encoding.',
       h1: 'Convert JPG to PNG',
       introText:
         'Convert JPG images to lossless PNG format. Useful when you need a lossless version for editing.',
@@ -213,9 +213,9 @@ const en: PageTranslations = {
       ],
     },
     'jpg-to-webp': {
-      title: 'JPG to WebP Converter - Free, Private, No Upload | PicShift',
+      title: 'JPG to WebP Converter - Faster Page Load | PicShift',
       description:
-        'Convert JPG images to WebP format in your browser. Smaller files, same quality, 100% private.',
+        'Convert JPG to WebP for smaller web images and faster load speed. Tune quality in-browser and download instantly.',
       h1: 'Convert JPG to WebP',
       introText:
         'Convert JPG images to the modern WebP format for 25-34% smaller file sizes at the same visual quality.',
@@ -227,14 +227,14 @@ const en: PageTranslations = {
       faqs: [
         {
           q: 'How much smaller is WebP compared to JPG?',
-          a: 'WebP is typically 25-34% smaller than JPG at the same visual quality. A 1 MB JPG might become 650-750 KB as WebP with no visible difference.',
+          a: 'WebP is 25-34% smaller than JPG at the same visual quality in benchmark comparisons. A 1 MB JPG converts to 650-750 KB as WebP in that range.',
         },
       ],
     },
     'avif-to-jpg': {
-      title: 'AVIF to JPG Converter - Free, Private, No Upload | PicShift',
+      title: 'AVIF to JPG Converter - Legacy App Support | PicShift',
       description:
-        'Convert AVIF images to JPG format in your browser. Free, private, no upload required.',
+        'Convert AVIF to JPG for editors, devices, and platforms that do not accept AVIF files. Runs locally with no upload.',
       h1: 'Convert AVIF to JPG',
       introText:
         'Convert AVIF images to the universally compatible JPG format. All processing happens locally.',
@@ -251,9 +251,9 @@ const en: PageTranslations = {
       ],
     },
     'avif-to-png': {
-      title: 'AVIF to PNG Converter - Free, Private, No Upload | PicShift',
+      title: 'AVIF to PNG Converter for Lossless Workflow | PicShift',
       description:
-        'Convert AVIF images to lossless PNG format in your browser. Free, private, no upload.',
+        'Convert AVIF images to PNG for lossless editing and asset pipeline stability.',
       h1: 'Convert AVIF to PNG',
       introText:
         'Convert AVIF images to lossless PNG format. Perfect for preserving maximum quality.',
@@ -286,8 +286,7 @@ const en: PageTranslations = {
       ],
     },
     'image-compressor': {
-      title:
-        'Image Compressor - Reduce File Size Online, Free & Private | PicShift',
+      title: 'Image Compressor - Reduce Image Size Online | PicShift',
       description:
         'Compress images in your browser. Reduce JPG, PNG, and WebP file sizes while keeping great quality. 100% private, no upload.',
       h1: 'Compress Images',
@@ -301,7 +300,7 @@ const en: PageTranslations = {
       faqs: [
         {
           q: 'How much can I compress my images?',
-          a: 'It depends on the source image. A quality setting of 80% typically reduces JPG file sizes by 40-60% with minimal visible difference. Use the comparison view to check quality before downloading.',
+          a: 'Compression result is source-dependent. A quality setting of 80% reduces JPG file sizes by 40-60% in benchmark comparisons with minimal visible difference. Use the comparison view to verify before downloading.',
         },
         {
           q: 'What formats can I compress?',

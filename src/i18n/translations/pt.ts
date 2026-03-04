@@ -111,7 +111,7 @@ const pt: PageTranslations = {
         },
         {
           q: 'Os arquivos PNG s\u00e3o maiores que os JPG?',
-          a: 'Sim, os arquivos PNG s\u00e3o tipicamente de 2 a 5 vezes maiores que os JPG porque o PNG \u00e9 um formato sem perda. Se o tamanho do arquivo importa mais que a qualidade perfeita, considere converter para JPG.',
+          a: 'Sim, em fluxos fotogr\u00e1ficos padr\u00e3o, os arquivos PNG s\u00e3o de 2 a 5 vezes maiores que os JPG porque o PNG \u00e9 um formato sem perda. Se o tamanho do arquivo importa mais que a qualidade perfeita, converta para JPG.',
         },
       ],
     },
@@ -155,7 +155,7 @@ const pt: PageTranslations = {
       faqs: [
         {
           q: 'Por que converter WebP para JPG?',
-          a: 'Embora o WebP seja amplamente suportado em navegadores, alguns aplicativos mais antigos, clientes de e-mail e plataformas de m\u00eddia social podem n\u00e3o aceitar WebP. O JPG \u00e9 o formato de imagem mais universalmente compat\u00edvel.',
+          a: 'O WebP \u00e9 amplamente suportado em navegadores, e alguns aplicativos mais antigos, clientes de e-mail e plataformas de m\u00eddia social n\u00e3o aceitam WebP. O JPG \u00e9 o formato de imagem mais universalmente compat\u00edvel.',
         },
       ],
     },
@@ -235,7 +235,7 @@ const pt: PageTranslations = {
       faqs: [
         {
           q: 'Quanto menor \u00e9 o WebP comparado ao JPG?',
-          a: 'O WebP \u00e9 tipicamente de 25 a 34% menor que o JPG na mesma qualidade visual. Um JPG de 1 MB pode se tornar 650-750 KB como WebP sem diferen\u00e7a vis\u00edvel.',
+          a: 'O WebP \u00e9 de 25 a 34% menor que o JPG na mesma qualidade visual em compara\u00e7\u00f5es de refer\u00eancia. Um JPG de 1 MB se converte em 650-750 KB como WebP sem diferen\u00e7a vis\u00edvel.',
         },
       ],
     },
@@ -311,7 +311,7 @@ const pt: PageTranslations = {
       faqs: [
         {
           q: 'Quanto posso comprimir minhas imagens?',
-          a: 'Depende da imagem de origem. Uma configura\u00e7\u00e3o de qualidade de 80% tipicamente reduz o tamanho dos arquivos JPG de 40 a 60% com diferen\u00e7a vis\u00edvel m\u00ednima. Use a visualiza\u00e7\u00e3o de compara\u00e7\u00e3o para verificar a qualidade antes de baixar.',
+          a: 'O resultado da compress\u00e3o depende da imagem de origem. Uma configura\u00e7\u00e3o de qualidade de 80% reduz o tamanho dos arquivos JPG de 40 a 60% em compara\u00e7\u00f5es de refer\u00eancia, com diferen\u00e7a vis\u00edvel m\u00ednima. Use a visualiza\u00e7\u00e3o de compara\u00e7\u00e3o para verificar a qualidade antes de baixar.',
         },
         {
           q: 'Quais formatos posso comprimir?',

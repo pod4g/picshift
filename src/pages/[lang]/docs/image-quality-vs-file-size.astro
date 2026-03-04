@@ -1,0 +1,509 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/layout/Header.astro';
+import Footer from '../../../components/layout/Footer.astro';
+import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../../lib/contentDates';
+import { getDocsFaqs } from '../../../i18n/docsFaqs';
+import { getDocsUi } from '../../../i18n/docsUi';
+import { SUPPORTED_LOCALES } from '../../../i18n';
+import { getPageTranslations } from '../../../i18n/translations';
+import type { Locale } from '../../../i18n/config';
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES
+    .filter((l) => l !== 'en')
+    .map((l) => ({
+      params: { lang: l },
+      props: { lang: l },
+    }));
+}
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const docsUi = getDocsUi(lang);
+const pageTranslations = getPageTranslations(lang);
+const title = `PicShift ${docsUi.qualityDocTitle}`;
+const description = docsUi.qualityDocDescription;
+const pagePath = '/docs/image-quality-vs-file-size';
+const canonical = `https://picshift.app/${lang}/docs/image-quality-vs-file-size`;
+const datePublished = DOCS_DATE_PUBLISHED;
+const dateModified = CONTENT_DATE_MODIFIED;
+const qualityDocContent = {
+  en: {
+    intro:
+      'Quality settings control the trade-off between visual detail and output size. This guide helps you choose practical defaults for common use cases in PicShift.',
+    presetsHeading: 'Quick quality presets',
+    tableHeaders: ['Target', 'Suggested quality', 'Use case'],
+    rows: [
+      ['High quality', '85-92', 'Portfolio images, product photos'],
+      ['Balanced', '72-84', 'General websites, blogs, social sharing'],
+      ['Small size', '55-71', 'Messaging apps, preview thumbnails'],
+    ],
+    tipsHeading: 'Format-specific tips',
+    tips: [
+      'JPG works well for photos and gives predictable size reduction.',
+      'WebP keeps similar quality at smaller sizes than JPG for web delivery.',
+      'AVIF is highly efficient for large photos, and encoding overhead is higher for small images.',
+      'PNG is lossless and becomes larger when converted from lossy formats.',
+    ],
+    workflowHeading: 'A simple optimization workflow',
+    workflow: [
+      'Start with quality 80 for JPG/WebP and compare before/after visually.',
+      'If details still look clean, lower quality in small steps (for example, -5 each step).',
+      'Stop lowering quality when compression artifacts become noticeable on key areas.',
+      'Use lower quality for thumbnails and higher quality for hero images.',
+    ],
+  },
+  zh: {
+    intro:
+      '质量参数决定了视觉细节与输出体积之间的平衡。本指南帮助你在 PicShift 中为常见场景选择实用默认值。',
+    presetsHeading: '快速质量预设',
+    tableHeaders: ['目标', '建议质量', '适用场景'],
+    rows: [
+      ['高质量', '85-92', '作品集图片、商品图'],
+      ['平衡', '72-84', '普通网站、博客、社交分享'],
+      ['小体积', '55-71', '聊天应用、预览缩略图'],
+    ],
+    tipsHeading: '按格式选择建议',
+    tips: [
+      'JPG 适合照片类内容，体积下降趋势更稳定。',
+      '在网页交付中，WebP 往往以更小体积保持接近 JPG 的视觉质量。',
+      'AVIF 在大图压缩上效率更高，小图编码开销相对更明显。',
+      'PNG 是无损格式，从有损格式转换到 PNG 后体积通常会增大。',
+    ],
+    workflowHeading: '简化优化流程',
+    workflow: [
+      'JPG/WebP 先从质量 80 开始，并做前后视觉对比。',
+      '若关键细节仍清晰，再按小步长继续降低（例如每次 -5）。',
+      '当关键区域出现可见压缩伪影时停止继续降低。',
+      '缩略图可用更低质量，首屏主图使用更高质量。',
+    ],
+  },
+  'zh-Hant': {
+    intro:
+      '品質參數決定了視覺細節與輸出體積之間的平衡。本指南可協助你在 PicShift 中為常見場景選擇實用預設值。',
+    presetsHeading: '快速品質預設',
+    tableHeaders: ['目標', '建議品質', '適用場景'],
+    rows: [
+      ['高品質', '85-92', '作品集圖片、商品圖'],
+      ['平衡', '72-84', '一般網站、部落格、社群分享'],
+      ['小體積', '55-71', '通訊軟體、預覽縮圖'],
+    ],
+    tipsHeading: '依格式選擇建議',
+    tips: [
+      'JPG 適合照片內容，體積下降趨勢更穩定。',
+      '在網頁傳遞中，WebP 常以更小體積維持接近 JPG 的視覺品質。',
+      'AVIF 在大圖壓縮上效率更高，小圖時編碼開銷相對更明顯。',
+      'PNG 是無損格式，從有損格式轉成 PNG 後體積通常會增加。',
+    ],
+    workflowHeading: '簡化最佳化流程',
+    workflow: [
+      'JPG/WebP 先從品質 80 開始，並進行前後視覺比對。',
+      '若關鍵細節仍清晰，再以小步長持續降低（例如每次 -5）。',
+      '當關鍵區域出現可見壓縮痕跡時停止繼續降低。',
+      '縮圖可用較低品質，首屏主圖使用較高品質。',
+    ],
+  },
+  es: {
+    intro:
+      'La calidad controla el equilibrio entre detalle visual y tamaño del archivo. Esta guía te ayuda a elegir valores prácticos en PicShift.',
+    presetsHeading: 'Ajustes rápidos de calidad',
+    tableHeaders: ['Objetivo', 'Calidad sugerida', 'Escenario'],
+    rows: [
+      ['Alta calidad', '85-92', 'Portafolio, fotos de producto'],
+      ['Equilibrado', '72-84', 'Sitios generales, blogs, redes sociales'],
+      ['Tamaño pequeño', '55-71', 'Apps de mensajería, miniaturas'],
+    ],
+    tipsHeading: 'Consejos por formato',
+    tips: [
+      'JPG funciona bien para fotos y ofrece reducción de tamaño predecible.',
+      'WebP mantiene calidad similar con menor tamaño en entrega web.',
+      'AVIF es muy eficiente en fotos grandes, y el costo de codificación es mayor en imágenes pequeñas.',
+      'PNG es sin pérdida y suele crecer al convertir desde formatos con pérdida.',
+    ],
+    workflowHeading: 'Flujo simple de optimización',
+    workflow: [
+      'Empieza con calidad 80 para JPG/WebP y compara visualmente antes/después.',
+      'Si el detalle sigue limpio, baja la calidad en pasos pequeños (por ejemplo, -5 por paso).',
+      'Detén la reducción cuando aparezcan artefactos visibles en zonas clave.',
+      'Usa calidad más baja para miniaturas y más alta para imágenes principales.',
+    ],
+  },
+  fr: {
+    intro:
+      'Le réglage de qualité détermine l’équilibre entre détails visuels et taille de fichier. Ce guide aide à choisir des valeurs pratiques dans PicShift.',
+    presetsHeading: 'Préréglages qualité rapides',
+    tableHeaders: ['Objectif', 'Qualité suggérée', 'Cas d’usage'],
+    rows: [
+      ['Haute qualité', '85-92', 'Portfolio, photos produit'],
+      ['Équilibré', '72-84', 'Sites généraux, blogs, réseaux sociaux'],
+      ['Petit fichier', '55-71', 'Messagerie, miniatures'],
+    ],
+    tipsHeading: 'Conseils par format',
+    tips: [
+      'JPG est adapté aux photos et donne une réduction de taille prévisible.',
+      'WebP conserve une qualité proche avec une taille plus faible pour le web.',
+      'AVIF est très efficace pour les grandes photos, et le surcoût d’encodage est plus élevé sur les petites images.',
+      'PNG est sans perte et devient souvent plus volumineux après conversion depuis un format avec perte.',
+    ],
+    workflowHeading: 'Workflow d’optimisation simple',
+    workflow: [
+      'Commence avec qualité 80 pour JPG/WebP et compare visuellement avant/après.',
+      'Si les détails restent nets, baisse la qualité par petits paliers (par exemple -5).',
+      'Arrête la baisse quand des artefacts deviennent visibles sur les zones clés.',
+      'Utilise une qualité plus basse pour les miniatures et plus haute pour les images principales.',
+    ],
+  },
+  de: {
+    intro:
+      'Die Qualität bestimmt den Kompromiss zwischen Bilddetails und Dateigröße. Dieser Leitfaden hilft bei praktischen Einstellungen in PicShift.',
+    presetsHeading: 'Schnelle Qualitätsstufen',
+    tableHeaders: ['Ziel', 'Empfohlene Qualität', 'Einsatz'],
+    rows: [
+      ['Hohe Qualität', '85-92', 'Portfolio, Produktfotos'],
+      ['Ausgewogen', '72-84', 'Webseiten, Blogs, Social Sharing'],
+      ['Kleine Größe', '55-71', 'Messenger, Vorschaubilder'],
+    ],
+    tipsHeading: 'Format-spezifische Tipps',
+    tips: [
+      'JPG eignet sich gut für Fotos und liefert eine gut vorhersehbare Größenreduktion.',
+      'WebP erreicht bei ähnlicher Qualität oft kleinere Dateien für Web-Auslieferung.',
+      'AVIF ist bei großen Fotos sehr effizient, und der Kodierungs-Overhead ist bei kleinen Bildern höher.',
+      'PNG ist verlustfrei und wird bei Konvertierung aus verlustbehafteten Formaten meist größer.',
+    ],
+    workflowHeading: 'Einfacher Optimierungsablauf',
+    workflow: [
+      'Starte bei JPG/WebP mit Qualität 80 und vergleiche visuell vorher/nachher.',
+      'Wenn Details sauber bleiben, reduziere in kleinen Schritten (z. B. -5 pro Schritt).',
+      'Stoppe, sobald in wichtigen Bereichen sichtbare Artefakte auftreten.',
+      'Niedrigere Qualität für Thumbnails, höhere Qualität für Hero-Bilder.',
+    ],
+  },
+  ja: {
+    intro:
+      '品質設定は、見た目のディテールとファイルサイズのバランスを決めます。このガイドは PicShift で実用的な初期値を選ぶためのものです。',
+    presetsHeading: 'クイック品質プリセット',
+    tableHeaders: ['目的', '推奨品質', '用途'],
+    rows: [
+      ['高画質', '85-92', 'ポートフォリオ、商品写真'],
+      ['バランス', '72-84', '一般サイト、ブログ、SNS共有'],
+      ['小容量', '55-71', 'メッセージアプリ、サムネイル'],
+    ],
+    tipsHeading: '形式別のポイント',
+    tips: [
+      'JPG は写真向けで、容量削減の結果が予測しやすいです。',
+      'WebP は Web 配信で、JPG に近い画質のまま容量を小さくしやすいです。',
+      'AVIF は大きな写真で高効率ですが、小さい画像ではエンコード負荷が相対的に高くなります。',
+      'PNG は可逆形式のため、非可逆形式から変換すると容量が大きくなる傾向があります。',
+    ],
+    workflowHeading: 'シンプルな最適化手順',
+    workflow: [
+      'JPG/WebP は品質 80 から始め、変換前後を目視比較します。',
+      '重要なディテールが保たれていれば、小幅（例: 5刻み）で品質を下げます。',
+      '重要部分で圧縮アーティファクトが見えたら、そこで下げるのを止めます。',
+      'サムネイルは低め、ヒーロー画像は高めの品質を使います。',
+    ],
+  },
+  ko: {
+    intro:
+      '품질 설정은 시각적 디테일과 파일 크기 사이의 균형을 결정합니다. 이 가이드는 PicShift에서 실용적인 기본값을 고르는 방법을 안내합니다.',
+    presetsHeading: '빠른 품질 프리셋',
+    tableHeaders: ['목표', '권장 품질', '사용 사례'],
+    rows: [
+      ['고화질', '85-92', '포트폴리오, 제품 사진'],
+      ['균형', '72-84', '일반 웹사이트, 블로그, 소셜 공유'],
+      ['작은 용량', '55-71', '메신저, 미리보기 썸네일'],
+    ],
+    tipsHeading: '포맷별 팁',
+    tips: [
+      'JPG는 사진에 적합하고 용량 감소 결과가 예측하기 쉽습니다.',
+      'WebP는 웹 전달에서 비슷한 화질로 더 작은 파일을 만들기 쉽습니다.',
+      'AVIF는 큰 사진에서 효율이 높고, 작은 이미지에서는 인코딩 오버헤드가 상대적으로 큽니다.',
+      'PNG는 무손실 포맷이므로 손실 포맷에서 변환하면 보통 파일이 커집니다.',
+    ],
+    workflowHeading: '간단한 최적화 워크플로',
+    workflow: [
+      'JPG/WebP는 품질 80에서 시작하고 전후를 육안으로 비교합니다.',
+      '디테일이 충분하면 작은 단계(예: 5씩)로 품질을 낮춥니다.',
+      '핵심 영역에 아티팩트가 보이면 그 지점에서 낮추기를 멈춥니다.',
+      '썸네일은 더 낮은 품질, 핵심 이미지(히어로)는 더 높은 품질을 사용합니다.',
+    ],
+  },
+  pt: {
+    intro:
+      'A qualidade define o equilíbrio entre detalhe visual e tamanho do arquivo. Este guia ajuda a escolher padrões práticos no PicShift.',
+    presetsHeading: 'Predefinições rápidas de qualidade',
+    tableHeaders: ['Objetivo', 'Qualidade sugerida', 'Cenário'],
+    rows: [
+      ['Alta qualidade', '85-92', 'Portfólio, fotos de produto'],
+      ['Equilibrado', '72-84', 'Sites gerais, blogs, redes sociais'],
+      ['Tamanho pequeno', '55-71', 'Apps de mensagem, miniaturas'],
+    ],
+    tipsHeading: 'Dicas por formato',
+    tips: [
+      'JPG funciona bem para fotos e entrega redução de tamanho previsível.',
+      'WebP mantém qualidade semelhante com menor tamanho para web.',
+      'AVIF é muito eficiente em fotos grandes, e o overhead de codificação é maior em imagens pequenas.',
+      'PNG é sem perdas e costuma aumentar ao converter de formatos com perdas.',
+    ],
+    workflowHeading: 'Fluxo simples de otimização',
+    workflow: [
+      'Comece com qualidade 80 para JPG/WebP e compare visualmente antes/depois.',
+      'Se os detalhes continuarem limpos, reduza em passos pequenos (por exemplo, -5 por passo).',
+      'Pare de reduzir quando artefatos ficarem visíveis em áreas importantes.',
+      'Use qualidade menor para miniaturas e maior para imagens principais.',
+    ],
+  },
+  ru: {
+    intro:
+      'Параметр качества определяет баланс между деталями изображения и размером файла. Это руководство помогает выбрать практичные значения в PicShift.',
+    presetsHeading: 'Быстрые пресеты качества',
+    tableHeaders: ['Цель', 'Рекомендуемое качество', 'Сценарий'],
+    rows: [
+      ['Высокое качество', '85-92', 'Портфолио, фото товаров'],
+      ['Баланс', '72-84', 'Обычные сайты, блоги, соцсети'],
+      ['Малый размер', '55-71', 'Мессенджеры, миниатюры'],
+    ],
+    tipsHeading: 'Советы по форматам',
+    tips: [
+      'JPG хорошо подходит для фотографий и дает предсказуемое снижение размера.',
+      'WebP обычно сохраняет схожее качество при меньшем размере для веб-доставки.',
+      'AVIF очень эффективен для больших фото, и накладные расходы кодирования выше на маленьких изображениях.',
+      'PNG — формат без потерь и обычно становится больше при конвертации из форматов с потерями.',
+    ],
+    workflowHeading: 'Простой процесс оптимизации',
+    workflow: [
+      'Начните с качества 80 для JPG/WebP и сравните результат визуально.',
+      'Если детали остаются чистыми, снижайте качество небольшими шагами (например, по -5).',
+      'Остановитесь, когда артефакты станут заметны в важных областях.',
+      'Для миниатюр используйте более низкое качество, для ключевых изображений — более высокое.',
+    ],
+  },
+  ar: {
+    intro:
+      'إعداد الجودة يحدد التوازن بين التفاصيل البصرية وحجم الملف. يساعدك هذا الدليل على اختيار قيم عملية في PicShift.',
+    presetsHeading: 'إعدادات جودة سريعة',
+    tableHeaders: ['الهدف', 'الجودة المقترحة', 'حالة الاستخدام'],
+    rows: [
+      ['جودة عالية', '85-92', 'معرض الأعمال، صور المنتجات'],
+      ['متوازن', '72-84', 'المواقع العامة، المدونات، المشاركة الاجتماعية'],
+      ['حجم صغير', '55-71', 'تطبيقات المراسلة، الصور المصغرة'],
+    ],
+    tipsHeading: 'نصائح حسب الصيغة',
+    tips: [
+      'JPG مناسب للصور ويعطي تقليل حجم متوقع.',
+      'WebP يحافظ على جودة قريبة مع حجم أصغر لتسليم الويب.',
+      'AVIF فعال جدًا للصور الكبيرة، وتكلفة الترميز أعلى نسبيًا في الصور الصغيرة.',
+      'PNG صيغة بدون فقدان وغالبًا يصبح حجمها أكبر عند التحويل من صيغ مع فقدان.',
+    ],
+    workflowHeading: 'خطوات تحسين بسيطة',
+    workflow: [
+      'ابدأ بجودة 80 لـ JPG/WebP وقارن بصريًا قبل/بعد.',
+      'إذا بقيت التفاصيل واضحة، خفّض الجودة بخطوات صغيرة (مثل -5 كل مرة).',
+      'توقف عندما تظهر آثار ضغط واضحة في المناطق المهمة.',
+      'استخدم جودة أقل للصور المصغرة وجودة أعلى للصور الرئيسية.',
+    ],
+  },
+  it: {
+    intro:
+      'La qualità definisce il compromesso tra dettaglio visivo e dimensione del file. Questa guida aiuta a scegliere valori pratici in PicShift.',
+    presetsHeading: 'Preset rapidi di qualità',
+    tableHeaders: ['Obiettivo', 'Qualità suggerita', 'Scenario'],
+    rows: [
+      ['Alta qualità', '85-92', 'Portfolio, foto prodotto'],
+      ['Bilanciato', '72-84', 'Siti generici, blog, social'],
+      ['Dimensione ridotta', '55-71', 'App di messaggistica, miniature'],
+    ],
+    tipsHeading: 'Suggerimenti per formato',
+    tips: [
+      'JPG è adatto alle foto e offre una riduzione dimensionale prevedibile.',
+      'WebP mantiene qualità simile con file più piccoli per il web.',
+      'AVIF è molto efficiente sulle foto grandi, e l’overhead di codifica è più alto sulle immagini piccole.',
+      'PNG è lossless e tende ad aumentare quando si converte da formati lossy.',
+    ],
+    workflowHeading: 'Workflow semplice di ottimizzazione',
+    workflow: [
+      'Parti da qualità 80 per JPG/WebP e confronta visivamente prima/dopo.',
+      'Se i dettagli restano puliti, riduci la qualità a piccoli passi (ad esempio -5 per volta).',
+      'Interrompi quando compaiono artefatti visibili nelle aree importanti.',
+      'Usa qualità più bassa per le miniature e più alta per le immagini principali.',
+    ],
+  },
+}[lang] ?? {
+  intro:
+    'Quality settings control the trade-off between visual detail and output size. This guide helps you choose practical defaults for common use cases in PicShift.',
+  presetsHeading: 'Quick quality presets',
+  tableHeaders: ['Target', 'Suggested quality', 'Use case'],
+  rows: [
+    ['High quality', '85-92', 'Portfolio images, product photos'],
+    ['Balanced', '72-84', 'General websites, blogs, social sharing'],
+    ['Small size', '55-71', 'Messaging apps, preview thumbnails'],
+  ],
+  tipsHeading: 'Format-specific tips',
+  tips: [
+    'JPG works well for photos and gives predictable size reduction.',
+    'WebP keeps similar quality at smaller sizes than JPG for web delivery.',
+    'AVIF is highly efficient for large photos, and encoding overhead is higher for small images.',
+    'PNG is lossless and becomes larger when converted from lossy formats.',
+  ],
+  workflowHeading: 'A simple optimization workflow',
+  workflow: [
+    'Start with quality 80 for JPG/WebP and compare before/after visually.',
+    'If details still look clean, lower quality in small steps (for example, -5 each step).',
+    'Stop lowering quality when compression artifacts become noticeable on key areas.',
+    'Use lower quality for thumbnails and higher quality for hero images.',
+  ],
+};
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: title,
+  description,
+  url: canonical,
+  inLanguage: lang,
+  datePublished,
+  dateModified,
+  author: { '@type': 'Organization', name: 'PicShift' },
+  publisher: { '@type': 'Organization', name: 'PicShift', url: 'https://picshift.app' },
+};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: docsUi.home,
+      item: `https://picshift.app/${lang}/`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: docsUi.docs,
+      item: `https://picshift.app/${lang}/docs`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: title,
+      item: canonical,
+    },
+  ],
+};
+const faqs = getDocsFaqs(lang, 'image-quality-vs-file-size');
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+};
+---
+
+<Layout title={title} description={description} canonical={canonical} lang={lang} pagePath={pagePath}>
+  <Header lang={lang} pagePath={pagePath} />
+
+  <main class="flex-1">
+    <article class="max-w-3xl mx-auto px-4 py-10 sm:py-14">
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm text-text-secondary">
+        <a href={`/${lang}/`} class="hover:text-text-primary hover:underline">{docsUi.home}</a>
+        <span class="mx-2">/</span>
+        <a href={`/${lang}/docs`} class="hover:text-text-primary hover:underline">{docsUi.docs}</a>
+        <span class="mx-2">/</span>
+        <span class="text-text-primary">{docsUi.qualityDocTitle}</span>
+      </nav>
+      <h1 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
+        {title}
+      </h1>
+      <p class="text-base sm:text-lg text-text-secondary mb-8">
+        {qualityDocContent.intro}
+      </p>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{qualityDocContent.presetsHeading}</h2>
+        <div class="overflow-x-auto rounded-xl border border-border bg-card-bg shadow-sm">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border">
+                <th class="text-left py-3 px-4 font-medium text-text-secondary">{qualityDocContent.tableHeaders[0]}</th>
+                <th class="text-left py-3 px-4 font-medium text-text-secondary">{qualityDocContent.tableHeaders[1]}</th>
+                <th class="text-left py-3 px-4 font-medium text-text-secondary">{qualityDocContent.tableHeaders[2]}</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border text-text-secondary">
+              {qualityDocContent.rows.map((row) => (
+                <tr>
+                  <td class="py-3 px-4 text-text-primary font-medium">{row[0]}</td>
+                  <td class="py-3 px-4">{row[1]}</td>
+                  <td class="py-3 px-4">{row[2]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{qualityDocContent.tipsHeading}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          {qualityDocContent.tips.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{qualityDocContent.workflowHeading}</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-text-secondary">
+          {qualityDocContent.workflow.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{docsUi.faq}</h2>
+        <div class="space-y-4">
+          {faqs.map((faq) => (
+            <div class="rounded-xl border border-border bg-card-bg p-4">
+              <h3 class="text-base font-semibold text-text-primary mb-1">{faq.q}</h3>
+              <p class="text-sm text-text-secondary">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{docsUi.relatedPages}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li><a href={`/${lang}/docs/format-compatibility`} class="text-primary-500 hover:underline">{docsUi.formatDocTitle}</a></li>
+          <li><a href={`/${lang}/docs/privacy-local-processing`} class="text-primary-500 hover:underline">{docsUi.privacyDocTitle}</a></li>
+          <li><a href={`/${lang}/docs`} class="text-primary-500 hover:underline">{docsUi.allDocs}</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{docsUi.backToToolPages}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li><a href={`/${lang}/image-compressor`} class="text-primary-500 hover:underline">{pageTranslations.tools['image-compressor']?.h1 || 'Image Compressor'}</a></li>
+          <li><a href={`/${lang}/jpg-to-webp`} class="text-primary-500 hover:underline">{pageTranslations.tools['jpg-to-webp']?.h1 || 'JPG to WebP Converter'}</a></li>
+          <li><a href={`/${lang}/png-to-jpg`} class="text-primary-500 hover:underline">{pageTranslations.tools['png-to-jpg']?.h1 || 'PNG to JPG Converter'}</a></li>
+        </ul>
+      </section>
+      <p class="text-sm text-text-secondary pt-4 border-t border-border">{docsUi.lastUpdated}: {dateModified}</p>
+    </article>
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </main>
+
+  <Footer lang={lang} />
+</Layout>

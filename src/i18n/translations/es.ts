@@ -111,7 +111,7 @@ const es: PageTranslations = {
         },
         {
           q: 'Los archivos PNG son mas grandes que los JPG?',
-          a: 'Si, los archivos PNG son tipicamente 2 a 5 veces mas grandes que los JPG porque PNG es sin perdida. Si el tamano del archivo importa mas que la calidad perfecta, considera convertir a JPG.',
+          a: 'Si, en flujos fotograficos estandar, los archivos PNG son 2 a 5 veces mas grandes que los JPG porque PNG es sin perdida. Si el tamano del archivo importa mas que la calidad perfecta, convierte a JPG.',
         },
       ],
     },
@@ -155,7 +155,7 @@ const es: PageTranslations = {
       faqs: [
         {
           q: 'Por que convertir WebP a JPG?',
-          a: 'Aunque WebP es ampliamente compatible en navegadores, algunas aplicaciones antiguas, clientes de correo electronico y plataformas de redes sociales pueden no aceptar WebP. JPG es el formato de imagen mas universalmente compatible.',
+          a: 'WebP es ampliamente compatible en navegadores, y algunas aplicaciones antiguas, clientes de correo electronico y plataformas de redes sociales no aceptan WebP. JPG es el formato de imagen mas universalmente compatible.',
         },
       ],
     },
@@ -233,7 +233,7 @@ const es: PageTranslations = {
       faqs: [
         {
           q: 'Cuanto mas pequeno es WebP comparado con JPG?',
-          a: 'WebP es tipicamente un 25-34% mas pequeno que JPG con la misma calidad visual. Un JPG de 1 MB podria convertirse en 650-750 KB como WebP sin diferencia visible.',
+          a: 'WebP es 25-34% mas pequeno que JPG con la misma calidad visual en comparaciones de referencia. Un JPG de 1 MB se convierte en 650-750 KB como WebP sin diferencia visible.',
         },
       ],
     },
@@ -309,7 +309,7 @@ const es: PageTranslations = {
       faqs: [
         {
           q: 'Cuanto puedo comprimir mis imagenes?',
-          a: 'Depende de la imagen original. Una configuracion de calidad del 80% tipicamente reduce el tamano de archivos JPG en un 40-60% con una diferencia visible minima. Usa la vista de comparacion para verificar la calidad antes de descargar.',
+          a: 'El resultado de compresion depende de la imagen original. Una configuracion de calidad del 80% reduce el tamano de archivos JPG en un 40-60% en comparaciones de referencia, con una diferencia visible minima. Usa la vista de comparacion para verificar la calidad antes de descargar.',
         },
         {
           q: 'Que formatos puedo comprimir?',

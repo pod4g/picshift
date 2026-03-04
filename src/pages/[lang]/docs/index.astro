@@ -1,0 +1,127 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/layout/Header.astro';
+import Footer from '../../../components/layout/Footer.astro';
+import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../../lib/contentDates';
+import { getDocsUi } from '../../../i18n/docsUi';
+import { SUPPORTED_LOCALES } from '../../../i18n';
+import type { Locale } from '../../../i18n/config';
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES
+    .filter((l) => l !== 'en')
+    .map((l) => ({
+      params: { lang: l },
+      props: { lang: l },
+    }));
+}
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const docsUi = getDocsUi(lang);
+const title = docsUi.docsGuidesTitle;
+const description = docsUi.docsGuidesDescription;
+const pagePath = '/docs';
+const canonical = `https://picshift.app/${lang}/docs`;
+const datePublished = DOCS_DATE_PUBLISHED;
+const dateModified = CONTENT_DATE_MODIFIED;
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: title,
+  description,
+  url: canonical,
+  inLanguage: lang,
+  datePublished,
+  dateModified,
+  publisher: { '@type': 'Organization', name: 'PicShift', url: 'https://picshift.app' },
+};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: docsUi.home,
+      item: `https://picshift.app/${lang}/`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: docsUi.docs,
+      item: canonical,
+    },
+  ],
+};
+
+const docs = [
+  {
+    href: `/${lang}/docs/privacy-local-processing`,
+    title: docsUi.privacyDocTitle,
+    description: docsUi.privacyDocDescription,
+  },
+  {
+    href: `/${lang}/docs/format-compatibility`,
+    title: docsUi.formatDocTitle,
+    description: docsUi.formatDocDescription,
+  },
+  {
+    href: `/${lang}/docs/image-quality-vs-file-size`,
+    title: docsUi.qualityDocTitle,
+    description: docsUi.qualityDocDescription,
+  },
+];
+const docsItemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: docsUi.docsGuidesTitle,
+  itemListOrder: 'https://schema.org/ItemListOrderAscending',
+  numberOfItems: docs.length,
+  itemListElement: docs.map((doc, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: doc.title,
+    url: `https://picshift.app${doc.href}`,
+  })),
+};
+---
+
+<Layout title={title} description={description} canonical={canonical} lang={lang} pagePath={pagePath}>
+  <Header lang={lang} pagePath={pagePath} />
+
+  <main class="flex-1">
+    <section class="max-w-4xl mx-auto px-4 py-10 sm:py-14">
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm text-text-secondary">
+        <a href={`/${lang}/`} class="hover:text-text-primary hover:underline">{docsUi.home}</a>
+        <span class="mx-2">/</span>
+        <span class="text-text-primary">{docsUi.docs}</span>
+      </nav>
+      <h1 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">{docsUi.docsGuidesTitle}</h1>
+      <p class="text-base sm:text-lg text-text-secondary mb-8">
+        {docsUi.docsGuidesDescription}
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {docs.map((doc) => (
+          <a
+            href={doc.href}
+            class="block rounded-xl border border-border bg-card-bg p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+          >
+            <h2 class="text-lg font-semibold text-text-primary mb-2">{doc.title}</h2>
+            <p class="text-sm text-text-secondary">{doc.description}</p>
+          </a>
+        ))}
+      </div>
+      <p class="text-sm text-text-secondary pt-4 border-t border-border mt-6">{docsUi.lastUpdated}: {dateModified}</p>
+    </section>
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(docsItemListSchema)} />
+  </main>
+
+  <Footer lang={lang} />
+</Layout>

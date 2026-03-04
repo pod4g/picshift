@@ -1,0 +1,187 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../lib/contentDates';
+
+const lang = 'en' as const;
+const title = 'Image Quality vs File Size: Practical Guide';
+const description = 'How to choose image quality settings in PicShift for the best balance between visual quality and file size.';
+const canonical = 'https://picshift.app/docs/image-quality-vs-file-size';
+const pagePath = '/docs/image-quality-vs-file-size';
+const datePublished = DOCS_DATE_PUBLISHED;
+const dateModified = CONTENT_DATE_MODIFIED;
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: title,
+  description,
+  url: canonical,
+  inLanguage: 'en',
+  datePublished,
+  dateModified,
+  author: { '@type': 'Organization', name: 'PicShift' },
+  publisher: { '@type': 'Organization', name: 'PicShift', url: 'https://picshift.app' },
+};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://picshift.app/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Docs',
+      item: 'https://picshift.app/docs',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: title,
+      item: canonical,
+    },
+  ],
+};
+const faqs = [
+  {
+    q: 'What quality setting is a practical default for JPG or WebP?',
+    a: 'Quality 80 is a practical starting point for JPG and WebP in common web and sharing workflows.',
+  },
+  {
+    q: 'Why can PNG become larger after conversion?',
+    a: 'PNG is lossless. Converting from lossy formats such as JPG to PNG preserves exact pixel data and usually increases file size.',
+  },
+  {
+    q: 'How should I reduce file size without visible artifacts?',
+    a: 'Lower quality in small steps and compare key details after each step. Stop reducing when artifacts are visible in important regions.',
+  },
+];
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+};
+---
+
+<Layout title={title} description={description} canonical={canonical} lang={lang} pagePath={pagePath}>
+  <Header lang={lang} pagePath={pagePath} />
+
+  <main class="flex-1">
+    <article class="max-w-3xl mx-auto px-4 py-10 sm:py-14">
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm text-text-secondary">
+        <a href="/" class="hover:text-text-primary hover:underline">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/docs" class="hover:text-text-primary hover:underline">Docs</a>
+        <span class="mx-2">/</span>
+        <span class="text-text-primary">Image Quality vs File Size</span>
+      </nav>
+      <h1 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
+        Image Quality vs File Size: Practical Guide
+      </h1>
+      <p class="text-base sm:text-lg text-text-secondary mb-8">
+        Quality settings control the trade-off between visual detail and output size. This guide helps you choose
+        practical defaults for common use cases in PicShift.
+      </p>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Quick quality presets</h2>
+        <div class="overflow-x-auto rounded-xl border border-border bg-card-bg shadow-sm">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border">
+                <th class="text-left py-3 px-4 font-medium text-text-secondary">Target</th>
+                <th class="text-left py-3 px-4 font-medium text-text-secondary">Suggested quality</th>
+                <th class="text-left py-3 px-4 font-medium text-text-secondary">Use case</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border text-text-secondary">
+              <tr>
+                <td class="py-3 px-4 text-text-primary font-medium">High quality</td>
+                <td class="py-3 px-4">85-92</td>
+                <td class="py-3 px-4">Portfolio images, product photos</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 text-text-primary font-medium">Balanced</td>
+                <td class="py-3 px-4">72-84</td>
+                <td class="py-3 px-4">General websites, blogs, social sharing</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 text-text-primary font-medium">Small size</td>
+                <td class="py-3 px-4">55-71</td>
+                <td class="py-3 px-4">Messaging apps, preview thumbnails</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Format-specific tips</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li>JPG works well for photos and gives predictable size reduction.</li>
+          <li>WebP keeps similar quality at smaller sizes than JPG for web delivery.</li>
+          <li>AVIF is highly efficient for large photos, and encoding overhead is higher for small images.</li>
+          <li>PNG is lossless and becomes larger when converted from lossy formats.</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">A simple optimization workflow</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-text-secondary">
+          <li>Start with quality 80 for JPG/WebP and compare before/after visually.</li>
+          <li>If details still look clean, lower quality in small steps (for example, -5 each step).</li>
+          <li>Stop lowering quality when compression artifacts become noticeable on key areas.</li>
+          <li>Use lower quality for thumbnails and higher quality for hero images.</li>
+        </ol>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">FAQ</h2>
+        <div class="space-y-4">
+          {faqs.map((faq) => (
+            <div class="rounded-xl border border-border bg-card-bg p-4">
+              <h3 class="text-base font-semibold text-text-primary mb-1">{faq.q}</h3>
+              <p class="text-sm text-text-secondary">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Related pages</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li><a href="/docs/format-compatibility" class="text-primary-500 hover:underline">Format Compatibility Guide</a></li>
+          <li><a href="/docs/privacy-local-processing" class="text-primary-500 hover:underline">Privacy and Local Processing</a></li>
+          <li><a href="/docs" class="text-primary-500 hover:underline">All docs</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Back to tool pages</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li><a href="/image-compressor" class="text-primary-500 hover:underline">Image Compressor</a></li>
+          <li><a href="/jpg-to-webp" class="text-primary-500 hover:underline">JPG to WebP Converter</a></li>
+          <li><a href="/png-to-jpg" class="text-primary-500 hover:underline">PNG to JPG Converter</a></li>
+        </ul>
+      </section>
+      <p class="text-sm text-text-secondary pt-4 border-t border-border">Last updated: {dateModified}</p>
+    </article>
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </main>
+
+  <Footer lang={lang} />
+</Layout>

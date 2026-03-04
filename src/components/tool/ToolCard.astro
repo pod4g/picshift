@@ -1,0 +1,68 @@
+---
+import type { ToolCardIconType } from '../../lib/toolCardMeta';
+
+interface Props {
+  href: string;
+  slug: string;
+  label: string;
+  introText: string;
+  fromTo: string;
+  iconType: ToolCardIconType;
+  iconContainerClass: string;
+  iconClass: string;
+}
+
+const { href, slug, label, introText, fromTo, iconType, iconContainerClass, iconClass } = Astro.props;
+---
+
+<a
+  href={href}
+  data-umami-event="tool_card_click"
+  data-umami-event-slug={slug}
+  class="group block bg-card-bg rounded-xl border border-border p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+>
+  <div class="flex items-center gap-3 mb-3">
+    <div class={iconContainerClass}>
+      {iconType === 'compress' ? (
+        <svg class={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      ) : iconType === 'resize' ? (
+        <svg class={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 3H5a2 2 0 00-2 2v3m16 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3m-16 0v3a2 2 0 002 2h3" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9h6v6H9z" />
+        </svg>
+      ) : iconType === 'jpg' ? (
+        <svg class={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.5-4.5a2 2 0 012.8 0L16 16m-2-2 1.5-1.5a2 2 0 012.8 0L20 14m-6-8h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      ) : iconType === 'png' ? (
+        <svg class={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16M7 4v16M12 4v16M17 4v16" />
+        </svg>
+      ) : iconType === 'webp' ? (
+        <svg class={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" stroke-width="2" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h18M12 3c2.7 2.4 4.2 5.6 4.2 9S14.7 18.6 12 21m0-18C9.3 5.4 7.8 8.6 7.8 12S9.3 18.6 12 21" />
+        </svg>
+      ) : iconType === 'avif' ? (
+        <svg class={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l1.8 3.6L18 8.4l-3 2.9.7 4.1L12 13.7l-3.7 1.7.7-4.1-3-2.9 4.2-1.8L12 3z" />
+        </svg>
+      ) : (
+        <svg class={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      )}
+    </div>
+    <span class="text-xs font-semibold tracking-wide text-primary-500 uppercase">
+      {fromTo}
+    </span>
+  </div>
+  <h3 class="font-semibold text-text-primary group-hover:text-primary-600 transition-colors mb-1">
+    {label}
+  </h3>
+  <p class="text-sm text-text-secondary line-clamp-2">
+    {introText}
+  </p>
+</a>

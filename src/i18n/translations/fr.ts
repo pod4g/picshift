@@ -111,7 +111,7 @@ const fr: PageTranslations = {
         },
         {
           q: 'Les fichiers PNG sont-ils plus volumineux que les JPG ?',
-          a: 'Oui, les fichiers PNG sont generalement 2 a 5 fois plus volumineux que les JPG car le PNG est sans perte. Si la taille du fichier compte plus que la qualite parfaite, envisagez de convertir en JPG.',
+          a: 'Oui, dans les workflows photo standards, les fichiers PNG sont 2 a 5 fois plus volumineux que les JPG car le PNG est sans perte. Si la taille du fichier compte plus que la qualite parfaite, convertissez en JPG.',
         },
       ],
     },
@@ -233,7 +233,7 @@ const fr: PageTranslations = {
       faqs: [
         {
           q: 'Quelle reduction de taille offre WebP par rapport a JPG ?',
-          a: 'WebP est generalement 25 a 34% plus petit que JPG a qualite visuelle egale. Un JPG de 1 Mo pourrait devenir 650-750 Ko en WebP sans difference visible.',
+          a: 'WebP est 25 a 34% plus petit que JPG a qualite visuelle egale dans les comparaisons de reference. Un JPG de 1 Mo devient 650-750 Ko en WebP sans difference visible.',
         },
       ],
     },
@@ -309,11 +309,11 @@ const fr: PageTranslations = {
       faqs: [
         {
           q: 'De combien puis-je compresser mes images ?',
-          a: "Cela depend de l'image source. Un reglage de qualite a 80% reduit generalement la taille des fichiers JPG de 40 a 60% avec une difference visible minimale. Utilisez la vue de comparaison pour verifier la qualite avant de telecharger.",
+          a: "Le resultat de compression depend de l'image source. Un reglage de qualite a 80% reduit la taille des fichiers JPG de 40 a 60% dans les comparaisons de reference, avec une difference visible minimale. Utilisez la vue de comparaison pour verifier la qualite avant de telecharger.",
         },
         {
           q: 'Quels formats puis-je compresser ?',
-          a: 'Vous pouvez compresser des images JPG, PNG, WebP, HEIC et AVIF. Le format de sortie peut être JPG, PNG, WebP ou AVIF.',
+          a: 'Vous pouvez compresser des images JPG, PNG, WebP, HEIC et AVIF. Les formats de sortie sont JPG, PNG, WebP et AVIF.',
         },
       ],
     },

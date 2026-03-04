@@ -1,0 +1,2 @@
+export const DOCS_DATE_PUBLISHED = '2026-03-04';
+export const CONTENT_DATE_MODIFIED = '2026-03-04';

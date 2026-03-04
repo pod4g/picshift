@@ -1,7 +1,5 @@
 ---
-import { TOOL_PAGES } from '../../data/tools';
 import { getUI, localePath, SUPPORTED_LOCALES, LOCALE_CONFIG } from '../../i18n';
-import { getPageTranslations } from '../../i18n/translations';
 import type { Locale } from '../../i18n/config';
 
 interface Props {
@@ -11,7 +9,6 @@ interface Props {
 
 const { lang = 'en', pagePath = '/' } = Astro.props;
 const ui = getUI(lang);
-const pageTranslations = getPageTranslations(lang);
 const currentNativeName = LOCALE_CONFIG[lang].nativeName;
 ---
 
@@ -36,31 +33,12 @@ const currentNativeName = LOCALE_CONFIG[lang].nativeName;
 
     <!-- Desktop nav -->
     <div class="hidden md:flex items-center gap-4">
-      <div class="relative group">
-        <button
-          class="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors flex items-center gap-1"
-          aria-haspopup="true"
-        >
-          {ui.allTools}
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
-        <div class="absolute right-0 top-full mt-1 w-56 bg-card-bg rounded-xl shadow-lg border border-border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
-          {TOOL_PAGES.map((tool) => {
-            const toolTranslation = pageTranslations.tools[tool.slug];
-            const toolLabel = toolTranslation?.h1 || tool.h1;
-            return (
-              <a
-                href={localePath(`/${tool.slug}`, lang)}
-                class="block px-4 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-drop-bg transition-colors"
-              >
-                {toolLabel}
-              </a>
-            );
-          })}
-        </div>
-      </div>
+      <a
+        href={`${localePath('/', lang)}#all-converters`}
+        class="inline-flex items-center rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-drop-bg transition-colors"
+      >
+        {ui.allTools}
+      </a>
       <a
         href={localePath('/privacy', lang)}
         class="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
@@ -143,22 +121,17 @@ const currentNativeName = LOCALE_CONFIG[lang].nativeName;
   <!-- Mobile menu panel -->
   <div class="mobile-nav max-h-0 overflow-hidden transition-all duration-300 md:hidden">
     <div class="px-4 pb-4 space-y-1 border-t border-border pt-3">
-      <p class="text-xs font-semibold text-text-secondary uppercase tracking-wide mb-2">{ui.allTools}</p>
-      {TOOL_PAGES.map((tool) => {
-        const toolTranslation = pageTranslations.tools[tool.slug];
-        const toolLabel = toolTranslation?.h1 || tool.h1;
-        return (
-          <a
-            href={localePath(`/${tool.slug}`, lang)}
-            class="block py-2 px-3 text-sm text-text-secondary hover:text-text-primary hover:bg-drop-bg rounded-lg transition-colors"
-          >
-            {toolLabel}
-          </a>
-        );
-      })}
+      <a
+        href={`${localePath('/', lang)}#all-converters`}
+        data-close-mobile-menu="1"
+        class="block py-2 px-3 text-sm text-text-secondary hover:text-text-primary hover:bg-drop-bg rounded-lg transition-colors"
+      >
+        {ui.allTools}
+      </a>
       <hr class="border-border my-2" />
       <a
         href={localePath('/privacy', lang)}
+        data-close-mobile-menu="1"
         class="block py-2 px-3 text-sm text-text-secondary hover:text-text-primary hover:bg-drop-bg rounded-lg transition-colors"
       >
         {ui.privacyPolicy}
@@ -231,6 +204,14 @@ const currentNativeName = LOCALE_CONFIG[lang].nativeName;
     document.querySelectorAll('[data-lang-switch]').forEach(function(el) {
       el.addEventListener('click', function() {
         localStorage.setItem('picshift_lang', el.getAttribute('data-lang-switch'));
+      });
+    });
+
+    // Mobile nav links: close panel after click
+    document.querySelectorAll('[data-close-mobile-menu]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        var toggle = document.getElementById('mobile-menu-toggle');
+        if (toggle) toggle.checked = false;
       });
     });
   })();

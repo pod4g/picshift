@@ -111,7 +111,7 @@ const it: PageTranslations = {
         },
         {
           q: 'I file PNG sono pi\u00f9 grandi dei JPG?',
-          a: 'S\u00ec, i file PNG sono tipicamente 2-5 volte pi\u00f9 grandi dei JPG perch\u00e9 PNG \u00e8 un formato senza perdita. Se la dimensione del file conta pi\u00f9 della qualit\u00e0 perfetta, considera la conversione in JPG.',
+          a: 'S\u00ec, nei flussi fotografici standard i file PNG sono 2-5 volte pi\u00f9 grandi dei JPG perch\u00e9 PNG \u00e8 un formato senza perdita. Se la dimensione del file conta pi\u00f9 della qualit\u00e0 perfetta, converti in JPG.',
         },
       ],
     },
@@ -155,7 +155,7 @@ const it: PageTranslations = {
       faqs: [
         {
           q: 'Perch\u00e9 convertire WebP in JPG?',
-          a: 'Sebbene WebP sia ampiamente supportato nei browser, alcune applicazioni meno recenti, client di posta elettronica e piattaforme di social media potrebbero non accettare WebP. JPG \u00e8 il formato immagine pi\u00f9 universalmente compatibile.',
+          a: 'WebP \u00e8 ampiamente supportato nei browser, e alcune applicazioni meno recenti, client di posta elettronica e piattaforme di social media non accettano WebP. JPG \u00e8 il formato immagine pi\u00f9 universalmente compatibile.',
         },
       ],
     },
@@ -235,7 +235,7 @@ const it: PageTranslations = {
       faqs: [
         {
           q: 'Quanto \u00e8 pi\u00f9 piccolo WebP rispetto a JPG?',
-          a: 'WebP \u00e8 tipicamente dal 25 al 34% pi\u00f9 piccolo del JPG alla stessa qualit\u00e0 visiva. Un JPG da 1 MB potrebbe diventare 650-750 KB come WebP senza differenze visibili.',
+          a: 'WebP \u00e8 dal 25 al 34% pi\u00f9 piccolo del JPG alla stessa qualit\u00e0 visiva nelle comparazioni di riferimento. Un JPG da 1 MB si converte in 650-750 KB come WebP senza differenze visibili.',
         },
       ],
     },
@@ -311,7 +311,7 @@ const it: PageTranslations = {
       faqs: [
         {
           q: 'Di quanto posso comprimere le mie immagini?',
-          a: "Dipende dall'immagine di origine. Un'impostazione di qualit\u00e0 dell'80% riduce tipicamente le dimensioni dei file JPG del 40-60% con differenze visibili minime. Usa la vista confronto per verificare la qualit\u00e0 prima di scaricare.",
+          a: "Il risultato della compressione dipende dall'immagine di origine. Un'impostazione di qualit\u00e0 dell'80% riduce le dimensioni dei file JPG del 40-60% nelle comparazioni di riferimento, con differenze visibili minime. Usa la vista confronto per verificare la qualit\u00e0 prima di scaricare.",
         },
         {
           q: 'Quali formati posso comprimere?',

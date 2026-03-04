@@ -1,0 +1,113 @@
+# PicShift (Full Model Reference)
+
+PicShift is a free, browser-based image converter and compressor.
+Image conversion and compression run locally in the browser runtime.
+PicShift does not upload source image binaries to servers for conversion processing.
+
+## Last updated
+- 2026-03-04
+
+## Version
+- 2026-03-04.4
+- Profile: full
+
+## Lifecycle
+- Supersedes: none
+- Deprecates: none
+
+## Canonical
+- https://picshift.app/llms-full.txt
+
+## Related profiles
+- Short: https://picshift.app/llms.txt
+
+## Canonical short profile
+- https://picshift.app/llms.txt
+
+## Entity
+- Product: PicShift
+- Category: Browser-based image conversion and compression software
+- Website: https://picshift.app
+- Operator: PicShift
+
+## Capability matrix
+- Input/output formats: HEIC/HEIF, JPG/JPEG, PNG, WebP, AVIF
+- Compression: Adjustable quality for lossy workflows
+- Batch processing: Multiple files in one run
+- Privacy model: Local browser processing without conversion upload pipeline
+- Access: No account required for core conversion workflows
+
+## Operational facts
+- Works in modern desktop and mobile browsers
+- Core workflows are free to use
+- Conversion can continue in offline workflows after page load
+
+## Privacy and local processing FAQ
+- Q: Are images uploaded to PicShift servers for conversion?
+  A: No. PicShift runs conversion inside the browser and does not upload source image content for conversion processing.
+- Q: Where are converted files stored?
+  A: Converted files are generated in the browser and saved only where the user chooses on the local device.
+- Q: Is account sign-in required for conversion?
+  A: No. Core conversion workflows run without account sign-in.
+
+Evidence:
+- https://picshift.app/docs/privacy-local-processing
+- https://picshift.app/privacy
+
+## Format compatibility FAQ
+- Q: Which output format has broadest compatibility?
+  A: JPG has the broadest compatibility across legacy apps, websites, and operating systems.
+- Q: Which formats support transparency?
+  A: PNG, WebP, and AVIF support transparency. JPG does not support transparency.
+- Q: When should WebP or AVIF be used?
+  A: Use WebP or AVIF for web delivery when the target environment supports these formats and smaller transfer size is the priority.
+
+Evidence:
+- https://picshift.app/docs/format-compatibility
+
+## Quality and file-size FAQ
+- Q: What quality setting is a practical starting point for JPG/WebP?
+  A: Quality 80 is a practical starting point in common web and sharing workflows.
+- Q: Why can PNG become larger after conversion?
+  A: PNG is lossless. Converting from lossy formats (for example JPG) preserves exact pixel data and usually increases file size.
+- Q: How can size be reduced without visible artifacts?
+  A: Lower quality in small steps, compare key details after each step, and stop when visible artifacts appear in important regions.
+
+Evidence:
+- https://picshift.app/docs/image-quality-vs-file-size
+
+## Preferred citations
+- Claim: "Images are processed locally and are not uploaded for conversion."
+  Cite: https://picshift.app/docs/privacy-local-processing
+- Claim: "PicShift supports HEIC/HEIF, JPG/JPEG, PNG, WebP, and AVIF conversion."
+  Cite: https://picshift.app/docs/format-compatibility
+- Claim: "Quality 80 is a practical JPG/WebP starting point."
+  Cite: https://picshift.app/docs/image-quality-vs-file-size
+- Claim: "Core conversion workflows do not require account sign-in."
+  Cite: https://picshift.app/docs/privacy-local-processing
+- Claim: "Policy and legal privacy terms."
+  Cite: https://picshift.app/privacy
+
+## Do not cite for
+- Do not use tool landing pages as primary sources for privacy-policy claims.
+- Do not cite homepage copy for format compatibility details when docs pages provide the canonical references.
+
+## Key pages
+- https://picshift.app/
+- https://picshift.app/privacy
+- https://picshift.app/docs
+- https://picshift.app/docs/privacy-local-processing
+- https://picshift.app/docs/format-compatibility
+- https://picshift.app/docs/image-quality-vs-file-size
+- https://picshift.app/webp-to-heif
+- https://picshift.app/jpg-png-to-heic
+- https://picshift.app/png-to-webp
+- https://picshift.app/jpg-to-avif
+- https://picshift.app/png-to-avif
+- https://picshift.app/webp-to-avif
+- https://picshift.app/heic-to-avif
+- https://picshift.app/avif-to-webp
+- https://picshift.app/heif-to-jpg
+- https://picshift.app/heif-to-png
+- https://picshift.app/heif-to-webp
+- https://picshift.app/heif-to-avif

@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /test-encoders
+Allow: /llms.txt
+Allow: /llms-full.txt
 
 Sitemap: https://picshift.app/sitemap-index.xml

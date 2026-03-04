@@ -1,0 +1,203 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../lib/contentDates';
+
+const lang = 'en' as const;
+const title = 'PicShift Format Compatibility Guide';
+const description = 'Supported input and output formats in PicShift, with practical notes for quality, transparency, and common conversion choices.';
+const canonical = 'https://picshift.app/docs/format-compatibility';
+const pagePath = '/docs/format-compatibility';
+const datePublished = DOCS_DATE_PUBLISHED;
+const dateModified = CONTENT_DATE_MODIFIED;
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: title,
+  description,
+  url: canonical,
+  inLanguage: 'en',
+  datePublished,
+  dateModified,
+  author: { '@type': 'Organization', name: 'PicShift' },
+  publisher: { '@type': 'Organization', name: 'PicShift', url: 'https://picshift.app' },
+};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://picshift.app/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Docs',
+      item: 'https://picshift.app/docs',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: title,
+      item: canonical,
+    },
+  ],
+};
+const faqs = [
+  {
+    q: 'Which output format is best for broad compatibility?',
+    a: 'JPG has the broadest compatibility across legacy apps, websites, and operating systems.',
+  },
+  {
+    q: 'Which formats support transparency?',
+    a: 'PNG, WebP, and AVIF support transparency. JPG does not support transparency.',
+  },
+  {
+    q: 'When should I choose WebP or AVIF?',
+    a: 'Choose WebP or AVIF for web delivery when your target environment supports these formats and smaller transfer size is the priority.',
+  },
+];
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+};
+---
+
+<Layout title={title} description={description} canonical={canonical} lang={lang} pagePath={pagePath}>
+  <Header lang={lang} pagePath={pagePath} />
+
+  <main class="flex-1">
+    <article class="max-w-4xl mx-auto px-4 py-10 sm:py-14">
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm text-text-secondary">
+        <a href="/" class="hover:text-text-primary hover:underline">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/docs" class="hover:text-text-primary hover:underline">Docs</a>
+        <span class="mx-2">/</span>
+        <span class="text-text-primary">Format Compatibility Guide</span>
+      </nav>
+      <h1 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
+        PicShift Format Compatibility Guide
+      </h1>
+      <p class="text-base sm:text-lg text-text-secondary mb-8">
+        This page lists practical compatibility facts for common image formats in PicShift. Use it as a quick
+        reference when choosing output format for web publishing, sharing, or archive use.
+      </p>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Supported formats</h2>
+        <div class="overflow-x-auto rounded-xl border border-border bg-card-bg shadow-sm">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border">
+                <th class="text-left py-3 px-4 font-medium text-text-secondary">Format</th>
+                <th class="text-left py-3 px-4 font-medium text-text-secondary">Typical use</th>
+                <th class="text-left py-3 px-4 font-medium text-text-secondary">Transparency</th>
+                <th class="text-left py-3 px-4 font-medium text-text-secondary">Compression type</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border text-text-secondary">
+              <tr>
+                <td class="py-3 px-4 text-text-primary font-medium">JPG / JPEG</td>
+                <td class="py-3 px-4">Photos, social sharing</td>
+                <td class="py-3 px-4">No</td>
+                <td class="py-3 px-4">Lossy</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 text-text-primary font-medium">PNG</td>
+                <td class="py-3 px-4">UI assets, logos, screenshots</td>
+                <td class="py-3 px-4">Yes</td>
+                <td class="py-3 px-4">Lossless</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 text-text-primary font-medium">WebP</td>
+                <td class="py-3 px-4">Modern web delivery</td>
+                <td class="py-3 px-4">Yes</td>
+                <td class="py-3 px-4">Lossy / Lossless</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 text-text-primary font-medium">HEIC / HEIF</td>
+                <td class="py-3 px-4">Mobile photos, storage efficiency</td>
+                <td class="py-3 px-4">Limited by source/codec</td>
+                <td class="py-3 px-4">High-efficiency (lossy in standard camera output)</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 text-text-primary font-medium">AVIF</td>
+                <td class="py-3 px-4">High compression web images</td>
+                <td class="py-3 px-4">Yes</td>
+                <td class="py-3 px-4">Lossy / Lossless</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Quick recommendations</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li>Choose JPG for broad compatibility and smaller files for photos.</li>
+          <li>Choose PNG when you need sharp text or transparent backgrounds.</li>
+          <li>Choose WebP or AVIF for better web compression when target browsers support them.</li>
+          <li>Use quality sliders to balance file size and visible detail.</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Common conversion paths</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li>HEIC to JPG: easier sharing across legacy apps and websites.</li>
+          <li>PNG to JPG: reduce file size for photographic content.</li>
+          <li>JPG to WebP: reduce web delivery size at equivalent visual quality.</li>
+          <li>WebP to HEIF: compatibility workflows for specific mobile ecosystems.</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">FAQ</h2>
+        <div class="space-y-4">
+          {faqs.map((faq) => (
+            <div class="rounded-xl border border-border bg-card-bg p-4">
+              <h3 class="text-base font-semibold text-text-primary mb-1">{faq.q}</h3>
+              <p class="text-sm text-text-secondary">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Related pages</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li><a href="/docs/privacy-local-processing" class="text-primary-500 hover:underline">Privacy and Local Processing</a></li>
+          <li><a href="/docs/image-quality-vs-file-size" class="text-primary-500 hover:underline">Image Quality vs File Size</a></li>
+          <li><a href="/docs" class="text-primary-500 hover:underline">All docs</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Back to tool pages</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li><a href="/webp-to-heif" class="text-primary-500 hover:underline">WebP to HEIF Converter</a></li>
+          <li><a href="/jpg-png-to-heic" class="text-primary-500 hover:underline">JPG/PNG to HEIC Converter</a></li>
+          <li><a href="/heic-to-jpg" class="text-primary-500 hover:underline">HEIC to JPG Converter</a></li>
+        </ul>
+      </section>
+      <p class="text-sm text-text-secondary pt-4 border-t border-border">Last updated: {dateModified}</p>
+    </article>
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </main>
+
+  <Footer lang={lang} />
+</Layout>

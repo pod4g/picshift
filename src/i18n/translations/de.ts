@@ -111,7 +111,7 @@ const de: PageTranslations = {
         },
         {
           q: 'Sind PNG-Dateien groesser als JPG?',
-          a: 'Ja, PNG-Dateien sind in der Regel 2- bis 5-mal groesser als JPG, da PNG verlustfrei ist. Wenn die Dateigroesse wichtiger ist als perfekte Qualitaet, sollten Sie stattdessen in JPG konvertieren.',
+          a: 'Ja, in standardisierten Foto-Workflows sind PNG-Dateien 2- bis 5-mal groesser als JPG, da PNG verlustfrei ist. Wenn die Dateigroesse wichtiger ist als perfekte Qualitaet, konvertieren Sie stattdessen in JPG.',
         },
       ],
     },
@@ -233,7 +233,7 @@ const de: PageTranslations = {
       faqs: [
         {
           q: 'Wie viel kleiner ist WebP im Vergleich zu JPG?',
-          a: 'WebP ist in der Regel 25-34% kleiner als JPG bei gleicher visueller Qualitaet. Ein 1 MB grosses JPG koennte als WebP nur 650-750 KB gross sein, ohne sichtbaren Unterschied.',
+          a: 'WebP ist bei gleicher visueller Qualitaet in Benchmark-Vergleichen 25-34% kleiner als JPG. Ein 1 MB grosses JPG wird als WebP zu 650-750 KB, ohne sichtbaren Unterschied.',
         },
       ],
     },

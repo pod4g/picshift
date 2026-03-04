@@ -49,6 +49,18 @@ const orgSchema = isHome ? JSON.stringify({
   image: ogImageJpg,
   inLanguage: SUPPORTED_LOCALES.map((l) => LOCALE_CONFIG[l].hrefLang),
 }) : null;
+const websiteSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'PicShift',
+  url: siteBase,
+  inLanguage: SUPPORTED_LOCALES.map((l) => LOCALE_CONFIG[l].hrefLang),
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${siteBase}/?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
+});
 
 import '../styles/global.css';
 ---
@@ -154,6 +166,7 @@ import '../styles/global.css';
 
     <!-- Structured Data -->
     {orgSchema && <script type="application/ld+json" set:html={orgSchema} />}
+    <script type="application/ld+json" set:html={websiteSchema} />
 
     <!-- Inter font: preload key weights to avoid layout shift -->
     <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin />

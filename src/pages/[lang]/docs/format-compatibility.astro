@@ -1,0 +1,538 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/layout/Header.astro';
+import Footer from '../../../components/layout/Footer.astro';
+import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../../lib/contentDates';
+import { getDocsFaqs } from '../../../i18n/docsFaqs';
+import { getDocsUi } from '../../../i18n/docsUi';
+import { SUPPORTED_LOCALES } from '../../../i18n';
+import { getPageTranslations } from '../../../i18n/translations';
+import type { Locale } from '../../../i18n/config';
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES
+    .filter((l) => l !== 'en')
+    .map((l) => ({
+      params: { lang: l },
+      props: { lang: l },
+    }));
+}
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const docsUi = getDocsUi(lang);
+const pageTranslations = getPageTranslations(lang);
+const title = `PicShift ${docsUi.formatDocTitle}`;
+const description = docsUi.formatDocDescription;
+const pagePath = '/docs/format-compatibility';
+const canonical = `https://picshift.app/${lang}/docs/format-compatibility`;
+const datePublished = DOCS_DATE_PUBLISHED;
+const dateModified = CONTENT_DATE_MODIFIED;
+const formatDocContent = {
+  en: {
+    intro:
+      'This page lists practical compatibility facts for common image formats in PicShift. Use it as a quick reference when choosing output format for web publishing, sharing, or archive use.',
+    supportedFormats: 'Supported formats',
+    tableHeaders: ['Format', 'Typical use', 'Transparency', 'Compression type'],
+    rows: [
+      ['JPG / JPEG', 'Photos, social sharing', 'No', 'Lossy'],
+      ['PNG', 'UI assets, logos, screenshots', 'Yes', 'Lossless'],
+      ['WebP', 'Modern web delivery', 'Yes', 'Lossy / Lossless'],
+      ['HEIC / HEIF', 'Mobile photos, storage efficiency', 'Limited by source/codec', 'High-efficiency (lossy in standard camera output)'],
+      ['AVIF', 'High compression web images', 'Yes', 'Lossy / Lossless'],
+    ],
+    quickRecommendations: 'Quick recommendations',
+    recommendations: [
+      'Choose JPG for broad compatibility and smaller files for photos.',
+      'Choose PNG when you need sharp text or transparent backgrounds.',
+      'Choose WebP or AVIF for better web compression when target browsers support them.',
+      'Use quality sliders to balance file size and visible detail.',
+    ],
+    commonConversionPaths: 'Common conversion paths',
+    conversionPaths: [
+      'HEIC to JPG: easier sharing across legacy apps and websites.',
+      'PNG to JPG: reduce file size for photographic content.',
+      'JPG to WebP: reduce web delivery size at equivalent visual quality.',
+      'WebP to HEIF: compatibility workflows for specific mobile ecosystems.',
+    ],
+  },
+  zh: {
+    intro:
+      '本页整理了 PicShift 常见图片格式的实用兼容性信息，帮助你在网页发布、分享和归档场景中快速选择输出格式。',
+    supportedFormats: '支持格式',
+    tableHeaders: ['格式', '典型用途', '透明通道', '压缩类型'],
+    rows: [
+      ['JPG / JPEG', '照片、社交分享', '不支持', '有损'],
+      ['PNG', '界面素材、Logo、截图', '支持', '无损'],
+      ['WebP', '现代网页交付', '支持', '有损 / 无损'],
+      ['HEIC / HEIF', '移动端照片、节省存储', '受源文件/编码器限制', '高效率（相机默认输出通常为有损）'],
+      ['AVIF', '高压缩网页图片', '支持', '有损 / 无损'],
+    ],
+    quickRecommendations: '快速建议',
+    recommendations: [
+      '照片和广泛兼容场景优先使用 JPG。',
+      '需要文字边缘清晰或透明背景时优先使用 PNG。',
+      '目标浏览器支持时，网页交付优先选择 WebP 或 AVIF 以降低传输体积。',
+      '使用质量滑块平衡文件大小和可见细节。',
+    ],
+    commonConversionPaths: '常见转换路径',
+    conversionPaths: [
+      'HEIC 转 JPG：便于在旧版应用和网站中分享与使用。',
+      'PNG 转 JPG：适合照片类内容的体积压缩。',
+      'JPG 转 WebP：在相近视觉质量下减小网页传输体积。',
+      'WebP 转 HEIF：适用于特定移动生态的兼容流程。',
+    ],
+  },
+  'zh-Hant': {
+    intro:
+      '本頁整理了 PicShift 常見圖片格式的實用相容性資訊，協助你在網頁發佈、分享與封存場景中快速選擇輸出格式。',
+    supportedFormats: '支援格式',
+    tableHeaders: ['格式', '典型用途', '透明通道', '壓縮類型'],
+    rows: [
+      ['JPG / JPEG', '照片、社群分享', '不支援', '有損'],
+      ['PNG', '介面素材、Logo、截圖', '支援', '無損'],
+      ['WebP', '現代網頁傳遞', '支援', '有損 / 無損'],
+      ['HEIC / HEIF', '行動端照片、節省儲存', '受來源/編碼器限制', '高效率（相機預設輸出通常為有損）'],
+      ['AVIF', '高壓縮網頁圖片', '支援', '有損 / 無損'],
+    ],
+    quickRecommendations: '快速建議',
+    recommendations: [
+      '照片與廣泛相容場景優先使用 JPG。',
+      '需要文字邊緣清晰或透明背景時優先使用 PNG。',
+      '目標瀏覽器支援時，網頁傳遞優先選擇 WebP 或 AVIF 以降低傳輸體積。',
+      '使用品質滑桿平衡檔案大小與可見細節。',
+    ],
+    commonConversionPaths: '常見轉換路徑',
+    conversionPaths: [
+      'HEIC 轉 JPG：便於在舊版應用與網站中分享與使用。',
+      'PNG 轉 JPG：適合照片內容的體積壓縮。',
+      'JPG 轉 WebP：在相近視覺品質下減小網頁傳輸體積。',
+      'WebP 轉 HEIF：適用於特定行動生態的相容流程。',
+    ],
+  },
+  es: {
+    intro:
+      'Esta página reúne datos prácticos de compatibilidad sobre formatos de imagen comunes en PicShift. Úsala como referencia rápida para elegir formato de salida en web, compartición o archivo.',
+    supportedFormats: 'Formatos compatibles',
+    tableHeaders: ['Formato', 'Uso típico', 'Transparencia', 'Tipo de compresión'],
+    rows: [
+      ['JPG / JPEG', 'Fotos, redes sociales', 'No', 'Con pérdida'],
+      ['PNG', 'Recursos UI, logos, capturas', 'Sí', 'Sin pérdida'],
+      ['WebP', 'Entrega web moderna', 'Sí', 'Con pérdida / Sin pérdida'],
+      ['HEIC / HEIF', 'Fotos móviles, eficiencia de almacenamiento', 'Limitado por fuente/códec', 'Alta eficiencia (con pérdida en salida estándar de cámara)'],
+      ['AVIF', 'Imágenes web de alta compresión', 'Sí', 'Con pérdida / Sin pérdida'],
+    ],
+    quickRecommendations: 'Recomendaciones rápidas',
+    recommendations: [
+      'Usa JPG para alta compatibilidad y archivos más pequeños en fotos.',
+      'Usa PNG cuando necesites texto nítido o fondos transparentes.',
+      'Usa WebP o AVIF para mejor compresión web cuando los navegadores objetivo lo soporten.',
+      'Ajusta el control de calidad para equilibrar tamaño y detalle visible.',
+    ],
+    commonConversionPaths: 'Rutas de conversión comunes',
+    conversionPaths: [
+      'HEIC a JPG: facilita compartir en apps y sitios heredados.',
+      'PNG a JPG: reduce tamaño en contenido fotográfico.',
+      'JPG a WebP: reduce transferencia web con calidad visual equivalente.',
+      'WebP a HEIF: flujo de compatibilidad para ecosistemas móviles específicos.',
+    ],
+  },
+  fr: {
+    intro:
+      'Cette page présente des faits de compatibilité pratiques pour les formats d’image courants dans PicShift. Utilisez-la comme référence rapide pour choisir le format de sortie pour le web, le partage ou l’archivage.',
+    supportedFormats: 'Formats pris en charge',
+    tableHeaders: ['Format', 'Usage typique', 'Transparence', 'Type de compression'],
+    rows: [
+      ['JPG / JPEG', 'Photos, partage social', 'Non', 'Avec perte'],
+      ['PNG', 'Éléments UI, logos, captures', 'Oui', 'Sans perte'],
+      ['WebP', 'Diffusion web moderne', 'Oui', 'Avec perte / Sans perte'],
+      ['HEIC / HEIF', 'Photos mobiles, efficacité de stockage', 'Limité par la source/le codec', 'Haute efficacité (avec perte en sortie caméra standard)'],
+      ['AVIF', 'Images web à forte compression', 'Oui', 'Avec perte / Sans perte'],
+    ],
+    quickRecommendations: 'Recommandations rapides',
+    recommendations: [
+      'Choisissez JPG pour une large compatibilité et des photos plus légères.',
+      'Choisissez PNG pour du texte net ou des arrière-plans transparents.',
+      'Choisissez WebP ou AVIF pour une meilleure compression web si les navigateurs cibles les prennent en charge.',
+      'Utilisez le réglage de qualité pour équilibrer taille et détail visible.',
+    ],
+    commonConversionPaths: 'Conversions courantes',
+    conversionPaths: [
+      'HEIC vers JPG : partage plus simple avec applications et sites anciens.',
+      'PNG vers JPG : réduction de taille pour contenu photo.',
+      'JPG vers WebP : réduction du poids web à qualité visuelle équivalente.',
+      'WebP vers HEIF : flux de compatibilité pour certains écosystèmes mobiles.',
+    ],
+  },
+  de: {
+    intro:
+      'Diese Seite enthält praktische Kompatibilitätsinfos zu gängigen Bildformaten in PicShift. Nutze sie als Schnellreferenz für die Wahl des Ausgabeformats bei Web, Teilen oder Archivierung.',
+    supportedFormats: 'Unterstützte Formate',
+    tableHeaders: ['Format', 'Typischer Einsatz', 'Transparenz', 'Kompressionstyp'],
+    rows: [
+      ['JPG / JPEG', 'Fotos, Social Sharing', 'Nein', 'Verlustbehaftet'],
+      ['PNG', 'UI-Assets, Logos, Screenshots', 'Ja', 'Verlustfrei'],
+      ['WebP', 'Moderne Web-Auslieferung', 'Ja', 'Verlustbehaftet / Verlustfrei'],
+      ['HEIC / HEIF', 'Mobile Fotos, Speichereffizienz', 'Durch Quelle/Codec begrenzt', 'Hocheffizient (Standard-Kameraausgabe meist verlustbehaftet)'],
+      ['AVIF', 'Stark komprimierte Webbilder', 'Ja', 'Verlustbehaftet / Verlustfrei'],
+    ],
+    quickRecommendations: 'Schnelle Empfehlungen',
+    recommendations: [
+      'Wähle JPG für breite Kompatibilität und kleinere Dateien bei Fotos.',
+      'Wähle PNG für scharfen Text oder transparente Hintergründe.',
+      'Wähle WebP oder AVIF für bessere Web-Kompression, wenn Zielbrowser sie unterstützen.',
+      'Nutze den Qualitätsregler, um Dateigröße und sichtbare Details auszubalancieren.',
+    ],
+    commonConversionPaths: 'Häufige Konvertierungspfade',
+    conversionPaths: [
+      'HEIC zu JPG: einfacheres Teilen in älteren Apps und Websites.',
+      'PNG zu JPG: kleinere Dateien für fotobasierten Inhalt.',
+      'JPG zu WebP: geringere Web-Transfergröße bei vergleichbarer visueller Qualität.',
+      'WebP zu HEIF: Kompatibilitäts-Workflows für bestimmte mobile Ökosysteme.',
+    ],
+  },
+  ja: {
+    intro:
+      'このページでは、PicShift でよく使う画像形式の実用的な互換性情報をまとめています。Web 公開、共有、アーカイブ用途の出力形式を素早く選ぶための参照に使えます。',
+    supportedFormats: '対応フォーマット',
+    tableHeaders: ['形式', '主な用途', '透過', '圧縮方式'],
+    rows: [
+      ['JPG / JPEG', '写真、SNS共有', '非対応', '非可逆'],
+      ['PNG', 'UI素材、ロゴ、スクリーンショット', '対応', '可逆'],
+      ['WebP', 'モダンなWeb配信', '対応', '非可逆 / 可逆'],
+      ['HEIC / HEIF', 'モバイル写真、保存効率', '元データ/コーデック依存', '高効率（標準カメラ出力は通常非可逆）'],
+      ['AVIF', '高圧縮Web画像', '対応', '非可逆 / 可逆'],
+    ],
+    quickRecommendations: 'クイック推奨',
+    recommendations: [
+      '写真と広い互換性を重視するなら JPG を選びます。',
+      '文字のシャープさや透過背景が必要なら PNG を選びます。',
+      '対象ブラウザが対応している場合は、Web 配信に WebP または AVIF を選びます。',
+      '品質スライダーでファイルサイズと見た目のディテールを調整します。',
+    ],
+    commonConversionPaths: 'よく使う変換パス',
+    conversionPaths: [
+      'HEIC -> JPG: 旧アプリやWebサイトで共有しやすくなります。',
+      'PNG -> JPG: 写真系コンテンツのファイルサイズを下げます。',
+      'JPG -> WebP: 近い見た目品質でWeb転送サイズを下げます。',
+      'WebP -> HEIF: 特定モバイル環境向けの互換ワークフローに使います。',
+    ],
+  },
+  ko: {
+    intro:
+      '이 페이지는 PicShift에서 자주 사용하는 이미지 포맷의 실용적인 호환성 정보를 정리합니다. 웹 게시, 공유, 보관 용도에 맞는 출력 포맷을 빠르게 고를 때 참고하세요.',
+    supportedFormats: '지원 포맷',
+    tableHeaders: ['포맷', '일반 사용', '투명도', '압축 유형'],
+    rows: [
+      ['JPG / JPEG', '사진, 소셜 공유', '아니오', '손실 압축'],
+      ['PNG', 'UI 자산, 로고, 스크린샷', '예', '무손실 압축'],
+      ['WebP', '최신 웹 전달', '예', '손실 / 무손실'],
+      ['HEIC / HEIF', '모바일 사진, 저장 효율', '원본/코덱에 따라 제한', '고효율(기본 카메라 출력은 보통 손실)'],
+      ['AVIF', '고압축 웹 이미지', '예', '손실 / 무손실'],
+    ],
+    quickRecommendations: '빠른 권장 사항',
+    recommendations: [
+      '사진과 광범위한 호환성이 필요하면 JPG를 선택합니다.',
+      '선명한 텍스트나 투명 배경이 필요하면 PNG를 선택합니다.',
+      '대상 브라우저가 지원하면 웹 압축에 WebP 또는 AVIF를 선택합니다.',
+      '품질 슬라이더로 파일 크기와 시각적 디테일의 균형을 맞춥니다.',
+    ],
+    commonConversionPaths: '자주 쓰는 변환 경로',
+    conversionPaths: [
+      'HEIC -> JPG: 구형 앱과 웹사이트에서 공유가 쉬워집니다.',
+      'PNG -> JPG: 사진 콘텐츠의 파일 크기를 줄입니다.',
+      'JPG -> WebP: 유사한 화질로 웹 전송 크기를 줄입니다.',
+      'WebP -> HEIF: 특정 모바일 생태계 호환 워크플로에 사용합니다.',
+    ],
+  },
+  pt: {
+    intro:
+      'Esta página reúne fatos práticos de compatibilidade para formatos de imagem comuns no PicShift. Use como referência rápida ao escolher formato de saída para web, compartilhamento ou arquivo.',
+    supportedFormats: 'Formatos suportados',
+    tableHeaders: ['Formato', 'Uso típico', 'Transparência', 'Tipo de compressão'],
+    rows: [
+      ['JPG / JPEG', 'Fotos, compartilhamento social', 'Não', 'Com perdas'],
+      ['PNG', 'Assets de UI, logos, capturas', 'Sim', 'Sem perdas'],
+      ['WebP', 'Entrega web moderna', 'Sim', 'Com perdas / Sem perdas'],
+      ['HEIC / HEIF', 'Fotos mobile, eficiência de armazenamento', 'Limitado por origem/codec', 'Alta eficiência (com perdas na saída padrão da câmera)'],
+      ['AVIF', 'Imagens web de alta compressão', 'Sim', 'Com perdas / Sem perdas'],
+    ],
+    quickRecommendations: 'Recomendações rápidas',
+    recommendations: [
+      'Escolha JPG para ampla compatibilidade e arquivos menores em fotos.',
+      'Escolha PNG quando precisar de texto nítido ou fundo transparente.',
+      'Escolha WebP ou AVIF para melhor compressão web quando o navegador alvo suportar.',
+      'Use o controle de qualidade para equilibrar tamanho e detalhe visível.',
+    ],
+    commonConversionPaths: 'Caminhos de conversão comuns',
+    conversionPaths: [
+      'HEIC para JPG: facilita compartilhamento em apps e sites legados.',
+      'PNG para JPG: reduz o tamanho em conteúdo fotográfico.',
+      'JPG para WebP: reduz tamanho de entrega web com qualidade visual equivalente.',
+      'WebP para HEIF: fluxo de compatibilidade para ecossistemas mobile específicos.',
+    ],
+  },
+  ru: {
+    intro:
+      'На этой странице собраны практичные факты совместимости по распространенным форматам изображений в PicShift. Используйте ее как быстрый справочник при выборе выходного формата для веба, обмена или архива.',
+    supportedFormats: 'Поддерживаемые форматы',
+    tableHeaders: ['Формат', 'Типичный сценарий', 'Прозрачность', 'Тип сжатия'],
+    rows: [
+      ['JPG / JPEG', 'Фото, публикации в соцсетях', 'Нет', 'С потерями'],
+      ['PNG', 'UI-ресурсы, логотипы, скриншоты', 'Да', 'Без потерь'],
+      ['WebP', 'Современная веб-доставка', 'Да', 'С потерями / Без потерь'],
+      ['HEIC / HEIF', 'Мобильные фото, эффективность хранения', 'Ограничено источником/кодеком', 'Высокая эффективность (стандартный вывод камеры обычно с потерями)'],
+      ['AVIF', 'Веб-изображения с высокой компрессией', 'Да', 'С потерями / Без потерь'],
+    ],
+    quickRecommendations: 'Быстрые рекомендации',
+    recommendations: [
+      'Выбирайте JPG для широкой совместимости и меньшего размера фото.',
+      'Выбирайте PNG для четкого текста или прозрачного фона.',
+      'Выбирайте WebP или AVIF для лучшей веб-компрессии, если целевые браузеры поддерживают эти форматы.',
+      'Используйте ползунок качества, чтобы балансировать размер и видимые детали.',
+    ],
+    commonConversionPaths: 'Частые пути конвертации',
+    conversionPaths: [
+      'HEIC в JPG: проще делиться в старых приложениях и на сайтах.',
+      'PNG в JPG: уменьшение размера для фотографического контента.',
+      'JPG в WebP: уменьшение веб-трафика при сопоставимом визуальном качестве.',
+      'WebP в HEIF: сценарии совместимости для отдельных мобильных экосистем.',
+    ],
+  },
+  ar: {
+    intro:
+      'تجمع هذه الصفحة معلومات عملية عن التوافق لصيغ الصور الشائعة في PicShift. استخدمها كمرجع سريع لاختيار صيغة الإخراج للنشر على الويب أو المشاركة أو الأرشفة.',
+    supportedFormats: 'الصيغ المدعومة',
+    tableHeaders: ['الصيغة', 'الاستخدام الشائع', 'الشفافية', 'نوع الضغط'],
+    rows: [
+      ['JPG / JPEG', 'الصور، المشاركة الاجتماعية', 'لا', 'ضياعي'],
+      ['PNG', 'عناصر واجهة، الشعارات، لقطات الشاشة', 'نعم', 'بدون فقدان'],
+      ['WebP', 'تسليم ويب حديث', 'نعم', 'ضياعي / بدون فقدان'],
+      ['HEIC / HEIF', 'صور الجوال، كفاءة التخزين', 'محدود حسب المصدر/الترميز', 'كفاءة عالية (مخرج الكاميرا الافتراضي غالبًا ضياعي)'],
+      ['AVIF', 'صور ويب عالية الضغط', 'نعم', 'ضياعي / بدون فقدان'],
+    ],
+    quickRecommendations: 'توصيات سريعة',
+    recommendations: [
+      'اختر JPG للتوافق الواسع وحجم أصغر للصور.',
+      'اختر PNG عندما تحتاج نصًا حادًا أو خلفية شفافة.',
+      'اختر WebP أو AVIF لضغط ويب أفضل عندما تدعمها المتصفحات المستهدفة.',
+      'استخدم منزلق الجودة لموازنة الحجم والتفاصيل المرئية.',
+    ],
+    commonConversionPaths: 'مسارات تحويل شائعة',
+    conversionPaths: [
+      'HEIC إلى JPG: مشاركة أسهل عبر التطبيقات والمواقع القديمة.',
+      'PNG إلى JPG: تقليل الحجم لمحتوى الصور الفوتوغرافية.',
+      'JPG إلى WebP: تقليل حجم التسليم للويب مع جودة بصرية مكافئة.',
+      'WebP إلى HEIF: مسارات توافق لأنظمة جوال محددة.',
+    ],
+  },
+  it: {
+    intro:
+      'Questa pagina raccoglie informazioni pratiche di compatibilità sui formati immagine comuni in PicShift. Usala come riferimento rapido per scegliere il formato di output per web, condivisione o archivio.',
+    supportedFormats: 'Formati supportati',
+    tableHeaders: ['Formato', 'Uso tipico', 'Trasparenza', 'Tipo di compressione'],
+    rows: [
+      ['JPG / JPEG', 'Foto, condivisione social', 'No', 'Lossy'],
+      ['PNG', 'Asset UI, loghi, screenshot', 'Sì', 'Lossless'],
+      ['WebP', 'Consegna web moderna', 'Sì', 'Lossy / Lossless'],
+      ['HEIC / HEIF', 'Foto mobile, efficienza di archiviazione', 'Limitato da sorgente/codec', 'Alta efficienza (output camera standard in genere lossy)'],
+      ['AVIF', 'Immagini web ad alta compressione', 'Sì', 'Lossy / Lossless'],
+    ],
+    quickRecommendations: 'Consigli rapidi',
+    recommendations: [
+      'Scegli JPG per ampia compatibilità e file più piccoli nelle foto.',
+      'Scegli PNG quando servono testo nitido o sfondi trasparenti.',
+      'Scegli WebP o AVIF per migliore compressione web quando i browser target li supportano.',
+      'Usa il cursore qualità per bilanciare dimensione file e dettaglio visibile.',
+    ],
+    commonConversionPaths: 'Percorsi di conversione comuni',
+    conversionPaths: [
+      'HEIC in JPG: condivisione più semplice su app e siti legacy.',
+      'PNG in JPG: riduce la dimensione per contenuti fotografici.',
+      'JPG in WebP: riduce il peso web a qualità visiva equivalente.',
+      'WebP in HEIF: workflow di compatibilità per specifici ecosistemi mobili.',
+    ],
+  },
+}[lang] ?? {
+  intro:
+    'This page lists practical compatibility facts for common image formats in PicShift. Use it as a quick reference when choosing output format for web publishing, sharing, or archive use.',
+  supportedFormats: 'Supported formats',
+  tableHeaders: ['Format', 'Typical use', 'Transparency', 'Compression type'],
+  rows: [
+    ['JPG / JPEG', 'Photos, social sharing', 'No', 'Lossy'],
+    ['PNG', 'UI assets, logos, screenshots', 'Yes', 'Lossless'],
+    ['WebP', 'Modern web delivery', 'Yes', 'Lossy / Lossless'],
+    ['HEIC / HEIF', 'Mobile photos, storage efficiency', 'Limited by source/codec', 'High-efficiency (lossy in standard camera output)'],
+    ['AVIF', 'High compression web images', 'Yes', 'Lossy / Lossless'],
+  ],
+  quickRecommendations: 'Quick recommendations',
+  recommendations: [
+    'Choose JPG for broad compatibility and smaller files for photos.',
+    'Choose PNG when you need sharp text or transparent backgrounds.',
+    'Choose WebP or AVIF for better web compression when target browsers support them.',
+    'Use quality sliders to balance file size and visible detail.',
+  ],
+  commonConversionPaths: 'Common conversion paths',
+  conversionPaths: [
+    'HEIC to JPG: easier sharing across legacy apps and websites.',
+    'PNG to JPG: reduce file size for photographic content.',
+    'JPG to WebP: reduce web delivery size at equivalent visual quality.',
+    'WebP to HEIF: compatibility workflows for specific mobile ecosystems.',
+  ],
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: title,
+  description,
+  url: canonical,
+  inLanguage: lang,
+  datePublished,
+  dateModified,
+  author: { '@type': 'Organization', name: 'PicShift' },
+  publisher: { '@type': 'Organization', name: 'PicShift', url: 'https://picshift.app' },
+};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: docsUi.home,
+      item: `https://picshift.app/${lang}/`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: docsUi.docs,
+      item: `https://picshift.app/${lang}/docs`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: title,
+      item: canonical,
+    },
+  ],
+};
+const faqs = getDocsFaqs(lang, 'format-compatibility');
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+};
+---
+
+<Layout title={title} description={description} canonical={canonical} lang={lang} pagePath={pagePath}>
+  <Header lang={lang} pagePath={pagePath} />
+
+  <main class="flex-1">
+    <article class="max-w-4xl mx-auto px-4 py-10 sm:py-14">
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm text-text-secondary">
+        <a href={`/${lang}/`} class="hover:text-text-primary hover:underline">{docsUi.home}</a>
+        <span class="mx-2">/</span>
+        <a href={`/${lang}/docs`} class="hover:text-text-primary hover:underline">{docsUi.docs}</a>
+        <span class="mx-2">/</span>
+        <span class="text-text-primary">{docsUi.formatDocTitle}</span>
+      </nav>
+      <h1 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
+        {title}
+      </h1>
+      <p class="text-base sm:text-lg text-text-secondary mb-8">
+        {formatDocContent.intro}
+      </p>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{formatDocContent.supportedFormats}</h2>
+        <div class="overflow-x-auto rounded-xl border border-border bg-card-bg shadow-sm">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border">
+                <th class="text-left py-3 px-4 font-medium text-text-secondary">{formatDocContent.tableHeaders[0]}</th>
+                <th class="text-left py-3 px-4 font-medium text-text-secondary">{formatDocContent.tableHeaders[1]}</th>
+                <th class="text-left py-3 px-4 font-medium text-text-secondary">{formatDocContent.tableHeaders[2]}</th>
+                <th class="text-left py-3 px-4 font-medium text-text-secondary">{formatDocContent.tableHeaders[3]}</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border text-text-secondary">
+              {formatDocContent.rows.map((row) => (
+                <tr>
+                  <td class="py-3 px-4 text-text-primary font-medium">{row[0]}</td>
+                  <td class="py-3 px-4">{row[1]}</td>
+                  <td class="py-3 px-4">{row[2]}</td>
+                  <td class="py-3 px-4">{row[3]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{formatDocContent.quickRecommendations}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          {formatDocContent.recommendations.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{formatDocContent.commonConversionPaths}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          {formatDocContent.conversionPaths.map((pathItem) => (
+            <li>{pathItem}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{docsUi.faq}</h2>
+        <div class="space-y-4">
+          {faqs.map((faq) => (
+            <div class="rounded-xl border border-border bg-card-bg p-4">
+              <h3 class="text-base font-semibold text-text-primary mb-1">{faq.q}</h3>
+              <p class="text-sm text-text-secondary">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{docsUi.relatedPages}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li><a href={`/${lang}/docs/privacy-local-processing`} class="text-primary-500 hover:underline">{docsUi.privacyDocTitle}</a></li>
+          <li><a href={`/${lang}/docs/image-quality-vs-file-size`} class="text-primary-500 hover:underline">{docsUi.qualityDocTitle}</a></li>
+          <li><a href={`/${lang}/docs`} class="text-primary-500 hover:underline">{docsUi.allDocs}</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{docsUi.backToToolPages}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li><a href={`/${lang}/heic-to-jpg`} class="text-primary-500 hover:underline">{pageTranslations.tools['heic-to-jpg']?.h1 || 'HEIC to JPG Converter'}</a></li>
+          <li><a href={`/${lang}/jpg-to-webp`} class="text-primary-500 hover:underline">{pageTranslations.tools['jpg-to-webp']?.h1 || 'JPG to WebP Converter'}</a></li>
+          <li><a href={`/${lang}/png-to-jpg`} class="text-primary-500 hover:underline">{pageTranslations.tools['png-to-jpg']?.h1 || 'PNG to JPG Converter'}</a></li>
+        </ul>
+      </section>
+      <p class="text-sm text-text-secondary pt-4 border-t border-border">{docsUi.lastUpdated}: {dateModified}</p>
+    </article>
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </main>
+
+  <Footer lang={lang} />
+</Layout>
