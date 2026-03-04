@@ -5,7 +5,7 @@ const ja: PageTranslations = {
     title:
       'PicShift - 無料画像変換ツール | HEIC, WebP, PNG, JPG, AVIF対応 | アップロード不要',
     description:
-      'ブラウザで画像を瞬時に変換——アップロード不要。HEIC→JPG、WebP→PNG、AVIFなど多数対応。100%プライベート処理、オフラインでも動作。無料・無制限・登録不要。',
+      'ブラウザで画像を瞬時に変換——アップロード不要。HEIC→JPG、WebP→PNG、AVIFなど多数対応。100%プライバシー保護、オフラインでも動作。無料・無制限・登録不要。',
   },
   privacy: {
     title: 'プライバシーポリシー | PicShift',
@@ -60,9 +60,9 @@ const ja: PageTranslations = {
   },
   tools: {
     'heic-to-jpg': {
-      title: 'HEIC→JPG変換 - 無料・プライベート・アップロード不要 | PicShift',
+      title: 'HEIC→JPG変換 - 無料・プライバシー保護・アップロード不要 | PicShift',
       description:
-        'HEICの写真をブラウザで瞬時にJPGに変換。100%プライベート処理でファイルがデバイスの外に出ることはありません。無料・無制限・登録不要。',
+        'HEICの写真をブラウザで瞬時にJPGに変換。100%プライバシー保護でファイルがデバイスの外に出ることはありません。無料・無制限・登録不要。',
       h1: 'HEICをJPGに変換',
       introText:
         'iPhoneのHEIC写真をJPG形式に瞬時に変換できます。すべての処理はブラウザ内で完結するため、写真がデバイスの外に出ることはありません。',
@@ -91,9 +91,9 @@ const ja: PageTranslations = {
       ],
     },
     'heic-to-png': {
-      title: 'HEIC→PNG変換 - 無料・プライベート・アップロード不要 | PicShift',
+      title: 'HEIC→PNG変換 - 無料・プライバシー保護・アップロード不要 | PicShift',
       description:
-        'HEICの写真をブラウザでPNG形式に変換。可逆圧縮で高画質、100%プライベート、アップロード不要。',
+        'HEICの写真をブラウザでPNG形式に変換。可逆圧縮で高画質、100%プライバシー保護、アップロード不要。',
       h1: 'HEICをPNGに変換',
       introText:
         'iPhoneのHEIC写真を可逆圧縮のPNG形式に変換できます。すべての処理はブラウザ内でローカルに行われます。',
@@ -114,9 +114,9 @@ const ja: PageTranslations = {
       ],
     },
     'heic-to-webp': {
-      title: 'HEIC→WebP変換 - 無料・プライベート・アップロード不要 | PicShift',
+      title: 'HEIC→WebP変換 - 無料・プライバシー保護・アップロード不要 | PicShift',
       description:
-        'HEICの写真をブラウザでWebP形式に変換。より小さいファイルサイズで高画質、100%プライベート。',
+        'HEICの写真をブラウザでWebP形式に変換。より小さいファイルサイズで高画質、100%プライバシー保護。',
       h1: 'HEICをWebPに変換',
       introText:
         'iPhoneのHEIC写真をモダンなWebP形式に変換できます。WebPはJPGと同じ画質でファイルサイズが25〜34%小さくなります。',
@@ -137,9 +137,9 @@ const ja: PageTranslations = {
       ],
     },
     'webp-to-jpg': {
-      title: 'WebP→JPG変換 - 無料・プライベート・アップロード不要 | PicShift',
+      title: 'WebP→JPG変換 - 無料・プライバシー保護・アップロード不要 | PicShift',
       description:
-        'WebP画像をブラウザでJPG形式に変換。無料・プライベート・アップロード不要。',
+        'WebP画像をブラウザでJPG形式に変換。無料・プライバシー保護・アップロード不要。',
       h1: 'WebPをJPGに変換',
       introText:
         'WebP画像を汎用性の高いJPG形式に変換できます。すべての処理はブラウザ内でローカルに行われます。',
@@ -156,9 +156,9 @@ const ja: PageTranslations = {
       ],
     },
     'webp-to-png': {
-      title: 'WebP→PNG変換 - 無料・プライベート・アップロード不要 | PicShift',
+      title: 'WebP→PNG変換 - 無料・プライバシー保護・アップロード不要 | PicShift',
       description:
-        'WebP画像をブラウザで可逆圧縮PNG形式に変換。無料・プライベート・アップロード不要。',
+        'WebP画像をブラウザで可逆圧縮PNG形式に変換。無料・プライバシー保護・アップロード不要。',
       h1: 'WebPをPNGに変換',
       introText:
         'WebP画像を可逆圧縮のPNG形式に変換できます。透過や可逆圧縮の高画質が必要な場合に最適です。',
@@ -175,7 +175,7 @@ const ja: PageTranslations = {
       ],
     },
     'png-to-jpg': {
-      title: 'PNG→JPG変換 - 無料・プライベート・アップロード不要 | PicShift',
+      title: 'PNG→JPG変換 - 無料・プライバシー保護・アップロード不要 | PicShift',
       description:
         'PNG画像をブラウザでJPG形式に変換。高画質を維持しながらファイルサイズを削減できます。',
       h1: 'PNGをJPGに変換',
@@ -194,9 +194,9 @@ const ja: PageTranslations = {
       ],
     },
     'jpg-to-png': {
-      title: 'JPG→PNG変換 - 無料・プライベート・アップロード不要 | PicShift',
+      title: 'JPG→PNG変換 - 無料・プライバシー保護・アップロード不要 | PicShift',
       description:
-        'JPG画像をブラウザで可逆圧縮PNG形式に変換。無料・プライベート・アップロード不要。',
+        'JPG画像をブラウザで可逆圧縮PNG形式に変換。無料・プライバシー保護・アップロード不要。',
       h1: 'JPGをPNGに変換',
       introText:
         'JPG画像を可逆圧縮のPNG形式に変換できます。編集用に可逆圧縮バージョンが必要な場合に便利です。',
@@ -213,9 +213,9 @@ const ja: PageTranslations = {
       ],
     },
     'jpg-to-webp': {
-      title: 'JPG→WebP変換 - 無料・プライベート・アップロード不要 | PicShift',
+      title: 'JPG→WebP変換 - 無料・プライバシー保護・アップロード不要 | PicShift',
       description:
-        'JPG画像をブラウザでWebP形式に変換。同じ画質でより小さいファイルサイズ、100%プライベート。',
+        'JPG画像をブラウザでWebP形式に変換。同じ画質でより小さいファイルサイズ、100%プライバシー保護。',
       h1: 'JPGをWebPに変換',
       introText:
         'JPG画像をモダンなWebP形式に変換して、同じ視覚的品質で25〜34%のファイルサイズ削減を実現できます。',
@@ -232,9 +232,9 @@ const ja: PageTranslations = {
       ],
     },
     'avif-to-jpg': {
-      title: 'AVIF→JPG変換 - 無料・プライベート・アップロード不要 | PicShift',
+      title: 'AVIF→JPG変換 - 無料・プライバシー保護・アップロード不要 | PicShift',
       description:
-        'AVIF画像をブラウザでJPG形式に変換。無料・プライベート・アップロード不要。',
+        'AVIF画像をブラウザでJPG形式に変換。無料・プライバシー保護・アップロード不要。',
       h1: 'AVIFをJPGに変換',
       introText:
         'AVIF画像を汎用性の高いJPG形式に変換できます。すべての処理はローカルで行われます。',
@@ -251,9 +251,9 @@ const ja: PageTranslations = {
       ],
     },
     'avif-to-png': {
-      title: 'AVIF→PNG変換 - 無料・プライベート・アップロード不要 | PicShift',
+      title: 'AVIF→PNG変換 - 無料・プライバシー保護・アップロード不要 | PicShift',
       description:
-        'AVIF画像をブラウザで可逆圧縮PNG形式に変換。無料・プライベート・アップロード不要。',
+        'AVIF画像をブラウザで可逆圧縮PNG形式に変換。無料・プライバシー保護・アップロード不要。',
       h1: 'AVIFをPNGに変換',
       introText:
         'AVIF画像を可逆圧縮のPNG形式に変換できます。最大限の画質を維持したい場合に最適です。',
@@ -271,7 +271,7 @@ const ja: PageTranslations = {
     },
     'image-resizer': {
       title: '画像リサイズ 無料ツール - オンラインでサイズ変更 | PicShift',
-      description: 'ブラウザで画像サイズを無料変更。プリセットやカスタム寸法に対応し、圧縮と併用して容量を最適化。100%プライベート、アップロード不要。',
+      description: 'ブラウザで画像サイズを無料変更。プリセットやカスタム寸法に対応し、圧縮と併用して容量を最適化。100%プライバシー保護、アップロード不要。',
       h1: '画像をリサイズ',
       introText: '画像を正確な寸法や標準プリセットにリサイズします。すべてブラウザ内で処理 — 画像がデバイスから出ることはありません。',
       howToSteps: [
@@ -289,7 +289,7 @@ const ja: PageTranslations = {
       title:
         '画像圧縮 無料ツール - iPhone写真もオンラインでサイズ削減 | PicShift',
       description:
-        '画像圧縮を無料で実行。JPG、PNG、WebP、HEIC、AVIFの容量を高画質のまま削減できます。iPhoneの写真圧縮にも対応。100%プライベート、アップロード不要。',
+        '画像圧縮を無料で実行。JPG、PNG、WebP、HEIC、AVIFの容量を高画質のまま削減できます。iPhoneの写真圧縮にも対応。100%プライバシー保護、アップロード不要。',
       h1: '画像圧縮（無料）',
       introText:
         '視覚的な品質を維持しながら画像のファイルサイズを削減できます。iPhone写真（HEIC）を含む複数形式に対応し、品質スライダーで最適なバランスを調整できます。',

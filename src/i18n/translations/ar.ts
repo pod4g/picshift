@@ -65,7 +65,7 @@ const ar: PageTranslations = {
   },
   tools: {
     'heic-to-jpg': {
-      title: 'محوّل HEIC إلى JPG - مجاني، خاص، بدون رفع ملفات | PicShift',
+      title: 'تحويل HEIC إلى JPG - مجاني، يحافظ على الخصوصية، بدون رفع | PicShift',
       description:
         'حوّل صور HEIC إلى JPG فورًا في متصفحك. خصوصية 100% — الملفات لا تغادر جهازك أبدًا. مجاني، بلا حدود، بدون تسجيل.',
       h1: 'تحويل HEIC إلى JPG',
@@ -96,7 +96,7 @@ const ar: PageTranslations = {
       ],
     },
     'heic-to-png': {
-      title: 'محوّل HEIC إلى PNG - مجاني، خاص، بدون رفع ملفات | PicShift',
+      title: 'تحويل HEIC إلى PNG - مجاني، يحافظ على الخصوصية، بدون رفع | PicShift',
       description:
         'حوّل صور HEIC إلى صيغة PNG في متصفحك. جودة بلا فقدان، خصوصية 100%، بدون رفع ملفات.',
       h1: 'تحويل HEIC إلى PNG',
@@ -119,7 +119,7 @@ const ar: PageTranslations = {
       ],
     },
     'heic-to-webp': {
-      title: 'محوّل HEIC إلى WebP - مجاني، خاص، بدون رفع ملفات | PicShift',
+      title: 'تحويل HEIC إلى WebP - مجاني، يحافظ على الخصوصية، بدون رفع | PicShift',
       description:
         'حوّل صور HEIC إلى صيغة WebP في متصفحك. ملفات أصغر، جودة ممتازة، خصوصية 100%.',
       h1: 'تحويل HEIC إلى WebP',
@@ -142,9 +142,9 @@ const ar: PageTranslations = {
       ],
     },
     'webp-to-jpg': {
-      title: 'محوّل WebP إلى JPG - مجاني، خاص، بدون رفع ملفات | PicShift',
+      title: 'تحويل WebP إلى JPG - مجاني، يحافظ على الخصوصية، بدون رفع | PicShift',
       description:
-        'حوّل صور WebP إلى صيغة JPG في متصفحك. مجاني، خاص، بدون رفع ملفات.',
+        'حوّل صور WebP إلى صيغة JPG في متصفحك. مجاني، يحافظ على الخصوصية، بدون رفع ملفات.',
       h1: 'تحويل WebP إلى JPG',
       introText:
         'حوّل صور WebP إلى صيغة JPG المتوافقة عالميًا. تتم جميع العمليات محليًا في متصفحك.',
@@ -161,9 +161,9 @@ const ar: PageTranslations = {
       ],
     },
     'webp-to-png': {
-      title: 'محوّل WebP إلى PNG - مجاني، خاص، بدون رفع ملفات | PicShift',
+      title: 'تحويل WebP إلى PNG - مجاني، يحافظ على الخصوصية، بدون رفع | PicShift',
       description:
-        'حوّل صور WebP إلى صيغة PNG بدون فقدان في متصفحك. مجاني، خاص، بدون رفع.',
+        'حوّل صور WebP إلى صيغة PNG بدون فقدان في متصفحك. مجاني، يحافظ على الخصوصية، بدون رفع.',
       h1: 'تحويل WebP إلى PNG',
       introText:
         'حوّل صور WebP إلى صيغة PNG بدون فقدان الجودة. مثالي عندما تحتاج إلى الشفافية أو الجودة الكاملة.',
@@ -180,7 +180,7 @@ const ar: PageTranslations = {
       ],
     },
     'png-to-jpg': {
-      title: 'محوّل PNG إلى JPG - مجاني، خاص، بدون رفع ملفات | PicShift',
+      title: 'تحويل PNG إلى JPG - مجاني، يحافظ على الخصوصية، بدون رفع | PicShift',
       description:
         'حوّل صور PNG إلى صيغة JPG في متصفحك. قلّل حجم الملف مع الحفاظ على جودة ممتازة.',
       h1: 'تحويل PNG إلى JPG',
@@ -199,9 +199,9 @@ const ar: PageTranslations = {
       ],
     },
     'jpg-to-png': {
-      title: 'محوّل JPG إلى PNG - مجاني، خاص، بدون رفع ملفات | PicShift',
+      title: 'تحويل JPG إلى PNG - مجاني، يحافظ على الخصوصية، بدون رفع | PicShift',
       description:
-        'حوّل صور JPG إلى صيغة PNG بدون فقدان في متصفحك. مجاني، خاص، بدون رفع.',
+        'حوّل صور JPG إلى صيغة PNG بدون فقدان في متصفحك. مجاني، يحافظ على الخصوصية، بدون رفع.',
       h1: 'تحويل JPG إلى PNG',
       introText:
         'حوّل صور JPG إلى صيغة PNG بدون فقدان الجودة. مفيد عندما تحتاج إلى نسخة بلا فقدان للتعديل.',
@@ -218,7 +218,7 @@ const ar: PageTranslations = {
       ],
     },
     'jpg-to-webp': {
-      title: 'محوّل JPG إلى WebP - مجاني، خاص، بدون رفع ملفات | PicShift',
+      title: 'تحويل JPG إلى WebP - مجاني، يحافظ على الخصوصية، بدون رفع | PicShift',
       description:
         'حوّل صور JPG إلى صيغة WebP في متصفحك. ملفات أصغر، نفس الجودة، خصوصية 100%.',
       h1: 'تحويل JPG إلى WebP',
@@ -237,9 +237,9 @@ const ar: PageTranslations = {
       ],
     },
     'avif-to-jpg': {
-      title: 'محوّل AVIF إلى JPG - مجاني، خاص، بدون رفع ملفات | PicShift',
+      title: 'تحويل AVIF إلى JPG - مجاني، يحافظ على الخصوصية، بدون رفع | PicShift',
       description:
-        'حوّل صور AVIF إلى صيغة JPG في متصفحك. مجاني، خاص، بدون رفع ملفات.',
+        'حوّل صور AVIF إلى صيغة JPG في متصفحك. مجاني، يحافظ على الخصوصية، بدون رفع ملفات.',
       h1: 'تحويل AVIF إلى JPG',
       introText:
         'حوّل صور AVIF إلى صيغة JPG المتوافقة عالميًا. تتم جميع العمليات محليًا.',
@@ -256,9 +256,9 @@ const ar: PageTranslations = {
       ],
     },
     'avif-to-png': {
-      title: 'محوّل AVIF إلى PNG - مجاني، خاص، بدون رفع ملفات | PicShift',
+      title: 'تحويل AVIF إلى PNG - مجاني، يحافظ على الخصوصية، بدون رفع | PicShift',
       description:
-        'حوّل صور AVIF إلى صيغة PNG بدون فقدان في متصفحك. مجاني، خاص، بدون رفع.',
+        'حوّل صور AVIF إلى صيغة PNG بدون فقدان في متصفحك. مجاني، يحافظ على الخصوصية، بدون رفع.',
       h1: 'تحويل AVIF إلى PNG',
       introText:
         'حوّل صور AVIF إلى صيغة PNG بدون فقدان الجودة. مثالي للحفاظ على أقصى جودة.',

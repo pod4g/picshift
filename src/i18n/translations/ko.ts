@@ -5,7 +5,7 @@ const ko: PageTranslations = {
     title:
       'PicShift - 무료 이미지 변환기 | HEIC, WebP, PNG, JPG, AVIF | 업로드 불필요',
     description:
-      '브라우저에서 이미지를 즉시 변환하세요 — 업로드 불필요. HEIC→JPG, WebP→PNG, AVIF 등 다양한 형식을 지원해요. 100% 프라이버시 보호, 오프라인에서도 작동. 무료, 무제한, 가입 불필요.',
+      '브라우저에서 이미지를 즉시 변환하세요 — 업로드 불필요. HEIC→JPG, WebP→PNG, AVIF 등 다양한 형식을 지원해요. 100% 개인정보 보호, 오프라인에서도 작동. 무료, 무제한, 가입 불필요.',
   },
   privacy: {
     title: '개인정보처리방침 | PicShift',
@@ -60,9 +60,9 @@ const ko: PageTranslations = {
   },
   tools: {
     'heic-to-jpg': {
-      title: 'HEIC→JPG 변환 - 무료, 프라이버시 보호, 업로드 불필요 | PicShift',
+      title: 'HEIC→JPG 변환 - 무료, 개인정보 보호, 업로드 불필요 | PicShift',
       description:
-        'HEIC 사진을 브라우저에서 즉시 JPG로 변환하세요. 100% 프라이버시 보호 - 파일이 기기 밖으로 나가지 않아요. 무료, 무제한, 가입 불필요.',
+        'HEIC 사진을 브라우저에서 즉시 JPG로 변환하세요. 100% 개인정보 보호 - 파일이 기기 밖으로 나가지 않아요. 무료, 무제한, 가입 불필요.',
       h1: 'HEIC를 JPG로 변환',
       introText:
         'iPhone의 HEIC 사진을 JPG 형식으로 즉시 변환하세요. 모든 처리는 브라우저에서 이루어지며, 사진이 기기 밖으로 나가지 않아요.',
@@ -91,9 +91,9 @@ const ko: PageTranslations = {
       ],
     },
     'heic-to-png': {
-      title: 'HEIC→PNG 변환 - 무료, 프라이버시 보호, 업로드 불필요 | PicShift',
+      title: 'HEIC→PNG 변환 - 무료, 개인정보 보호, 업로드 불필요 | PicShift',
       description:
-        'HEIC 사진을 브라우저에서 PNG 형식으로 변환하세요. 무손실 화질, 100% 프라이버시 보호, 업로드 불필요.',
+        'HEIC 사진을 브라우저에서 PNG 형식으로 변환하세요. 무손실 화질, 100% 개인정보 보호, 업로드 불필요.',
       h1: 'HEIC를 PNG로 변환',
       introText:
         'iPhone의 HEIC 사진을 무손실 PNG 형식으로 변환하세요. 모든 처리는 브라우저에서 로컬로 이루어져요.',
@@ -114,9 +114,9 @@ const ko: PageTranslations = {
       ],
     },
     'heic-to-webp': {
-      title: 'HEIC→WebP 변환 - 무료, 프라이버시 보호, 업로드 불필요 | PicShift',
+      title: 'HEIC→WebP 변환 - 무료, 개인정보 보호, 업로드 불필요 | PicShift',
       description:
-        'HEIC 사진을 브라우저에서 WebP 형식으로 변환하세요. 더 작은 파일, 우수한 화질, 100% 프라이버시 보호.',
+        'HEIC 사진을 브라우저에서 WebP 형식으로 변환하세요. 더 작은 파일, 우수한 화질, 100% 개인정보 보호.',
       h1: 'HEIC를 WebP로 변환',
       introText:
         'iPhone의 HEIC 사진을 최신 WebP 형식으로 변환하세요. WebP는 JPG와 동일한 화질에서 25~34% 더 작은 파일 크기를 제공해요.',
@@ -137,9 +137,9 @@ const ko: PageTranslations = {
       ],
     },
     'webp-to-jpg': {
-      title: 'WebP→JPG 변환 - 무료, 프라이버시 보호, 업로드 불필요 | PicShift',
+      title: 'WebP→JPG 변환 - 무료, 개인정보 보호, 업로드 불필요 | PicShift',
       description:
-        'WebP 이미지를 브라우저에서 JPG 형식으로 변환하세요. 무료, 프라이버시 보호, 업로드 불필요.',
+        'WebP 이미지를 브라우저에서 JPG 형식으로 변환하세요. 무료, 개인정보 보호, 업로드 불필요.',
       h1: 'WebP를 JPG로 변환',
       introText:
         'WebP 이미지를 범용적인 JPG 형식으로 변환하세요. 모든 처리는 브라우저에서 로컬로 이루어져요.',
@@ -156,9 +156,9 @@ const ko: PageTranslations = {
       ],
     },
     'webp-to-png': {
-      title: 'WebP→PNG 변환 - 무료, 프라이버시 보호, 업로드 불필요 | PicShift',
+      title: 'WebP→PNG 변환 - 무료, 개인정보 보호, 업로드 불필요 | PicShift',
       description:
-        'WebP 이미지를 브라우저에서 무손실 PNG 형식으로 변환하세요. 무료, 프라이버시 보호, 업로드 불필요.',
+        'WebP 이미지를 브라우저에서 무손실 PNG 형식으로 변환하세요. 무료, 개인정보 보호, 업로드 불필요.',
       h1: 'WebP를 PNG로 변환',
       introText:
         'WebP 이미지를 무손실 PNG 형식으로 변환하세요. 투명도나 무손실 화질이 필요할 때 적합해요.',
@@ -175,7 +175,7 @@ const ko: PageTranslations = {
       ],
     },
     'png-to-jpg': {
-      title: 'PNG→JPG 변환 - 무료, 프라이버시 보호, 업로드 불필요 | PicShift',
+      title: 'PNG→JPG 변환 - 무료, 개인정보 보호, 업로드 불필요 | PicShift',
       description:
         'PNG 이미지를 브라우저에서 JPG 형식으로 변환하세요. 우수한 화질을 유지하면서 파일 크기를 줄여요.',
       h1: 'PNG를 JPG로 변환',
@@ -194,9 +194,9 @@ const ko: PageTranslations = {
       ],
     },
     'jpg-to-png': {
-      title: 'JPG→PNG 변환 - 무료, 프라이버시 보호, 업로드 불필요 | PicShift',
+      title: 'JPG→PNG 변환 - 무료, 개인정보 보호, 업로드 불필요 | PicShift',
       description:
-        'JPG 이미지를 브라우저에서 무손실 PNG 형식으로 변환하세요. 무료, 프라이버시 보호, 업로드 불필요.',
+        'JPG 이미지를 브라우저에서 무손실 PNG 형식으로 변환하세요. 무료, 개인정보 보호, 업로드 불필요.',
       h1: 'JPG를 PNG로 변환',
       introText:
         'JPG 이미지를 무손실 PNG 형식으로 변환하세요. 편집용 무손실 버전이 필요할 때 유용해요.',
@@ -213,9 +213,9 @@ const ko: PageTranslations = {
       ],
     },
     'jpg-to-webp': {
-      title: 'JPG→WebP 변환 - 무료, 프라이버시 보호, 업로드 불필요 | PicShift',
+      title: 'JPG→WebP 변환 - 무료, 개인정보 보호, 업로드 불필요 | PicShift',
       description:
-        'JPG 이미지를 브라우저에서 WebP 형식으로 변환하세요. 동일한 화질에 더 작은 파일 크기, 100% 프라이버시 보호.',
+        'JPG 이미지를 브라우저에서 WebP 형식으로 변환하세요. 동일한 화질에 더 작은 파일 크기, 100% 개인정보 보호.',
       h1: 'JPG를 WebP로 변환',
       introText:
         'JPG 이미지를 최신 WebP 형식으로 변환하여 동일한 시각적 품질에서 25~34%의 파일 크기 절감을 실현하세요.',
@@ -232,9 +232,9 @@ const ko: PageTranslations = {
       ],
     },
     'avif-to-jpg': {
-      title: 'AVIF→JPG 변환 - 무료, 프라이버시 보호, 업로드 불필요 | PicShift',
+      title: 'AVIF→JPG 변환 - 무료, 개인정보 보호, 업로드 불필요 | PicShift',
       description:
-        'AVIF 이미지를 브라우저에서 JPG 형식으로 변환하세요. 무료, 프라이버시 보호, 업로드 불필요.',
+        'AVIF 이미지를 브라우저에서 JPG 형식으로 변환하세요. 무료, 개인정보 보호, 업로드 불필요.',
       h1: 'AVIF를 JPG로 변환',
       introText:
         'AVIF 이미지를 범용적인 JPG 형식으로 변환하세요. 모든 처리는 로컬에서 이루어져요.',
@@ -251,9 +251,9 @@ const ko: PageTranslations = {
       ],
     },
     'avif-to-png': {
-      title: 'AVIF→PNG 변환 - 무료, 프라이버시 보호, 업로드 불필요 | PicShift',
+      title: 'AVIF→PNG 변환 - 무료, 개인정보 보호, 업로드 불필요 | PicShift',
       description:
-        'AVIF 이미지를 브라우저에서 무손실 PNG 형식으로 변환하세요. 무료, 프라이버시 보호, 업로드 불필요.',
+        'AVIF 이미지를 브라우저에서 무손실 PNG 형식으로 변환하세요. 무료, 개인정보 보호, 업로드 불필요.',
       h1: 'AVIF를 PNG로 변환',
       introText:
         'AVIF 이미지를 무손실 PNG 형식으로 변환하세요. 최대한의 화질을 보존하고 싶을 때 적합해요.',
@@ -270,8 +270,8 @@ const ko: PageTranslations = {
       ],
     },
     'image-resizer': {
-      title: '이미지 크기 조정 - 무료, 프라이버시 보호 | PicShift',
-      description: '브라우저에서 이미지 크기 조정. 프리셋 크기 또는 사용자 지정 크기. 100% 프라이버시, 업로드 불필요.',
+      title: '이미지 크기 조정 - 무료, 개인정보 보호 | PicShift',
+      description: '브라우저에서 이미지 크기 조정. 프리셋 크기 또는 사용자 지정 크기. 100% 개인정보 보호, 업로드 불필요.',
       h1: '이미지 크기 조정',
       introText: '이미지를 정확한 크기 또는 일반적인 프리셋으로 조정합니다. 모든 처리는 브라우저에서 수행 — 이미지가 기기를 벗어나지 않습니다.',
       howToSteps: [
@@ -288,7 +288,7 @@ const ko: PageTranslations = {
     'image-compressor': {
       title: '이미지 압축 - 온라인에서 무료로 파일 크기 줄이기 | PicShift',
       description:
-        '브라우저에서 이미지를 압축하세요. JPG, PNG, WebP 파일 크기를 우수한 화질을 유지하면서 줄여요. 100% 프라이버시 보호, 업로드 불필요.',
+        '브라우저에서 이미지를 압축하세요. JPG, PNG, WebP 파일 크기를 우수한 화질을 유지하면서 줄여요. 100% 개인정보 보호, 업로드 불필요.',
       h1: '이미지 압축',
       introText:
         '시각적 품질을 유지하면서 이미지 파일 크기를 줄이세요. 품질 슬라이더를 조절하여 최적의 균형을 찾아보세요.',

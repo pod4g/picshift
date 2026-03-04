@@ -10,6 +10,8 @@ import { TOOL_PAGES } from '../../data/tools';
 import { SUPPORTED_LOCALES, localePath } from '../../i18n';
 import { getPageTranslations } from '../../i18n/translations';
 import { getUI } from '../../i18n/ui';
+import { getDocsUi } from '../../i18n/docsUi';
+import { getLocalizedToolMeta } from '../../i18n/toolMeta';
 import type { Locale } from '../../i18n/config';
 import type { ToolPageConfig } from '../../types';
 
@@ -35,26 +37,28 @@ interface Props {
 const { lang, tool } = Astro.props;
 const pageTranslations = getPageTranslations(lang);
 const toolTranslation = pageTranslations.tools[tool.slug];
+const localizedMeta = getLocalizedToolMeta(lang, tool);
 
-const title = toolTranslation?.title || tool.title;
-const description = toolTranslation?.description || tool.description;
+const title = toolTranslation?.title || localizedMeta.title;
+const description = toolTranslation?.description || localizedMeta.description;
 const h1 = toolTranslation?.h1 || tool.h1;
 const introText = toolTranslation?.introText || tool.introText;
 const howToSteps = toolTranslation?.howToSteps || tool.howToSteps;
 const t = getUI(lang);
+const docsUi = getDocsUi(lang);
 const faqs = [...(toolTranslation?.faqs || tool.faqs), { q: t.sizeIncreaseFaqQ, a: t.sizeIncreaseFaqA }];
 const relatedGuides = [
   {
     href: localePath('/docs/format-compatibility', lang),
-    title: 'Format Compatibility Guide',
+    title: docsUi.formatDocTitle,
   },
   {
     href: localePath('/docs/image-quality-vs-file-size', lang),
-    title: 'Image Quality vs File Size',
+    title: docsUi.qualityDocTitle,
   },
   {
     href: localePath('/docs/privacy-local-processing', lang),
-    title: 'Privacy and Local Processing',
+    title: docsUi.privacyDocTitle,
   },
 ];
 
@@ -90,7 +94,7 @@ const breadcrumbSchema = {
     {
       '@type': 'ListItem',
       position: 1,
-      name: 'Home',
+      name: docsUi.home,
       item: localizedHomeUrl,
     },
     {
@@ -104,7 +108,7 @@ const breadcrumbSchema = {
 const relatedGuidesItemListSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  name: `${h1} related guides`,
+  name: `${h1} ${docsUi.relatedPages}`,
   itemListOrder: 'https://schema.org/ItemListOrderAscending',
   numberOfItems: relatedGuides.length,
   itemListElement: relatedGuides.map((guide, index) => ({
@@ -124,7 +128,7 @@ const relatedGuidesItemListSchema = {
       <!-- Page heading -->
       <div class="mb-5 sm:mb-6">
         <nav aria-label="Breadcrumb" class="mb-3 text-sm text-text-secondary">
-          <a href={`/${lang}/`} class="hover:text-text-primary hover:underline">Home</a>
+          <a href={`/${lang}/`} class="hover:text-text-primary hover:underline">{docsUi.home}</a>
           <span class="mx-2">/</span>
           <span class="text-text-primary">{h1}</span>
         </nav>
@@ -155,7 +159,7 @@ const relatedGuidesItemListSchema = {
 
       <section class="mb-8">
         <div class="rounded-xl border border-border bg-card-bg p-4 sm:p-5">
-          <h2 class="text-lg sm:text-xl font-semibold text-text-primary mb-3">Related guides</h2>
+          <h2 class="text-lg sm:text-xl font-semibold text-text-primary mb-3">{docsUi.relatedPages}</h2>
           <div class="flex flex-wrap gap-2">
             {relatedGuides.map((guide) => (
               <a
