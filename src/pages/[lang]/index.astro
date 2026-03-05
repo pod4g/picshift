@@ -9,6 +9,7 @@ import { TOOL_PAGES } from '../../data/tools';
 import { getUI, localePath, SUPPORTED_LOCALES } from '../../i18n';
 import { getPageTranslations } from '../../i18n/translations';
 import { getDocsUi } from '../../i18n/docsUi';
+import { getVerificationUi } from '../../i18n/verificationUi';
 import { getToolCardMeta } from '../../lib/toolCardMeta';
 import type { Locale } from '../../i18n/config';
 
@@ -28,6 +29,7 @@ interface Props {
 const { lang } = Astro.props;
 const ui = getUI(lang);
 const docsUi = getDocsUi(lang);
+const verifyUi = getVerificationUi(lang);
 const pageTranslations = getPageTranslations(lang);
 const title = pageTranslations.home.title;
 const description = pageTranslations.home.description;
@@ -137,6 +139,22 @@ const guides = [
           })();
         </script>
         <Converter client:only="react" fullPage lang={lang} />
+      </div>
+    </section>
+
+    <section class="pb-10 sm:pb-12 px-4">
+      <div class="max-w-3xl mx-auto rounded-xl border border-primary-500/25 bg-primary-500/5 p-5 sm:p-6">
+        <h2 class="text-lg sm:text-xl font-semibold text-text-primary mb-2">{verifyUi.homepageTitle}</h2>
+        <p class="text-sm text-text-secondary mb-4">{verifyUi.homepageIntro}</p>
+        <ol class="list-decimal pl-5 space-y-2 text-sm text-text-secondary">
+          {verifyUi.homepageSteps.map((step) => (
+            <li>{step}</li>
+          ))}
+        </ol>
+        <p class="mt-4 text-xs text-text-secondary">{verifyUi.homepageNote}</p>
+        <a href={localePath('/docs/privacy-local-processing', lang)} class="inline-block mt-4 text-sm text-primary-500 hover:underline">
+          {verifyUi.homepageCta}
+        </a>
       </div>
     </section>
 

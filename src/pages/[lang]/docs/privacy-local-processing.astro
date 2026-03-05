@@ -5,8 +5,9 @@ import Footer from '../../../components/layout/Footer.astro';
 import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../../lib/contentDates';
 import { getDocsFaqs } from '../../../i18n/docsFaqs';
 import { getDocsUi } from '../../../i18n/docsUi';
-import { SUPPORTED_LOCALES } from '../../../i18n';
+import { SUPPORTED_LOCALES, localePath } from '../../../i18n';
 import { getPageTranslations } from '../../../i18n/translations';
+import { getVerificationUi } from '../../../i18n/verificationUi';
 import type { Locale } from '../../../i18n/config';
 
 export function getStaticPaths() {
@@ -24,6 +25,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const docsUi = getDocsUi(lang);
+const verifyUi = getVerificationUi(lang);
 const pageTranslations = getPageTranslations(lang);
 const title = `PicShift ${docsUi.privacyDocTitle}`;
 const description = docsUi.privacyDocDescription;
@@ -459,6 +461,46 @@ const faqSchema = {
         <p class="text-text-secondary">
           {privacyDocContent.trustText}
         </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{verifyUi.docsVerifyHeading}</h2>
+        <p class="text-text-secondary mb-3">{verifyUi.docsVerifyIntro}</p>
+        <ol class="list-decimal pl-5 space-y-2 text-text-secondary">
+          {verifyUi.docsVerifySteps.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{verifyUi.docsBoundaryHeading}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          {verifyUi.docsBoundaryItems.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{verifyUi.docsEvidenceHeading}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li>
+            {verifyUi.docsEvidenceItems[0]}
+            {' '}
+            <a href={localePath('/privacy', lang)} class="text-primary-500 hover:underline">{docsUi.privacyPolicy}</a>
+          </li>
+          <li>
+            {verifyUi.docsEvidenceItems[1]}
+            {' '}
+            <a href={localePath('/docs/format-compatibility', lang)} class="text-primary-500 hover:underline">{docsUi.formatDocTitle}</a>
+          </li>
+          <li>
+            {verifyUi.docsEvidenceItems[2]}
+            {' '}
+            <a href={localePath('/docs/image-quality-vs-file-size', lang)} class="text-primary-500 hover:underline">{docsUi.qualityDocTitle}</a>
+          </li>
+        </ul>
       </section>
 
       <section class="mb-8">

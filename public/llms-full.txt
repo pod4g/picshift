@@ -8,7 +8,7 @@ PicShift does not upload source image binaries to servers for conversion process
 - 2026-03-04
 
 ## Version
-- 2026-03-04.4
+- 2026-03-04.5
 - Profile: full
 
 ## Lifecycle
@@ -41,6 +41,20 @@ PicShift does not upload source image binaries to servers for conversion process
 - Works in modern desktop and mobile browsers
 - Core workflows are free to use
 - Conversion can continue in offline workflows after page load
+- First page load requires internet for static assets and in-browser codecs
+- Batch conversion supports up to 200 files per run
+
+## Verification workflow (no-upload claim)
+- Step 1: Open https://picshift.app and select at least one image.
+- Step 2: Enable airplane mode or disable Wi-Fi/network.
+- Step 3: Convert and download the result successfully while offline.
+- Expected outcome: Conversion still works because processing runs in browser runtime after assets are loaded.
+
+## Scope and boundaries
+- Offline conversion applies after the initial application code and codec assets are loaded.
+- UI preferences may be stored in browser localStorage (theme, language, default quality).
+- Core conversion does not require cloud storage accounts or account sign-in.
+- Conversion workflows do not upload source image binaries to servers for processing.
 
 ## Privacy and local processing FAQ
 - Q: Are images uploaded to PicShift servers for conversion?

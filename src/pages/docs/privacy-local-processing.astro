@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/layout/Header.astro';
 import Footer from '../../components/layout/Footer.astro';
 import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../lib/contentDates';
+import { getVerificationUi } from '../../i18n/verificationUi';
 
 const lang = 'en' as const;
 const title = 'How PicShift Handles Privacy and Local Processing';
@@ -11,6 +12,7 @@ const canonical = 'https://picshift.app/docs/privacy-local-processing';
 const pagePath = '/docs/privacy-local-processing';
 const datePublished = DOCS_DATE_PUBLISHED;
 const dateModified = CONTENT_DATE_MODIFIED;
+const verifyUi = getVerificationUi(lang);
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'TechArticle',
@@ -128,6 +130,46 @@ const faqSchema = {
           PicShift follows a minimize-data approach: process locally, avoid unnecessary account requirements, and keep
           user workflows simple. For legal details and policy language, see the Privacy page.
         </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{verifyUi.docsVerifyHeading}</h2>
+        <p class="text-text-secondary mb-3">{verifyUi.docsVerifyIntro}</p>
+        <ol class="list-decimal pl-5 space-y-2 text-text-secondary">
+          {verifyUi.docsVerifySteps.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{verifyUi.docsBoundaryHeading}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          {verifyUi.docsBoundaryItems.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{verifyUi.docsEvidenceHeading}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li>
+            {verifyUi.docsEvidenceItems[0]}
+            {' '}
+            <a href="/privacy" class="text-primary-500 hover:underline">/privacy</a>
+          </li>
+          <li>
+            {verifyUi.docsEvidenceItems[1]}
+            {' '}
+            <a href="/docs/format-compatibility" class="text-primary-500 hover:underline">/docs/format-compatibility</a>
+          </li>
+          <li>
+            {verifyUi.docsEvidenceItems[2]}
+            {' '}
+            <a href="/docs/image-quality-vs-file-size" class="text-primary-500 hover:underline">/docs/image-quality-vs-file-size</a>
+          </li>
+        </ul>
       </section>
 
       <section class="mb-8">
