@@ -1,0 +1,393 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/layout/Header.astro';
+import Footer from '../../../components/layout/Footer.astro';
+import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../../lib/contentDates';
+import { getDocsUi } from '../../../i18n/docsUi';
+import { SUPPORTED_LOCALES } from '../../../i18n';
+import type { Locale } from '../../../i18n/config';
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES
+    .filter((l) => l !== 'en')
+    .map((l) => ({
+      params: { lang: l },
+      props: { lang: l },
+    }));
+}
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const docsUi = getDocsUi(lang);
+const title = `PicShift ${docsUi.whyPicShiftDocTitle}`;
+const description = docsUi.whyPicShiftDocDescription;
+const pagePath = '/docs/why-picshift';
+const canonical = `https://picshift.app/${lang}/docs/why-picshift`;
+const datePublished = DOCS_DATE_PUBLISHED;
+const dateModified = CONTENT_DATE_MODIFIED;
+
+const contentMap = {
+  zh: {
+    intro: 'PicShift 来自我自己的日常工作流：需要隐私安全的图片转换、更高效的格式决策，以及无需上传的本地处理。',
+    painTitle: '我遇到的真实问题',
+    pains: [
+      '前端开发经常要压缩图片、改尺寸、转 WebP/AVIF 来提升加载性能。',
+      '我个人经常要把 iPhone/iPad 的 HEIC/HEIF 照片转成更通用格式。',
+      '合同截图和个人图片涉及隐私，不适合上传到在线服务。',
+      '同一张图经常要转多种格式并对比体积与观感，才能选到更优结果。',
+    ],
+    localTitle: '为什么坚持 local-only',
+    localItems: [
+      '图片处理在浏览器本地完成。',
+      '原图不上传参与转换。',
+      '核心流程不需要账号登录。',
+      '静态托管成本低，因此可长期免费提供。',
+    ],
+    expTitle: '我重点优化的体验',
+    expItems: [
+      '批量转换，减少重复操作。',
+      '前后对比，快速判断画质变化。',
+      '多格式对比，帮助选择更优体积。',
+      '体积变大时给出可解释原因。',
+    ],
+    techText: '在技术上，我也做了很多优化，以提升性能、压缩率和用户体验。技术实现细节见：',
+    iterateTitle: '为什么我会持续迭代',
+    iterateText: '这是我每天都在用的工具，所以我会持续打磨速度、交互和边界场景稳定性。',
+    contactTitle: '欢迎反馈',
+    contactText: '多语言文案在初稿阶段会借助 AI 提升效率，最终内容会经过人工校对与持续修订。欢迎指出翻译不自然或不准确之处，也欢迎功能建议、体验反馈和技术建议。联系邮箱：',
+  },
+  'zh-Hant': {
+    intro: 'PicShift 來自我自己的日常工作流：需要隱私安全的圖片轉換、更高效的格式決策，以及不用上傳的本機處理。',
+    painTitle: '我遇到的真實問題',
+    pains: [
+      '前端開發常要壓縮圖片、改尺寸、轉 WebP/AVIF 來提升載入效能。',
+      '我個人常把 iPhone/iPad 的 HEIC/HEIF 照片轉為更通用格式。',
+      '合約截圖與個人圖片涉及隱私，不適合上傳到線上服務。',
+      '同一張圖常要轉多種格式並比較體積與觀感，才能選到更優結果。',
+    ],
+    localTitle: '為什麼堅持 local-only',
+    localItems: [
+      '圖片處理在瀏覽器本機完成。',
+      '原圖不會上傳參與轉換。',
+      '核心流程不需要帳號登入。',
+      '靜態託管成本低，因此可長期免費提供。',
+    ],
+    expTitle: '我重點最佳化的體驗',
+    expItems: [
+      '批量轉換，減少重複操作。',
+      '前後對比，快速判斷畫質變化。',
+      '多格式比較，幫助選擇更優體積。',
+      '體積變大時提供可解釋原因。',
+    ],
+    techText: '在技術上，我也做了很多最佳化，以提升效能、壓縮率與使用體驗。技術細節見：',
+    iterateTitle: '為什麼我會持續迭代',
+    iterateText: '這是我每天都在用的工具，所以我會持續打磨速度、互動與邊界場景的穩定性。',
+    contactTitle: '歡迎回饋',
+    contactText: '多語言文案在初稿階段會借助 AI 提升效率，最終內容會經過人工校對與持續修訂。歡迎指出翻譯不自然或不準確之處，也歡迎功能建議、體驗回饋與技術建議。聯絡信箱：',
+  },
+  es: {
+    intro: 'PicShift nace de mi flujo diario: conversion privada de imagenes, decisiones rapidas de formato y procesamiento local sin subidas.',
+    painTitle: 'Problemas reales que tenia',
+    pains: [
+      'En frontend necesito optimizar imagenes con resize y formatos modernos como WebP/AVIF.',
+      'Convierto fotos HEIC/HEIF de iPhone/iPad a formatos mas compatibles.',
+      'Hay capturas de contratos y fotos personales que no debo subir.',
+      'Con frecuencia comparo varios formatos para elegir mejor tamano y calidad.',
+    ],
+    localTitle: 'Por que local-only',
+    localItems: ['El procesamiento ocurre en el navegador.', 'La imagen fuente no se sube para convertir.', 'No exige cuenta para el flujo principal.', 'Con hosting estatico el costo es bajo y se mantiene gratis.'],
+    expTitle: 'Experiencia que optimice',
+    expItems: ['Conversion por lotes.', 'Comparacion antes/despues.', 'Comparacion entre formatos.', 'Explicacion clara cuando el tamano aumenta.'],
+    techText: 'Tambien hice muchas optimizaciones tecnicas para rendimiento, compresion y UX. Detalles:',
+    iterateTitle: 'Por que sigo iterando',
+    iterateText: 'Uso esta herramienta todos los dias, por eso sigo mejorando velocidad, experiencia y estabilidad.',
+    contactTitle: 'Comentarios bienvenidos',
+    contactText: 'Bienvenidas sugerencias de localizacion, funciones, UX y tecnologia. Contacto:',
+  },
+  fr: {
+    intro: 'PicShift vient de mon usage quotidien: conversion privee, choix de format plus rapide et traitement local sans upload.',
+    painTitle: 'Problemes concrets rencontres',
+    pains: [
+      'En frontend, je dois souvent optimiser des images (resize, WebP/AVIF).',
+      'Je convertis souvent des photos HEIC/HEIF d iPhone/iPad.',
+      'Certains fichiers sont sensibles et ne doivent pas etre televerses.',
+      'Je compare souvent plusieurs formats pour choisir le meilleur compromis.',
+    ],
+    localTitle: 'Pourquoi local-only',
+    localItems: ['Traitement dans le navigateur.', 'Pas d upload de la source pour convertir.', 'Pas de compte requis pour le flux principal.', 'Hebergement statique a faible cout, donc service gratuit.'],
+    expTitle: 'Ce que j ai optimise cote experience',
+    expItems: ['Conversion par lot.', 'Comparaison avant/apres.', 'Comparaison multi-formats.', 'Explication claire quand la taille augmente.'],
+    techText: 'J ai aussi optimise la technique pour la performance, le taux de compression et l UX. Details :',
+    iterateTitle: 'Pourquoi je continue a iterer',
+    iterateText: 'Je l utilise tous les jours, donc je continue a ameliorer vitesse, ergonomie et robustesse.',
+    contactTitle: 'Vos retours sont bienvenus',
+    contactText: 'Suggestions de localisation, fonctions, UX et technique bienvenues. Contact :',
+  },
+  de: {
+    intro: 'PicShift entstand aus meinem Alltag: private Bildkonvertierung, schnellere Formatentscheidungen und lokale Verarbeitung ohne Upload.',
+    painTitle: 'Reale Probleme',
+    pains: [
+      'Im Frontend muss ich Bilder oft fuer Performance optimieren (Resize, WebP/AVIF).',
+      'Ich konvertiere haeufig HEIC/HEIF Fotos von iPhone/iPad.',
+      'Vertragsscreenshots und private Bilder sollten nicht hochgeladen werden.',
+      'Ich vergleiche oft mehrere Formate, um die bessere Groesse und Qualitaet zu waehlen.',
+    ],
+    localTitle: 'Warum local-only',
+    localItems: ['Verarbeitung im Browser.', 'Keine Uploads der Quelldatei fuer Konvertierung.', 'Kein Konto fuer den Kern-Workflow.', 'Statisches Hosting haelt Kosten niedrig und den Dienst kostenlos.'],
+    expTitle: 'Was ich in der UX optimiert habe',
+    expItems: ['Batch-Konvertierung.', 'Vorher/Nachher Vergleich.', 'Formatvergleich fuer bessere Auswahl.', 'Klare Erklaerung bei Groessenzunahme.'],
+    techText: 'Technisch habe ich ebenfalls stark optimiert: Performance, Kompressionsrate und UX. Details:',
+    iterateTitle: 'Warum ich weiter iteriere',
+    iterateText: 'Ich nutze das Tool taeglich und verbessere deshalb kontinuierlich Geschwindigkeit, Bedienung und Stabilitaet.',
+    contactTitle: 'Feedback willkommen',
+    contactText: 'Lokalisierungs-, Funktions-, UX- und Technikfeedback ist willkommen. Kontakt:',
+  },
+  ja: {
+    intro: 'PicShift は私自身の毎日の作業から生まれました。プライバシーを守る変換、形式選択の効率化、アップロード不要のローカル処理が必要だったからです。',
+    painTitle: '実際に抱えていた課題',
+    pains: [
+      'フロントエンド開発では、画像最適化（リサイズ、WebP/AVIF 化）が頻繁に必要。',
+      'iPhone/iPad の HEIC/HEIF 写真を互換形式へ変換する機会が多い。',
+      '契約書スクリーンショットや個人画像はアップロードしたくない。',
+      '同じ画像を複数形式に変換して比較しないと最適解を選べないことが多い。',
+    ],
+    localTitle: 'local-only を選ぶ理由',
+    localItems: ['処理はブラウザ内で完結。', '変換のために元画像をアップロードしない。', '主要機能にログイン不要。', '静的ホスティングで低コスト運用。'],
+    expTitle: '体験面で重視した最適化',
+    expItems: ['一括変換。', '変換前後の比較。', '形式ごとの比較。', 'サイズ増加時の理由説明。'],
+    techText: '技術面でも、性能・圧縮効率・体験品質のために多くの最適化を行いました。詳細:',
+    iterateTitle: '継続改善する理由',
+    iterateText: 'これは私が毎日使うツールなので、速度・使いやすさ・安定性を継続的に改善しています。',
+    contactTitle: 'フィードバック歓迎',
+    contactText: 'ローカライズ改善、機能提案、UX 提案、技術提案を歓迎します。連絡先:',
+  },
+  ko: {
+    intro: 'PicShift는 제가 매일 겪는 작업 흐름에서 시작되었습니다. 개인정보를 지키는 변환, 빠른 포맷 판단, 업로드 없는 로컬 처리가 필요했습니다.',
+    painTitle: '실제 문제',
+    pains: [
+      '프론트엔드에서 이미지 최적화(리사이즈, WebP/AVIF)가 자주 필요합니다.',
+      'iPhone/iPad HEIC/HEIF 사진을 호환 포맷으로 바꿀 일이 많습니다.',
+      '계약서 캡처와 개인 사진은 업로드하기 어렵습니다.',
+      '같은 이미지를 여러 포맷으로 비교해야 더 나은 결과를 고를 수 있습니다.',
+    ],
+    localTitle: 'local-only를 고수한 이유',
+    localItems: ['처리는 브라우저에서 실행됩니다.', '원본 업로드 없이 변환합니다.', '핵심 기능에 로그인은 필요 없습니다.', '정적 호스팅으로 비용을 낮춰 무료로 유지합니다.'],
+    expTitle: '경험 측면 최적화',
+    expItems: ['배치 변환.', '전후 비교.', '포맷 간 비교.', '용량 증가 시 원인 설명.'],
+    techText: '기술적으로도 성능, 압축 효율, 사용자 경험을 위해 많은 최적화를 했습니다. 자세한 내용:',
+    iterateTitle: '지속적으로 개선하는 이유',
+    iterateText: '제가 매일 쓰는 도구이기 때문에 속도, 사용성, 안정성을 계속 개선합니다.',
+    contactTitle: '피드백 환영',
+    contactText: '현지화, 기능, UX, 기술 제안 모두 환영합니다. 연락:',
+  },
+  pt: {
+    intro: 'O PicShift nasceu do meu uso diario: conversao privada, decisao rapida de formato e processamento local sem upload.',
+    painTitle: 'Problemas reais',
+    pains: [
+      'No frontend, preciso otimizar imagens com frequencia (resize, WebP/AVIF).',
+      'Converto muitas fotos HEIC/HEIF de iPhone/iPad.',
+      'Capturas de contrato e imagens pessoais nao devem ser enviadas.',
+      'Comparo varios formatos para escolher melhor tamanho e qualidade.',
+    ],
+    localTitle: 'Por que local-only',
+    localItems: ['Processamento no navegador.', 'Sem upload da imagem fonte para converter.', 'Sem conta no fluxo principal.', 'Hospedagem estatica de baixo custo para manter gratuito.'],
+    expTitle: 'O que otimizei na experiencia',
+    expItems: ['Conversao em lote.', 'Comparacao antes/depois.', 'Comparacao entre formatos.', 'Explicacao clara quando o tamanho aumenta.'],
+    techText: 'Tambem fiz muitas otimizacoes tecnicas para desempenho, taxa de compressao e UX. Detalhes:',
+    iterateTitle: 'Por que continuo iterando',
+    iterateText: 'Uso esta ferramenta todos os dias, por isso sigo melhorando velocidade, experiencia e estabilidade.',
+    contactTitle: 'Feedback bem-vindo',
+    contactText: 'Sugestoes de localizacao, funcao, UX e tecnologia sao bem-vindas. Contato:',
+  },
+  ru: {
+    intro: 'PicShift появился из моего ежедневного рабочего процесса: приватная конвертация, быстрый выбор формата и локальная обработка без загрузки.',
+    painTitle: 'С какими проблемами я столкнулся',
+    pains: [
+      'Во фронтенде часто нужно оптимизировать изображения (resize, WebP/AVIF).',
+      'Я часто конвертирую фото HEIC/HEIF с iPhone/iPad.',
+      'Скриншоты договоров и личные изображения нельзя загружать в облако.',
+      'Часто нужно сравнить несколько форматов, чтобы выбрать лучший результат.',
+    ],
+    localTitle: 'Почему local-only',
+    localItems: ['Обработка в браузере.', 'Без загрузки исходников для конвертации.', 'Без обязательного аккаунта для базового потока.', 'Статический хостинг снижает стоимость и позволяет оставаться бесплатным.'],
+    expTitle: 'Что я оптимизировал в опыте',
+    expItems: ['Пакетная конвертация.', 'Сравнение до/после.', 'Сравнение между форматами.', 'Пояснение, почему размер может вырасти.'],
+    techText: 'С технической стороны я также сделал много оптимизаций для производительности, степени сжатия и UX. Подробности:',
+    iterateTitle: 'Почему я продолжаю улучшать',
+    iterateText: 'Я использую этот инструмент каждый день, поэтому постоянно улучшаю скорость, удобство и стабильность.',
+    contactTitle: 'Обратная связь приветствуется',
+    contactText: 'Приветствуются предложения по локализации, функциям, UX и технике. Контакт:',
+  },
+  ar: {
+    intro: 'تم بناء PicShift من احتياجي اليومي: تحويل خاص، قرار اسرع للصيغة، ومعالجة محلية بدون رفع الملفات.',
+    painTitle: 'المشكلات الواقعية',
+    pains: [
+      'في تطوير الواجهة احتاج باستمرار لتحسين الصور مثل تغيير المقاس والتحويل الى WebP/AVIF.',
+      'اقوم كثيرا بتحويل صور HEIC/HEIF من iPhone/iPad الى صيغ اكثر توافقا.',
+      'لقطات العقود والصور الشخصية حساسة ولا يجب رفعها.',
+      'غالبا احتاج تحويل الصورة نفسها الى عدة صيغ للمقارنة قبل اختيار الافضل.',
+    ],
+    localTitle: 'لماذا local-only',
+    localItems: ['المعالجة تتم داخل المتصفح.', 'لا يتم رفع الصورة الاصلية للتحويل.', 'لا يتطلب حسابا في الاستخدام الاساسي.', 'الاستضافة الثابتة منخفضة التكلفة وتحافظ على مجانية الاداة.'],
+    expTitle: 'ما الذي حسنتّه في التجربة',
+    expItems: ['تحويل دفعي.', 'مقارنة قبل/بعد.', 'مقارنة بين الصيغ.', 'تفسير واضح عند زيادة الحجم.'],
+    techText: 'تقنيا قمت ايضا بتحسينات كثيرة لرفع الاداء وكفاءة الضغط وتجربة الاستخدام. التفاصيل:',
+    iterateTitle: 'لماذا استمر في التطوير',
+    iterateText: 'لانني استخدم هذه الاداة يوميا، استمر في تحسين السرعة والتجربة والاستقرار.',
+    contactTitle: 'ارحب بملاحظاتك',
+    contactText: 'اقتراحات التوطين والميزات وتجربة الاستخدام والجوانب التقنية مرحب بها. التواصل:',
+  },
+  it: {
+    intro: 'PicShift nasce dal mio flusso quotidiano: conversione privata, scelta formato piu rapida e processamento locale senza upload.',
+    painTitle: 'Problemi reali',
+    pains: [
+      'Nel frontend devo ottimizzare spesso immagini (resize, WebP/AVIF).',
+      'Converto spesso foto HEIC/HEIF da iPhone/iPad.',
+      'Screenshot di contratti e immagini personali non dovrebbero essere caricati.',
+      'Spesso confronto piu formati per scegliere il miglior compromesso.',
+    ],
+    localTitle: 'Perche local-only',
+    localItems: ['Elaborazione nel browser.', 'Nessun upload del file sorgente per convertire.', 'Nessun account obbligatorio nel flusso principale.', 'Hosting statico a basso costo, quindi servizio gratuito.'],
+    expTitle: 'Cosa ho ottimizzato nell esperienza',
+    expItems: ['Conversione batch.', 'Confronto prima/dopo.', 'Confronto tra formati.', 'Spiegazione chiara quando la dimensione aumenta.'],
+    techText: 'Dal lato tecnico ho fatto molte ottimizzazioni per prestazioni, rapporto di compressione e UX. Dettagli:',
+    iterateTitle: 'Perche continuo a iterare',
+    iterateText: 'Uso questo strumento ogni giorno, quindi continuo a migliorare velocita, esperienza e stabilita.',
+    contactTitle: 'Feedback benvenuto',
+    contactText: 'Sono benvenuti suggerimenti su localizzazione, funzioni, UX e aspetti tecnici. Contatto:',
+  },
+  en: {
+    intro: 'I built PicShift from my own daily workflow: privacy-sensitive conversion, faster format decisions, and local processing without uploads.',
+    painTitle: 'The real problems I faced',
+    pains: [
+      'I often needed frontend image optimization (resize, WebP/AVIF) for performance.',
+      'I frequently converted iPhone/iPad HEIC/HEIF photos.',
+      'Contract screenshots and personal images were too sensitive to upload.',
+      'I often needed multi-format output to compare size and quality before choosing.',
+    ],
+    localTitle: 'Why local-only matters',
+    localItems: ['Processing runs in the browser.', 'No source upload for conversion.', 'No account required for core workflows.', 'Low-cost static hosting keeps the tool free.'],
+    expTitle: 'What I optimized in the experience',
+    expItems: ['Batch conversion.', 'Before/after comparison.', 'Multi-format comparison.', 'Clear explanation when output size increases.'],
+    techText: 'On the technical side, I optimized for performance, compression efficiency, and UX. Details:',
+    iterateTitle: 'Why I keep iterating',
+    iterateText: 'I use this tool every day, so I keep improving speed, usability, and stability.',
+    contactTitle: 'Feedback is welcome',
+    contactText: 'I welcome localization polish, feature ideas, UX feedback, and technical suggestions. Contact:',
+  },
+}[lang] ?? {
+  intro: 'I built PicShift from my own daily workflow: privacy-sensitive conversion, faster format decisions, and local processing without uploads.',
+  painTitle: 'The real problems I faced',
+  pains: [
+    'I often needed frontend image optimization (resize, WebP/AVIF) for performance.',
+    'I frequently converted iPhone/iPad HEIC/HEIF photos.',
+    'Contract screenshots and personal images were too sensitive to upload.',
+    'I often needed multi-format output to compare size and quality before choosing.',
+  ],
+  localTitle: 'Why local-only matters',
+  localItems: ['Processing runs in the browser.', 'No source upload for conversion.', 'No account required for core workflows.', 'Low-cost static hosting keeps the tool free.'],
+  expTitle: 'What I optimized in the experience',
+  expItems: ['Batch conversion.', 'Before/after comparison.', 'Multi-format comparison.', 'Clear explanation when output size increases.'],
+  techText: 'On the technical side, I optimized for performance, compression efficiency, and UX. Details:',
+  iterateTitle: 'Why I keep iterating',
+  iterateText: 'I use this tool every day, so I keep improving speed, usability, and stability.',
+  contactTitle: 'Feedback is welcome',
+  contactText: 'I welcome localization polish, feature ideas, UX feedback, and technical suggestions. Contact:',
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: title,
+  description,
+  url: canonical,
+  inLanguage: lang,
+  datePublished,
+  dateModified,
+  author: { '@type': 'Person', name: 'PicShift Creator' },
+  publisher: { '@type': 'Organization', name: 'PicShift', url: 'https://picshift.app' },
+};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: docsUi.home, item: `https://picshift.app/${lang}/` },
+    { '@type': 'ListItem', position: 2, name: docsUi.docs, item: `https://picshift.app/${lang}/docs` },
+    { '@type': 'ListItem', position: 3, name: title, item: canonical },
+  ],
+};
+---
+
+<Layout title={title} description={description} canonical={canonical} lang={lang} pagePath={pagePath}>
+  <Header lang={lang} pagePath={pagePath} />
+
+  <main class="flex-1">
+    <article class="max-w-3xl mx-auto px-4 py-10 sm:py-14">
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm text-text-secondary">
+        <a href={`/${lang}/`} class="hover:text-text-primary hover:underline">{docsUi.home}</a>
+        <span class="mx-2">/</span>
+        <a href={`/${lang}/docs`} class="hover:text-text-primary hover:underline">{docsUi.docs}</a>
+        <span class="mx-2">/</span>
+        <span class="text-text-primary">{docsUi.whyPicShiftDocTitle}</span>
+      </nav>
+
+      <h1 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">{title}</h1>
+      <p class="text-base sm:text-lg text-text-secondary mb-8">{contentMap.intro}</p>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{contentMap.painTitle}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          {contentMap.pains.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{contentMap.localTitle}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          {contentMap.localItems.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{contentMap.expTitle}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          {contentMap.expItems.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+        <p class="text-text-secondary mt-4">
+          {contentMap.techText}
+          {' '}
+          <a href="https://dev.to/_85dbad023e63293c4c6db/how-we-built-a-browser-based-image-converter-with-webassembly-encoders-3i39" target="_blank" rel="noopener noreferrer" class="text-primary-500 hover:underline">How I Built a Browser-Based Image Converter with WebAssembly Encoders</a>.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{contentMap.iterateTitle}</h2>
+        <p class="text-text-secondary">{contentMap.iterateText}</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{contentMap.contactTitle}</h2>
+        <p class="text-text-secondary">
+          {contentMap.contactText}
+          {' '}
+          <a href="mailto:support@picshift.app" class="text-primary-500 hover:underline">support@picshift.app</a>
+        </p>
+      </section>
+
+      <p class="text-sm text-text-secondary pt-4 border-t border-border mt-8">{docsUi.lastUpdated}: {dateModified}</p>
+    </article>
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </main>
+
+  <Footer lang={lang} />
+</Layout>

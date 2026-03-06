@@ -20,6 +20,9 @@ interface DocsUiStrings {
   qualityDocDescription: string;
   sizeIncreaseDocTitle: string;
   sizeIncreaseDocDescription: string;
+  whyPicShiftDocTitle: string;
+  whyPicShiftDocDescription: string;
+  aboutPicShift: string;
 }
 
 const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
@@ -43,6 +46,9 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     qualityDocDescription: 'How to pick quality settings for the best trade-off between visual clarity and size.',
     sizeIncreaseDocTitle: 'Why Output Size Can Increase',
     sizeIncreaseDocDescription: 'How PicShift estimates deep compression and computes B/pixel in size-increase explanations.',
+    whyPicShiftDocTitle: 'Why I Built PicShift',
+    whyPicShiftDocDescription: 'The motivation behind a local-only, privacy-first image converter and how it is continuously improved.',
+    aboutPicShift: 'About PicShift',
   },
   zh: {
     home: '首页',
@@ -64,6 +70,9 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     qualityDocDescription: '如何设置质量参数以平衡视觉清晰度和文件体积。',
     sizeIncreaseDocTitle: '为什么输出体积会变大',
     sizeIncreaseDocDescription: '说明 PicShift 如何判断深度压缩，以及 B/像素 的计算方式。',
+    whyPicShiftDocTitle: '我为什么做 PicShift',
+    whyPicShiftDocDescription: '介绍 PicShift 的起点、隐私原则，以及持续迭代这款工具的原因。',
+    aboutPicShift: '关于 PicShift',
   },
   'zh-Hant': {
     home: '首頁',
@@ -85,6 +94,9 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     qualityDocDescription: '如何設定品質參數以平衡視覺清晰度與檔案體積。',
     sizeIncreaseDocTitle: '為什麼輸出體積會變大',
     sizeIncreaseDocDescription: '說明 PicShift 如何判斷深度壓縮，以及 B/像素 的計算方式。',
+    whyPicShiftDocTitle: '我為什麼做 PicShift',
+    whyPicShiftDocDescription: '介紹 PicShift 的起點、隱私原則，以及持續迭代這款工具的原因。',
+    aboutPicShift: '關於 PicShift',
   },
   es: {
     home: 'Inicio',
@@ -106,6 +118,9 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     qualityDocDescription: 'Como elegir calidad para equilibrar nitidez visual y tamano.',
     sizeIncreaseDocTitle: 'Por que puede aumentar el tamano final',
     sizeIncreaseDocDescription: 'Como PicShift estima compresion profunda y calcula B/pixel en sus explicaciones.',
+    whyPicShiftDocTitle: 'Por que cree PicShift',
+    whyPicShiftDocDescription: 'La motivacion de un convertidor local-only y enfocado en privacidad, con mejora continua.',
+    aboutPicShift: 'Acerca de PicShift',
   },
   fr: {
     home: 'Accueil',
@@ -127,6 +142,9 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     qualityDocDescription: 'Comment regler la qualite pour equilibrer clarte visuelle et taille.',
     sizeIncreaseDocTitle: 'Pourquoi la taille peut augmenter',
     sizeIncreaseDocDescription: 'Comment PicShift estime la compression profonde et calcule les B/pixel.',
+    whyPicShiftDocTitle: 'Pourquoi j ai cree PicShift',
+    whyPicShiftDocDescription: 'La motivation derriere un convertisseur local-only, axe sur la confidentialite et l amelioration continue.',
+    aboutPicShift: 'A propos de PicShift',
   },
   de: {
     home: 'Startseite',
@@ -148,6 +166,9 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     qualityDocDescription: 'So wahlst du Qualitatseinstellungen fur den besten Kompromiss aus Klarheit und Grosse.',
     sizeIncreaseDocTitle: 'Warum die Ausgabegrosse steigen kann',
     sizeIncreaseDocDescription: 'Wie PicShift starke Vorabkomprimierung einschatzt und B/pixel berechnet.',
+    whyPicShiftDocTitle: 'Warum ich PicShift gebaut habe',
+    whyPicShiftDocDescription: 'Motivation fuer einen local-only, datenschutzorientierten Konverter mit kontinuierlicher Verbesserung.',
+    aboutPicShift: 'Uber PicShift',
   },
   ja: {
     home: 'ホーム',
@@ -169,6 +190,9 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     qualityDocDescription: '画質と容量のバランスを取るための品質設定の選び方。',
     sizeIncreaseDocTitle: '出力サイズが増える理由',
     sizeIncreaseDocDescription: 'PicShift が深い圧縮をどう推定し、B/ピクセルをどう計算するかを説明します。',
+    whyPicShiftDocTitle: 'なぜ PicShift を作ったのか',
+    whyPicShiftDocDescription: 'local-only とプライバシー重視を軸に、継続改善している理由を説明します。',
+    aboutPicShift: 'PicShift について',
   },
   ko: {
     home: '홈',
@@ -190,6 +214,9 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     qualityDocDescription: '시각 품질과 용량의 균형을 위한 품질 설정 방법.',
     sizeIncreaseDocTitle: '출력 용량이 커지는 이유',
     sizeIncreaseDocDescription: 'PicShift가 깊은 압축을 추정하는 방식과 B/pixel 계산 방법을 설명합니다.',
+    whyPicShiftDocTitle: 'PicShift를 만든 이유',
+    whyPicShiftDocDescription: 'local-only, 개인정보 중심 설계와 지속적인 개선 배경을 설명합니다.',
+    aboutPicShift: 'PicShift 소개',
   },
   pt: {
     home: 'Inicio',
@@ -211,6 +238,9 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     qualityDocDescription: 'Como definir a qualidade para equilibrar clareza visual e tamanho.',
     sizeIncreaseDocTitle: 'Por que o tamanho de saida pode aumentar',
     sizeIncreaseDocDescription: 'Como o PicShift estima compressao profunda e calcula B/pixel nas explicacoes.',
+    whyPicShiftDocTitle: 'Por que eu criei o PicShift',
+    whyPicShiftDocDescription: 'A motivacao de um conversor local-only e focado em privacidade, com evolucao continua.',
+    aboutPicShift: 'Sobre o PicShift',
   },
   ru: {
     home: 'Главная',
@@ -232,6 +262,9 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     qualityDocDescription: 'Как выбрать настройки качества для баланса четкости и размера.',
     sizeIncreaseDocTitle: 'Почему размер файла может увеличиться',
     sizeIncreaseDocDescription: 'Как PicShift оценивает глубокую компрессию и рассчитывает B/pixel в подсказках.',
+    whyPicShiftDocTitle: 'Почему я создал PicShift',
+    whyPicShiftDocDescription: 'Зачем нужен local-only конвертер с акцентом на приватность и постоянные улучшения.',
+    aboutPicShift: 'О PicShift',
   },
   ar: {
     home: 'الرئيسية',
@@ -253,6 +286,9 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     qualityDocDescription: 'كيفية اختيار الجودة لتحقيق توازن بين الوضوح البصري والحجم.',
     sizeIncreaseDocTitle: 'لماذا قد يزداد حجم الملف الناتج',
     sizeIncreaseDocDescription: 'كيف يقدر PicShift الضغط العميق وكيف يحسب B/pixel في التفسير.',
+    whyPicShiftDocTitle: 'لماذا بنيت PicShift',
+    whyPicShiftDocDescription: 'الدافع وراء محول local-only يركز على الخصوصية مع تحسين مستمر.',
+    aboutPicShift: 'حول PicShift',
   },
   it: {
     home: 'Home',
@@ -274,6 +310,9 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     qualityDocDescription: 'Come scegliere la qualita per bilanciare nitidezza visiva e dimensione.',
     sizeIncreaseDocTitle: 'Perche la dimensione in uscita puo aumentare',
     sizeIncreaseDocDescription: 'Come PicShift stima la compressione profonda e calcola i B/pixel nelle spiegazioni.',
+    whyPicShiftDocTitle: 'Perche ho creato PicShift',
+    whyPicShiftDocDescription: 'La motivazione dietro un convertitore local-only orientato alla privacy e al miglioramento continuo.',
+    aboutPicShift: 'Informazioni su PicShift',
   },
 };
 
