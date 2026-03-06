@@ -36,7 +36,14 @@ const introText = toolTranslation?.introText || tool.introText;
 const howToSteps = toolTranslation?.howToSteps || tool.howToSteps;
 const t = getUI(lang);
 const toolPageUi = getToolPageUi(lang);
-const faqs = [...(toolTranslation?.faqs || tool.faqs), { q: t.sizeIncreaseFaqQ, a: t.sizeIncreaseFaqA }];
+const sizeIncreaseDocUrl = 'https://picshift.app/docs/size-increase-explainer';
+const faqs = [
+  ...(toolTranslation?.faqs || tool.faqs),
+  {
+    q: t.sizeIncreaseFaqQ,
+    a: `${t.sizeIncreaseFaqA} Learn more: ${sizeIncreaseDocUrl}`,
+  },
+];
 const fallbackRelatedToolSlugs = ['image-compressor', 'image-resizer', 'png-to-jpg', 'jpg-to-png'];
 
 function pickRelatedTools(currentTool: ToolPageConfig): ToolPageConfig[] {
@@ -85,6 +92,10 @@ const relatedGuides = [
   {
     href: '/docs/image-quality-vs-file-size',
     title: 'Image Quality vs File Size',
+  },
+  {
+    href: '/docs/size-increase-explainer',
+    title: 'Why Output Size Can Increase',
   },
   {
     href: '/docs/privacy-local-processing',

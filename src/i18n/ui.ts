@@ -4,7 +4,7 @@ const ui: Record<Locale, UIStrings> = {
   en: {
     dropDrag: 'Drag & drop your images here',
     dropClick: 'or click to browse, or paste (Ctrl+V)',
-    dropFormats: 'Supports HEIC, WebP, PNG, JPG, AVIF, BMP',
+    dropFormats: 'Supports HEIC, HEIF, WebP, PNG, JPG, AVIF, BMP',
     dropAnywhere: 'Drop images anywhere',
     clearAll: 'Clear All',
     outputLabel: 'Output',
@@ -109,7 +109,7 @@ const ui: Record<Locale, UIStrings> = {
   zh: {
     dropDrag: '\u62d6\u653e\u56fe\u7247\u5230\u6b64\u5904',
     dropClick: '\u6216\u70b9\u51fb\u6d4f\u89c8\uff0c\u6216\u7c98\u8d34 (Ctrl+V)',
-    dropFormats: '\u652f\u6301 HEIC, WebP, PNG, JPG, AVIF, BMP',
+    dropFormats: '\u652f\u6301 HEIC, HEIF, WebP, PNG, JPG, AVIF, BMP',
     dropAnywhere: '\u5c06\u56fe\u7247\u62d6\u653e\u5230\u4efb\u610f\u4f4d\u7f6e',
     clearAll: '\u5168\u90e8\u6e05\u9664',
     outputLabel: '\u8f93\u51fa\u683c\u5f0f',
@@ -215,7 +215,7 @@ const ui: Record<Locale, UIStrings> = {
   'zh-Hant': {
     dropDrag: '\u62d6\u653e\u5716\u7247\u5230\u6b64\u8655',
     dropClick: '\u6216\u9ede\u64ca\u700f\u89bd\uff0c\u6216\u8cbc\u4e0a (Ctrl+V)',
-    dropFormats: '\u652f\u63f4 HEIC, WebP, PNG, JPG, AVIF, BMP',
+    dropFormats: '\u652f\u63f4 HEIC, HEIF, WebP, PNG, JPG, AVIF, BMP',
     dropAnywhere: '\u5c07\u5716\u7247\u62d6\u653e\u5230\u4efb\u610f\u4f4d\u7f6e',
     clearAll: '\u5168\u90e8\u6e05\u9664',
     outputLabel: '\u8f38\u51fa\u683c\u5f0f',
@@ -321,7 +321,7 @@ const ui: Record<Locale, UIStrings> = {
   es: {
     dropDrag: 'Arrastra y suelta tus im\u00e1genes aqu\u00ed',
     dropClick: 'o haz clic para buscar, o pega (Ctrl+V)',
-    dropFormats: 'Compatible con HEIC, WebP, PNG, JPG, AVIF, BMP',
+    dropFormats: 'Compatible con HEIC, HEIF, WebP, PNG, JPG, AVIF, BMP',
     dropAnywhere: 'Suelta las im\u00e1genes en cualquier lugar',
     clearAll: 'Borrar todo',
     outputLabel: 'Formato de salida',
@@ -427,7 +427,7 @@ const ui: Record<Locale, UIStrings> = {
   fr: {
     dropDrag: 'Glissez-d\u00e9posez vos images ici',
     dropClick: 'ou cliquez pour parcourir, ou collez (Ctrl+V)',
-    dropFormats: 'Prend en charge HEIC, WebP, PNG, JPG, AVIF, BMP',
+    dropFormats: 'Prend en charge HEIC, HEIF, WebP, PNG, JPG, AVIF, BMP',
     dropAnywhere: 'D\u00e9posez les images n\u2019importe o\u00f9',
     clearAll: 'Tout effacer',
     outputLabel: 'Format de sortie',
@@ -533,7 +533,7 @@ const ui: Record<Locale, UIStrings> = {
   de: {
     dropDrag: 'Bilder hierher ziehen und ablegen',
     dropClick: 'oder klicken zum Durchsuchen, oder einf\u00fcgen (Ctrl+V)',
-    dropFormats: 'Unterst\u00fctzt HEIC, WebP, PNG, JPG, AVIF, BMP',
+    dropFormats: 'Unterst\u00fctzt HEIC, HEIF, WebP, PNG, JPG, AVIF, BMP',
     dropAnywhere: 'Bilder \u00fcberall ablegen',
     clearAll: 'Alle l\u00f6schen',
     outputLabel: 'Ausgabeformat',
@@ -640,7 +640,7 @@ const ui: Record<Locale, UIStrings> = {
     dropDrag: '\u753b\u50cf\u3092\u3053\u3053\u306b\u30c9\u30e9\u30c3\u30b0\uff06\u30c9\u30ed\u30c3\u30d7',
     dropClick:
       '\u307e\u305f\u306f\u30af\u30ea\u30c3\u30af\u3057\u3066\u53c2\u7167\u3001\u307e\u305f\u306f\u8cbc\u308a\u4ed8\u3051 (Ctrl+V)',
-    dropFormats: 'HEIC, WebP, PNG, JPG, AVIF, BMP \u306b\u5bfe\u5fdc',
+    dropFormats: 'HEIC, HEIF, WebP, PNG, JPG, AVIF, BMP \u306b\u5bfe\u5fdc',
     dropAnywhere:
       '\u3069\u3053\u306b\u3067\u3082\u753b\u50cf\u3092\u30c9\u30ed\u30c3\u30d7',
     clearAll: '\u3059\u3079\u3066\u30af\u30ea\u30a2',
@@ -756,7 +756,7 @@ const ui: Record<Locale, UIStrings> = {
       '\uc5ec\uae30\uc5d0 \uc774\ubbf8\uc9c0\ub97c \ub04c\uc5b4\ub2e4 \ub193\uc73c\uc138\uc694',
     dropClick:
       '\ub610\ub294 \ud074\ub9ad\ud558\uc5ec \ucc3e\uc544\ubcf4\uae30, \ub610\ub294 \ubd99\uc5ec\ub123\uae30 (Ctrl+V)',
-    dropFormats: 'HEIC, WebP, PNG, JPG, AVIF, BMP \uc9c0\uc6d0',
+    dropFormats: 'HEIC, HEIF, WebP, PNG, JPG, AVIF, BMP \uc9c0\uc6d0',
     dropAnywhere:
       '\uc5b4\ub514\uc5d0\ub098 \uc774\ubbf8\uc9c0\ub97c \ub193\uc73c\uc138\uc694',
     clearAll: '\ubaa8\ub450 \uc9c0\uc6b0\uae30',
@@ -869,7 +869,7 @@ const ui: Record<Locale, UIStrings> = {
   pt: {
     dropDrag: 'Arraste e solte suas imagens aqui',
     dropClick: 'ou clique para procurar, ou cole (Ctrl+V)',
-    dropFormats: 'Suporta HEIC, WebP, PNG, JPG, AVIF, BMP',
+    dropFormats: 'Suporta HEIC, HEIF, WebP, PNG, JPG, AVIF, BMP',
     dropAnywhere: 'Solte as imagens em qualquer lugar',
     clearAll: 'Limpar tudo',
     outputLabel: 'Formato de sa\u00edda',
@@ -978,7 +978,7 @@ const ui: Record<Locale, UIStrings> = {
     dropClick:
       '\u0438\u043b\u0438 \u043d\u0430\u0436\u043c\u0438\u0442\u0435 \u0434\u043b\u044f \u0432\u044b\u0431\u043e\u0440\u0430, \u0438\u043b\u0438 \u0432\u0441\u0442\u0430\u0432\u044c\u0442\u0435 (Ctrl+V)',
     dropFormats:
-      '\u041f\u043e\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442 HEIC, WebP, PNG, JPG, AVIF, BMP',
+      '\u041f\u043e\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442 HEIC, HEIF, WebP, PNG, JPG, AVIF, BMP',
     dropAnywhere:
       '\u041f\u0435\u0440\u0435\u0442\u0430\u0449\u0438\u0442\u0435 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u044f \u0432 \u043b\u044e\u0431\u043e\u0435 \u043c\u0435\u0441\u0442\u043e',
     clearAll:
@@ -1109,7 +1109,7 @@ const ui: Record<Locale, UIStrings> = {
     dropClick:
       '\u0623\u0648 \u0627\u0646\u0642\u0631 \u0644\u0644\u062a\u0635\u0641\u062d\u060c \u0623\u0648 \u0627\u0644\u0635\u0642 (Ctrl+V)',
     dropFormats:
-      '\u064a\u062f\u0639\u0645 HEIC, WebP, PNG, JPG, AVIF, BMP',
+      '\u064a\u062f\u0639\u0645 HEIC, HEIF, WebP, PNG, JPG, AVIF, BMP',
     dropAnywhere:
       '\u0623\u0641\u0644\u062a \u0627\u0644\u0635\u0648\u0631 \u0641\u064a \u0623\u064a \u0645\u0643\u0627\u0646',
     clearAll: '\u0645\u0633\u062d \u0627\u0644\u0643\u0644',
@@ -1237,7 +1237,7 @@ const ui: Record<Locale, UIStrings> = {
   it: {
     dropDrag: 'Trascina e rilascia le tue immagini qui',
     dropClick: 'o clicca per sfogliare, o incolla (Ctrl+V)',
-    dropFormats: 'Supporta HEIC, WebP, PNG, JPG, AVIF, BMP',
+    dropFormats: 'Supporta HEIC, HEIF, WebP, PNG, JPG, AVIF, BMP',
     dropAnywhere: 'Rilascia le immagini ovunque',
     clearAll: 'Cancella tutto',
     outputLabel: 'Formato di output',

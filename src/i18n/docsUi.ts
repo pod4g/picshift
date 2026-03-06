@@ -18,6 +18,8 @@ interface DocsUiStrings {
   formatDocDescription: string;
   qualityDocTitle: string;
   qualityDocDescription: string;
+  sizeIncreaseDocTitle: string;
+  sizeIncreaseDocDescription: string;
 }
 
 const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
@@ -39,6 +41,8 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     formatDocDescription: 'A practical compatibility matrix for JPG, PNG, WebP, HEIC/HEIF, and AVIF.',
     qualityDocTitle: 'Image Quality vs File Size',
     qualityDocDescription: 'How to pick quality settings for the best trade-off between visual clarity and size.',
+    sizeIncreaseDocTitle: 'Why Output Size Can Increase',
+    sizeIncreaseDocDescription: 'How PicShift estimates deep compression and computes B/pixel in size-increase explanations.',
   },
   zh: {
     home: '首页',
@@ -58,6 +62,8 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     formatDocDescription: 'JPG、PNG、WebP、HEIC/HEIF、AVIF 的实用兼容性对照。',
     qualityDocTitle: '画质与文件大小',
     qualityDocDescription: '如何设置质量参数以平衡视觉清晰度和文件体积。',
+    sizeIncreaseDocTitle: '为什么输出体积会变大',
+    sizeIncreaseDocDescription: '说明 PicShift 如何判断深度压缩，以及 B/像素 的计算方式。',
   },
   'zh-Hant': {
     home: '首頁',
@@ -77,6 +83,8 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     formatDocDescription: 'JPG、PNG、WebP、HEIC/HEIF、AVIF 的實用相容性對照。',
     qualityDocTitle: '畫質與檔案大小',
     qualityDocDescription: '如何設定品質參數以平衡視覺清晰度與檔案體積。',
+    sizeIncreaseDocTitle: '為什麼輸出體積會變大',
+    sizeIncreaseDocDescription: '說明 PicShift 如何判斷深度壓縮，以及 B/像素 的計算方式。',
   },
   es: {
     home: 'Inicio',
@@ -96,6 +104,8 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     formatDocDescription: 'Matriz de compatibilidad practica para JPG, PNG, WebP, HEIC/HEIF y AVIF.',
     qualityDocTitle: 'Calidad de imagen vs tamano de archivo',
     qualityDocDescription: 'Como elegir calidad para equilibrar nitidez visual y tamano.',
+    sizeIncreaseDocTitle: 'Por que puede aumentar el tamano final',
+    sizeIncreaseDocDescription: 'Como PicShift estima compresion profunda y calcula B/pixel en sus explicaciones.',
   },
   fr: {
     home: 'Accueil',
@@ -115,6 +125,8 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     formatDocDescription: 'Matrice pratique de compatibilite pour JPG, PNG, WebP, HEIC/HEIF et AVIF.',
     qualityDocTitle: 'Qualite d image vs taille de fichier',
     qualityDocDescription: 'Comment regler la qualite pour equilibrer clarte visuelle et taille.',
+    sizeIncreaseDocTitle: 'Pourquoi la taille peut augmenter',
+    sizeIncreaseDocDescription: 'Comment PicShift estime la compression profonde et calcule les B/pixel.',
   },
   de: {
     home: 'Startseite',
@@ -134,6 +146,8 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     formatDocDescription: 'Praktische Kompatibilitatsmatrix fur JPG, PNG, WebP, HEIC/HEIF und AVIF.',
     qualityDocTitle: 'Bildqualitat vs Dateigrosse',
     qualityDocDescription: 'So wahlst du Qualitatseinstellungen fur den besten Kompromiss aus Klarheit und Grosse.',
+    sizeIncreaseDocTitle: 'Warum die Ausgabegrosse steigen kann',
+    sizeIncreaseDocDescription: 'Wie PicShift starke Vorabkomprimierung einschatzt und B/pixel berechnet.',
   },
   ja: {
     home: 'ホーム',
@@ -153,6 +167,8 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     formatDocDescription: 'JPG、PNG、WebP、HEIC/HEIF、AVIF の実用的な互換性マトリクス。',
     qualityDocTitle: '画質とファイルサイズ',
     qualityDocDescription: '画質と容量のバランスを取るための品質設定の選び方。',
+    sizeIncreaseDocTitle: '出力サイズが増える理由',
+    sizeIncreaseDocDescription: 'PicShift が深い圧縮をどう推定し、B/ピクセルをどう計算するかを説明します。',
   },
   ko: {
     home: '홈',
@@ -172,6 +188,8 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     formatDocDescription: 'JPG, PNG, WebP, HEIC/HEIF, AVIF의 실용 호환성 매트릭스.',
     qualityDocTitle: '화질과 파일 크기',
     qualityDocDescription: '시각 품질과 용량의 균형을 위한 품질 설정 방법.',
+    sizeIncreaseDocTitle: '출력 용량이 커지는 이유',
+    sizeIncreaseDocDescription: 'PicShift가 깊은 압축을 추정하는 방식과 B/pixel 계산 방법을 설명합니다.',
   },
   pt: {
     home: 'Inicio',
@@ -191,6 +209,8 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     formatDocDescription: 'Matriz pratica de compatibilidade para JPG, PNG, WebP, HEIC/HEIF e AVIF.',
     qualityDocTitle: 'Qualidade de imagem vs tamanho do arquivo',
     qualityDocDescription: 'Como definir a qualidade para equilibrar clareza visual e tamanho.',
+    sizeIncreaseDocTitle: 'Por que o tamanho de saida pode aumentar',
+    sizeIncreaseDocDescription: 'Como o PicShift estima compressao profunda e calcula B/pixel nas explicacoes.',
   },
   ru: {
     home: 'Главная',
@@ -210,6 +230,8 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     formatDocDescription: 'Практическая матрица совместимости для JPG, PNG, WebP, HEIC/HEIF и AVIF.',
     qualityDocTitle: 'Качество изображения и размер файла',
     qualityDocDescription: 'Как выбрать настройки качества для баланса четкости и размера.',
+    sizeIncreaseDocTitle: 'Почему размер файла может увеличиться',
+    sizeIncreaseDocDescription: 'Как PicShift оценивает глубокую компрессию и рассчитывает B/pixel в подсказках.',
   },
   ar: {
     home: 'الرئيسية',
@@ -229,6 +251,8 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     formatDocDescription: 'مصفوفة توافق عملية لصيغ JPG وPNG وWebP وHEIC/HEIF وAVIF.',
     qualityDocTitle: 'جودة الصورة مقابل حجم الملف',
     qualityDocDescription: 'كيفية اختيار الجودة لتحقيق توازن بين الوضوح البصري والحجم.',
+    sizeIncreaseDocTitle: 'لماذا قد يزداد حجم الملف الناتج',
+    sizeIncreaseDocDescription: 'كيف يقدر PicShift الضغط العميق وكيف يحسب B/pixel في التفسير.',
   },
   it: {
     home: 'Home',
@@ -248,6 +272,8 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     formatDocDescription: 'Matrice pratica di compatibilita per JPG, PNG, WebP, HEIC/HEIF e AVIF.',
     qualityDocTitle: 'Qualita immagine vs dimensione file',
     qualityDocDescription: 'Come scegliere la qualita per bilanciare nitidezza visiva e dimensione.',
+    sizeIncreaseDocTitle: 'Perche la dimensione in uscita puo aumentare',
+    sizeIncreaseDocDescription: 'Come PicShift stima la compressione profonda e calcola i B/pixel nelle spiegazioni.',
   },
 };
 

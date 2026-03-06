@@ -1,0 +1,573 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/layout/Header.astro';
+import Footer from '../../../components/layout/Footer.astro';
+import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../../lib/contentDates';
+import { getDocsUi } from '../../../i18n/docsUi';
+import { SUPPORTED_LOCALES } from '../../../i18n';
+import type { Locale } from '../../../i18n/config';
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES
+    .filter((l) => l !== 'en')
+    .map((l) => ({
+      params: { lang: l },
+      props: { lang: l },
+    }));
+}
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const docsUi = getDocsUi(lang);
+const title = `PicShift ${docsUi.sizeIncreaseDocTitle}`;
+const description = docsUi.sizeIncreaseDocDescription;
+const pagePath = '/docs/size-increase-explainer';
+const canonical = `https://picshift.app/${lang}/docs/size-increase-explainer`;
+const datePublished = DOCS_DATE_PUBLISHED;
+const dateModified = CONTENT_DATE_MODIFIED;
+
+const pageContent = {
+  zh: {
+    intro: '当转换后文件变大时，PicShift 会给出原因提示。本页说明这些提示背后的判断规则，以及 B/像素 的计算方法。',
+    methodTitle: 'PicShift 如何判断“深度压缩”',
+    methodIntro: 'PicShift 通过源文件数据密度进行启发式判断：结合原始体积与解码后的像素数量，计算 B/像素，并与阈值比较。',
+    methodItems: [
+      '像素总数来自解码后的宽高（width x height）。',
+      'B/像素 = 原始字节数 / 像素总数。',
+      '当 B/像素 低于阈值时，提示会将该图视为“已深度压缩”场景。',
+    ],
+    formulaTitle: 'B/像素 公式',
+    formula: 'B/像素 = originalFileSizeBytes / (width x height)',
+    formulaExample: '示例：一张 3000 x 2000、大小 350 KB 的图片，代入公式为 (350 x 1024) / (3000 x 2000) = 0.0597，约为 0.06 B/像素。',
+    reasonTitle: '为什么输出变大仍然常见',
+    reasonItems: [
+      '从有损或高压缩格式转到编码效率较低的目标设置时，体积可能增加。',
+      '当源文件 B/像素 已很低时，在相近观感下继续减小体积的空间通常有限。',
+      '小尺寸图片更容易体现编码元数据和封装开销。',
+    ],
+    boundaryTitle: '适用范围与边界',
+    boundaryItems: [
+      '这是解释性启发式，不是对每张图的严格体积预测。',
+      '内容类型（照片、截图、图形）会影响最终大小变化。',
+      '质量参数与目标格式不同，结果趋势也会不同。',
+    ],
+    faqs: [
+      {
+        q: 'PicShift 会为了判断体积趋势再做一次完整重编码吗？',
+        a: '不会。提示基于轻量元信息和格式规则，不会额外做一次完整试编码，因此交互更稳定。',
+      },
+      {
+        q: 'B/像素 是怎么计算出来的？',
+        a: 'B/像素 使用原始字节数除以解码像素数：originalFileSizeBytes / (width x height)。',
+      },
+      {
+        q: '“深度压缩”判断等同于精确画质评分吗？',
+        a: '不等同。它用于解释体积变化趋势，不是严格的视觉质量打分。',
+      },
+    ],
+  },
+  'zh-Hant': {
+    intro: '當轉換後檔案變大時，PicShift 會提供原因提示。本頁說明這些提示背後的判斷規則，以及 B/像素 的計算方式。',
+    methodTitle: 'PicShift 如何判斷「深度壓縮」',
+    methodIntro: 'PicShift 以來源檔案的資料密度進行啟發式判斷：結合原始體積與解碼後像素數，計算 B/像素 並與門檻比較。',
+    methodItems: [
+      '像素總數來自解碼後的寬高（width x height）。',
+      'B/像素 = 原始位元組數 / 像素總數。',
+      '當 B/像素 低於門檻時，提示會將該圖視為「已深度壓縮」場景。',
+    ],
+    formulaTitle: 'B/像素 公式',
+    formula: 'B/像素 = originalFileSizeBytes / (width x height)',
+    formulaExample: '範例：一張 3000 x 2000、大小 350 KB 的圖片，代入公式為 (350 x 1024) / (3000 x 2000) = 0.0597，約為 0.06 B/像素。',
+    reasonTitle: '為什麼輸出變大仍然常見',
+    reasonItems: [
+      '從有損或高壓縮格式轉到編碼效率較低的目標設定時，體積可能增加。',
+      '當來源檔案 B/像素 已很低時，在相近觀感下繼續減少體積的空間通常有限。',
+      '小尺寸圖片更容易受到編碼中繼資料與封裝開銷影響。',
+    ],
+    boundaryTitle: '適用範圍與邊界',
+    boundaryItems: [
+      '這是解釋型啟發式，不是每張圖都精準命中的體積預測器。',
+      '內容類型（照片、截圖、圖形）會影響最終大小變化。',
+      '品質參數與目標格式不同，結果趨勢也會改變。',
+    ],
+    faqs: [
+      {
+        q: 'PicShift 會為了判斷體積趨勢再做一次完整重編碼嗎？',
+        a: '不會。提示基於輕量中繼資訊與格式規則，不會額外再做一次完整試編碼，因此互動更順暢。',
+      },
+      {
+        q: 'B/像素 是如何計算的？',
+        a: 'B/像素 以原始位元組數除以解碼像素數：originalFileSizeBytes / (width x height)。',
+      },
+      {
+        q: '「深度壓縮」判斷等於精確畫質評分嗎？',
+        a: '不等於。它用於解釋體積變化趨勢，不是嚴格的視覺品質評分。',
+      },
+    ],
+  },
+  es: {
+    intro: 'Cuando el archivo convertido crece, PicShift muestra una explicacion. Esta pagina define las reglas y como se calcula B/pixel.',
+    methodTitle: 'Como detecta PicShift la compresion profunda',
+    methodIntro: 'PicShift usa una heuristica de densidad de datos: combina tamano original y pixeles decodificados, calcula B/pixel y compara con un umbral.',
+    methodItems: [
+      'El total de pixeles sale del tamano decodificado (width x height).',
+      'B/pixel = bytes originales / total de pixeles.',
+      'Si B/pixel queda por debajo del umbral, se considera un origen ya muy comprimido para la explicacion.',
+    ],
+    formulaTitle: 'Formula de B/pixel',
+    formula: 'B/pixel = originalFileSizeBytes / (width x height)',
+    formulaExample: 'Ejemplo: para una imagen de 3000 x 2000 y 350 KB, al sustituir en la formula: (350 x 1024) / (3000 x 2000) = 0.0597, es cerca de 0.06 B/pixel.',
+    reasonTitle: 'Por que el resultado puede crecer',
+    reasonItems: [
+      'Pasar de formatos con perdida o muy comprimidos a ajustes menos eficientes puede aumentar tamano.',
+      'Si el origen ya tiene B/pixel muy bajo, queda poco margen para reducir mas sin cambiar calidad perceptual.',
+      'En imagenes pequenas, el overhead del contenedor o del codec pesa mas.',
+    ],
+    boundaryTitle: 'Alcance y limites',
+    boundaryItems: [
+      'Es una heuristica explicativa, no un predictor exacto para cada archivo.',
+      'El tipo de contenido (foto, captura, grafico) cambia el resultado.',
+      'La calidad elegida y el formato destino modifican la tendencia.',
+    ],
+    faqs: [
+      { q: '¿PicShift hace una segunda codificacion completa para decidir?', a: 'No. La explicacion usa metadatos ligeros y reglas de formato, sin una segunda codificacion completa.' },
+      { q: '¿Como se calcula B/pixel?', a: 'B/pixel se obtiene con bytes originales divididos por pixeles decodificados: originalFileSizeBytes / (width x height).' },
+      { q: '¿La deteccion de compresion profunda es una nota exacta de calidad?', a: 'No. Es una heuristica practica para explicar tendencias de tamano.' },
+    ],
+  },
+  fr: {
+    intro: 'Quand le fichier converti devient plus volumineux, PicShift affiche une explication. Cette page detaille les regles et le calcul B/pixel.',
+    methodTitle: 'Comment PicShift detecte une compression profonde',
+    methodIntro: 'PicShift applique une heuristique de densite: taille source + pixels decodes, puis calcul de B/pixel compare a un seuil.',
+    methodItems: [
+      'Le nombre de pixels vient des dimensions decodees (width x height).',
+      'B/pixel = octets source / nombre total de pixels.',
+      'Si B/pixel est sous le seuil, la source est traitee comme deja fortement compressee pour l explication.',
+    ],
+    formulaTitle: 'Formule B/pixel',
+    formula: 'B/pixel = originalFileSizeBytes / (width x height)',
+    formulaExample: 'Exemple : pour une image de 3000 x 2000 et 350 KB, en remplaçant dans la formule : (350 x 1024) / (3000 x 2000) = 0.0597, soit environ 0.06 B/pixel.',
+    reasonTitle: 'Pourquoi la sortie peut augmenter',
+    reasonItems: [
+      'Passer d un format avec perte ou tres compresse vers un reglage moins efficace peut augmenter la taille.',
+      'Quand B/pixel source est deja tres bas, la marge de reduction supplementaire est limitee.',
+      'Sur les petites images, l overhead du codec ou du conteneur est plus visible.',
+    ],
+    boundaryTitle: 'Perimetre et limites',
+    boundaryItems: [
+      'C est une heuristique explicative, pas une prediction stricte pour chaque image.',
+      'Le type de contenu (photo, capture, graphique) influe sur le resultat.',
+      'Le niveau de qualite et le format cible modifient la tendance finale.',
+    ],
+    faqs: [
+      { q: 'PicShift lance-t-il une seconde re-encodage complet ?', a: 'Non. L explication repose sur des metadonnees legeres et des regles de format, sans seconde passe complete.' },
+      { q: 'Comment calcule-t-on B/pixel ?', a: 'B/pixel = octets source / pixels decodes: originalFileSizeBytes / (width x height).' },
+      { q: 'La detection de compression profonde est-elle un score qualite exact ?', a: 'Non. C est une heuristique pratique pour expliquer la tendance de taille.' },
+    ],
+  },
+  de: {
+    intro: 'Wenn die konvertierte Datei grosser wird, zeigt PicShift eine Erklaerung an. Diese Seite beschreibt die Regeln und die B/pixel-Berechnung.',
+    methodTitle: 'Wie PicShift starke Vorabkomprimierung erkennt',
+    methodIntro: 'PicShift nutzt eine Dichte-Heuristik: Originalgroesse plus decodierte Pixel, daraus B/pixel und Vergleich mit einem Schwellwert.',
+    methodItems: [
+      'Die Pixelzahl kommt aus den decodierten Abmessungen (width x height).',
+      'B/pixel = Originalbytes / Gesamtpixel.',
+      'Liegt B/pixel unter dem Schwellwert, gilt die Quelle fuer die Erklaerung als bereits stark komprimiert.',
+    ],
+    formulaTitle: 'B/pixel-Formel',
+    formula: 'B/pixel = originalFileSizeBytes / (width x height)',
+    formulaExample: 'Beispiel: Fuer ein Bild mit 3000 x 2000 und 350 KB in die Formel eingesetzt: (350 x 1024) / (3000 x 2000) = 0.0597, also etwa 0.06 B/pixel.',
+    reasonTitle: 'Warum die Ausgabe trotzdem wachsen kann',
+    reasonItems: [
+      'Ein Wechsel von stark komprimierten/lossy Formaten zu weniger effizienten Zielsettings kann die Dateigroesse erhoehen.',
+      'Bei bereits sehr niedrigem B/pixel bleibt oft wenig Spielraum fuer weitere Reduktion.',
+      'Bei kleinen Bildern faellt Codec- und Container-Overhead staerker ins Gewicht.',
+    ],
+    boundaryTitle: 'Geltungsbereich und Grenzen',
+    boundaryItems: [
+      'Das ist eine Erklaerungs-Heuristik, kein exakter Groessen-Prädiktor fuer jede Datei.',
+      'Inhaltstypen (Foto, Screenshot, Grafik) beeinflussen das Ergebnis.',
+      'Qualitaet und Zielformat veraendern den finalen Trend.',
+    ],
+    faqs: [
+      { q: 'Fuehrt PicShift dafuer einen zweiten Voll-Encode aus?', a: 'Nein. Die Erklaerung basiert auf leichtgewichtigen Metadaten und Formatregeln, ohne zweiten Voll-Encode.' },
+      { q: 'Wie wird B/pixel berechnet?', a: 'B/pixel = Originalbytes / decodierte Pixel: originalFileSizeBytes / (width x height).' },
+      { q: 'Ist die Erkennung starker Komprimierung ein exakter Qualitaetswert?', a: 'Nein. Es ist eine praktische Heuristik zur Erklaerung von Groessentrends.' },
+    ],
+  },
+  ja: {
+    intro: '変換後にファイルサイズが増える場合、PicShift は理由を表示します。このページでは、その判断ルールと B/ピクセル の計算方法を説明します。',
+    methodTitle: 'PicShift が「深い圧縮」を判定する方法',
+    methodIntro: 'PicShift はデータ密度のヒューリスティックを使います。元ファイルサイズと復号後ピクセル数から B/ピクセル を算出し、しきい値と比較します。',
+    methodItems: [
+      'ピクセル総数は復号後のサイズ（width x height）から取得します。',
+      'B/ピクセル = 元バイト数 / ピクセル総数。',
+      'B/ピクセル がしきい値未満の場合、説明上は「すでに強く圧縮済み」と扱います。',
+    ],
+    formulaTitle: 'B/ピクセル の式',
+    formula: 'B/pixel = originalFileSizeBytes / (width x height)',
+    formulaExample: '例: 3000 x 2000、350 KB の画像を式に代入すると、(350 x 1024) / (3000 x 2000) = 0.0597 となり、約 0.06 B/ピクセル です。',
+    reasonTitle: 'それでも出力が大きくなる主な理由',
+    reasonItems: [
+      '非可逆/高圧縮形式から、効率が低い設定へ変換するとサイズが増える場合があります。',
+      '元画像の B/ピクセル がすでに低いと、同等の見た目でさらに削減できる余地は小さくなります。',
+      '小さい画像では、コーデックやコンテナのオーバーヘッドが目立ちやすくなります。',
+    ],
+    boundaryTitle: '適用範囲と限界',
+    boundaryItems: [
+      'これは説明用のヒューリスティックで、すべての画像サイズを厳密に予測するものではありません。',
+      '写真・スクリーンショット・図形など、内容タイプで結果は変わります。',
+      '品質設定と出力形式の組み合わせでも傾向は変わります。',
+    ],
+    faqs: [
+      { q: '判定のためにもう一度フル再エンコードしますか？', a: 'いいえ。説明は軽量なメタ情報と形式ルールに基づき、追加のフル再エンコードは行いません。' },
+      { q: 'B/ピクセル はどう計算しますか？', a: '元バイト数を復号後ピクセル数で割ります: originalFileSizeBytes / (width x height)。' },
+      { q: '「深い圧縮」判定は厳密な画質スコアですか？', a: 'いいえ。サイズ傾向を説明するための実用ヒューリスティックです。' },
+    ],
+  },
+  ko: {
+    intro: '변환 후 파일이 커지면 PicShift가 이유를 안내합니다. 이 페이지는 그 판단 규칙과 B/pixel 계산 방식을 설명합니다.',
+    methodTitle: 'PicShift가 깊은 압축을 판단하는 방법',
+    methodIntro: 'PicShift는 데이터 밀도 휴리스틱을 사용합니다. 원본 크기와 디코딩된 픽셀 수로 B/pixel을 계산해 임계값과 비교합니다.',
+    methodItems: [
+      '픽셀 수는 디코딩된 해상도(width x height)에서 구합니다.',
+      'B/pixel = 원본 바이트 수 / 총 픽셀 수.',
+      'B/pixel이 임계값보다 낮으면 설명 로직에서 이미 깊게 압축된 이미지로 간주합니다.',
+    ],
+    formulaTitle: 'B/pixel 공식',
+    formula: 'B/pixel = originalFileSizeBytes / (width x height)',
+    formulaExample: '예: 3000 x 2000 크기, 350 KB 이미지에 공식을 대입하면 (350 x 1024) / (3000 x 2000) = 0.0597 이고, 약 0.06 B/pixel입니다.',
+    reasonTitle: '출력이 커질 수 있는 이유',
+    reasonItems: [
+      '손실/고압축 포맷에서 효율이 낮은 목표 설정으로 바꾸면 용량이 늘 수 있습니다.',
+      '원본 B/pixel이 이미 매우 낮으면 비슷한 화질에서 추가 절감 여지가 작습니다.',
+      '작은 이미지에서는 코덱/컨테이너 오버헤드가 더 크게 보입니다.',
+    ],
+    boundaryTitle: '적용 범위와 한계',
+    boundaryItems: [
+      '이 로직은 설명용 휴리스틱이며, 모든 이미지에 대한 엄밀한 예측기는 아닙니다.',
+      '사진, 스크린샷, 그래픽 등 콘텐츠 유형에 따라 결과가 달라집니다.',
+      '품질 값과 목표 포맷 조합에 따라 경향이 달라집니다.',
+    ],
+    faqs: [
+      { q: '판단을 위해 전체 재인코딩을 한 번 더 하나요?', a: '아니요. 설명은 가벼운 메타데이터와 포맷 규칙을 사용하며, 전체 재인코딩을 추가로 수행하지 않습니다.' },
+      { q: 'B/pixel은 어떻게 계산하나요?', a: '원본 바이트 수를 디코딩된 픽셀 수로 나눕니다: originalFileSizeBytes / (width x height).' },
+      { q: '깊은 압축 판정은 정확한 화질 점수인가요?', a: '아니요. 용량 변화 경향을 설명하기 위한 실용 휴리스틱입니다.' },
+    ],
+  },
+  pt: {
+    intro: 'Quando o arquivo convertido fica maior, o PicShift mostra uma explicacao. Esta pagina descreve as regras e o calculo de B/pixel.',
+    methodTitle: 'Como o PicShift detecta compressao profunda',
+    methodIntro: 'O PicShift usa uma heuristica de densidade: tamanho original + pixels decodificados, calculo de B/pixel e comparacao com um limite.',
+    methodItems: [
+      'A contagem de pixels vem das dimensoes decodificadas (width x height).',
+      'B/pixel = bytes originais / total de pixels.',
+      'Se o B/pixel ficar abaixo do limite, a origem e tratada como ja profundamente comprimida para a explicacao.',
+    ],
+    formulaTitle: 'Formula de B/pixel',
+    formula: 'B/pixel = originalFileSizeBytes / (width x height)',
+    formulaExample: 'Exemplo: para uma imagem de 3000 x 2000 e 350 KB, ao substituir na formula: (350 x 1024) / (3000 x 2000) = 0.0597, fica em cerca de 0.06 B/pixel.',
+    reasonTitle: 'Por que a saida pode aumentar',
+    reasonItems: [
+      'Converter de formatos com perda ou muito comprimidos para ajustes menos eficientes pode aumentar tamanho.',
+      'Com B/pixel de origem muito baixo, a margem de reducao adicional costuma ser pequena.',
+      'Em imagens pequenas, o overhead de codec e contenedor fica mais evidente.',
+    ],
+    boundaryTitle: 'Escopo e limites',
+    boundaryItems: [
+      'E uma heuristica explicativa, nao um preditor estrito para todo arquivo.',
+      'Tipo de conteudo (foto, captura, grafico) muda o resultado.',
+      'Qualidade e formato de destino alteram a tendencia final.',
+    ],
+    faqs: [
+      { q: 'O PicShift faz uma segunda codificacao completa para decidir?', a: 'Nao. A explicacao usa metadados leves e regras de formato, sem uma segunda codificacao completa.' },
+      { q: 'Como o B/pixel e calculado?', a: 'B/pixel = bytes originais / pixels decodificados: originalFileSizeBytes / (width x height).' },
+      { q: 'A deteccao de compressao profunda e uma nota exata de qualidade?', a: 'Nao. E uma heuristica pratica para explicar tendencia de tamanho.' },
+    ],
+  },
+  ru: {
+    intro: 'Если после конвертации файл стал больше, PicShift показывает объяснение. На этой странице описаны правила и расчет B/pixel.',
+    methodTitle: 'Как PicShift определяет глубокую компрессию',
+    methodIntro: 'PicShift использует эвристику плотности данных: размер исходника и число декодированных пикселей, затем расчет B/pixel и сравнение с порогом.',
+    methodItems: [
+      'Количество пикселей берется из декодированных размеров (width x height).',
+      'B/pixel = исходные байты / общее число пикселей.',
+      'Если B/pixel ниже порога, источник для объяснения считается уже сильно сжатым.',
+    ],
+    formulaTitle: 'Формула B/pixel',
+    formula: 'B/pixel = originalFileSizeBytes / (width x height)',
+    formulaExample: 'Пример: для изображения 3000 x 2000 и 350 KB подставляем в формулу: (350 x 1024) / (3000 x 2000) = 0.0597, то есть около 0.06 B/pixel.',
+    reasonTitle: 'Почему итоговый размер может вырасти',
+    reasonItems: [
+      'Переход из lossy/сильно сжатых форматов в менее эффективные настройки может увеличить размер.',
+      'Если у исходника уже очень низкий B/pixel, запас для дальнейшего уменьшения обычно небольшой.',
+      'На маленьких изображениях сильнее заметны накладные расходы кодека и контейнера.',
+    ],
+    boundaryTitle: 'Область применения и границы',
+    boundaryItems: [
+      'Это объяснительная эвристика, а не строгий предсказатель для каждого файла.',
+      'Тип контента (фото, скриншот, графика) влияет на результат.',
+      'Уровень качества и целевой формат меняют итоговую тенденцию.',
+    ],
+    faqs: [
+      { q: 'PicShift делает второй полный прогон кодирования для оценки?', a: 'Нет. Объяснение строится на легких метаданных и правилах форматов, без второго полного перекодирования.' },
+      { q: 'Как считается B/pixel?', a: 'B/pixel = исходные байты / декодированные пиксели: originalFileSizeBytes / (width x height).' },
+      { q: 'Определение глубокой компрессии — это точная оценка качества?', a: 'Нет. Это практичная эвристика для объяснения тренда размера.' },
+    ],
+  },
+  ar: {
+    intro: 'عندما يكبر الملف بعد التحويل، يعرض PicShift تفسيرا. هذه الصفحة تشرح القواعد وكيفية حساب B/pixel.',
+    methodTitle: 'كيف يكتشف PicShift الضغط العميق',
+    methodIntro: 'يستخدم PicShift دلالة تقريبية لكثافة البيانات: يجمع حجم الملف الاصلي مع عدد البكسلات بعد الفك، ثم يحسب B/pixel ويقارنه بحد.',
+    methodItems: [
+      'عدد البكسلات يؤخذ من الابعاد بعد الفك (width x height).',
+      'B/pixel = بايتات الملف الاصلي / اجمالي البكسلات.',
+      'اذا كان B/pixel اقل من الحد، يعتبر المصدر مضغوطا بعمق لاغراض التفسير.',
+    ],
+    formulaTitle: 'معادلة B/pixel',
+    formula: 'B/pixel = originalFileSizeBytes / (width x height)',
+    formulaExample: 'مثال: لصورة بدقة 3000 x 2000 وحجم 350 KB، عند التعويض في المعادلة: (350 x 1024) / (3000 x 2000) = 0.0597، أي حوالي 0.06 B/pixel.',
+    reasonTitle: 'لماذا قد يزيد الحجم النهائي',
+    reasonItems: [
+      'التحويل من صيغ فقدانية او عالية الضغط الى اعدادات اقل كفاءة قد يزيد الحجم.',
+      'عندما يكون B/pixel في المصدر منخفضا جدا، تكون مساحة التخفيض الاضافي محدودة.',
+      'في الصور الصغيرة يظهر حمل الحاوية والمرمز بشكل اوضح.',
+    ],
+    boundaryTitle: 'النطاق والحدود',
+    boundaryItems: [
+      'هذا منطق تفسيري تقريبي وليس تنبؤا صارما لكل صورة.',
+      'نوع المحتوى مثل الصور الفوتوغرافية او اللقطات يؤثر على النتيجة.',
+      'مستوى الجودة والصيغة الهدف يغيران الاتجاه النهائي.',
+    ],
+    faqs: [
+      { q: 'هل ينفذ PicShift ترميزا كاملا ثانيا للحكم على الاتجاه؟', a: 'لا. التفسير يعتمد على بيانات وصفية خفيفة وقواعد الصيغ، بدون ترميز كامل ثان.' },
+      { q: 'كيف يتم حساب B/pixel؟', a: 'B/pixel = بايتات الملف الاصلي / البكسلات بعد الفك: originalFileSizeBytes / (width x height).' },
+      { q: 'هل كشف الضغط العميق يمثل درجة جودة دقيقة؟', a: 'لا. هو دلالة عملية لتفسير اتجاه الحجم.' },
+    ],
+  },
+  it: {
+    intro: 'Quando il file convertito aumenta, PicShift mostra una spiegazione. Questa pagina descrive le regole e il calcolo di B/pixel.',
+    methodTitle: 'Come PicShift rileva la compressione profonda',
+    methodIntro: 'PicShift usa una euristica di densita: dimensione sorgente e pixel decodificati, poi calcola B/pixel e confronta con una soglia.',
+    methodItems: [
+      'Il numero di pixel deriva dalle dimensioni decodificate (width x height).',
+      'B/pixel = byte originali / pixel totali.',
+      'Se B/pixel e sotto soglia, la sorgente viene trattata come gia molto compressa ai fini della spiegazione.',
+    ],
+    formulaTitle: 'Formula B/pixel',
+    formula: 'B/pixel = originalFileSizeBytes / (width x height)',
+    formulaExample: 'Esempio: per un immagine 3000 x 2000 da 350 KB, sostituendo nella formula: (350 x 1024) / (3000 x 2000) = 0.0597, quindi circa 0.06 B/pixel.',
+    reasonTitle: 'Perche la dimensione finale puo crescere',
+    reasonItems: [
+      'Passare da formati lossy o molto compressi a impostazioni meno efficienti puo aumentare la dimensione.',
+      'Con B/pixel sorgente gia molto basso, il margine di ulteriore riduzione e spesso limitato.',
+      'Sulle immagini piccole pesa di piu l overhead di codec e contenitore.',
+    ],
+    boundaryTitle: 'Ambito e limiti',
+    boundaryItems: [
+      'E una euristica esplicativa, non un predittore rigoroso per ogni singola immagine.',
+      'Il tipo di contenuto (foto, screenshot, grafica) influisce sul risultato.',
+      'Qualita e formato di destinazione possono cambiare la tendenza.',
+    ],
+    faqs: [
+      { q: 'PicShift esegue una seconda codifica completa per decidere?', a: 'No. La spiegazione usa metadati leggeri e regole di formato, senza una seconda codifica completa.' },
+      { q: 'Come si calcola B/pixel?', a: 'B/pixel = byte originali / pixel decodificati: originalFileSizeBytes / (width x height).' },
+      { q: 'La rilevazione della compressione profonda e un punteggio qualita esatto?', a: 'No. E una euristica pratica per spiegare la tendenza della dimensione.' },
+    ],
+  },
+  en: {
+    intro: 'When converted files become larger, PicShift explains why with practical rules. This page defines those rules and how B/pixel is computed.',
+    methodTitle: 'How PicShift identifies deep compression',
+    methodIntro: 'PicShift uses a data-density heuristic: source size plus decoded pixels, then B/pixel against a threshold.',
+    methodItems: [
+      'Pixel count comes from decoded dimensions (width x height).',
+      'B/pixel = source bytes / total pixels.',
+      'If B/pixel is below the threshold, the source is treated as deeply compressed for explanation logic.',
+    ],
+    formulaTitle: 'B/pixel formula',
+    formula: 'B/pixel = originalFileSizeBytes / (width x height)',
+    formulaExample: 'Example: For an image with dimensions 3000 x 2000 and file size 350 KB, substitute into the formula: (350 x 1024) / (3000 x 2000) = 0.0597, which is about 0.06 B/pixel.',
+    reasonTitle: 'Why larger output can still happen',
+    reasonItems: [
+      'Moving from lossy or highly compressed input to less efficient target settings can increase size.',
+      'Very low source B/pixel means limited headroom for further reduction at similar perceived quality.',
+      'Small images expose codec and container overhead more clearly.',
+    ],
+    boundaryTitle: 'Scope and boundaries',
+    boundaryItems: [
+      'This is an explanation heuristic, not a strict predictor for every file.',
+      'Content type (photo, screenshot, graphics) changes outcomes.',
+      'Quality level and target format can shift final trends.',
+    ],
+    faqs: [
+      { q: 'Does PicShift run a second full encode pass to judge size increase?', a: 'No. The explanation uses lightweight metadata and format rules, not a second full trial-encode.' },
+      { q: 'How is B/pixel calculated?', a: 'B/pixel is source bytes divided by decoded pixel count: originalFileSizeBytes / (width x height).' },
+      { q: 'Is deep compression detection an exact quality score?', a: 'No. It is a practical heuristic for explanation quality, not a strict visual quality metric.' },
+    ],
+  },
+}[lang] ?? {
+  intro: 'When converted files become larger, PicShift explains why with practical rules. This page defines those rules and how B/pixel is computed.',
+  methodTitle: 'How PicShift identifies deep compression',
+  methodIntro: 'PicShift uses a data-density heuristic: source size plus decoded pixels, then B/pixel against a threshold.',
+  methodItems: [
+    'Pixel count comes from decoded dimensions (width x height).',
+    'B/pixel = source bytes / total pixels.',
+    'If B/pixel is below the threshold, the source is treated as deeply compressed for explanation logic.',
+  ],
+  formulaTitle: 'B/pixel formula',
+  formula: 'B/pixel = originalFileSizeBytes / (width x height)',
+  formulaExample: 'Example: For an image with dimensions 3000 x 2000 and file size 350 KB, substitute into the formula: (350 x 1024) / (3000 x 2000) = 0.0597, which is about 0.06 B/pixel.',
+  reasonTitle: 'Why larger output can still happen',
+  reasonItems: [
+    'Moving from lossy or highly compressed input to less efficient target settings can increase size.',
+    'Very low source B/pixel means limited headroom for further reduction at similar perceived quality.',
+    'Small images expose codec and container overhead more clearly.',
+  ],
+  boundaryTitle: 'Scope and boundaries',
+  boundaryItems: [
+    'This is an explanation heuristic, not a strict predictor for every file.',
+    'Content type (photo, screenshot, graphics) changes outcomes.',
+    'Quality level and target format can shift final trends.',
+  ],
+  faqs: [
+    { q: 'Does PicShift run a second full encode pass to judge size increase?', a: 'No. The explanation uses lightweight metadata and format rules, not a second full trial-encode.' },
+    { q: 'How is B/pixel calculated?', a: 'B/pixel is source bytes divided by decoded pixel count: originalFileSizeBytes / (width x height).' },
+    { q: 'Is deep compression detection an exact quality score?', a: 'No. It is a practical heuristic for explanation quality, not a strict visual quality metric.' },
+  ],
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: title,
+  description,
+  url: canonical,
+  inLanguage: lang,
+  datePublished,
+  dateModified,
+  author: { '@type': 'Organization', name: 'PicShift' },
+  publisher: { '@type': 'Organization', name: 'PicShift', url: 'https://picshift.app' },
+};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: docsUi.home,
+      item: `https://picshift.app/${lang}/`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: docsUi.docs,
+      item: `https://picshift.app/${lang}/docs`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: title,
+      item: canonical,
+    },
+  ],
+};
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: pageContent.faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+};
+---
+
+<Layout title={title} description={description} canonical={canonical} lang={lang} pagePath={pagePath}>
+  <Header lang={lang} pagePath={pagePath} />
+
+  <main class="flex-1">
+    <article class="max-w-3xl mx-auto px-4 py-10 sm:py-14">
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm text-text-secondary">
+        <a href={`/${lang}/`} class="hover:text-text-primary hover:underline">{docsUi.home}</a>
+        <span class="mx-2">/</span>
+        <a href={`/${lang}/docs`} class="hover:text-text-primary hover:underline">{docsUi.docs}</a>
+        <span class="mx-2">/</span>
+        <span class="text-text-primary">{docsUi.sizeIncreaseDocTitle}</span>
+      </nav>
+
+      <h1 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">{title}</h1>
+      <p class="text-base sm:text-lg text-text-secondary mb-8">{pageContent.intro}</p>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{pageContent.methodTitle}</h2>
+        <p class="text-text-secondary mb-3">{pageContent.methodIntro}</p>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          {pageContent.methodItems.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{pageContent.formulaTitle}</h2>
+        <div class="rounded-xl border border-border bg-card-bg p-4 sm:p-5">
+          <p class="text-text-primary font-medium">{pageContent.formula}</p>
+          <p class="text-sm text-text-secondary mt-2">{pageContent.formulaExample}</p>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{pageContent.reasonTitle}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          {pageContent.reasonItems.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{pageContent.boundaryTitle}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          {pageContent.boundaryItems.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{docsUi.faq}</h2>
+        <div class="space-y-4">
+          {pageContent.faqs.map((faq) => (
+            <div class="rounded-xl border border-border bg-card-bg p-4">
+              <h3 class="text-base font-semibold text-text-primary mb-1">{faq.q}</h3>
+              <p class="text-sm text-text-secondary">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{docsUi.relatedPages}</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li><a href={`/${lang}/docs/image-quality-vs-file-size`} class="text-primary-500 hover:underline">{docsUi.qualityDocTitle}</a></li>
+          <li><a href={`/${lang}/docs/format-compatibility`} class="text-primary-500 hover:underline">{docsUi.formatDocTitle}</a></li>
+          <li><a href={`/${lang}/docs`} class="text-primary-500 hover:underline">{docsUi.allDocs}</a></li>
+        </ul>
+      </section>
+
+      <p class="text-sm text-text-secondary pt-4 border-t border-border">{docsUi.lastUpdated}: {dateModified}</p>
+    </article>
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </main>
+
+  <Footer lang={lang} />
+</Layout>

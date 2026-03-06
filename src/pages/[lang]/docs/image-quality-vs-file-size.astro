@@ -357,6 +357,20 @@ const qualityDocContent = {
     'Use lower quality for thumbnails and higher quality for hero images.',
   ],
 };
+const sizeIncreaseExplainMap = {
+  zh: '如果转换后体积变大，可能来自格式机制、源图已深度压缩，或两者同时存在。可查看',
+  'zh-Hant': '若轉換後體積變大，可能來自格式機制、來源已深度壓縮，或兩者同時存在。可查看',
+  es: 'Si el archivo convertido aumenta, puede deberse al formato, a compresion profunda previa o a ambos. Consulta',
+  fr: 'Si le fichier converti grossit, cela peut venir du format, d une compression deja poussee, ou des deux. Voir',
+  de: 'Wenn die Datei nach der Konvertierung grosser wird, liegt es oft am Formatverhalten, an starker Vorabkomprimierung oder an beidem. Siehe',
+  ja: '変換後にサイズが増える場合、形式特性・事前の強い圧縮、またはその両方が原因です。詳しくは',
+  ko: '변환 후 용량이 커지면 포맷 특성, 원본의 깊은 압축, 혹은 둘 다가 원인일 수 있습니다. 자세한 기준은',
+  pt: 'Se o arquivo convertido aumentar, a causa pode ser comportamento do formato, compressao previa intensa ou ambos. Veja',
+  ru: 'Если после конвертации размер вырос, причиной может быть поведение формата, глубокая исходная компрессия или оба фактора. См.',
+  ar: 'إذا زاد الحجم بعد التحويل فقد يكون السبب خصائص الصيغة أو ضغطا عميقا مسبقا أو السببين معا. راجع',
+  it: 'Se il file convertito aumenta, la causa puo essere il comportamento del formato, una forte compressione gia presente o entrambi. Vedi',
+  en: 'If converted size increases, it can come from format behavior, deep prior compression, or both. See',
+}[lang] ?? 'If converted size increases, it can come from format behavior, deep prior compression, or both. See';
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'TechArticle',
@@ -461,6 +475,16 @@ const faqSchema = {
       </section>
 
       <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{docsUi.sizeIncreaseDocTitle}</h2>
+        <p class="text-text-secondary">
+          {sizeIncreaseExplainMap}
+          {' '}
+          <a href={`/${lang}/docs/size-increase-explainer`} class="text-primary-500 hover:underline">{docsUi.sizeIncreaseDocTitle}</a>
+          .
+        </p>
+      </section>
+
+      <section class="mb-8">
         <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{qualityDocContent.workflowHeading}</h2>
         <ol class="list-decimal pl-5 space-y-2 text-text-secondary">
           {qualityDocContent.workflow.map((item) => (
@@ -484,6 +508,7 @@ const faqSchema = {
       <section class="mb-8">
         <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{docsUi.relatedPages}</h2>
         <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li><a href={`/${lang}/docs/size-increase-explainer`} class="text-primary-500 hover:underline">{docsUi.sizeIncreaseDocTitle}</a></li>
           <li><a href={`/${lang}/docs/format-compatibility`} class="text-primary-500 hover:underline">{docsUi.formatDocTitle}</a></li>
           <li><a href={`/${lang}/docs/privacy-local-processing`} class="text-primary-500 hover:underline">{docsUi.privacyDocTitle}</a></li>
           <li><a href={`/${lang}/docs`} class="text-primary-500 hover:underline">{docsUi.allDocs}</a></li>

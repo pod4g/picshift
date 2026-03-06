@@ -50,7 +50,28 @@ const howToSteps = toolTranslation?.howToSteps || localizedContent.howToSteps;
 const t = getUI(lang);
 const docsUi = getDocsUi(lang);
 const toolPageUi = getToolPageUi(lang);
-const faqs = [...(toolTranslation?.faqs || localizedContent.faqs), { q: t.sizeIncreaseFaqQ, a: t.sizeIncreaseFaqA }];
+const sizeIncreaseDocUrl = `https://picshift.app/${lang}/docs/size-increase-explainer`;
+const sizeIncreaseFaqLinkTextMap: Record<Locale, string> = {
+  en: 'Learn more:',
+  zh: '详细说明：',
+  'zh-Hant': '詳細說明：',
+  es: 'Mas detalles:',
+  fr: 'En savoir plus :',
+  de: 'Mehr dazu:',
+  ja: '詳しくはこちら：',
+  ko: '자세히 보기:',
+  pt: 'Saiba mais:',
+  ru: 'Подробнее:',
+  ar: 'تفاصيل اكثر:',
+  it: 'Maggiori dettagli:',
+};
+const faqs = [
+  ...(toolTranslation?.faqs || localizedContent.faqs),
+  {
+    q: t.sizeIncreaseFaqQ,
+    a: `${t.sizeIncreaseFaqA} ${sizeIncreaseFaqLinkTextMap[lang]} ${sizeIncreaseDocUrl}`,
+  },
+];
 const fallbackRelatedToolSlugs = ['image-compressor', 'image-resizer', 'png-to-jpg', 'jpg-to-png'];
 
 function pickRelatedTools(currentTool: ToolPageConfig): ToolPageConfig[] {
@@ -100,6 +121,10 @@ const relatedGuides = [
   {
     href: localePath('/docs/image-quality-vs-file-size', lang),
     title: docsUi.qualityDocTitle,
+  },
+  {
+    href: localePath('/docs/size-increase-explainer', lang),
+    title: docsUi.sizeIncreaseDocTitle,
   },
   {
     href: localePath('/docs/privacy-local-processing', lang),

@@ -1,0 +1,170 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../lib/contentDates';
+
+const lang = 'en' as const;
+const title = 'Why Output Size Can Increase: Deep Compression and B/pixel';
+const description = 'How PicShift estimates deeply compressed images and calculates B/pixel for practical size-increase explanations.';
+const canonical = 'https://picshift.app/docs/size-increase-explainer';
+const pagePath = '/docs/size-increase-explainer';
+const datePublished = DOCS_DATE_PUBLISHED;
+const dateModified = CONTENT_DATE_MODIFIED;
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: title,
+  description,
+  url: canonical,
+  inLanguage: 'en',
+  datePublished,
+  dateModified,
+  author: { '@type': 'Organization', name: 'PicShift' },
+  publisher: { '@type': 'Organization', name: 'PicShift', url: 'https://picshift.app' },
+};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://picshift.app/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Docs',
+      item: 'https://picshift.app/docs',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: title,
+      item: canonical,
+    },
+  ],
+};
+const faqs = [
+  {
+    q: 'Does PicShift run a second full encode pass to judge size increase?',
+    a: 'No. The explanation uses lightweight metadata and format rules, not a second full trial-encode, so the UI remains responsive.',
+  },
+  {
+    q: 'How is B/pixel calculated?',
+    a: 'B/pixel is source bytes divided by decoded pixel count: originalFileSizeBytes / (width × height).',
+  },
+  {
+    q: 'Is deep compression detection an exact quality score?',
+    a: 'No. It is a practical heuristic for explanation quality, not a visual quality metric and not a strict codec-level score.',
+  },
+];
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+};
+---
+
+<Layout title={title} description={description} canonical={canonical} lang={lang} pagePath={pagePath}>
+  <Header lang={lang} pagePath={pagePath} />
+
+  <main class="flex-1">
+    <article class="max-w-3xl mx-auto px-4 py-10 sm:py-14">
+      <nav aria-label="Breadcrumb" class="mb-4 text-sm text-text-secondary">
+        <a href="/" class="hover:text-text-primary hover:underline">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/docs" class="hover:text-text-primary hover:underline">Docs</a>
+        <span class="mx-2">/</span>
+        <span class="text-text-primary">Why Output Size Can Increase</span>
+      </nav>
+
+      <h1 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
+        Why Output Size Can Increase: Deep Compression and B/pixel
+      </h1>
+      <p class="text-base sm:text-lg text-text-secondary mb-8">
+        When converted files become larger, PicShift explains why with practical rules. This page defines those rules
+        and how B/pixel is computed.
+      </p>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">How PicShift identifies deep compression</h2>
+        <p class="text-text-secondary mb-3">
+          PicShift treats very small source data density as a deeply compressed signal. It uses source size and decoded
+          dimensions, then checks whether B/pixel is below a threshold.
+        </p>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li>Pixel count is read from decoded dimensions (width x height).</li>
+          <li>B/pixel is computed from original bytes divided by pixel count.</li>
+          <li>If B/pixel is under the threshold, the source is treated as deeply compressed for explanation logic.</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">B/pixel formula</h2>
+        <div class="rounded-xl border border-border bg-card-bg p-4 sm:p-5">
+          <p class="text-text-primary font-medium">B/pixel = originalFileSizeBytes / (width x height)</p>
+          <p class="text-sm text-text-secondary mt-2">
+            Example: For an image with dimensions 3000 x 2000 and file size 350 KB, substitute into the formula:
+            (350 x 1024) / (3000 x 2000) = 0.0597, which is about 0.06 B/pixel.
+          </p>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Why larger output can still be expected</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li>Converting from lossy or highly compressed formats to less efficient settings can increase size.</li>
+          <li>Very small source B/pixel usually means little room for further size reduction at similar visual quality.</li>
+          <li>Small images can show codec overhead more clearly, especially with heavier modern encoders.</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Scope and boundaries</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li>This is an explanation heuristic, not a strict predictor for every single image.</li>
+          <li>Different content types (photo, screenshot, graphics) can shift final results.</li>
+          <li>Different quality levels and format targets can change trends.</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">FAQ</h2>
+        <div class="space-y-4">
+          {faqs.map((faq) => (
+            <div class="rounded-xl border border-border bg-card-bg p-4">
+              <h3 class="text-base font-semibold text-text-primary mb-1">{faq.q}</h3>
+              <p class="text-sm text-text-secondary">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Related pages</h2>
+        <ul class="list-disc pl-5 space-y-2 text-text-secondary">
+          <li><a href="/docs/image-quality-vs-file-size" class="text-primary-500 hover:underline">Image Quality vs File Size</a></li>
+          <li><a href="/docs/format-compatibility" class="text-primary-500 hover:underline">Format Compatibility Guide</a></li>
+          <li><a href="/docs" class="text-primary-500 hover:underline">All docs</a></li>
+        </ul>
+      </section>
+
+      <p class="text-sm text-text-secondary pt-4 border-t border-border">Last updated: {dateModified}</p>
+    </article>
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </main>
+
+  <Footer lang={lang} />
+</Layout>
