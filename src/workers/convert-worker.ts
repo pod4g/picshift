@@ -560,7 +560,12 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
     postProgress(id, 80);
 
     // Step 4 - Generate thumbnail (200px wide)
-    const thumbBitmap = await createImageBitmap(finalBlob, {
+    // If compressor keeps original HEIC/HEIF, decode may fail on browsers without native support.
+    // In that case prefer the already-decoded preview blob produced in Step 1.
+    const thumbSourceBlob = (heicInput && keptOriginal && originalPreviewBlob)
+      ? originalPreviewBlob
+      : finalBlob;
+    const thumbBitmap = await createImageBitmap(thumbSourceBlob, {
       resizeWidth: 200,
       resizeQuality: 'medium',
     });

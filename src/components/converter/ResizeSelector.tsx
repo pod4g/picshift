@@ -249,7 +249,7 @@ export default function ResizeSelector({
                 ${value.preset === key
                   ? 'bg-primary-500/15 text-text-primary font-semibold'
                   : idx === highlightedIndex
-                    ? 'bg-drop-bg text-text-primary'
+                    ? 'bg-primary-500/20 dark:bg-primary-500/30 text-text-primary font-medium'
                     : 'text-text-primary hover:bg-drop-bg'}
               `}
             >

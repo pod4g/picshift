@@ -409,6 +409,7 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
             <DropZone onFiles={handleAddFiles} accept={acceptExtensions} />
             <FileList
               files={files}
+              quality={quality}
               onRemove={removeFile}
               onDownload={downloadSingle}
               onCompare={openCompare}

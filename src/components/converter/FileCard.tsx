@@ -3,9 +3,11 @@ import type { ConvertFile } from '../../types';
 import { useLang } from '../../i18n/LangContext';
 import { getUI } from '../../i18n/ui';
 import { formatSize } from '../../lib/format-utils';
+import { getSizeIncreaseReason } from '../../lib/sizeIncreaseReason';
 
 interface FileCardProps {
   file: ConvertFile;
+  quality: number;
   onRemove: (id: string) => void;
   onDownload: (id: string) => void;
   onCompare: (id: string) => void;
@@ -28,7 +30,18 @@ function getSizeIncreaseTip(t: ReturnType<typeof getUI>, outputExt: string | nul
   }
 }
 
-export default function FileCard({ file, onRemove, onDownload, onCompare }: FileCardProps) {
+function getInputFormatLabel(inputFormat: ConvertFile['inputFormat']): string {
+  if (inputFormat === 'jpeg' || inputFormat === 'jpg') return 'JPG';
+  return inputFormat.toUpperCase();
+}
+
+function getOutputFormatLabel(outputExt: string | null): string {
+  if (!outputExt) return '';
+  if (outputExt === '.jpeg' || outputExt === '.jpg') return 'JPG';
+  return outputExt.replace('.', '').toUpperCase();
+}
+
+export default function FileCard({ file, quality, onRemove, onDownload, onCompare }: FileCardProps) {
   const lang = useLang();
   const t = getUI(lang);
   const isDone = file.status === 'done';
@@ -92,7 +105,7 @@ export default function FileCard({ file, onRemove, onDownload, onCompare }: File
   const truncatedName =
     displayName.length > 28 ? displayName.slice(0, 14) + '...' + displayName.slice(-10) : displayName;
 
-  // Build dimension tooltip
+  // Build filename tooltip with original metadata
   let dimTooltip = '';
   if (file.originalWidth && file.originalHeight) {
     dimTooltip = `${file.originalWidth}×${file.originalHeight}`;
@@ -100,6 +113,16 @@ export default function FileCard({ file, onRemove, onDownload, onCompare }: File
       dimTooltip += ` → ${file.outputWidth}×${file.outputHeight}`;
     }
   }
+  const inputMeta = [getInputFormatLabel(file.inputFormat), file.originalWidth && file.originalHeight ? `${file.originalWidth}×${file.originalHeight}` : '']
+    .filter(Boolean)
+    .join(' • ');
+  const outputMeta = [getOutputFormatLabel(file.outputExt), file.outputWidth && file.outputHeight ? `${file.outputWidth}×${file.outputHeight}` : '']
+    .filter(Boolean)
+    .join(' • ');
+  const fileMetaTooltip = isDone && outputMeta ? `${inputMeta} → ${outputMeta}` : inputMeta || dimTooltip;
+
+  const dynamicIncreaseReason = getSizeIncreaseReason({ lang, file, quality });
+  const sizeIncreaseTip = dynamicIncreaseReason || getSizeIncreaseTip(t, file.outputExt);
 
   return (
     <div className="flex items-center gap-3 rounded-lg border border-border bg-card-bg p-3 shadow-sm transition-all duration-150 hover:shadow-md">
@@ -134,7 +157,7 @@ export default function FileCard({ file, onRemove, onDownload, onCompare }: File
       {/* Info */}
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <div className="flex items-center gap-2">
-          <span className="truncate text-sm font-medium text-text-primary" title={dimTooltip || undefined}>
+          <span className="truncate text-sm font-medium text-text-primary" title={fileMetaTooltip || undefined}>
             {truncatedName}
           </span>
 
@@ -173,8 +196,8 @@ export default function FileCard({ file, onRemove, onDownload, onCompare }: File
               {file.outputSize > file.size ? (
                 <span className="group relative font-medium text-warning cursor-help">
                   {getSizeReduction(file.size, file.outputSize)}
-                  <span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 w-52 sm:w-64 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-xs leading-relaxed text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100 dark:bg-gray-700">
-                    {getSizeIncreaseTip(t, file.outputExt)}
+                  <span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 w-56 sm:w-72 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-xs leading-relaxed whitespace-pre-line text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100 dark:bg-gray-700">
+                    {sizeIncreaseTip}
                     <span className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-gray-900 dark:border-t-gray-700" />
                   </span>
                 </span>

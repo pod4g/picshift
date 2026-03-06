@@ -9,6 +9,7 @@ import Converter from '../components/converter/Converter';
 import { TOOL_PAGES } from '../data/tools';
 import { getPageTranslations } from '../i18n/translations';
 import { getUI } from '../i18n/ui';
+import { getToolPageUi } from '../i18n/toolPageUi';
 import type { ToolPageConfig } from '../types';
 
 const lang = 'en' as const;
@@ -34,7 +35,48 @@ const h1 = toolTranslation?.h1 || tool.h1;
 const introText = toolTranslation?.introText || tool.introText;
 const howToSteps = toolTranslation?.howToSteps || tool.howToSteps;
 const t = getUI(lang);
+const toolPageUi = getToolPageUi(lang);
 const faqs = [...(toolTranslation?.faqs || tool.faqs), { q: t.sizeIncreaseFaqQ, a: t.sizeIncreaseFaqA }];
+const fallbackRelatedToolSlugs = ['image-compressor', 'image-resizer', 'png-to-jpg', 'jpg-to-png'];
+
+function pickRelatedTools(currentTool: ToolPageConfig): ToolPageConfig[] {
+  const reverse = TOOL_PAGES.find(
+    (candidate) =>
+      candidate.slug !== currentTool.slug &&
+      candidate.defaultInputFormat === currentTool.defaultOutputFormat &&
+      candidate.defaultOutputFormat === currentTool.defaultInputFormat
+  );
+  const sameInput = TOOL_PAGES.filter(
+    (candidate) => candidate.slug !== currentTool.slug && candidate.defaultInputFormat === currentTool.defaultInputFormat
+  );
+  const sameOutput = TOOL_PAGES.filter(
+    (candidate) => candidate.slug !== currentTool.slug && candidate.defaultOutputFormat === currentTool.defaultOutputFormat
+  );
+  const fallbackTools = fallbackRelatedToolSlugs
+    .map((slug) => TOOL_PAGES.find((candidate) => candidate.slug === slug))
+    .filter((candidate): candidate is ToolPageConfig => Boolean(candidate));
+
+  const orderedCandidates = [reverse, ...sameInput, ...sameOutput, ...fallbackTools].filter(
+    (candidate): candidate is ToolPageConfig => Boolean(candidate)
+  );
+  const uniqueBySlug = new Map<string, ToolPageConfig>();
+  for (const candidate of orderedCandidates) {
+    if (candidate.slug === currentTool.slug) continue;
+    if (!uniqueBySlug.has(candidate.slug)) uniqueBySlug.set(candidate.slug, candidate);
+    if (uniqueBySlug.size >= 4) break;
+  }
+
+  return [...uniqueBySlug.values()];
+}
+
+const relatedTools = pickRelatedTools(tool).map((relatedTool) => {
+  const relatedTranslation = pageTranslations.tools[relatedTool.slug];
+  return {
+    href: `/${relatedTool.slug}`,
+    title: relatedTranslation?.h1 || relatedTool.h1,
+  };
+});
+const limitationItems = [toolPageUi.limitationFormat, toolPageUi.limitationSize, toolPageUi.limitationCompatibility];
 const relatedGuides = [
   {
     href: '/docs/format-compatibility',
@@ -105,6 +147,19 @@ const relatedGuidesItemListSchema = {
     url: `https://picshift.app${guide.href}`,
   })),
 };
+const relatedToolsItemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `${h1} related tools`,
+  itemListOrder: 'https://schema.org/ItemListOrderAscending',
+  numberOfItems: relatedTools.length,
+  itemListElement: relatedTools.map((relatedTool, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: relatedTool.title,
+    url: `https://picshift.app${relatedTool.href}`,
+  })),
+};
 ---
 
 <Layout title={title} description={description} canonical={canonical} lang={lang} pagePath={pagePath}>
@@ -146,6 +201,34 @@ const relatedGuidesItemListSchema = {
 
       <section class="mb-8">
         <div class="rounded-xl border border-border bg-card-bg p-4 sm:p-5">
+          <h2 class="text-lg sm:text-xl font-semibold text-text-primary mb-2">{toolPageUi.limitations}</h2>
+          <p class="text-sm text-text-secondary mb-3">{toolPageUi.limitationsIntro}</p>
+          <ul class="list-disc pl-5 space-y-2 text-sm text-text-secondary">
+            {limitationItems.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <div class="rounded-xl border border-border bg-card-bg p-4 sm:p-5">
+          <h2 class="text-lg sm:text-xl font-semibold text-text-primary mb-3">{toolPageUi.relatedTools}</h2>
+          <div class="flex flex-wrap gap-2">
+            {relatedTools.map((relatedTool) => (
+              <a
+                href={relatedTool.href}
+                class="inline-flex items-center rounded-lg border border-border px-3 py-1.5 text-sm text-text-secondary hover:text-text-primary hover:bg-drop-bg transition-colors"
+              >
+                {relatedTool.title}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <div class="rounded-xl border border-border bg-card-bg p-4 sm:p-5">
           <h2 class="text-lg sm:text-xl font-semibold text-text-primary mb-3">Related guides</h2>
           <div class="flex flex-wrap gap-2">
             {relatedGuides.map((guide) => (
@@ -165,6 +248,7 @@ const relatedGuidesItemListSchema = {
 
       <script type="application/ld+json" set:html={JSON.stringify(softwareApplicationSchema)} />
       <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+      <script type="application/ld+json" set:html={JSON.stringify(relatedToolsItemListSchema)} />
       <script type="application/ld+json" set:html={JSON.stringify(relatedGuidesItemListSchema)} />
 
       <!-- FAQ section -->

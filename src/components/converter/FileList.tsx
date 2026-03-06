@@ -6,13 +6,14 @@ import FileCard from './FileCard';
 
 interface FileListProps {
   files: ConvertFile[];
+  quality: number;
   onRemove: (id: string) => void;
   onDownload: (id: string) => void;
   onCompare: (id: string) => void;
   compressMode?: boolean;
 }
 
-export default function FileList({ files, onRemove, onDownload, onCompare, compressMode }: FileListProps) {
+export default function FileList({ files, quality, onRemove, onDownload, onCompare, compressMode }: FileListProps) {
   const lang = useLang();
   const t = getUI(lang);
   const completedCount = files.filter((f) => f.status === 'done').length;
@@ -27,6 +28,7 @@ export default function FileList({ files, onRemove, onDownload, onCompare, compr
           <FileCard
             key={file.id}
             file={file}
+            quality={quality}
             onRemove={onRemove}
             onDownload={onDownload}
             onCompare={onCompare}
