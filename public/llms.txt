@@ -45,9 +45,8 @@ PicShift does not upload source image binaries to servers for conversion process
 - Batch conversion supports up to 200 files per run
 
 ## Verification steps
-- Open https://picshift.app and select an image.
 - Turn on airplane mode or disable Wi-Fi.
-- Convert and download successfully while offline.
+- Select an image, then convert and download successfully while offline.
 
 ## Scope and limitations
 - Offline conversion applies after initial page assets and codecs are loaded.

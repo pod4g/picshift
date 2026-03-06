@@ -131,13 +131,14 @@ const guides = [
     <section class="pb-10 sm:pb-12 px-4">
       <div class="max-w-3xl mx-auto rounded-xl border border-primary-500/25 bg-primary-500/5 p-5 sm:p-6">
         <h2 class="text-lg sm:text-xl font-semibold text-text-primary mb-2">{verifyUi.homepageTitle}</h2>
-        <p class="text-sm text-text-secondary mb-4">{verifyUi.homepageIntro}</p>
+        {verifyUi.homepageIntro && (
+          <p class="text-sm text-text-secondary mb-4">{verifyUi.homepageIntro}</p>
+        )}
         <ol class="list-decimal pl-5 space-y-2 text-sm text-text-secondary">
           {verifyUi.homepageSteps.map((step) => (
             <li>{step}</li>
           ))}
         </ol>
-        <p class="mt-4 text-xs text-text-secondary">{verifyUi.homepageNote}</p>
         <a href="/docs/privacy-local-processing" class="inline-block mt-4 text-sm text-primary-500 hover:underline">
           {verifyUi.homepageCta}
         </a>
