@@ -174,7 +174,8 @@ import '../styles/global.css';
 
     <!-- Analytics: Umami (privacy-friendly, no cookies) -->
     {import.meta.env.PROD && <script defer src="https://cloud.umami.is/script.js" data-website-id="5e8e298a-edc6-4bb7-a7cb-04714bffc9c0"></script>}
-    <!-- Analytics: Cloudflare Web Analytics (auto-injected by Cloudflare Pages) -->
+    <!-- Analytics: Cloudflare Web Analytics -->
+    {import.meta.env.PROD && <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "55349de43bae4234983bd69de095874d"}'></script>}
 
     <!-- PWA: Service Worker registration (production only) -->
     {import.meta.env.PROD && <script is:inline src="/registerSW.js"></script>}
