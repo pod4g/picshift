@@ -5,9 +5,12 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import AstroPWA from '@vite-pwa/astro';
 
+import cloudflare from '@astrojs/cloudflare';
+
 export default defineConfig({
   site: 'https://picshift.app',
   output: 'static',
+
   integrations: [
     react(),
     sitemap(),
@@ -53,6 +56,7 @@ export default defineConfig({
       },
     }),
   ],
+
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'zh', 'zh-Hant', 'es', 'fr', 'de', 'ja', 'ko', 'pt', 'ru', 'ar', 'it'],
@@ -60,6 +64,7 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+
   vite: {
     plugins: [tailwindcss()],
     worker: {
@@ -76,4 +81,6 @@ export default defineConfig({
       },
     },
   },
+
+  adapter: cloudflare(),
 });
