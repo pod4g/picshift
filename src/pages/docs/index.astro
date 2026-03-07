@@ -43,6 +43,11 @@ const breadcrumbSchema = {
 
 const docs = [
   {
+    href: '/docs/why-picshift',
+    title: 'Why I Built PicShift',
+    description: 'Why PicShift exists: local-only processing, privacy constraints, multi-format comparison workflow, and continuous iteration.',
+  },
+  {
     href: '/docs/privacy-local-processing',
     title: 'Privacy and Local Processing',
     description: 'How PicShift keeps image processing on-device and what data is or is not used.',
@@ -61,11 +66,6 @@ const docs = [
     href: '/docs/size-increase-explainer',
     title: 'Why Output Size Can Increase',
     description: 'How PicShift estimates deep compression and computes B/pixel in size-increase explanations.',
-  },
-  {
-    href: '/docs/why-picshift',
-    title: 'Why I Built PicShift',
-    description: 'Why PicShift exists: local-only processing, privacy constraints, multi-format comparison workflow, and continuous iteration.',
   },
 ];
 const docsItemListSchema = {
@@ -98,7 +98,7 @@ const docsItemListSchema = {
         Explore practical guides for private image processing, format decisions, and compression quality.
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {docs.map((doc) => (
           <a
             href={doc.href}

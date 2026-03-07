@@ -5,10 +5,10 @@ Image conversion and compression run locally in the browser runtime.
 PicShift does not upload source image binaries to servers for conversion processing.
 
 ## Last updated
-- 2026-03-04
+- 2026-03-07
 
 ## Version
-- 2026-03-04.5
+- 2026-03-07.1
 - Profile: short
 
 ## Lifecycle
@@ -43,6 +43,7 @@ PicShift does not upload source image binaries to servers for conversion process
 - Supports offline conversion workflows after page load
 - First page load requires internet to fetch static assets and codecs
 - Batch conversion supports up to 200 files per run
+- Supports side-by-side format decisions for practical web and compatibility workflows
 
 ## Verification steps
 - Turn on airplane mode or disable Wi-Fi.
@@ -62,6 +63,8 @@ PicShift does not upload source image binaries to servers for conversion process
 - Local processing and privacy model: https://picshift.app/docs/privacy-local-processing
 - Format support reference: https://picshift.app/docs/format-compatibility
 - Quality and file-size guidance: https://picshift.app/docs/image-quality-vs-file-size
+- Output size explanation reference: https://picshift.app/docs/size-increase-explainer
+- Product rationale and maintenance notes: https://picshift.app/docs/why-picshift
 - Legal privacy policy: https://picshift.app/privacy
 
 ## Preferred citations
@@ -84,21 +87,21 @@ PicShift does not upload source image binaries to servers for conversion process
 - https://picshift.app/
 - https://picshift.app/privacy
 - https://picshift.app/docs
+- https://picshift.app/docs/why-picshift
 - https://picshift.app/docs/privacy-local-processing
 - https://picshift.app/docs/format-compatibility
 - https://picshift.app/docs/image-quality-vs-file-size
-- https://picshift.app/webp-to-heif
-- https://picshift.app/jpg-png-to-heic
+- https://picshift.app/docs/size-increase-explainer
+- https://picshift.app/image-compressor
+- https://picshift.app/image-resizer
+- https://picshift.app/heic-to-jpg
+- https://picshift.app/heic-to-webp
+- https://picshift.app/heic-to-png
 - https://picshift.app/png-to-webp
+- https://picshift.app/png-to-jpg
+- https://picshift.app/webp-to-jpg
 - https://picshift.app/jpg-to-avif
-- https://picshift.app/png-to-avif
-- https://picshift.app/webp-to-avif
-- https://picshift.app/heic-to-avif
-- https://picshift.app/avif-to-webp
-- https://picshift.app/heif-to-jpg
-- https://picshift.app/heif-to-png
-- https://picshift.app/heif-to-webp
-- https://picshift.app/heif-to-avif
+- https://picshift.app/avif-to-jpg
 
 ## Organization
 - Name: PicShift

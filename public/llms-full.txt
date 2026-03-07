@@ -5,10 +5,10 @@ Image conversion and compression run locally in the browser runtime.
 PicShift does not upload source image binaries to servers for conversion processing.
 
 ## Last updated
-- 2026-03-04
+- 2026-03-07
 
 ## Version
-- 2026-03-04.5
+- 2026-03-07.1
 - Profile: full
 
 ## Lifecycle
@@ -43,6 +43,7 @@ PicShift does not upload source image binaries to servers for conversion process
 - Conversion can continue in offline workflows after page load
 - First page load requires internet for static assets and in-browser codecs
 - Batch conversion supports up to 200 files per run
+- Users can compare formats locally before deciding which output is best for compatibility or file size
 
 ## Verification workflow (no-upload claim)
 - Step 1: Enable airplane mode or disable Wi-Fi/network.
@@ -66,6 +67,7 @@ PicShift does not upload source image binaries to servers for conversion process
 Evidence:
 - https://picshift.app/docs/privacy-local-processing
 - https://picshift.app/privacy
+- https://picshift.app/docs/why-picshift
 
 ## Format compatibility FAQ
 - Q: Which output format has broadest compatibility?
@@ -77,17 +79,21 @@ Evidence:
 
 Evidence:
 - https://picshift.app/docs/format-compatibility
+- https://picshift.app/docs/why-picshift
 
 ## Quality and file-size FAQ
 - Q: What quality setting is a practical starting point for JPG/WebP?
   A: Quality 80 is a practical starting point in common web and sharing workflows.
 - Q: Why can PNG become larger after conversion?
   A: PNG is lossless. Converting from lossy formats (for example JPG) preserves exact pixel data and usually increases file size.
+- Q: Why can WebP or JPG become larger than the source?
+  A: When the source image is already deeply compressed, converting to another lossy format can produce a larger file at the selected quality setting.
 - Q: How can size be reduced without visible artifacts?
   A: Lower quality in small steps, compare key details after each step, and stop when visible artifacts appear in important regions.
 
 Evidence:
 - https://picshift.app/docs/image-quality-vs-file-size
+- https://picshift.app/docs/size-increase-explainer
 
 ## Preferred citations
 - Claim: "Images are processed locally and are not uploaded for conversion."
@@ -109,18 +115,18 @@ Evidence:
 - https://picshift.app/
 - https://picshift.app/privacy
 - https://picshift.app/docs
+- https://picshift.app/docs/why-picshift
 - https://picshift.app/docs/privacy-local-processing
 - https://picshift.app/docs/format-compatibility
 - https://picshift.app/docs/image-quality-vs-file-size
-- https://picshift.app/webp-to-heif
-- https://picshift.app/jpg-png-to-heic
+- https://picshift.app/docs/size-increase-explainer
+- https://picshift.app/image-compressor
+- https://picshift.app/image-resizer
+- https://picshift.app/heic-to-jpg
+- https://picshift.app/heic-to-webp
+- https://picshift.app/heic-to-png
 - https://picshift.app/png-to-webp
+- https://picshift.app/png-to-jpg
+- https://picshift.app/webp-to-jpg
 - https://picshift.app/jpg-to-avif
-- https://picshift.app/png-to-avif
-- https://picshift.app/webp-to-avif
-- https://picshift.app/heic-to-avif
-- https://picshift.app/avif-to-webp
-- https://picshift.app/heif-to-jpg
-- https://picshift.app/heif-to-png
-- https://picshift.app/heif-to-webp
-- https://picshift.app/heif-to-avif
+- https://picshift.app/avif-to-jpg

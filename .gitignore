@@ -25,3 +25,7 @@ pnpm-debug.log*
 
 # local benchmark pages and tools
 benchmarks/
+
+# e2e artifacts
+playwright-report/
+test-results/

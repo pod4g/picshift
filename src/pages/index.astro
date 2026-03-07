@@ -21,6 +21,11 @@ const title = pageTranslations.home.title;
 const description = pageTranslations.home.description;
 const guides = [
   {
+    href: '/docs/why-picshift',
+    title: docsUi.whyPicShiftDocTitle,
+    description: docsUi.whyPicShiftDocDescription,
+  },
+  {
     href: '/docs/privacy-local-processing',
     title: docsUi.privacyDocTitle,
     description: docsUi.privacyDocDescription,
@@ -34,6 +39,11 @@ const guides = [
     href: '/docs/image-quality-vs-file-size',
     title: docsUi.qualityDocTitle,
     description: docsUi.qualityDocDescription,
+  },
+  {
+    href: '/docs/size-increase-explainer',
+    title: docsUi.sizeIncreaseDocTitle,
+    description: docsUi.sizeIncreaseDocDescription,
   },
 ];
 ---
@@ -151,7 +161,7 @@ const guides = [
           <h2 class="text-xl sm:text-2xl font-bold text-text-primary">{docsUi.docs}</h2>
           <a href="/docs" class="text-sm sm:text-base text-primary-500 hover:underline">{docsUi.allDocs}</a>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
           {guides.map((guide) => (
             <a
               href={guide.href}

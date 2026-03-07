@@ -1,0 +1,4 @@
+http://picshift.app/* https://picshift.app/:splat 301
+http://www.picshift.app/* https://picshift.app/:splat 301
+https://www.picshift.app/* https://picshift.app/:splat 301
+www.picshift.app/* https://picshift.app/:splat 301

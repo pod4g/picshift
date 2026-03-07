@@ -57,6 +57,12 @@ export interface ToolPageConfig {
   introText: string;
   howToSteps: string[];
   faqs: Array<{ q: string; a: string }>;
+  searchIntentSections?: Array<{ title: string; body: string }>;
+}
+
+export interface ToolIntentSection {
+  title: string;
+  body: string;
 }
 
 export interface WorkerRequest {

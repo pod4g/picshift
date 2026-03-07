@@ -1,5 +1,7 @@
 import type { ToolPageConfig } from '../types';
 import type { Locale, ToolTranslation } from './config';
+import { getPageTranslations } from './translations';
+import { getLocalizedToolFaqs } from './toolFaqOverrides';
 
 interface ConverterContentTemplate {
   h1: (input: string, output: string) => string;
@@ -213,12 +215,24 @@ function getFormatPair(tool: ToolPageConfig): { input: string; output: string } 
 export function getLocalizedToolContent(lang: Locale, tool: ToolPageConfig): Pick<ToolTranslation, 'h1' | 'introText' | 'howToSteps' | 'faqs'> {
   const template = CONVERTER_CONTENT_MAP[lang] ?? CONVERTER_CONTENT_MAP.en;
 
+  if (lang !== 'en') {
+    const translatedTool = getPageTranslations(lang).tools[tool.slug];
+    if (translatedTool) {
+      return {
+        h1: translatedTool.h1,
+        introText: translatedTool.introText,
+        howToSteps: translatedTool.howToSteps,
+        faqs: getLocalizedToolFaqs(lang, tool.slug, translatedTool.faqs),
+      };
+    }
+  }
+
   if (tool.slug === 'image-resizer' || tool.slug === 'image-compressor') {
     return {
       h1: tool.h1,
       introText: tool.introText,
       howToSteps: tool.howToSteps,
-      faqs: tool.faqs,
+      faqs: getLocalizedToolFaqs(lang, tool.slug, tool.faqs),
     };
   }
 
@@ -227,9 +241,9 @@ export function getLocalizedToolContent(lang: Locale, tool: ToolPageConfig): Pic
     h1: template.h1(input, output),
     introText: template.intro(input, output),
     howToSteps: template.howToSteps(input, output),
-    faqs: [
+    faqs: getLocalizedToolFaqs(lang, tool.slug, [
       { q: template.faqQualityQ, a: template.faqQualityA },
       { q: template.faqPrivacyQ, a: template.faqPrivacyA },
-    ],
+    ]),
   };
 }

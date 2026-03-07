@@ -84,6 +84,7 @@ const relatedTools = pickRelatedTools(tool).map((relatedTool) => {
   };
 });
 const limitationItems = [toolPageUi.limitationFormat, toolPageUi.limitationSize, toolPageUi.limitationCompatibility];
+const searchIntentSections = tool.searchIntentSections ?? [];
 const relatedGuides = [
   {
     href: '/docs/format-compatibility',
@@ -209,6 +210,19 @@ const relatedToolsItemListSchema = {
           lang={lang}
         />
       </div>
+
+      {searchIntentSections.length > 0 && (
+        <section class="mb-8">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {searchIntentSections.map((section) => (
+              <article class="rounded-xl border border-border bg-card-bg p-4 sm:p-5 shadow-sm">
+                <h2 class="text-lg sm:text-xl font-semibold text-text-primary mb-2">{section.title}</h2>
+                <p class="text-sm text-text-secondary leading-6">{section.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section class="mb-8">
         <div class="rounded-xl border border-border bg-card-bg p-4 sm:p-5">

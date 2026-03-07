@@ -7,7 +7,10 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "seo:audit": "node scripts/seo-audit.mjs"
+    "seo:audit": "node scripts/seo-audit.mjs",
+    "e2e": "playwright test",
+    "e2e:headed": "playwright test --headed",
+    "e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
@@ -29,6 +32,7 @@
     "@jsquash/oxipng": "^2.3.0",
     "@jsquash/webp": "^1.5.0",
     "@panda-ai/imagequant": "^0.2.0",
+    "@playwright/test": "^1.58.2",
     "@types/canvas-confetti": "^1.9.0",
     "@vite-pwa/astro": "^1.2.0"
   }

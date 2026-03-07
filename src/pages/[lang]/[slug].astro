@@ -14,6 +14,7 @@ import { getDocsUi } from '../../i18n/docsUi';
 import { getLocalizedToolMeta } from '../../i18n/toolMeta';
 import { getToolPageUi } from '../../i18n/toolPageUi';
 import { getLocalizedToolContent } from '../../i18n/toolContent';
+import { getLocalizedToolSearchIntentSections } from '../../i18n/toolSearchIntent';
 import type { Locale } from '../../i18n/config';
 import type { ToolPageConfig } from '../../types';
 
@@ -66,7 +67,7 @@ const sizeIncreaseFaqLinkTextMap: Record<Locale, string> = {
   it: 'Maggiori dettagli:',
 };
 const faqs = [
-  ...(toolTranslation?.faqs || localizedContent.faqs),
+  ...localizedContent.faqs,
   {
     q: t.sizeIncreaseFaqQ,
     a: `${t.sizeIncreaseFaqA} ${sizeIncreaseFaqLinkTextMap[lang]} ${sizeIncreaseDocUrl}`,
@@ -113,6 +114,7 @@ const relatedTools = pickRelatedTools(tool).map((relatedTool) => {
   };
 });
 const limitationItems = [toolPageUi.limitationFormat, toolPageUi.limitationSize, toolPageUi.limitationCompatibility];
+const searchIntentSections = getLocalizedToolSearchIntentSections(lang, tool);
 const relatedGuides = [
   {
     href: localePath('/docs/format-compatibility', lang),
@@ -239,6 +241,19 @@ const relatedToolsItemListSchema = {
           lang={lang}
         />
       </div>
+
+      {searchIntentSections.length > 0 && (
+        <section class="mb-8">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {searchIntentSections.map((section) => (
+              <article class="rounded-xl border border-border bg-card-bg p-4 sm:p-5 shadow-sm">
+                <h2 class="text-lg sm:text-xl font-semibold text-text-primary mb-2">{section.title}</h2>
+                <p class="text-sm text-text-secondary leading-6">{section.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section class="mb-8">
         <div class="rounded-xl border border-border bg-card-bg p-4 sm:p-5">

@@ -60,6 +60,11 @@ const breadcrumbSchema = {
 
 const docs = [
   {
+    href: `/${lang}/docs/why-picshift`,
+    title: docsUi.whyPicShiftDocTitle,
+    description: docsUi.whyPicShiftDocDescription,
+  },
+  {
     href: `/${lang}/docs/privacy-local-processing`,
     title: docsUi.privacyDocTitle,
     description: docsUi.privacyDocDescription,
@@ -78,11 +83,6 @@ const docs = [
     href: `/${lang}/docs/size-increase-explainer`,
     title: docsUi.sizeIncreaseDocTitle,
     description: docsUi.sizeIncreaseDocDescription,
-  },
-  {
-    href: `/${lang}/docs/why-picshift`,
-    title: docsUi.whyPicShiftDocTitle,
-    description: docsUi.whyPicShiftDocDescription,
   },
 ];
 const docsItemListSchema = {
@@ -115,7 +115,7 @@ const docsItemListSchema = {
         {docsUi.docsGuidesDescription}
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {docs.map((doc) => (
           <a
             href={doc.href}
