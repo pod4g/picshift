@@ -65,13 +65,15 @@
 
 当前状态：
 
-- 已在仓库补充 `public/_redirects`
-- 已声明 `http -> https`
-- 已声明 `www -> apex`
+- 已确认需要做 `http -> https` 与 `www -> apex` 归一
+- 但当前 Cloudflare Workers 静态资源部署模式下，仓库内 `_redirects` 不能用于这类主机名级跳转
+- 这类规则应放在 Cloudflare 控制台的 Redirect Rules / Bulk Redirects 中处理
 
 后续动作：
 
-- 部署后用真实线上 URL 再验证一次 301
+- 在 Cloudflare 域名规则中补 `http -> https`
+- 在 Cloudflare 域名规则中补 `www -> apex`
+- 生效后用真实线上 URL 再验证一次 301
 - 等待 GSC 在后续抓取中逐步收敛这些历史变体
 
 ### 2. 旧查询页仍有曝光，但已核实为真实落地页

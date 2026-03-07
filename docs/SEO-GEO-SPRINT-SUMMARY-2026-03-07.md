@@ -109,11 +109,7 @@
 
 ### 4. URL 归一：补充 redirect 规则
 
-为减少 GSC 中宿主名和协议变体导致的信号分裂，新增：
-
-- `public/_redirects`
-
-当前声明了：
+为减少 GSC 中宿主名和协议变体导致的信号分裂，本轮确认需要做：
 
 - `http -> https`
 - `www -> apex`
@@ -122,6 +118,11 @@
 这一步的目标是把历史变体逐步收敛到唯一 canonical：
 
 - `https://picshift.app/...`
+
+注意：
+
+- 在你当前的 Cloudflare Workers 静态资源部署模式下，仓库内 `_redirects` 不能用于这类主机名级跳转
+- 这类规则应改为在 Cloudflare 控制台的 Redirect Rules / Bulk Redirects 中配置
 
 ### 5. GSC 诊断文档化
 
@@ -177,7 +178,7 @@
 
 注意：
 
-- `public/_redirects` 是否在线上真实生效，仍需部署后用真实 URL 再验证一次
+- `http/www` 归一需要在 Cloudflare 控制台配置后，再用真实 URL 验证 301 是否生效
 
 ## 下次怎么复盘
 
