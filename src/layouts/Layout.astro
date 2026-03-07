@@ -13,7 +13,6 @@ interface Props {
 const { title, description, canonical, lang = 'en', pagePath = '/' } = Astro.props;
 const siteBase = 'https://picshift.app';
 const canonicalUrl = canonical || (lang === 'en' ? `${siteBase}${pagePath}` : `${siteBase}/${lang}${pagePath === '/' ? '/' : pagePath}`);
-const ogImageJpg = `${siteBase}/og-image.jpg`;
 const ogImagePng = `${siteBase}/og-image.png`;
 
 const localeConfig = LOCALE_CONFIG[lang];
@@ -46,7 +45,7 @@ const orgSchema = isHome ? JSON.stringify({
   operatingSystem: 'Any',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   description: description,
-  image: ogImageJpg,
+  image: ogImagePng,
   inLanguage: SUPPORTED_LOCALES.map((l) => LOCALE_CONFIG[l].hrefLang),
 }) : null;
 const websiteSchema = JSON.stringify({
@@ -146,8 +145,6 @@ import '../styles/global.css';
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={ogImageJpg} />
-    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image" content={ogImagePng} />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
@@ -162,7 +159,7 @@ import '../styles/global.css';
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageJpg} />
+    <meta name="twitter:image" content={ogImagePng} />
 
     <!-- Structured Data -->
     {orgSchema && <script type="application/ld+json" set:html={orgSchema} />}
