@@ -61,12 +61,12 @@ const pt: PageTranslations = {
   tools: {
     'heic-to-jpg': {
       title:
-        'Conversor de HEIC para JPG - Gratuito, Privado, Sem Upload | PicShift',
+        'Conversor de HEIC para JPG - Abrir no Windows e enviar com mais facilidade | PicShift',
       description:
-        'Converta fotos HEIC para JPG instantaneamente no seu navegador. 100% privado \u2014 os arquivos nunca saem do seu dispositivo. Gratuito, sem limites, sem cadastro.',
+        'Converta HEIC para JPG no navegador quando uma foto do iPhone nao abre no Windows, nao sobe em um site ou precisa ficar mais compativel.',
       h1: 'Converter HEIC para JPG',
       introText:
-        'Converta suas fotos HEIC do iPhone para o formato JPG instantaneamente. Tudo acontece no seu navegador \u2014 suas fotos nunca saem do seu dispositivo.',
+        'Converta fotos HEIC do iPhone para JPG quando voce precisa de um arquivo que abra com mais facilidade em apps antigos, sites, formularios de upload e PCs com Windows. Tudo acontece no seu navegador, sem enviar nada.',
       howToSteps: [
         'Arraste e solte seus arquivos HEIC na caixa acima ou clique para procurar.',
         'Suas fotos s\u00e3o convertidas instantaneamente no navegador \u2014 nada \u00e9 enviado.',
@@ -78,16 +78,24 @@ const pt: PageTranslations = {
           a: 'HEIC (High Efficiency Image Container) \u00e9 o formato de foto padr\u00e3o nos iPhones desde o iOS 11. Ele produz arquivos menores que o JPG mantendo a mesma qualidade. No entanto, muitos aplicativos do Windows e sites n\u00e3o suportam o formato HEIC.',
         },
         {
+          q: 'Por que converter HEIC para JPG?',
+          a: 'Porque JPG ainda e o formato mais aceito no dia a dia. Se a foto precisa abrir no Windows, entrar em um sistema antigo, ser enviada por e-mail ou subir em um site sem erro, JPG continua sendo a opcao mais segura.',
+        },
+        {
+          q: 'Como transformar HEIC em JPG para usar no Windows ou em sites?',
+          a: 'Basta adicionar o arquivo HEIC, manter JPG como formato de saida e baixar a imagem convertida. Isso resolve a maioria dos casos em que o arquivo do iPhone nao abre direito ou nao e aceito no upload.',
+        },
+        {
+          q: 'HEIC para JPG perde qualidade?',
+          a: 'JPG usa compressao com perda, entao nao e a melhor opcao para um fluxo de edicao sem perdas. Mesmo assim, para compartilhar, enviar ou abrir em mais lugares, costuma ser a troca certa quando a compatibilidade vem em primeiro lugar.',
+        },
+        {
           q: '\u00c9 seguro converter minhas fotos aqui?',
           a: 'Sim. O PicShift processa tudo no seu navegador usando WebAssembly. Suas fotos nunca saem do seu dispositivo \u2014 nenhum arquivo \u00e9 enviado para qualquer servidor. Voc\u00ea pode verificar isso desconectando-se da internet e testando o conversor.',
         },
         {
-          q: 'Quantos arquivos posso converter de uma vez?',
-          a: 'Voc\u00ea pode converter at\u00e9 200 arquivos de uma vez. Para melhor desempenho com grandes lotes, recomendamos 100 ou menos.',
-        },
-        {
-          q: 'Vou perder qualidade de imagem?',
-          a: 'A configura\u00e7\u00e3o de qualidade padr\u00e3o (85%) produz arquivos visualmente id\u00eanticos ao original. Voc\u00ea pode ajustar o controle de qualidade \u2014 valores mais altos significam melhor qualidade, mas arquivos maiores.',
+          q: 'Quando vale a pena manter HEIC?',
+          a: 'Vale manter HEIC se o seu fluxo ja funciona bem no iPhone, no Mac ou em apps modernos e se voce quer arquivos menores. Converta para JPG quando a foto precisar circular por sistemas mais antigos ou por sites que ainda nao aceitam HEIC.',
         },
       ],
     },
@@ -141,12 +149,12 @@ const pt: PageTranslations = {
     },
     'webp-to-jpg': {
       title:
-        'Conversor de WebP para JPG - Gratuito, Privado, Sem Upload | PicShift',
+        'Conversor de WebP para JPG - Mais compativel para abrir e enviar | PicShift',
       description:
-        'Converta imagens WebP para o formato JPG no seu navegador. Gratuito, privado, sem necessidade de upload.',
+        'Converta WebP para JPG quando um app, site ou formulario nao aceita bem o formato WebP.',
       h1: 'Converter WebP para JPG',
       introText:
-        'Converta imagens WebP para o formato JPG universalmente compat\u00edvel. Todo o processamento acontece localmente no seu navegador.',
+        'Converta imagens WebP para JPG quando voce precisa de um arquivo que abra, envie ou suba com menos problema. JPG continua sendo a opcao mais facil para muitos apps antigos, clientes de e-mail e sistemas de upload.',
       howToSteps: [
         'Arraste e solte seus arquivos WebP na caixa acima ou clique para procurar.',
         'Os arquivos s\u00e3o convertidos para JPG instantaneamente no seu navegador.',
@@ -155,7 +163,19 @@ const pt: PageTranslations = {
       faqs: [
         {
           q: 'Por que converter WebP para JPG?',
-          a: 'O WebP \u00e9 amplamente suportado em navegadores, e alguns aplicativos mais antigos, clientes de e-mail e plataformas de m\u00eddia social n\u00e3o aceitam WebP. O JPG \u00e9 o formato de imagem mais universalmente compat\u00edvel.',
+          a: 'WebP funciona muito bem no navegador, mas fora da web ainda falha em alguns aplicativos antigos, clientes de e-mail, ferramentas de escritorio e formul\u00e1rios de upload. JPG continua sendo o formato mais facil de usar no dia a dia.',
+        },
+        {
+          q: 'Como converter WebP para JPG?',
+          a: 'Adicione o arquivo WebP, mantenha JPG como formato de saida e baixe a imagem convertida. E a forma mais rapida de resolver casos em que uma plataforma nao aceita WebP.',
+        },
+        {
+          q: 'Por que alguns sites ou apps nao aceitam WebP?',
+          a: 'Muitos sistemas mais antigos ainda foram pensados para JPG e PNG. Quando a validacao de arquivo usa uma lista antiga de formatos, o WebP pode ser recusado mesmo funcionando bem no navegador.',
+        },
+        {
+          q: 'O arquivo JPG pode ficar maior?',
+          a: 'Pode sim. WebP costuma ser mais eficiente que JPG, entao converter para ganhar compatibilidade pode gerar um arquivo um pouco maior dependendo da imagem e da qualidade escolhida.',
         },
       ],
     },

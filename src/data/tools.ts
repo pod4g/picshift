@@ -167,12 +167,12 @@ export const TOOL_PAGES: ToolPageConfig[] = [
     slug: 'heic-to-png',
     title: 'HEIC to PNG Converter for Editing and Design Handoff | PicShift',
     description:
-      'Convert HEIC photos to PNG when you need lossless editing, design handoff, or a format that is easier to reuse in graphics workflows.',
+      'Convert HEIC to PNG when you need a stable file for editing, markup, design review, or repeated exports that should avoid another lossy step.',
     defaultInputFormat: 'heic',
     defaultOutputFormat: 'png',
     h1: 'Convert HEIC to PNG',
     introText:
-      'Convert HEIC to PNG when editing stability matters more than file size. PNG is useful for design review, markup, and repeated export workflows that should avoid another lossy step.',
+      'Convert HEIC to PNG when you need a file that is easier to mark up, review, or pass into design tools. PNG is usually much larger than HEIC, but it is a safer choice when editing stability matters more than smaller file size.',
     howToSteps: [
       'Drag and drop your HEIC files into the box above, or click to browse.',
       'Files are converted to lossless PNG instantly in your browser.',
@@ -181,33 +181,33 @@ export const TOOL_PAGES: ToolPageConfig[] = [
     faqs: [
       {
         q: 'Does HEIC to PNG keep full quality?',
-        a: 'PNG is lossless, so no extra quality is lost during the PNG export itself. It is a better choice than JPG when you want a stable file for editing, markup, or production handoff.',
+        a: 'PNG is lossless, so the PNG export does not add another lossy compression step. It is usually the better choice than JPG when the file needs to stay stable for editing, markup, or design review.',
       },
       {
         q: 'How do I convert HEIC to PNG online?',
-        a: 'Upload your HEIC photos, keep PNG selected, then download the converted files. PicShift runs this workflow locally in the browser, which is useful when the images are private.',
+        a: 'Add your HEIC photos, keep PNG selected, and download the converted files. PicShift runs this conversion locally in your browser, so it works well for private images and quick one-off edits.',
       },
       {
-        q: 'Why is HEIC to PNG larger than HEIC to JPG?',
-        a: 'PNG is lossless, while JPG is lossy. That is why PNG exports are usually much larger in photo workflows even when both look similar at first glance.',
+        q: 'Why is HEIC to PNG much larger than HEIC or JPG?',
+        a: 'HEIC is highly compressed for photos, while PNG stores a lot more image data per pixel. That is why HEIC to PNG often creates a much larger file even when the picture looks similar on screen.',
       },
       {
-        q: 'When should I use HEIC to PNG instead of HEIC to JPG?',
-        a: 'Choose PNG when you need a lossless file for editing, annotations, design review, or repeated exports. Choose JPG when compatibility and smaller file size matter more.',
+        q: 'Why convert HEIC to PNG instead of JPG?',
+        a: 'Choose PNG when you want a cleaner file for editing, annotations, product review, or repeated export steps. Choose JPG when your real goal is smaller files, faster uploads, or the broadest compatibility.',
       },
     ],
     searchIntentSections: [
       {
-        title: 'Why choose HEIC to PNG',
-        body: 'PNG is useful when you need a stable file for editing, markup, archiving, or production handoff. It avoids an extra lossy pass and is easier to reuse in design and review workflows.',
+        title: 'Why people convert HEIC to PNG',
+        body: 'Most people convert HEIC to PNG when they need a file that behaves better in editing, annotation, design review, or handoff workflows. PNG is not the smallest option, but it is often easier to reuse without worrying about another lossy photo export.',
       },
       {
-        title: 'Why the PNG output is often much larger',
-        body: 'HEIC is highly efficient for photos, while PNG is lossless and stores much more data per pixel. That is why HEIC to PNG is usually chosen for workflow stability, not for smaller file size.',
+        title: 'Why the PNG export gets much larger',
+        body: 'HEIC is efficient because it is designed to keep photo size low. PNG is different: it keeps much more raw image information, so the file often grows a lot after conversion. That trade-off is normal when the goal is editability rather than compression.',
       },
       {
-        title: 'When another target is a better fit',
-        body: 'If your real goal is smaller size or easier uploading, HEIC to JPG or HEIC to WebP is usually the better path. PNG is best when image editing needs outweigh file size concerns.',
+        title: 'When HEIC to JPG or WebP is the better move',
+        body: 'If your real goal is easier uploading, smaller files, or faster web delivery, PNG is usually not the best target. HEIC to JPG is better for compatibility, and HEIC to WebP is often better for modern website workflows.',
       },
     ],
   },
@@ -293,12 +293,12 @@ export const TOOL_PAGES: ToolPageConfig[] = [
     slug: 'heif-to-jpg',
     title: 'HEIF to JPG Converter for Legacy Compatibility | PicShift',
     description:
-      'Convert HEIF images to JPG for legacy software, uploads, and universal device support.',
+      'Convert HEIF to JPG for Windows apps, uploads, email, and older software that still expects JPG files.',
     defaultInputFormat: 'heif',
     defaultOutputFormat: 'jpg',
     h1: 'Convert HEIF to JPG',
     introText:
-      'Convert HEIF images to JPG for universal compatibility across apps, websites, and sharing platforms.',
+      'Convert HEIF to JPG when you need a version that opens more reliably in older apps, upload forms, and everyday sharing tools. JPG is still the safest fallback when HEIF support is inconsistent.',
     howToSteps: [
       'Drag and drop your HEIF files into the box above, or click to browse.',
       'Files are converted to JPG instantly in your browser.',
@@ -306,12 +306,34 @@ export const TOOL_PAGES: ToolPageConfig[] = [
     ],
     faqs: [
       {
-        q: 'What is HEIF format?',
-        a: 'HEIF is the container format family used by HEIC photos. It stores high-quality images with efficient compression.',
+        q: 'What is HEIF, and is it the same as HEIC?',
+        a: 'HEIF is the image container family, and HEIC is the best-known HEIF-based photo format used by Apple devices. In practice, people often run into the same compatibility issues with both and convert them to JPG for easier use.',
       },
       {
-        q: 'Why convert HEIF to JPG?',
-        a: 'JPG has the broadest compatibility across operating systems, older editors, and upload tools.',
+        q: 'Why convert HEIF to JPG for Windows or uploads?',
+        a: 'Many Windows apps, office tools, email workflows, and upload forms still handle JPG more reliably than HEIF. Converting to JPG is the simplest way to get a file that opens and uploads with fewer surprises.',
+      },
+      {
+        q: 'Will HEIF to JPG reduce image quality?',
+        a: 'JPG uses lossy compression, so it is not the right target when you need a fully lossless editing file. It is the right target when compatibility matters more than preserving every bit of source data.',
+      },
+      {
+        q: 'When should I keep HEIF instead of converting to JPG?',
+        a: 'Keep HEIF if your workflow already supports it and your priority is efficient storage on modern devices. Convert to JPG when the image needs to leave that environment and work in older tools, websites, or sharing platforms.',
+      },
+    ],
+    searchIntentSections: [
+      {
+        title: 'Why HEIF to JPG is still needed',
+        body: 'HEIF is efficient, but the format still causes friction in real-world workflows. People usually convert HEIF to JPG when a file needs to open in Windows software, pass through an upload form, or be sent to someone who expects a standard image format.',
+      },
+      {
+        title: 'When JPG is the safest fallback',
+        body: 'JPG is still the lowest-friction choice for email, office tools, generic image viewers, and many older upload systems. If the destination is unknown or outside a modern Apple-friendly workflow, JPG is usually the safer target.',
+      },
+      {
+        title: 'When not to convert HEIF to JPG',
+        body: 'If your devices and apps already support HEIF well, converting is not always necessary. HEIF can stay smaller than JPG, so it often makes sense to keep it until compatibility becomes a real problem.',
       },
     ],
   },
@@ -397,12 +419,12 @@ export const TOOL_PAGES: ToolPageConfig[] = [
     slug: 'webp-to-jpg',
     title: 'WebP to JPG Converter for Better Compatibility | PicShift',
     description:
-      'Convert WebP to JPG for email, social uploads, office workflows, and older software that does not reliably accept WebP files.',
+      'Convert WebP to JPG when a site, app, email tool, or upload form will not reliably accept WebP files.',
     defaultInputFormat: 'webp',
     defaultOutputFormat: 'jpg',
     h1: 'Convert WebP to JPG',
     introText:
-      'Convert WebP to JPG when you need a format that opens more reliably in older apps, upload forms, and everyday sharing tools. Processing stays local in your browser, so nothing is uploaded.',
+      'Convert WebP to JPG when WebP will not open, upload, or preview properly in the place you actually need to use it. JPG is still the easiest fallback for email, office tools, social uploads, and older desktop software.',
     howToSteps: [
       'Drag and drop your WebP files into the box above, or click to browse.',
       'Files are converted to JPG instantly in your browser.',
@@ -411,33 +433,33 @@ export const TOOL_PAGES: ToolPageConfig[] = [
     faqs: [
       {
         q: 'Why convert WebP to JPG?',
-        a: 'WebP is widely supported in browsers, and some older applications, email clients, and social media platforms do not accept WebP. JPG is the most universally compatible image format.',
+        a: 'WebP works well in browsers, but support is still uneven in older desktop apps, email workflows, office tools, and some upload forms. JPG is still the easiest format to open and share almost anywhere.',
       },
       {
         q: 'How do I convert WebP to JPG online?',
-        a: 'Upload the WebP file, keep JPG selected, then download the converted image. This is useful when you need a more widely accepted format for uploads or desktop apps.',
+        a: 'Add the WebP file, keep JPG selected, and download the converted image. It is a quick fix when you need a version that behaves better in uploads, messaging apps, or older software.',
       },
       {
         q: 'Will WebP to JPG make the file larger?',
-        a: 'It can. WebP is often more efficient than JPG, so converting to JPG for compatibility may increase file size depending on the source image and chosen quality.',
+        a: 'It can. WebP is often more efficient than JPG, so converting for compatibility may increase file size depending on the source image and selected quality.',
       },
       {
-        q: 'Why won’t some apps or upload forms accept WebP?',
-        a: 'Outside the browser, WebP support is still less predictable in older desktop software, office tools, and certain upload systems. Converting to JPG usually fixes that compatibility issue.',
+        q: 'Why do some apps or upload forms reject WebP?',
+        a: 'Many older tools were built around JPG and PNG long before WebP became common. When a service validates uploads against an older format list, converting WebP to JPG usually solves the problem.',
       },
     ],
     searchIntentSections: [
       {
         title: 'Why WebP to JPG is still needed',
-        body: 'WebP works well on the web, but many real-world workflows still expect JPG. Converting to JPG helps when a file needs to open in older apps, pass through upload forms, or be shared in more traditional channels.',
+        body: 'WebP is great for browser delivery, but many real-world workflows still expect JPG. Converting to JPG helps when a file needs to open in older apps, pass through upload forms, or be shared in channels that are less flexible about image formats.',
       },
       {
         title: 'Common cases where WebP fails',
-        body: 'You will see WebP issues most often in office environments, legacy desktop tools, older social upload flows, and less flexible form validators. JPG remains the lowest-friction fallback in these situations.',
+        body: 'You will usually see WebP problems in office environments, older desktop tools, some social upload flows, and websites with strict file validators. In those situations, JPG is still the easiest format to move through the workflow.',
       },
       {
-        title: 'Trade-off: compatibility versus file size',
-        body: 'JPG is easier to use almost everywhere, but the output can be larger than the WebP source. This conversion is usually about compatibility, not about getting the smallest possible file.',
+        title: 'When PNG is a better fallback than JPG',
+        body: 'JPG is the default fallback when compatibility matters, but it is not always the best target. If the image needs transparency or more editing headroom, WebP to PNG can be the better option even though the file will usually be larger.',
       },
     ],
   },
@@ -445,12 +467,12 @@ export const TOOL_PAGES: ToolPageConfig[] = [
     slug: 'webp-to-png',
     title: 'WebP to PNG Converter for Lossless Transparency | PicShift',
     description:
-      'Convert WebP images to lossless PNG when you need pixel-stable output and transparency workflows.',
+      'Convert WebP to PNG when you need transparency, a lossless export, or a file that is easier to edit and reuse.',
     defaultInputFormat: 'webp',
     defaultOutputFormat: 'png',
     h1: 'Convert WebP to PNG',
     introText:
-      'Convert WebP images to lossless PNG format. Perfect for when you need transparency or lossless quality.',
+      'Convert WebP to PNG when the image needs to keep transparency, survive more editing, or fit into a workflow that expects a lossless file. PNG is usually larger, but it is often the safer format for review, design, and repeated export steps.',
     howToSteps: [
       'Drag and drop your WebP files into the box above, or click to browse.',
       'Files are converted to lossless PNG instantly in your browser.',
@@ -460,6 +482,32 @@ export const TOOL_PAGES: ToolPageConfig[] = [
       {
         q: 'Does WebP to PNG conversion lose quality?',
         a: 'No. PNG is a lossless format, so the conversion preserves every pixel from the WebP source. The resulting PNG file will be larger but identical in quality.',
+      },
+      {
+        q: 'When should I convert WebP to PNG instead of JPG?',
+        a: 'Choose PNG when the image needs transparency, more editing headroom, or a stable lossless export. Choose JPG when the goal is wider compatibility with smaller file size and transparency does not matter.',
+      },
+      {
+        q: 'Why is the PNG file larger than the original WebP?',
+        a: 'WebP is built for efficient compression, while PNG keeps much more raw image data. That is why WebP to PNG often produces a noticeably larger file even when the picture looks the same.',
+      },
+      {
+        q: 'Why convert WebP to PNG for editing?',
+        a: 'People often switch from WebP to PNG when the file needs to go through design review, markup, or repeated export steps. PNG is easier to reuse in those workflows because it is lossless and widely understood by image tools.',
+      },
+    ],
+    searchIntentSections: [
+      {
+        title: 'Why people convert WebP to PNG',
+        body: 'Most people convert WebP to PNG when they need transparency, a lossless copy, or a file that behaves more predictably in design and editing tools. This conversion is usually about workflow stability, not about getting a smaller file.',
+      },
+      {
+        title: 'When PNG is the right target',
+        body: 'PNG is the better target when the image needs transparency, quality-sensitive review, or more editing headroom. It is especially useful when the file will be annotated, reused in graphics work, or exported again later.',
+      },
+      {
+        title: 'Trade-off: cleaner workflow, larger files',
+        body: 'PNG is easier to edit and widely accepted, but it is usually larger than WebP. If your real goal is just sharing or uploading with the smallest possible file, WebP to JPG may be a better fallback.',
       },
     ],
   },
@@ -587,14 +635,14 @@ export const TOOL_PAGES: ToolPageConfig[] = [
   },
   {
     slug: 'jpg-to-webp',
-    title: 'JPG to WebP Converter - Faster Page Load | PicShift',
+    title: 'JPG to WebP Converter for Smaller Website Images | PicShift',
     description:
-      'Convert JPG to WebP for smaller web images and faster load speed. Tune quality in-browser and download instantly.',
+      'Convert JPG to WebP for smaller website images, faster page loads, and lower transfer size on modern browsers.',
     defaultInputFormat: 'jpg',
     defaultOutputFormat: 'webp',
     h1: 'Convert JPG to WebP',
     introText:
-      'Convert JPG images to the modern WebP format for 25-34% smaller file sizes at the same visual quality.',
+      'Convert JPG to WebP when you want lighter website images without a big drop in visual quality. This is the common next step when a JPG looks fine but still feels too heavy for web delivery.',
     howToSteps: [
       'Drag and drop your JPG files into the box above, or click to browse.',
       'Files are converted to WebP instantly in your browser.',
@@ -603,7 +651,33 @@ export const TOOL_PAGES: ToolPageConfig[] = [
     faqs: [
       {
         q: 'How much smaller is WebP compared to JPG?',
-        a: 'WebP is 25-34% smaller than JPG at the same visual quality in benchmark comparisons. A 1 MB JPG converts to 650-750 KB as WebP in that range.',
+        a: 'WebP is often around 25-34% smaller than JPG at similar visual quality in common benchmark comparisons. The exact gain depends on the image, but it is usually enough to matter on websites with many photos.',
+      },
+      {
+        q: 'Should I convert JPG to WebP for my website?',
+        a: 'Yes, if your audience mainly uses modern browsers and your goal is faster loading with smaller image payloads. JPG to WebP is one of the easiest ways to reduce transfer size without redesigning the page.',
+      },
+      {
+        q: 'When is JPG still better than WebP?',
+        a: 'Keep JPG when the image needs to move through older software, email workflows, or systems that still expect traditional file formats. JPG is also simpler when broad compatibility matters more than squeezing out extra size savings.',
+      },
+      {
+        q: 'Will JPG to WebP reduce visible quality?',
+        a: 'Not necessarily. With a sensible quality setting, WebP often looks very close to the original JPG while producing a smaller file. The right balance depends on the image content and how aggressively you compress it.',
+      },
+    ],
+    searchIntentSections: [
+      {
+        title: 'Why JPG to WebP helps websites load faster',
+        body: 'People usually convert JPG to WebP because the image can stay visually similar while weighing less. That means less data to transfer on product grids, blog posts, landing pages, and any page that depends on many photos.',
+      },
+      {
+        title: 'When WebP is better than JPG',
+        body: 'WebP is usually the better target when the image is meant for browser delivery and you care about smaller payloads. It is especially useful for modern sites where page speed and bandwidth matter more than desktop app compatibility.',
+      },
+      {
+        title: 'When not to convert JPG to WebP',
+        body: 'WebP is not always the safest choice for email attachments, office workflows, or older tooling. If the image needs to be opened everywhere with minimal friction, staying with JPG can still be the better call.',
       },
     ],
   },
@@ -715,12 +789,12 @@ export const TOOL_PAGES: ToolPageConfig[] = [
     slug: 'avif-to-jpg',
     title: 'AVIF to JPG Converter for Older Apps and Uploads | PicShift',
     description:
-      'Convert AVIF to JPG for editors, devices, social uploads, and platforms that still do not accept AVIF files. Private local conversion with no upload.',
+      'Convert AVIF to JPG when a site, app, editor, or upload form still does not accept AVIF files reliably.',
     defaultInputFormat: 'avif',
     defaultOutputFormat: 'jpg',
     h1: 'Convert AVIF to JPG',
     introText:
-      'Convert AVIF to JPG when an app, website, or upload endpoint rejects AVIF. JPG is still the safest fallback for broad compatibility, and PicShift lets you do the conversion locally in your browser.',
+      'Convert AVIF to JPG when you need a version that opens, uploads, or shares with fewer problems. JPG is still the safest fallback for older editors, office tools, messaging workflows, and websites that have not fully caught up with AVIF yet.',
     howToSteps: [
       'Drag and drop your AVIF files into the box above, or click to browse.',
       'Files are converted to JPG instantly in your browser.',
@@ -733,7 +807,7 @@ export const TOOL_PAGES: ToolPageConfig[] = [
       },
       {
         q: 'How do I convert AVIF to JPG online?',
-        a: 'Add the AVIF image, keep JPG selected, then download the converted file. This is a practical fallback when AVIF is blocked by editors, websites, or upload forms.',
+        a: 'Add the AVIF image, keep JPG selected, then download the converted file. It is a quick fix when AVIF is blocked by an editor, website, upload form, or everyday sharing app.',
       },
       {
         q: 'Why is AVIF not supported in some apps?',
@@ -743,19 +817,23 @@ export const TOOL_PAGES: ToolPageConfig[] = [
         q: 'Will AVIF to JPG increase file size?',
         a: 'It can. AVIF is often more efficient than JPG, so converting for compatibility may produce a larger file depending on the image content and selected quality.',
       },
+      {
+        q: 'When should I use PNG instead of JPG?',
+        a: 'Use PNG instead of JPG when you need a lossless file for editing, review, or repeated exports. Use JPG when the priority is broad compatibility and easy uploads, even if the result is not the most edit-friendly format.',
+      },
     ],
     searchIntentSections: [
       {
         title: 'Why AVIF to JPG is a compatibility fallback',
-        body: 'AVIF is efficient, but many upload flows and older apps still do not accept it reliably. Converting to JPG is the practical fallback when you need something that opens and uploads with fewer surprises.',
+        body: 'AVIF is efficient, but plenty of real-world workflows still reject it. Converting to JPG is the practical fallback when you need something that opens, previews, and uploads with fewer surprises.',
       },
       {
         title: 'Where AVIF compatibility still breaks down',
-        body: 'The most common problems appear in older editors, office tools, messaging workflows, and systems that validate uploads against older format lists. JPG remains easier to move through these environments.',
+        body: 'The most common problems appear in older editors, office tools, messaging workflows, and websites that validate uploads against older format lists. JPG remains much easier to move through these environments.',
       },
       {
         title: 'Trade-off: broader support, sometimes larger files',
-        body: 'Converting AVIF to JPG solves compatibility issues, but the output can be larger because AVIF is often more efficient. This conversion is mainly about making the file usable in more places.',
+        body: 'Converting AVIF to JPG solves compatibility issues, but the output can be larger because AVIF is often more efficient. This is mainly a usability conversion, not an optimization for smaller file size.',
       },
     ],
   },
@@ -789,12 +867,12 @@ export const TOOL_PAGES: ToolPageConfig[] = [
     slug: 'avif-to-png',
     title: 'AVIF to PNG Converter for Lossless Workflow | PicShift',
     description:
-      'Convert AVIF images to PNG for lossless editing and asset pipeline stability.',
+      'Convert AVIF to PNG when you need a file that is easier to edit, review, reuse, or hand off in graphics workflows.',
     defaultInputFormat: 'avif',
     defaultOutputFormat: 'png',
     h1: 'Convert AVIF to PNG',
     introText:
-      'Convert AVIF images to lossless PNG format. Perfect for preserving maximum quality.',
+      'Convert AVIF to PNG when the image needs to behave more predictably in editing, review, or production workflows. PNG is usually much larger, but it is often the safer target when compatibility and reusability matter more than compression.',
     howToSteps: [
       'Drag and drop your AVIF files into the box above, or click to browse.',
       'Files are converted to lossless PNG instantly in your browser.',
@@ -803,21 +881,33 @@ export const TOOL_PAGES: ToolPageConfig[] = [
     faqs: [
       {
         q: 'Why convert AVIF to PNG?',
-        a: 'AVIF has limited support in some applications. Converting to PNG gives you a universally compatible, lossless format that works everywhere.',
+        a: 'People usually convert AVIF to PNG when they need a file that works better in design tools, review flows, and editing-heavy workflows. PNG is easier to reuse and does not add another lossy conversion step.',
+      },
+      {
+        q: 'How do I convert AVIF to PNG?',
+        a: 'Add the AVIF image, keep PNG selected, and download the converted file. PicShift runs the conversion locally in your browser, which is useful when the images are private or you just need a quick workflow fix.',
+      },
+      {
+        q: 'Why is the PNG output much larger than AVIF?',
+        a: 'AVIF is designed for strong compression, while PNG keeps far more image data. That is why AVIF to PNG can create a much larger file even when the visual result looks nearly the same.',
+      },
+      {
+        q: 'Should I use JPG or WebP instead of PNG?',
+        a: 'Use PNG when you care about editability and a stable lossless output. Use JPG for broader compatibility and smaller files, or WebP for modern web delivery when keeping the file lighter matters more than editing headroom.',
       },
     ],
     searchIntentSections: [
       {
         title: 'Why AVIF to PNG helps in editing workflows',
-        body: 'AVIF is efficient for delivery, but PNG is often easier to reuse in design review, editing, annotation, and export-heavy workflows. This conversion is usually about workflow stability rather than smaller file size.',
+        body: 'AVIF is efficient for delivery, but PNG is often easier to reuse in design review, editing, annotation, and export-heavy workflows. Most people make this conversion because they want a file that behaves more predictably once the image leaves the browser.',
       },
       {
         title: 'When PNG is the better target than JPG or WebP',
-        body: 'Choose PNG when you want a lossless output for further editing, quality-sensitive review, or a pipeline that expects a stable format. PNG is a better fit when preserving pixel integrity matters more than keeping the file small.',
+        body: 'Choose PNG when you want a lossless output for further editing, quality-sensitive review, or a pipeline that expects a stable format. PNG is usually the right answer when preserving pixel integrity matters more than keeping the file small.',
       },
       {
-        title: 'Trade-off: easier workflow, usually larger files',
-        body: 'PNG is broadly compatible and lossless, but it will often be larger than the AVIF source. Use this conversion when compatibility and editability matter more than compression efficiency.',
+        title: 'Why AVIF to PNG often increases file size',
+        body: 'PNG is broadly compatible and lossless, but it will often be much larger than the AVIF source. This conversion is worth it when editing, compatibility, or handoff stability matters more than compression efficiency.',
       },
     ],
   },

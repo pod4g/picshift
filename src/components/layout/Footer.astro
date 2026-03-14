@@ -17,7 +17,7 @@ const localOnlyLabel = 'Local-only processing';
   <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="flex flex-col lg:flex-row items-center justify-between gap-3">
       <div class="order-2 lg:order-1">
-        <p class="text-sm text-text-secondary whitespace-nowrap">
+        <p class="text-center text-sm text-text-secondary lg:text-left">
           {ui.copyright}
         </p>
       </div>
@@ -40,28 +40,28 @@ const localOnlyLabel = 'Local-only processing';
         {localOnlyLabel}
       </div>
 
-      <div class="order-1 lg:order-3 flex items-center gap-4 whitespace-nowrap">
+      <div class="order-1 lg:order-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-center lg:justify-end lg:text-left">
         <a
           href="mailto:support@picshift.app"
-          class="text-sm text-text-secondary hover:text-text-primary transition-colors"
+          class="break-all text-sm text-text-secondary transition-colors hover:text-text-primary sm:break-normal"
         >
           support@picshift.app
         </a>
-        <span class="text-border">|</span>
+        <span class="hidden text-border sm:inline">|</span>
         <a
           href={localePath('/privacy', lang)}
           class="text-sm text-text-secondary hover:text-text-primary transition-colors"
         >
           {ui.privacyPolicy}
         </a>
-        <span class="text-border">|</span>
+        <span class="hidden text-border sm:inline">|</span>
         <a
           href={localePath('/docs', lang)}
           class="text-sm text-text-secondary hover:text-text-primary transition-colors"
         >
           Docs
         </a>
-        <span class="text-border">|</span>
+        <span class="hidden text-border sm:inline">|</span>
         <a
           href={localePath('/docs/why-picshift', lang)}
           class="text-sm text-text-secondary hover:text-text-primary transition-colors"

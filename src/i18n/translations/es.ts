@@ -141,12 +141,12 @@ const es: PageTranslations = {
     },
     'webp-to-jpg': {
       title:
-        'Convertidor de WebP a JPG - Gratis, Privado, Sin Subir | PicShift',
+        'Convertidor de WebP a JPG - Mas compatible, sin subir archivos | PicShift',
       description:
-        'Convierte imagenes WebP a formato JPG en tu navegador. Gratis, privado, sin necesidad de subir archivos.',
+        'Convierte WebP a JPG cuando una app, una web o un formulario no acepta WebP. Gratis, privado y sin subir archivos.',
       h1: 'Convertir WebP a JPG',
       introText:
-        'Convierte imagenes WebP al formato JPG universalmente compatible. Todo el procesamiento ocurre localmente en tu navegador.',
+        'Convierte imagenes WebP a JPG cuando necesitas un archivo que abra, suba o se comparta con menos problemas. JPG sigue siendo la opcion mas compatible para correo, herramientas de oficina y muchos formularios.',
       howToSteps: [
         'Arrastra y suelta tus archivos WebP en el area de arriba, o haz clic para buscarlos.',
         'Los archivos se convierten a JPG al instante en tu navegador.',
@@ -155,7 +155,23 @@ const es: PageTranslations = {
       faqs: [
         {
           q: 'Por que convertir WebP a JPG?',
-          a: 'WebP es ampliamente compatible en navegadores, y algunas aplicaciones antiguas, clientes de correo electronico y plataformas de redes sociales no aceptan WebP. JPG es el formato de imagen mas universalmente compatible.',
+          a: 'WebP funciona muy bien en navegadores, pero fuera de la web todavia falla en algunas aplicaciones antiguas, clientes de correo, herramientas de oficina y formularios de subida. JPG sigue siendo el formato mas facil de usar en casi cualquier sitio.',
+        },
+        {
+          q: 'Como convertir WebP a JPG?',
+          a: 'Arrastra tu archivo WebP, deja JPG como formato de salida y descarga la imagen convertida. Es una solucion rapida cuando una plataforma no acepta WebP o cuando necesitas una imagen mas compatible.',
+        },
+        {
+          q: 'Por que algunas apps no aceptan WebP?',
+          a: 'Muchas herramientas antiguas solo fueron pensadas para JPG y PNG. Cuando un sistema valida formatos contra listas viejas, WebP puede quedar fuera y convertir a JPG suele resolver el problema.',
+        },
+        {
+          q: 'WebP a JPG puede hacer el archivo mas grande?',
+          a: 'Si, puede pasar. WebP suele ser mas eficiente que JPG, asi que al convertir para ganar compatibilidad el archivo final puede pesar mas dependiendo de la imagen y de la calidad elegida.',
+        },
+        {
+          q: 'Cuando conviene usar PNG en lugar de JPG?',
+          a: 'Conviene usar PNG si la imagen necesita transparencia o si prefieres una salida mas estable para edicion. JPG tiene mas sentido cuando tu prioridad es abrir, compartir o subir el archivo con menos problemas.',
         },
       ],
     },
@@ -163,10 +179,10 @@ const es: PageTranslations = {
       title:
         'Convertidor de WebP a PNG - Gratis, Privado, Sin Subir | PicShift',
       description:
-        'Convierte imagenes WebP a formato PNG sin perdida en tu navegador. Gratis, privado, sin subir archivos.',
+        'Convierte WebP a PNG cuando necesitas transparencia, una salida sin perdida o un archivo mas comodo para editar.',
       h1: 'Convertir WebP a PNG',
       introText:
-        'Convierte imagenes WebP a formato PNG sin perdida. Perfecto cuando necesitas transparencia o calidad sin perdida.',
+        'Convierte imagenes WebP a PNG cuando necesitas mantener la transparencia, editar la imagen con mas margen o guardar una salida sin perdida. PNG suele pesar mas, pero es una mejor opcion para ciertos flujos de trabajo.',
       howToSteps: [
         'Arrastra y suelta tus archivos WebP en el area de arriba, o haz clic para buscarlos.',
         'Los archivos se convierten a PNG sin perdida al instante en tu navegador.',
@@ -177,15 +193,27 @@ const es: PageTranslations = {
           q: 'La conversion de WebP a PNG pierde calidad?',
           a: 'No. PNG es un formato sin perdida, por lo que la conversion preserva cada pixel de la fuente WebP. El archivo PNG resultante sera mas grande pero identico en calidad.',
         },
+        {
+          q: 'Cuando conviene convertir WebP a PNG?',
+          a: 'Conviene cuando necesitas transparencia, una imagen mas estable para edicion o un archivo que no vuelva a pasar por compresion con perdida. Tambien es una buena opcion para revision, diseno o reutilizacion del recurso.',
+        },
+        {
+          q: 'Por que el PNG pesa mas que el WebP?',
+          a: 'Porque PNG guarda mucha mas informacion de imagen y no busca la misma eficiencia de compresion que WebP. El aumento de tamano es normal cuando priorizas transparencia o una salida sin perdida.',
+        },
+        {
+          q: 'Cuando es mejor JPG que PNG?',
+          a: 'JPG suele ser mejor si no necesitas transparencia y tu prioridad es un archivo mas ligero para compartir, subir o enviar. PNG tiene mas sentido cuando prefieres estabilidad y calidad sin perdida.',
+        },
       ],
     },
     'png-to-jpg': {
-      title: 'Convertidor de PNG a JPG - Gratis, Privado, Sin Subir | PicShift',
+      title: 'Convertidor de PNG a JPG - Mas ligero, online y privado | PicShift',
       description:
-        'Convierte imagenes PNG a formato JPG en tu navegador. Reduce el tamano del archivo manteniendo una gran calidad.',
+        'Convierte PNG a JPG para reducir el tamano del archivo cuando la transparencia ya no hace falta.',
       h1: 'Convertir PNG a JPG',
       introText:
-        'Convierte imagenes PNG a JPG para reducir el tamano del archivo. Ideal para fotos guardadas como PNG que no necesitan transparencia.',
+        'Convierte imagenes PNG a JPG cuando pesan demasiado para compartir, subir o enviar. Es una solucion muy util para fotos guardadas como PNG aunque ya no necesiten transparencia.',
       howToSteps: [
         'Arrastra y suelta tus archivos PNG en el area de arriba, o haz clic para buscarlos.',
         'Los archivos se convierten a JPG al instante en tu navegador.',
@@ -195,6 +223,18 @@ const es: PageTranslations = {
         {
           q: 'Perdere la transparencia?',
           a: 'Si. JPG no soporta transparencia. Las areas transparentes de tu PNG se convertiran en blanco. Si necesitas transparencia, mantiene tu imagen como PNG o convierte a WebP.',
+        },
+        {
+          q: 'Por que convertir PNG a JPG?',
+          a: 'La razon mas comun es bajar el peso del archivo. JPG suele ser mucho mas ligero que PNG en imagenes fotograficas, por eso es una opcion practica para compartir, enviar o subir a una web.',
+        },
+        {
+          q: 'JPG pesa menos que PNG?',
+          a: 'Normalmente si. PNG guarda mucha mas informacion y se vuelve pesado con facilidad, mientras que JPG esta pensado para fotos y suele ocupar menos espacio.',
+        },
+        {
+          q: 'Cuando es mejor mantener PNG?',
+          a: 'Manten PNG si tu imagen necesita transparencia, contiene texto fino o si quieres evitar una compresion con perdida. Para logos, interfaces o capturas detalladas, PNG suele seguir siendo mejor.',
         },
       ],
     },
@@ -219,12 +259,12 @@ const es: PageTranslations = {
     },
     'jpg-to-webp': {
       title:
-        'Convertidor de JPG a WebP - Gratis, Privado, Sin Subir | PicShift',
+        'Convertidor de JPG a WebP - Imagenes mas ligeras para web | PicShift',
       description:
-        'Convierte imagenes JPG a formato WebP en tu navegador. Archivos mas pequenos, misma calidad, 100% privado.',
+        'Convierte JPG a WebP para reducir el peso de las imagenes y mejorar la carga de paginas en navegadores modernos.',
       h1: 'Convertir JPG a WebP',
       introText:
-        'Convierte imagenes JPG al formato moderno WebP para obtener archivos un 25-34% mas pequenos con la misma calidad visual.',
+        'Convierte imagenes JPG a WebP cuando quieres una imagen mas ligera para web sin cambiar demasiado su aspecto. Es una mejora muy comun para tiendas, blogs, landings y paginas con muchas fotos.',
       howToSteps: [
         'Arrastra y suelta tus archivos JPG en el area de arriba, o haz clic para buscarlos.',
         'Los archivos se convierten a WebP al instante en tu navegador.',
@@ -234,6 +274,18 @@ const es: PageTranslations = {
         {
           q: 'Cuanto mas pequeno es WebP comparado con JPG?',
           a: 'WebP es 25-34% mas pequeno que JPG con la misma calidad visual en comparaciones de referencia. Un JPG de 1 MB se convierte en 650-750 KB como WebP sin diferencia visible.',
+        },
+        {
+          q: 'Por que convertir JPG a WebP?',
+          a: 'Porque WebP suele pesar menos que JPG con una calidad visual muy parecida. Eso ayuda a cargar mas rapido una web y a reducir el tamano total de imagenes que se transfieren al navegador.',
+        },
+        {
+          q: 'Cuando conviene usar WebP en lugar de JPG?',
+          a: 'Conviene cuando la imagen esta pensada para una pagina web y tu prioridad es bajar el peso sin empeorar demasiado el resultado visual. En navegadores modernos, WebP suele ser una opcion muy practica.',
+        },
+        {
+          q: 'Cuando es mejor mantener JPG?',
+          a: 'Mantener JPG tiene sentido si la imagen va a pasar por herramientas antiguas, adjuntos de correo o sistemas que todavia no trabajan bien con WebP. JPG sigue siendo mas facil de abrir en casi cualquier entorno.',
         },
       ],
     },
