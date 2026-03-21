@@ -277,7 +277,7 @@ export default function ResizeSelector({
               onClick={() => handleCustomModeChange('pixels')}
               className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
                 value.customMode === 'pixels'
-                  ? 'bg-primary-600 dark:bg-primary-500 text-white dark:text-slate-950'
+                  ? 'bg-primary-600 dark:bg-primary-500 text-white'
                   : 'text-text-secondary hover:text-text-primary'
               }`}
             >
@@ -289,7 +289,7 @@ export default function ResizeSelector({
               onClick={() => handleCustomModeChange('percentage')}
               className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
                 value.customMode === 'percentage'
-                  ? 'bg-primary-600 dark:bg-primary-500 text-white dark:text-slate-950'
+                  ? 'bg-primary-600 dark:bg-primary-500 text-white'
                   : 'text-text-secondary hover:text-text-primary'
               }`}
             >

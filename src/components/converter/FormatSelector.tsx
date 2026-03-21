@@ -51,7 +51,7 @@ export default function FormatSelector({ value, onChange, disabled = false }: Fo
       <div ref={containerRef} className="relative flex overflow-hidden rounded-lg border border-border bg-drop-bg p-0.5">
         {slider && (
           <div
-            className="pointer-events-none absolute top-0.5 bottom-0.5 rounded-md bg-indigo-300 shadow-sm transition-all duration-200 ease-out dark:bg-indigo-400"
+            className="pointer-events-none absolute top-0.5 bottom-0.5 rounded-md bg-primary-500 shadow-sm transition-all duration-200 ease-out"
             style={{ left: slider.left, width: slider.width }}
           />
         )}
@@ -69,7 +69,7 @@ export default function FormatSelector({ value, onChange, disabled = false }: Fo
               disabled:cursor-not-allowed disabled:opacity-50
               ${
                 value === key
-                  ? 'text-slate-900 dark:text-slate-950'
+                  ? 'text-white dark:text-white'
                   : 'text-text-primary/90 hover:text-text-primary'
               }
             `}
