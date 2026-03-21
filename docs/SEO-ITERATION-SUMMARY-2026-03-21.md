@@ -56,8 +56,28 @@
 - `ResizeSelector.tsx`：选中态 `dark:text-slate-950` 改为 `text-white`（2 处）
 - `PrivacyBadge.astro`：暗模式文字改为 `dark:text-white`
 
+### 6. Bing Webmaster Tools 优化
+
+基于 Bing 后台 `Top Recommendations` 的 4 条建议，本轮全部处理完：
+
+- `IndexNow`：已配置 API key 并提交全站 384 个 URL，后续每次部署可通过 `pnpm run indexnow` 通知 Bing 和 Yandex
+- `Meta descriptions too short`：加长了 `/zh/docs/`、`/zh-Hant/docs/`、`/zh-Hant/docs/why-picshift`、`/zh-Hant/jpg-to-png/` 的 description，补了缺失的 `/zh/jpg-to-avif/` 中文翻译
+- `Page titles too short`：加长了 `/zh/docs/` 和 `/zh-Hant/docs/` 的 title
+- `Inbound links`：新站正常现象，不需要额外操作，通过 Reddit 推广和内容积累逐步改善
+
+Bing Search Performance 中已出现首次点击（`png转jpg 画素不改`，排名 `6.0`，CTR `100%`），多语言 query 也开始在 Bing 上出现。
+
+### 7. 百度搜索资源平台
+
+- 已完成站点验证（HTML 标签方式）
+- sitemap 提交受新站配额限制（每日上限 `0`），等待百度自动分配额度
+- 手动提交也受同一配额限制，暂时无法操作
+- 后续等配额放开后提交 `https://picshift.app/sitemap-0.xml`
+
 ## 本轮涉及的文件
 
+- `public/7f990ecb944d43fe805dce8a3db98fb7.txt`（IndexNow key 文件）
+- `scripts/indexnow-submit.mjs`（IndexNow 提交脚本）
 - `docs/SEO-GEO-REVIEW-2026-03-21.md`（新增）
 - `docs/GSC-QUERY-ACTION-MAP-2026-03-21.md`（新增）
 - `docs/SEO-ITERATION-SUMMARY-2026-03-14.md`（补充法语证据）
