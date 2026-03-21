@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "seo:audit": "node scripts/seo-audit.mjs",
+    "indexnow": "node scripts/indexnow-submit.mjs",
     "e2e": "playwright test",
     "e2e:headed": "playwright test --headed",
     "e2e:ui": "playwright test --ui"
