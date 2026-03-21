@@ -230,6 +230,29 @@ const zh: PageTranslations = {
         },
       ],
     },
+    'jpg-to-avif': {
+      title: 'JPG 转 AVIF 转换器 - 更强压缩，更小体积 | PicShift',
+      description:
+        '在浏览器中将 JPG 图片转换为 AVIF 格式，获得更强的压缩效率和更小的文件体积。适合现代网页交付和对体积敏感的场景。免费、保护隐私、无需上传。',
+      h1: '将 JPG 转换为 AVIF',
+      introText:
+        '将 JPG 转为 AVIF，获得比 JPG 和 WebP 更强的压缩效果。适合现代浏览器交付和页面性能优化。',
+      howToSteps: [
+        '将 JPG 文件拖放到上方区域，或点击浏览选择文件。',
+        '文件会在浏览器中即时转换为 AVIF。',
+        '拖动品质滑块调节体积与画质的平衡，然后下载。',
+      ],
+      faqs: [
+        {
+          q: 'AVIF 比 JPG 小多少？',
+          a: 'AVIF 在相同视觉质量下通常比 JPG 小得多。具体节省幅度取决于图片内容，但在现代网页交付中优势明显。',
+        },
+        {
+          q: '什么时候该用 AVIF 而不是 WebP？',
+          a: '当目标平台支持 AVIF，且你更看重压缩率时，AVIF 是更好的选择。如果兼容性更重要，WebP 是更稳妥的中间选项。',
+        },
+      ],
+    },
     'avif-to-jpg': {
       title: 'AVIF 转 JPG 转换器 - 免费、保护隐私、无需上传 | PicShift',
       description:

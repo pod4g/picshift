@@ -195,7 +195,7 @@ const zhTW: PageTranslations = {
     'jpg-to-png': {
       title: 'JPG 轉 PNG 轉換器 - 免費、保護隱私、無需上傳 | PicShift',
       description:
-        '在瀏覽器中將 JPG 圖片轉換為無損 PNG 格式。免費、保護隱私、無需上傳。',
+        '在瀏覽器中將 JPG 圖片轉換為無損 PNG 格式。適合需要進一步編輯、加註或重複匯出的場景，避免每次儲存都損失更多畫質。免費、保護隱私、無需上傳。',
       h1: '將 JPG 轉換為 PNG',
       introText:
         '將 JPG 圖片轉換為無損 PNG 格式。適合需要無損版本以便編輯的情境。',
