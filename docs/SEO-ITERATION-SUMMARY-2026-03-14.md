@@ -95,6 +95,24 @@
   - editing
   - file size
 
+补充观察：
+
+- `/fr/png-to-jpg` 已经出现非常明确的法语 query 聚合信号
+- 这不是只命中一个词，而是在承接一整组同义或近义法语表达
+- 页面级 GSC 查询列表里，已出现的代表性 query 包括：
+  - `png jpg`
+  - `convertir une image png en jpg en ligne`
+  - `png en jpg en ligne`
+  - `convertir png jpeg`
+  - `convertir png vers jpg`
+  - `png vers jpg`
+  - `comment convertir un png en jpeg`
+  - `convertir un fichier png en jpg gratuit`
+  - `transformer image png en jpeg`
+  - `transformer un png en jpg`
+- 这说明该页当前的问题已经不是“是否命中正确意图”，而是“能否继续把排名从 `80-90` 区间往前推”
+- 因此这页当前不宜继续频繁改动，更适合给它一个 `7 天` 观察窗口，看 query 是否继续集中、排名是否继续改善、是否开始出现点击
+
 ### 4. 顺手修复了一个移动端问题
 
 已修复：
@@ -215,6 +233,15 @@
 - 曝光不再只是单次冒头
 - query 更集中
 - 排名开始稳定改善
+
+特别说明：
+
+- `/fr/png-to-jpg` 是下一次复盘时必须优先看的页面
+- 这页已经证明文案方向是对的，下一次重点不再是看“有没有命中 query”
+- 而是看：
+  - query 是否继续围绕 `png en jpg / png vers jpg / convertir png en jpg` 这组法语意图集中
+  - 平均排名是否从 `80-90` 继续往 `70-80`、`60-70` 推进
+  - 是否开始出现少量点击
 
 ### 4. 是否开始出现真实点击
 

@@ -93,12 +93,12 @@ const es: PageTranslations = {
     },
     'heic-to-png': {
       title:
-        'Convertidor de HEIC a PNG - Gratis, Privado, Sin Subir | PicShift',
+        'Convertidor de HEIC a PNG - Calidad sin perdida, gratis | PicShift',
       description:
-        'Convierte fotos HEIC a formato PNG en tu navegador. Calidad sin perdida, 100% privado, sin necesidad de subir archivos.',
+        'Convierte HEIC a PNG cuando necesitas calidad sin perdida, transparencia o un archivo mas comodo para editar o retocar.',
       h1: 'Convertir HEIC a PNG',
       introText:
-        'Convierte tus fotos HEIC del iPhone a formato PNG sin perdida. Todo el procesamiento ocurre localmente en tu navegador.',
+        'Convierte fotos HEIC del iPhone a PNG cuando necesitas un archivo sin perdida para edicion, revision o diseno. El PNG es mas pesado que el JPG, pero es mejor opcion cuando la estabilidad de la imagen importa mas que el tamano.',
       howToSteps: [
         'Arrastra y suelta tus archivos HEIC en el area de arriba, o haz clic para buscarlos.',
         'Los archivos se convierten a PNG sin perdida al instante en tu navegador.',
@@ -107,11 +107,19 @@ const es: PageTranslations = {
       faqs: [
         {
           q: 'Por que convertir HEIC a PNG en lugar de JPG?',
-          a: 'PNG es un formato sin perdida, lo que significa que no se pierde calidad durante la conversion. Elige PNG cuando necesites calidad perfecta o soporte de transparencia. Elige JPG para archivos mas pequenos.',
+          a: 'Porque PNG no anade otra capa de compresion con perdida. Es mejor para edicion, anotaciones, revision de diseno o cuando necesitas un archivo estable que se pueda reexportar sin degradarse.',
         },
         {
-          q: 'Los archivos PNG son mas grandes que los JPG?',
-          a: 'Si, en flujos fotograficos estandar, los archivos PNG son 2 a 5 veces mas grandes que los JPG porque PNG es sin perdida. Si el tamano del archivo importa mas que la calidad perfecta, convierte a JPG.',
+          q: 'Los archivos PNG son mas grandes que los HEIC o JPG?',
+          a: 'Si, bastante mas grandes en la mayoria de fotos. HEIC comprime muy bien y PNG guarda mucha mas informacion por pixel. El aumento de tamano es normal cuando priorizas la calidad sin perdida.',
+        },
+        {
+          q: 'Cuando es mejor convertir a JPG que a PNG?',
+          a: 'Cuando tu objetivo es un archivo mas ligero para compartir, subir o enviar y no necesitas transparencia ni edicion posterior. JPG es mas practico para el uso diario; PNG es mejor para flujos de trabajo mas exigentes.',
+        },
+        {
+          q: 'Como paso HEIC a PNG?',
+          a: 'Anade tu archivo HEIC, deja PNG como formato de salida y descarga la imagen convertida. PicShift lo hace todo en tu navegador, sin enviar nada a ningun servidor.',
         },
       ],
     },
@@ -330,42 +338,51 @@ const es: PageTranslations = {
       ],
     },
     'image-resizer': {
-      title: 'Redimensionar Imágenes - Gratis y Privado | PicShift',
-      description: 'Redimensiona imágenes en tu navegador. Tamaños predefinidos o dimensiones personalizadas. 100% privado, sin subir archivos.',
+      title: 'Redimensionar imagen online - Gratis y privado | PicShift',
+      description: 'Redimensiona una imagen o foto en tu navegador. Elige dimensiones exactas o un tamaño predefinido, sin subir archivos.',
       h1: 'Redimensionar Imágenes',
-      introText: 'Redimensiona tus imágenes a dimensiones exactas o presets comunes. Todo sucede en tu navegador — tus imágenes nunca salen de tu dispositivo.',
+      introText: 'Redimensiona una imagen al tamano exacto que necesitas para un sitio web, un formulario, una red social o un envio por correo. Todo se procesa en tu navegador y tus archivos nunca salen de tu dispositivo.',
       howToSteps: [
-        'Sube tus imágenes arrastrándolas al cuadro de arriba, o haz clic para explorar.',
-        'Elige un tamaño predefinido o introduce dimensiones personalizadas.',
+        'Arrastra tus imagenes al area de arriba o haz clic para explorar.',
+        'Elige un tamano predefinido o introduce dimensiones personalizadas.',
         'Elige el formato de salida y la calidad, luego descarga.',
       ],
       faqs: [
-        { q: '¿Qué presets de tamaño están disponibles?', a: 'PicShift ofrece Máx 1920px (lado largo), Máx 1080px, escala al 50%, y un modo Personalizado donde puedes introducir dimensiones exactas en píxeles o un porcentaje.' },
-        { q: '¿Redimensionar reduce la calidad de la imagen?', a: 'La reducción de escala utiliza remuestreo de alta calidad. También puedes ajustar el control de calidad para controlar la compresión.' },
-        { q: '¿Puedo redimensionar y convertir formato al mismo tiempo?', a: 'Sí. Puedes cambiar tanto el formato de salida (JPG, PNG, WebP, AVIF) como las dimensiones en un solo paso. Si quieres priorizar la reducción de peso, usa también /es/image-compressor.' },
+        { q: 'Como redimensionar una imagen sin deformarla?', a: 'Elige una anchura y altura adecuadas para tu uso, o selecciona un preset. PicShift mantiene las proporciones cuando corresponde y aplica un redimensionado de alta calidad para evitar que el resultado se vea degradado.' },
+        { q: 'Que presets de tamano hay disponibles?', a: 'PicShift ofrece Max 1920px (lado largo), Max 1080px, escala al 50%, y un modo Personalizado para introducir dimensiones exactas en pixeles o un porcentaje.' },
+        { q: 'Que tamano elegir para subir una foto a un sitio o enviarla?', a: 'Para un envio rapido o un formulario web, una imagen de 1080px o 1920px en el lado largo suele ser suficiente. Si el sitio pide un tamano exacto, usa el modo Personalizado.' },
+        { q: 'Puedo redimensionar y cambiar el formato a la vez?', a: 'Si. Puedes cambiar el formato de salida (JPG, PNG, WebP, AVIF) y las dimensiones en un solo paso. Si lo que necesitas es sobre todo bajar el peso, combinalo con /es/image-compressor.' },
       ],
     },
     'image-compressor': {
       title:
-        'Compresor de Imágenes Gratis - Reducir Tamaño Online | PicShift',
+        'Comprimir imagenes online - Gratis, privado, sin subir | PicShift',
       description:
-        'Comprime imágenes en tu navegador y reduce el tamaño de archivos JPG, PNG, WebP, HEIC y AVIF con buena calidad. 100% privado, sin subir archivos.',
-      h1: 'Comprimir Imágenes Gratis',
+        'Comprime imagenes en tu navegador para reducir su peso sin perder demasiada calidad. Compatible con JPG, PNG, WebP, HEIC y AVIF.',
+      h1: 'Comprimir Imagenes Gratis',
       introText:
-        'Reduce el tamaño de tus imágenes manteniendo la calidad visual. Ajusta el control de calidad para encontrar el equilibrio ideal.',
+        'Reduce el peso de tus imagenes sin que se note mucho la diferencia visual. Es util para subir fotos a una web, enviarlas por correo, cumplir limites de tamano o simplemente ahorrar espacio.',
       howToSteps: [
-        'Arrastra y suelta tus imagenes en el area de arriba, o haz clic para buscarlas.',
-        'Ajusta el control de calidad para controlar el nivel de compresion.',
+        'Arrastra tus imagenes al area de arriba o haz clic para buscarlas.',
+        'Ajusta el control de calidad para equilibrar peso y aspecto.',
         'Haz clic en Descargar para guardar las imagenes comprimidas.',
       ],
       faqs: [
         {
           q: 'Cuanto puedo comprimir mis imagenes?',
-          a: 'El resultado de compresion depende de la imagen original. Una configuracion de calidad del 80% reduce el tamano de archivos JPG en un 40-60% en comparaciones de referencia, con una diferencia visible minima. Usa la vista de comparacion para verificar la calidad antes de descargar.',
+          a: 'Depende de la imagen original. Con calidad al 80%, los archivos JPG suelen reducirse entre un 40% y un 60% sin que la diferencia sea visible a simple vista. Puedes usar la vista de comparacion para verificar antes de descargar.',
         },
         {
           q: 'Que formatos puedo comprimir?',
-          a: 'Puedes comprimir imágenes JPG, PNG, WebP, HEIC y AVIF. El formato de salida puede ser JPG, PNG, WebP o AVIF.',
+          a: 'JPG, PNG, WebP, HEIC y AVIF. El formato de salida puede ser JPG, PNG, WebP o AVIF.',
+        },
+        {
+          q: 'Comprimir una imagen baja mucho la calidad?',
+          a: 'Con una compresion moderada, la diferencia suele ser imperceptible en pantalla. Si la imagen tiene mucho detalle fino o texto, conviene no bajar demasiado el control de calidad para que el resultado se vea bien.',
+        },
+        {
+          q: 'Comprimir o redimensionar, cual es mejor?',
+          a: 'Si la imagen es demasiado grande en pixeles, redimensionar suele bajar mas el peso que solo comprimir. Para fotos que ya tienen un tamano razonable, comprimir es el paso mas directo.',
         },
       ],
     },

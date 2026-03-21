@@ -101,12 +101,12 @@ const pt: PageTranslations = {
     },
     'heic-to-png': {
       title:
-        'Conversor de HEIC para PNG - Gratuito, Privado, Sem Upload | PicShift',
+        'Conversor de HEIC para PNG - Qualidade sem perda | PicShift',
       description:
-        'Converta fotos HEIC para o formato PNG no seu navegador. Qualidade sem perda, 100% privado, sem necessidade de upload.',
+        'Converta HEIC para PNG quando voce precisa de qualidade sem perda para edicao, revisao ou um arquivo mais facil de reutilizar em ferramentas graficas.',
       h1: 'Converter HEIC para PNG',
       introText:
-        'Converta suas fotos HEIC do iPhone para o formato PNG sem perda de qualidade. Todo o processamento acontece localmente no seu navegador.',
+        'Converta fotos HEIC do iPhone para PNG quando voce precisa de um arquivo sem perda para editar, anotar ou revisar. O PNG e maior que o JPG, mas mais estavel para fluxos de trabalho que exigem qualidade intacta.',
       howToSteps: [
         'Arraste e solte seus arquivos HEIC na caixa acima ou clique para procurar.',
         'Os arquivos s\u00e3o convertidos para PNG sem perda instantaneamente no seu navegador.',
@@ -115,11 +115,19 @@ const pt: PageTranslations = {
       faqs: [
         {
           q: 'Por que converter HEIC para PNG em vez de JPG?',
-          a: 'PNG \u00e9 um formato sem perda, o que significa que nenhuma qualidade \u00e9 perdida durante a convers\u00e3o. Escolha PNG quando precisar de qualidade perfeita ou suporte a transpar\u00eancia. Escolha JPG para arquivos menores.',
+          a: 'Porque PNG nao adiciona mais uma camada de compressao com perda. E melhor para edicao, anotacoes, revisao de design ou quando voce quer um arquivo estavel que possa ser reexportado sem se degradar.',
         },
         {
-          q: 'Os arquivos PNG s\u00e3o maiores que os JPG?',
-          a: 'Sim, em fluxos fotogr\u00e1ficos padr\u00e3o, os arquivos PNG s\u00e3o de 2 a 5 vezes maiores que os JPG porque o PNG \u00e9 um formato sem perda. Se o tamanho do arquivo importa mais que a qualidade perfeita, converta para JPG.',
+          q: 'O arquivo PNG fica muito maior que o HEIC ou JPG?',
+          a: 'Sim, bem maior na maioria das fotos. HEIC comprime muito bem e PNG guarda muito mais informacao por pixel. O aumento de tamanho e normal quando voce prioriza qualidade sem perda.',
+        },
+        {
+          q: 'Quando e melhor converter para JPG?',
+          a: 'Quando o objetivo e um arquivo leve para compartilhar, enviar ou subir, e voce nao precisa de transparencia nem de edicao posterior. JPG e mais pratico no dia a dia; PNG e melhor para fluxos mais exigentes.',
+        },
+        {
+          q: 'Como converter HEIC para PNG?',
+          a: 'Adicione o arquivo HEIC, mantenha PNG como formato de saida e baixe a imagem. O PicShift faz tudo no navegador, sem enviar nada para nenhum servidor.',
         },
       ],
     },
@@ -221,12 +229,12 @@ const pt: PageTranslations = {
     },
     'jpg-to-png': {
       title:
-        'Conversor de JPG para PNG - Gratuito, Privado, Sem Upload | PicShift',
+        'Conversor de JPG para PNG - Sem perda, gratuito | PicShift',
       description:
-        'Converta imagens JPG para o formato PNG sem perda no seu navegador. Gratuito, privado, sem upload.',
+        'Converta JPG para PNG quando voce precisa de um arquivo mais estavel para edicao, anotacoes ou reexportacao sem perda adicional.',
       h1: 'Converter JPG para PNG',
       introText:
-        'Converta imagens JPG para o formato PNG sem perda. \u00datil quando voc\u00ea precisa de uma vers\u00e3o sem perda para edi\u00e7\u00e3o.',
+        'Converta um JPG para PNG quando voce quer um arquivo que aguente melhor edicao, anotacoes ou varios re-exports. Isso nao melhora a qualidade original, mas evita que o proximo salvamento degrade ainda mais a imagem.',
       howToSteps: [
         'Arraste e solte seus arquivos JPG na caixa acima ou clique para procurar.',
         'Os arquivos s\u00e3o convertidos para PNG instantaneamente no seu navegador.',
@@ -235,7 +243,19 @@ const pt: PageTranslations = {
       faqs: [
         {
           q: 'Converter JPG para PNG melhora a qualidade?',
-          a: 'N\u00e3o. Converter de JPG para PNG n\u00e3o restaura a qualidade perdida durante a compress\u00e3o JPG. No entanto, converter para PNG evita mais perdas de qualidade se voc\u00ea precisar editar e salvar a imagem novamente.',
+          a: 'Nao. A conversao nao recupera qualidade ja perdida na compressao JPG. Mas evita que salvar de novo degrade ainda mais a imagem, o que e util quando voce precisa editar ou anotar o arquivo.',
+        },
+        {
+          q: 'Por que converter JPG para PNG?',
+          a: 'Normalmente para poder editar a imagem com mais seguranca, adicionar anotacoes ou reexportar sem perder mais qualidade a cada salvamento. PNG tambem e necessario quando voce precisa de transparencia.',
+        },
+        {
+          q: 'O arquivo PNG fica maior que o JPG?',
+          a: 'Sim, na maioria dos casos fica bem maior. PNG guarda mais dados de imagem e comprime menos. Isso e normal quando o objetivo e estabilidade e nao leveza.',
+        },
+        {
+          q: 'Quando e melhor ficar com JPG?',
+          a: 'Quando voce so precisa de um arquivo leve para compartilhar, enviar ou subir, e nao precisa de transparencia nem de edicao posterior.',
         },
       ],
     },

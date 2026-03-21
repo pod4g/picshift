@@ -199,12 +199,12 @@ const de: PageTranslations = {
       ],
     },
     'jpg-to-png': {
-      title: 'JPG in PNG Konverter - Kostenlos, Privat, Ohne Upload | PicShift',
+      title: 'JPG in PNG umwandeln - Verlustfrei, kostenlos, ohne Upload | PicShift',
       description:
-        'Konvertieren Sie JPG-Bilder in Ihrem Browser in das verlustfreie PNG-Format. Kostenlos, privat, ohne Upload.',
+        'Wandeln Sie JPG-Bilder in PNG um, wenn Sie eine verlustfreie Datei zum Bearbeiten, Beschriften oder Weiterverarbeiten brauchen.',
       h1: 'JPG in PNG konvertieren',
       introText:
-        'Konvertieren Sie JPG-Bilder in das verlustfreie PNG-Format. Nuetzlich, wenn Sie eine verlustfreie Version zur Bearbeitung benoetigen.',
+        'Wandeln Sie ein JPG-Bild in PNG um, wenn Sie eine Datei brauchen, die sich besser bearbeiten, beschriften oder erneut exportieren laesst. Das verbessert nicht die Ausgangsqualitaet, verhindert aber, dass beim naechsten Speichern weitere Qualitaet verloren geht.',
       howToSteps: [
         'Ziehen Sie Ihre JPG-Dateien in den Bereich oben oder klicken Sie zum Durchsuchen.',
         'Dateien werden sofort in Ihrem Browser in PNG konvertiert.',
@@ -213,7 +213,19 @@ const de: PageTranslations = {
       faqs: [
         {
           q: 'Verbessert die Konvertierung von JPG in PNG die Qualitaet?',
-          a: 'Nein. Die Konvertierung von JPG in PNG stellt die durch die JPG-Komprimierung verlorene Qualitaet nicht wieder her. Allerdings verhindert die Konvertierung in PNG einen weiteren Qualitaetsverlust, wenn Sie das Bild bearbeiten und erneut speichern muessen.',
+          a: 'Nein. Die Konvertierung stellt keine verlorene Qualitaet wieder her. Aber sie verhindert, dass beim naechsten Speichern weitere Qualitaet verloren geht — das ist nuetzlich, wenn Sie das Bild bearbeiten oder beschriften wollen.',
+        },
+        {
+          q: 'Warum JPG in PNG umwandeln?',
+          a: 'Meistens, um ein Bild stabiler bearbeiten zu koennen. PNG ist verlustfrei, d.h. wiederholtes Speichern fuehrt nicht zu weiterer Verschlechterung. Auch wenn Transparenz noetig ist, ist PNG die bessere Wahl.',
+        },
+        {
+          q: 'Wird die PNG-Datei groesser als das JPG?',
+          a: 'Ja, in den meisten Faellen deutlich groesser. PNG speichert mehr Bilddaten und komprimiert weniger aggressiv. Das ist normal, wenn Ihnen Bearbeitungsstabilitaet wichtiger ist als Dateigroesse.',
+        },
+        {
+          q: 'Wann ist JPG die bessere Wahl?',
+          a: 'Wenn Sie einfach eine kleinere Datei zum Teilen, Hochladen oder Versenden brauchen und keine Transparenz oder verlustfreie Bearbeitung benoetigen.',
         },
       ],
     },
