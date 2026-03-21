@@ -35,6 +35,34 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     ],
   },
   pt: {
+    'jpg-to-png': [
+      {
+        title: 'Quando converter JPG para PNG faz sentido',
+        body: 'PNG é útil quando você quer editar, anotar ou reexportar a imagem sem que cada salvamento degrade mais a qualidade. Não melhora o que já foi perdido, mas evita perda adicional.',
+      },
+      {
+        title: 'O que esperar do tamanho do arquivo',
+        body: 'O PNG costuma ser bem maior que o JPG original, porque armazena mais dados de imagem. Esse aumento é normal quando a prioridade é estabilidade de edição e não leveza.',
+      },
+      {
+        title: 'Quando é melhor ficar com JPG',
+        body: 'Se o objetivo é só compartilhar, enviar ou subir um arquivo leve, JPG costuma ser mais prático. PNG faz mais sentido quando você precisa de transparência ou de um arquivo mais estável para trabalhar.',
+      },
+    ],
+    'heic-to-png': [
+      {
+        title: 'Por que converter HEIC para PNG',
+        body: 'PNG é útil quando você precisa de um arquivo sem perda para edição, anotação, revisão de design ou entrega de produção. Não é a opção mais leve, mas é mais estável quando a qualidade da imagem não pode degradar.',
+      },
+      {
+        title: 'Por que o arquivo PNG fica muito maior',
+        body: 'HEIC comprime fotos com eficiência, enquanto PNG guarda muito mais informação por pixel. O aumento de tamanho é esperado e normal quando a prioridade é qualidade sem perda.',
+      },
+      {
+        title: 'Quando JPG ou WebP é a melhor escolha',
+        body: 'Se o objetivo é um arquivo leve para compartilhar, enviar ou subir, JPG ou WebP costumam ser mais adequados. PNG faz mais sentido quando edição, transparência ou estabilidade do fluxo importam mais que tamanho.',
+      },
+    ],
     'heic-to-jpg': [
       {
         title: 'Por que HEIC para JPG ainda é uma conversão comum',
@@ -109,6 +137,48 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
         body: 'JPG abre en más sitios, pero el archivo final puede ser más grande que el WebP original. Conviene usar esta conversión cuando lo importante es que el archivo funcione sin sorpresas.',
       },
     ],
+    'image-resizer': [
+      {
+        title: 'Cuándo redimensionar es la solución correcta',
+        body: 'Si la imagen es mucho más grande que el espacio donde va a mostrarse, reducir las dimensiones suele ser la forma más directa de bajar el peso y mejorar la carga. Es especialmente útil para formularios, redes sociales y correo.',
+      },
+      {
+        title: 'Cuándo necesitas dimensiones exactas',
+        body: 'Algunos sitios y formularios piden un tamaño específico en píxeles. En esos casos, el modo personalizado te permite ajustar anchura y altura para cumplir el requisito sin deformar la imagen.',
+      },
+      {
+        title: 'Cuándo redimensionar no basta',
+        body: 'Si el archivo sigue pesando demasiado después de reducir las dimensiones, conviene combinarlo con compresión o con un cambio de formato. El mayor ahorro suele venir de ambas cosas juntas.',
+      },
+    ],
+    'image-compressor': [
+      {
+        title: 'Cuándo comprimir imágenes es lo más práctico',
+        body: 'Si el problema es el peso del archivo y no sus dimensiones, comprimir es el paso más directo. Es útil para subir fotos a un sitio, enviarlas por correo o cumplir límites de tamaño sin cambiar el tamaño visual de la imagen.',
+      },
+      {
+        title: 'Por qué a veces la imagen no se reduce mucho',
+        body: 'Algunas imágenes ya están muy comprimidas o tienen una estructura que no encoge fácilmente con la calidad actual. En esos casos, bajar más la calidad, redimensionar o cambiar de formato puede ayudar más.',
+      },
+      {
+        title: 'Cuándo es mejor redimensionar que comprimir',
+        body: 'Si la resolución de la imagen es mucho mayor que el espacio donde se va a mostrar, reducir las dimensiones puede ahorrar más peso que solo comprimir. Lo ideal suele ser ajustar el tamaño primero y comprimir después.',
+      },
+    ],
+    'heic-to-png': [
+      {
+        title: 'Por qué convertir HEIC a PNG',
+        body: 'PNG es útil cuando necesitas un archivo sin pérdida para edición, anotaciones, revisión de diseño o reexportación. No es la opción más ligera, pero es más estable para flujos de trabajo que exigen calidad intacta.',
+      },
+      {
+        title: 'Por qué el archivo PNG es mucho más grande',
+        body: 'HEIC comprime muy bien las fotos, mientras que PNG guarda mucha más información por píxel. El aumento de tamaño es normal y esperado cuando la prioridad es calidad sin pérdida y no un archivo ligero.',
+      },
+      {
+        title: 'Cuándo conviene elegir JPG o WebP en lugar de PNG',
+        body: 'Si tu objetivo es compartir, subir o enviar con el menor peso posible, JPG o WebP suelen ser mejores opciones. PNG tiene más sentido cuando la edición, la transparencia o la estabilidad del flujo importan más que el tamaño.',
+      },
+    ],
     'webp-to-png': [
       {
         title: 'Por que convertir WebP a PNG',
@@ -121,6 +191,38 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
       {
         title: 'Cuándo no conviene pasar de WebP a PNG',
         body: 'Si tu prioridad es mantener un archivo pequeño para web, PNG normalmente no es la mejor opción. En ese caso conviene quedarse en WebP u otra salida moderna más eficiente.',
+      },
+    ],
+  },
+  ru: {
+    'image-compressor': [
+      {
+        title: 'Когда сжатие — самый прямой путь',
+        body: 'Если проблема в весе файла, а не в его размерах, сжатие — самый быстрый способ уменьшить объём. Это полезно для загрузки на сайт, отправки по почте или когда файл не проходит по ограничению размера.',
+      },
+      {
+        title: 'Почему иногда сжатие почти не уменьшает файл',
+        body: 'Некоторые изображения уже сильно сжаты или хранятся в формате, который плохо поддаётся дальнейшей компрессии. В таких случаях помогает уменьшение разрешения или смена формата.',
+      },
+      {
+        title: 'Когда лучше уменьшить размер, а не сжимать',
+        body: 'Если разрешение картинки намного больше, чем нужно для отображения, уменьшение размеров даст больший эффект, чем одно только сжатие. Часто лучший результат — сначала уменьшить, потом сжать.',
+      },
+    ],
+  },
+  de: {
+    'jpg-to-png': [
+      {
+        title: 'Wann JPG in PNG umwandeln sinnvoll ist',
+        body: 'Diese Konvertierung ist nützlich, wenn Sie ein Bild stabiler bearbeiten, beschriften oder erneut exportieren möchten. PNG verhindert, dass beim nächsten Speichern weitere Qualität verloren geht.',
+      },
+      {
+        title: 'Was Sie bei der Dateigröße erwarten sollten',
+        body: 'PNG-Dateien sind in der Regel deutlich größer als JPG, weil PNG verlustfrei speichert. Der Größenzuwachs ist normal, wenn Bearbeitungsstabilität wichtiger ist als Dateigröße.',
+      },
+      {
+        title: 'Wann JPG die bessere Wahl bleibt',
+        body: 'Wenn Sie das Bild nur teilen, hochladen oder verschicken wollen und weder Transparenz noch verlustfreie Bearbeitung brauchen, ist JPG meistens die praktischere Option.',
       },
     ],
   },
