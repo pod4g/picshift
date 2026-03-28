@@ -403,6 +403,97 @@ H2: How to choose the right image converter
 - PicShift 的优势自然呈现，不要硬推
 - 如果某个竞品在某个场景确实更好（比如 TinyPNG 有 API），要诚实写出来
 
+### 外链建设 9 种方法（来自教程总结）
+
+按适合 PicShift 当前阶段排序：
+
+#### 已在做的
+1. **社区链接建设** — Reddit、Hacker News 发帖互动，在讨论中自然提到工具
+2. **内容提交到导航平台** — Product Hunt、findly.tools、vibecodinglist、PeerPush、AlternativeTo
+
+#### 可以开始做的
+3. **写客座文章（Guest Post）** — 找技术博客投稿，文章中自然包含 PicShift 链接。搜索 `image optimization + "write for us"` 或类似主题找投稿平台
+4. **替换死链接** — 找竞品网站上已经 404 的外链，写一篇同主题内容，联系链接源头替换成你的。适合用 Ahrefs 的 `site explorer -> best by links -> 404 not found` 功能
+5. **利用未链接提及** — 找到提到过 PicShift 或"browser image converter"但没放链接的文章，联系作者请求加上链接
+
+#### 后续有余力再做的
+6. **内容重复利用** — 把 blog 内容改编成视频、信息图、或在其他平台发布摘要版本（附链接）
+7. **重新激活失效链接** — 如果以后有外链因为对方更新内容而被移除，友好沟通请求恢复
+8. **付费推广** — 不是买链接，而是通过广告让更多人看到内容，自然产生外链。当前阶段不需要
+9. **"偷盗"低质量高外链页面的链接** — 找到内容差但外链多的竞品页面，写更好的内容，联系那些外链源头换链。需要 Ahrefs，当前阶段不急
+
+#### 核心原则
+- 外链的前提是有好内容，先写好 blog 再做外链推广
+- 外链必须自然增长，不要短时间大量获取
+- 优先做成本为零的方法（社区、提交、替换死链）
+- 每种方法都要保持相关性，不要为了链接去不相关的网站
+
+### On-Page SEO 检查清单（来自教程总结）
+
+以下是 PicShift 应该持续检查的 on-page SEO 要素，大部分已经在做：
+
+#### URL
+- 包含核心关键词 — 已做（`/heic-to-jpg`、`/png-to-jpg`）
+- URL 简短，5 个词以内 — 已做
+- 使用连字符分隔 — 已做
+- 全小写 — 已做
+
+#### Title Tag
+- 前置加载核心关键词 — 已做
+- 不超过 55 个字符 — 大部分已做，Bing 报过几个太短的已修复
+- 标题吸引人，不是纯关键词堆砌 — 已做
+
+#### Meta Description
+- 包含核心关键词和相关关键词 — 已做
+- 150-160 字符 — 大部分已做，Bing 报过几个太短的已修复
+- 描述能让用户想点击 — 已做
+
+#### 内容
+- 前 150 词内出现核心关键词 — 工具页的 introText 已做到
+- H2/H3 标题包含相关关键词 — searchIntentSections 已做到
+- 使用同义词和 LSI 关键词 — 自然语言写作已覆盖
+- 内容分块提升可读性 — FAQ + 正文块 + How-to 已做到
+- 包含多媒体（图片）— 工具本身就是互动内容
+
+#### 链接
+- 内部链接到相关工具页和 docs — 已做（related tools、related guides）
+- 外部链接到权威来源 — docs 页有，工具页不需要
+
+#### 精选摘要优化
+- FAQ 格式天然适合 Google 的"People Also Ask"
+- 后续 blog 的 H2 可以针对精选摘要优化（用 46-84 词段落直接回答问题）
+
+### EEAT 在 PicShift 上的体现
+
+EEAT = Experience（经验）+ Expertise（专业性）+ Authoritativeness（权威性）+ Trustworthiness（可信度）
+
+PicShift 已有的 EEAT 信号：
+- **Experience**：docs/why-picshift 解释了为什么建这个工具，展示了真实的开发经验
+- **Expertise**：使用 MozJPEG、OxiPNG、libwebp 等专业编解码器，技术栈有深度
+- **Authoritativeness**：被 ChatGPT 引用过 3 次，有 Product Hunt 和 findly.tools 收录
+- **Trustworthiness**：privacy-local-processing docs 详细解释了隐私模型，可以断网验证
+
+后续可以加强的：
+- blog 文章署名作者信息（如果搭建 blog 系统时考虑）
+- 在 about 页面或 docs 里增加开发者背景介绍
+- 获取更多权威外链（来自技术博客、测评文章）
+
+### GEO 优化工具和方法（来自教程总结）
+
+对 PicShift 当前有用的 GEO 相关实践：
+
+#### 已在做的
+- `llms.txt` / `llms-full.txt` — 大模型的快速参考文件
+- 结构化数据（JSON-LD）— SoftwareApplication、BreadcrumbList、ItemList、FAQPage
+- docs 作为 GEO 证据层 — privacy、format-compatibility、quality-vs-size
+- 可引用事实（quote-ready facts）— 在 llms.txt 中
+
+#### 可以继续做的
+- 保持 `llms.txt` 时间戳最新（每次内容大更新后同步）
+- blog 文章写得像"可被模型摘取的知识块"
+- 在 docs 和 blog 中提供数据化的事实（如"WebP 比 JPG 小 25-34%"），大模型更容易引用有具体数据的内容
+- 继续维护 preferred citations 列表，让大模型知道该引用哪个页面来支持哪个论点
+
 ### 不要做的事（经验教训清单）
 
 - 不要每天盯 GSC 刷数据，7 天看一次够了
