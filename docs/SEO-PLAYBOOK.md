@@ -602,6 +602,99 @@ blog 不是个人博客也不是聊天，是技术工具站的解释型内容。
 - 不要用 stock photo 风格，用 flat illustration / graphic design
 - 明确写 "No white borders" 防止生成白边
 
+### SEMRush 竞品数据基线（2026-03-28）
+
+#### PicShift 现状
+
+| 指标 | 数值 |
+|---|---|
+| Authority Score | 2 |
+| 自然流量（SEMRush 估算） | 10/月 |
+| 自然搜索关键词 | 637 |
+| 反向链接 | 84 |
+| 引荐域名 | 26 |
+| dofollow 链接 | 77 |
+| nofollow 链接 | 7 |
+| AI 引用页面 | 1（ChatGPT） |
+
+排名分布：约 95% 在 51-100 名，少量在 21-50 名。
+
+主要外链来源：startuptile.com（43 链接）、HN 生态站（~30 链接）、张鑫旭博客（nofollow）。
+
+#### TinyPNG 数据（主要竞品参照）
+
+| 指标 | 数值 |
+|---|---|
+| Authority Score | 60 |
+| 自然流量 | 88,400/月 |
+| 自然搜索关键词 | 10,800 |
+| 反向链接 | 1.5M |
+
+TinyPNG 的流量主要靠品牌词（`tinypng` 搜索量 22,200），通用 query 排名反而不是它的核心流量来源。
+
+#### PicShift vs TinyPNG 关键差距
+
+| 维度 | PicShift | TinyPNG | 差距 |
+|---|---|---|---|
+| Authority Score | 2 | 60 | 30 倍，需要外链积累 |
+| 关键词覆盖 | 637 | 583（品牌词） | 通用词覆盖广度接近 |
+| 排名深度 | 大部分 51-100 | 大部分前 10 | 需要权重推动 |
+| 流量 | ~10 | 88,400 | 需要排名前推才能转化为流量 |
+
+结论：差距主要在域名权重，不在内容覆盖面。
+
+#### 最大的关键词机会：`heic to jpg`
+
+搜索量 201,000/月，是 PicShift 站内最大的潜在流量入口。
+
+当前状态：
+- `/heic-to-jpg` 页面已存在，内容已优化
+- GSC 里有 query 信号，排名约 50-70
+- 但 Authority Score 2 vs 竞品 40-70，排名受限
+
+攻克路径：
+
+**短期（现在 - 1 个月）：围绕 HEIC 建立主题权威**
+- 写 blog `HEIC on Windows: Why iPhone Photos Won't Open`
+- blog 内链到 `/heic-to-jpg`
+- 承接解释型长尾（`why can't I open heic`、`heic not supported windows`）
+
+**中期（1-3 个月）：外链持续积累**
+- 目标：Authority Score 从 2 推到 10-20
+- 继续提交目录、写 blog 被引用、Reddit/HN 持续曝光
+
+**长期（3-6 个月）：内容集群包围**
+- 围绕 HEIC 建立多个互相链接的页面：
+  - `/heic-to-jpg`（核心工具页）
+  - `/blog/heic-on-windows`（解释型）
+  - `/blog/heic-vs-jpg`（比较型，未来写）
+  - `/heic-to-png`、`/heic-to-webp`（相关工具页）
+- 每个页面都链接到 `/heic-to-jpg`，形成内链网络
+
+排名预期：
+- 现在 50-70 → 1-2 个月后 30-50 → 3-4 个月后 20-30 → 6+ 个月后 10-20
+- 进前 10 需要 Authority Score 到 20+，预计 6-12 个月
+
+#### 当前"弱排名"关键词机会
+
+SEMRush 标记的"你有排名但弱"的词，最容易提升：
+
+| 关键词 | 搜索量 | 语言 | 对应页面 |
+|---|---|---|---|
+| `avif to png` (变体) | 170 | en | `/avif-to-png` |
+| `imagen webp a jpg` | 70 | es | `/es/webp-to-jpg` |
+| `transformar webp em png` | 70 | pt | `/pt/webp-to-png` |
+| `convertir web a png` | 50 | es | `/es/webp-to-png` |
+
+这些不需要单独优化，随着权重提升会自然前移。但它们验证了多语言策略的有效性。
+
+#### SEMRush 使用规则
+
+- 每次 SEO 复盘时，顺手看一下 Authority Score 和关键词数的变化趋势
+- 定期查竞品外链来源，找自己还没提交的平台
+- 用"关键词差异"功能找竞品有排名但你没有的词
+- 不需要每天看，每 2-4 周看一次够了
+
 ### 新页面上线前必查清单
 
 每次新增页面（blog、docs、工具页），上线前必须检查：
