@@ -602,6 +602,21 @@ blog 不是个人博客也不是聊天，是技术工具站的解释型内容。
 - 不要用 stock photo 风格，用 flat illustration / graphic design
 - 明确写 "No white borders" 防止生成白边
 
+### 新页面上线前必查清单
+
+每次新增页面（blog、docs、工具页），上线前必须检查：
+
+- **title 长度**：不低于 30 字符，建议 50-60 字符
+- **description 长度**：不低于 120 字符，建议 150-160 字符
+- **`<img>` 标签**：必须带 `width` 和 `height`
+- **图片格式**：必须是 WebP
+- **canonical URL**：确认正确
+- **内链**：至少链接到 1-2 个相关页面
+- **构建验证**：`npm run build` 通过
+- **SEO 审计**：`npm run seo:audit` 通过（如果是工具页）
+
+这条清单存在的原因：Bing 会检测 title 和 description 长度不足并标记为告警，修复后也要等 1-2 周才能消除。提前检查比事后修复省时间。
+
 ### 不要做的事（经验教训清单）
 
 - 不要每天盯 GSC 刷数据，7 天看一次够了
