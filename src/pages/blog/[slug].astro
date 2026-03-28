@@ -153,6 +153,11 @@ const nextPost = currentIdx > 0 ? allPosts[currentIdx - 1] : null;
     color: var(--color-text-primary);
   }
 
+  /* Stronger contrast in light mode for long-form reading */
+  :root:not(.dark) .blog-prose {
+    color: #1a1a1a;
+  }
+
   .blog-prose p {
     margin-bottom: 1.75em;
   }
@@ -265,19 +270,33 @@ const nextPost = currentIdx > 0 ? allPosts[currentIdx - 1] : null;
 
   .blog-prose table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin: 2rem 0;
     font-size: 0.95rem;
+    font-family: var(--font-sans);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    overflow: hidden;
   }
   .blog-prose th,
   .blog-prose td {
-    border: 1px solid var(--color-border);
-    padding: 0.75rem 1rem;
+    padding: 0.875rem 1.25rem;
     text-align: left;
+    border-bottom: 1px solid var(--color-border);
   }
   .blog-prose th {
     background: var(--color-drop-bg);
     font-weight: 600;
-    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--color-text-secondary);
+  }
+  .blog-prose tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .blog-prose tbody tr:hover {
+    background: var(--color-drop-bg);
   }
 </style>

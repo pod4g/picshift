@@ -494,6 +494,30 @@ PicShift 已有的 EEAT 信号：
 - 在 docs 和 blog 中提供数据化的事实（如"WebP 比 JPG 小 25-34%"），大模型更容易引用有具体数据的内容
 - 继续维护 preferred citations 列表，让大模型知道该引用哪个页面来支持哪个论点
 
+### Blog 排版细节标准
+
+#### 正文字体颜色
+
+- 深色模式：使用 `var(--color-text-primary)`（`#e8edf5`）
+- 浅色模式：加深到 `#1a1a1a`（接近纯黑），不使用默认的 `#1e293b`
+- 原因：长文阅读需要比工具页更高的对比度，Medium 在白背景上用 `#242424`，我们更激进一点用 `#1a1a1a`
+
+#### 表格样式
+
+- 外框圆角 `0.75rem`，`border-collapse: separate` + `overflow: hidden` 实现
+- 单元格内边距 `0.875rem 1.25rem`，比默认更宽松
+- 表头：无衬线字体、小号、大写、`letter-spacing: 0.03em`、`text-secondary` 颜色
+- 行间用 `border-bottom` 分隔，最后一行去掉底线
+- hover 时行背景变为 `drop-bg`
+- 不使用垂直边框线（只有水平分隔），视觉更干净
+
+#### 其他排版注意点
+
+- cover 图和第一段之间应该有自然间距（由 Markdown 段落间距自动处理）
+- H2 之间间距 `3rem`，足够让读者感受到章节切换
+- 引用块用紫色左边线 + 斜体
+- 图片自动圆角 `0.5rem`
+
 ### Blog 文章去 AI 化规则
 
 #### 核心原则
