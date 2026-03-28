@@ -30,6 +30,22 @@
   src: url('/fonts/inter-700.woff2') format('woff2');
 }
 
+/* Lora serif font for blog article body */
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/lora-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/lora-700.woff2') format('woff2');
+}
+
 @theme {
   --color-primary-500: #4f46e5;
   --color-primary-600: #4338ca;
@@ -47,6 +63,7 @@
   --color-text-secondary: #475569;
   --color-border: #e2e8f0;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
 }
 
 html {

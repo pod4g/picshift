@@ -1,0 +1,28 @@
+---
+import { TOOL_PAGES } from '../../data/tools';
+
+interface Props {
+  slugs: string[];
+}
+
+const { slugs } = Astro.props;
+const tools = slugs
+  .map((s) => TOOL_PAGES.find((t) => t.slug === s))
+  .filter(Boolean) as typeof TOOL_PAGES;
+---
+
+{tools.length > 0 && (
+  <section class="mt-12 pt-8 border-t border-border">
+    <h2 class="text-lg font-semibold text-text-primary mb-4 font-sans">Related tools</h2>
+    <div class="flex flex-wrap gap-3">
+      {tools.map((tool) => (
+        <a
+          href={`/${tool.slug}`}
+          class="inline-flex items-center rounded-lg border border-border bg-card-bg px-4 py-2.5 text-sm text-text-secondary hover:text-text-primary hover:bg-drop-bg transition-colors"
+        >
+          {tool.h1}
+        </a>
+      ))}
+    </div>
+  </section>
+)}

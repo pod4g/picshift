@@ -1,0 +1,71 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const title = 'Blog | PicShift';
+const description = 'Practical guides on image formats, conversion trade-offs, and web optimization — from the team behind PicShift.';
+const canonical = 'https://picshift.app/blog';
+const pagePath = '/blog';
+---
+
+<Layout title={title} description={description} canonical={canonical} lang="en" pagePath={pagePath}>
+  <Header lang="en" pagePath={pagePath} />
+
+  <main class="flex-1">
+    <div class="max-w-3xl mx-auto px-4 py-10 sm:py-14">
+      <h1 class="text-3xl sm:text-4xl font-bold text-text-primary mb-3">Blog</h1>
+      <p class="text-lg text-text-secondary mb-10 max-w-xl">
+        Practical guides on image formats, conversion trade-offs, and when to use which tool.
+      </p>
+
+      {posts.length === 0 && (
+        <p class="text-text-secondary">No posts yet. Check back soon.</p>
+      )}
+
+      <div class="space-y-8">
+        {posts.map((post) => {
+          const dateStr = post.data.publishedAt.toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric',
+          });
+          const wordCount = post.body?.split(/\s+/).length ?? 0;
+          const readingTime = Math.max(1, Math.round(wordCount / 230));
+
+          return (
+            <a
+              href={`/blog/${post.slug}`}
+              class="block group rounded-xl border border-border bg-card-bg p-6 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+            >
+              <div class="flex items-center gap-3 text-sm text-text-secondary mb-3">
+                <time datetime={post.data.publishedAt.toISOString()}>{dateStr}</time>
+                <span class="text-border">·</span>
+                <span>{readingTime} min read</span>
+              </div>
+              <h2 class="text-xl sm:text-2xl font-bold text-text-primary group-hover:text-primary-500 transition-colors mb-2">
+                {post.data.title}
+              </h2>
+              <p class="text-text-secondary leading-relaxed">
+                {post.data.description}
+              </p>
+              {post.data.tags.length > 0 && (
+                <div class="flex flex-wrap gap-2 mt-4">
+                  {post.data.tags.map((tag) => (
+                    <span class="text-xs font-medium text-primary-500 bg-primary-500/10 rounded-full px-2.5 py-0.5">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </main>
+
+  <Footer lang="en" />
+</Layout>
