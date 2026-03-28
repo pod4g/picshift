@@ -342,6 +342,67 @@ PicShift 的内链结构应该是：
 - 纯信息型内容越来越多被 AI 直接回答，用户不需要点进来
 - 但如果你的信息型内容同时带有"你可以直接用 PicShift 做这件事"的行动引导，价值就不一样了
 
+### Alternatives 页面矩阵：决策型内容的规模化打法
+
+#### 模式说明
+
+为每个主要竞品写一篇 `{品牌} Alternatives` 页面，承接"用户在找替代品"的搜索意图。
+
+这类页面的特点：
+- 搜索意图明确：用户已经知道某个工具，但在考虑替代方案
+- Google 认可：帮用户做决策，不是冒充品牌
+- 可模板化：每篇结构相同，只改品牌名和具体对比点
+- 转化率高：搜这类词的人正好是你的目标用户
+
+#### 实际案例
+
+SEMRush 为每个知名网站生成 `{domain} Alternatives & Competitors` 页面：
+- 14,453 个页面，月总流量 430 万
+- 单页最高月流量 184 万
+- 每个页面结构一致，模板化批量生成
+
+#### PicShift 可以做的 alternatives 页面
+
+```
+/blog/tinypng-alternatives
+/blog/squoosh-alternatives
+/blog/iloveimg-alternatives
+/blog/cloudconvert-alternatives
+/blog/convertio-alternatives
+```
+
+#### 统一页面结构
+
+```
+H1: Best {品牌} Alternatives in 2026
+H2: Why people look for {品牌} alternatives
+H2: PicShift — local processing, no upload, free
+H2: Other alternatives worth trying
+H2: How to choose the right image converter
+```
+
+每篇的差异化卖点都是同一个：
+- TinyPNG 要上传 → PicShift 本地处理
+- Squoosh 只能单张 → PicShift 批量 200 张
+- CloudConvert 有免费额度限制 → PicShift 完全免费
+- Convertio 要注册 → PicShift 无需注册
+
+#### 执行时机
+
+不是现在做，而是在解释型 blog 验证有效之后：
+
+1. 先写解释型 blog（`PNG vs JPG`、`Why files get larger`）
+2. 验证 blog 系统能跑通、GSC 有数据
+3. 然后开始做 alternatives 系列
+4. 每周写 1 篇，5 个竞品 = 5 周
+
+#### 注意事项
+
+- 内容要公正，不能只夸自己贬别人
+- 每篇都要提供真实有用的对比信息
+- PicShift 的优势自然呈现，不要硬推
+- 如果某个竞品在某个场景确实更好（比如 TinyPNG 有 API），要诚实写出来
+
 ### 不要做的事（经验教训清单）
 
 - 不要每天盯 GSC 刷数据，7 天看一次够了
