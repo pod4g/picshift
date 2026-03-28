@@ -511,6 +511,22 @@ PicShift 已有的 EEAT 信号：
 - hover 时行背景变为 `drop-bg`
 - 不使用垂直边框线（只有水平分隔），视觉更干净
 
+#### 图片标签规则
+
+- **永远用 `<img>` 标签，不用 Markdown `![]()` 语法**，因为 Markdown 语法无法指定 `width` 和 `height`
+- 每个 `<img>` 必须带 `width` 和 `height` 属性，防止页面加载时布局跳动（CLS）
+- 格式：`<img src="/blog/xxx.webp" alt="描述" width="1200" height="630" />`
+- cover 图尺寸：`width="1200" height="630"`
+- 内文插图尺寸：`width="1000" height="按实际比例"`
+
+#### Blog 列表页卡片规则
+
+- cover 图用 `aspect-ratio` 按原图比例显示，不用固定 `h-48` 裁剪
+- 正确写法：`class="w-full aspect-[1200/630] object-cover"`
+- `<img>` 标签带 `width="1200" height="630"` 和 `loading="lazy"`
+- 卡片用 `overflow-hidden` + `rounded-xl` 让图片圆角和卡片一致
+- 文章少（< 6 篇）时 cover 在上方，文章多了再考虑改成右侧缩略图
+
 #### 其他排版注意点
 
 - cover 图和第一段之间应该有自然间距（由 Markdown 段落间距自动处理）
