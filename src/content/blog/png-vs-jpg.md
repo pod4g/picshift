@@ -2,7 +2,7 @@
 title: "PNG vs JPG: When to Use Which Format"
 description: "A practical guide to choosing between PNG and JPG based on your actual use case — file size, transparency, editing, and web delivery."
 cover: "/blog/png-vs-jpg-cover.webp"
-ogCover: "/blog/png-vs-jpg-cover-og.jpg"
+ogCover: "/blog/png-vs-jpg-cover-og.png"
 publishedAt: 2026-03-28
 author: "PicShift"
 tags: ["png", "jpg", "format-comparison", "guide"]

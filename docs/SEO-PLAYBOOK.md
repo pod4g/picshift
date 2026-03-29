@@ -615,9 +615,16 @@ Cover 图同时用于**文章顶部展示**和**社交分享 OG 预览**（`og:i
 - 不要在图片底部放关键内容（博客卡片展示时底部可能被标题遮挡）
 - 深色背景 + 高饱和主色调，在深色和浅色模式的 feed 里都要醒目
 
-**格式**：WebP，但要注意部分平台（如较旧的 LinkedIn 爬虫）可能不支持 WebP OG 图。如果发现某平台预览不显示，需要额外生成一份 PNG 版本作为 fallback。当前观察 Twitter/Facebook/LinkedIn 均已支持 WebP。
+**格式**：文章内展示用 WebP，**OG 分享图必须用 JPG**。Twitter 卡片爬虫对 WebP 支持不稳定，实测无法渲染 WebP OG 图。JPG 是所有平台兼容性最好的格式。
 
-**代码侧**：博客 frontmatter 的 `cover` 字段会自动传给 Layout 的 `ogImage`，无需手动配置 OG 图。
+**生成流程**：每张 cover 图出两份：
+- `{slug}-cover.webp` — 文章内展示（小体积，快加载）
+- `{slug}-cover-og.jpg` — 社交分享专用（JPG quality 90，兼容性最好）
+
+**代码侧**：博客 frontmatter 写两个字段：
+- `cover` — 指向 WebP，用于文章展示和列表页
+- `ogCover` — 指向 JPG，自动传给 Layout 的 `ogImage` 用于社交分享
+- 如果没写 `ogCover`，fallback 到 `cover`
 
 #### Prompt 要求
 
