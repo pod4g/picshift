@@ -22,7 +22,7 @@ const { title, description, canonical, lang = 'en', pagePath = '/', ogType = 'we
 const siteBase = 'https://picshift.app';
 const canonicalUrl = canonical || (lang === 'en' ? `${siteBase}${pagePath}` : `${siteBase}/${lang}${pagePath === '/' ? '/' : pagePath}`);
 const ogImageUrl = ogImage ? `${siteBase}${ogImage}` : `${siteBase}/og-image.png`;
-const ogImageType = ogImage?.endsWith('.webp') ? 'image/webp' : 'image/png';
+const ogImageType = ogImageUrl.endsWith('.webp') ? 'image/webp' : ogImageUrl.endsWith('.jpg') || ogImageUrl.endsWith('.jpeg') ? 'image/jpeg' : 'image/png';
 
 const localeConfig = LOCALE_CONFIG[lang];
 const hrefLang = localeConfig.hrefLang;
