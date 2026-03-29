@@ -329,6 +329,37 @@ const de: PageTranslations = {
         },
       ],
     },
+    'metadata-remover': {
+      title: 'Bild-Metadaten entfernen — EXIF, GPS, Kameradaten löschen | PicShift',
+      description:
+        'Entfernen Sie EXIF-, GPS-Standort-, Kameramodell- und andere Metadaten aus JPG-, PNG-, WebP-, HEIC- und AVIF-Bildern. Läuft lokal in Ihrem Browser — nichts wird hochgeladen.',
+      h1: 'Bild-Metadaten entfernen',
+      introText:
+        'Entfernen Sie versteckte Metadaten aus Ihren Fotos, bevor Sie sie teilen. Fotos von Smartphones und Kameras enthalten standardmäßig GPS-Koordinaten, Gerätemodell, Aufnahmedatum und Software-Tags. Dieses Tool entfernt alles lokal in Ihrem Browser — das Bild verlässt nie Ihr Gerät.',
+      howToSteps: [
+        'Ziehen Sie Ihre Bilder in den Bereich oben oder klicken Sie zum Durchsuchen.',
+        'Metadaten werden sofort in Ihrem Browser entfernt — nichts wird hochgeladen.',
+        'Klicken Sie auf Herunterladen, um die bereinigten Bilder zu speichern, oder auf Alle herunterladen für eine ZIP-Datei.',
+      ],
+      faqs: [
+        {
+          q: 'Welche Metadaten werden entfernt?',
+          a: 'Alle EXIF-Daten werden entfernt, einschließlich GPS-Koordinaten, Kamerahersteller und -modell, Objektivinformationen, Zeitstempel, Software-Tags und eingebettete Vorschaubilder. Das resultierende Bild enthält keine eingebetteten Metadaten.',
+        },
+        {
+          q: 'Beeinflusst das Entfernen von Metadaten die Bildqualität?',
+          a: 'Nein. Das Entfernen von Metadaten löscht nur die nicht-visuellen Daten, die in der Datei eingebettet sind. Der Pixelinhalt Ihres Bildes bleibt identisch.',
+        },
+        {
+          q: 'Warum sollte ich Metadaten vor dem Teilen entfernen?',
+          a: 'Fotos von Smartphones und Kameras enthalten versteckte Daten wie Ihren genauen GPS-Standort, das Gerätemodell und die Aufnahmezeit. Das Entfernen der Metadaten schützt Ihre Privatsphäre beim Teilen von Bildern in sozialen Netzwerken oder mit anderen Personen.',
+        },
+        {
+          q: 'Welche Bildformate werden unterstützt?',
+          a: 'Sie können Metadaten aus JPG-, PNG-, WebP-, HEIC- und AVIF-Bildern entfernen. Das Ausgabeformat bleibt identisch mit dem Eingabeformat.',
+        },
+      ],
+    },
   },
 }
 

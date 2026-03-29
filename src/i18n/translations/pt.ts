@@ -355,7 +355,38 @@ const pt: PageTranslations = {
         },
         {
           q: 'Quais formatos posso comprimir?',
-          a: 'Voc\u00ea pode comprimir imagens JPG, PNG, WebP, HEIC e AVIF. O formato de sa\u00edda pode ser JPG, PNG, WebP ou AVIF.',
+          a: 'Você pode comprimir imagens JPG, PNG, WebP, HEIC e AVIF. O formato de saída pode ser JPG, PNG, WebP ou AVIF.',
+        },
+      ],
+    },
+    'metadata-remover': {
+      title: 'Remover metadados de imagem — EXIF, GPS, dados da câmera | PicShift',
+      description:
+        'Remova EXIF, localização GPS, modelo da câmera e outros metadados de imagens JPG, PNG, WebP, HEIC e AVIF. Processamento local no navegador, nenhum arquivo é enviado.',
+      h1: 'Remover metadados de imagem',
+      introText:
+        'Remova os metadados ocultos das suas fotos antes de compartilhar. Fotos tiradas com celular ou câmera incluem por padrão coordenadas GPS, modelo do dispositivo, data e hora, e tags de software. Esta ferramenta remove tudo localmente no seu navegador — a imagem nunca sai do seu dispositivo.',
+      howToSteps: [
+        'Arraste e solte suas imagens na área acima ou clique para procurar.',
+        'Os metadados são removidos instantaneamente no navegador — nada é enviado.',
+        'Clique em Baixar para salvar as imagens limpas, ou Baixar tudo para obter um ZIP.',
+      ],
+      faqs: [
+        {
+          q: 'Quais metadados são removidos?',
+          a: 'Todos os dados EXIF são removidos, incluindo coordenadas GPS, marca e modelo da câmera, informações da lente, data e hora, tags de software e miniaturas incorporadas. A imagem resultante não contém nenhum metadado.',
+        },
+        {
+          q: 'Remover metadados afeta a qualidade da imagem?',
+          a: 'Não. A remoção de metadados elimina apenas os dados não visuais incorporados no arquivo. O conteúdo em pixels da sua imagem permanece idêntico.',
+        },
+        {
+          q: 'Por que devo remover metadados antes de compartilhar fotos?',
+          a: 'Fotos tiradas com celulares e câmeras contêm dados ocultos como sua localização GPS exata, modelo do dispositivo e o horário em que a foto foi tirada. Remover os metadados protege sua privacidade ao compartilhar imagens em redes sociais ou com outras pessoas.',
+        },
+        {
+          q: 'Quais formatos de imagem são suportados?',
+          a: 'Você pode remover metadados de imagens JPG, PNG, WebP, HEIC e AVIF. O formato de saída permanece igual ao de entrada.',
         },
       ],
     },

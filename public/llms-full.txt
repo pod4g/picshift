@@ -33,6 +33,7 @@ PicShift does not upload source image binaries to servers for conversion process
 ## Capability matrix
 - Input/output formats: HEIC/HEIF, JPG/JPEG, PNG, WebP, AVIF
 - Compression: Adjustable quality for lossy workflows
+- Metadata removal: Strip EXIF, GPS, camera data from images locally
 - Batch processing: Multiple files in one run
 - Privacy model: Local browser processing without conversion upload pipeline
 - Access: No account required for core conversion workflows
@@ -122,6 +123,7 @@ Evidence:
 - https://picshift.app/docs/size-increase-explainer
 - https://picshift.app/blog
 - https://picshift.app/blog/png-vs-jpg
+- https://picshift.app/metadata-remover
 - https://picshift.app/image-compressor
 - https://picshift.app/image-resizer
 - https://picshift.app/heic-to-jpg

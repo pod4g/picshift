@@ -911,6 +911,65 @@ export const TOOL_PAGES: ToolPageConfig[] = [
       },
     ],
   },
+  {
+    slug: 'metadata-remover',
+    title: 'Remove Image Metadata — EXIF, GPS, Camera Data | PicShift',
+    description:
+      'Strip EXIF, GPS location, camera model, and other metadata from JPG, PNG, WebP, HEIC, and AVIF images. Runs locally in your browser — nothing gets uploaded.',
+    defaultInputFormat: null,
+    h1: 'Remove Image Metadata',
+    introText:
+      'Strip hidden metadata from your photos before sharing. GPS coordinates, camera model, timestamps, and software tags are embedded in most images by default. This tool removes all of it locally in your browser — the image never leaves your device.',
+    howToSteps: [
+      'Drop your images into the box above, or click to browse.',
+      'Choose the output format — use the same format to keep the image as-is.',
+      'Download the cleaned images with all metadata removed.',
+    ],
+    faqs: [
+      {
+        q: 'What metadata does this tool remove?',
+        a: 'It removes EXIF data (camera model, lens, exposure settings), GPS coordinates (latitude and longitude where the photo was taken), timestamps, software tags, IPTC captions, and XMP profiles. The output image contains only pixel data.',
+      },
+      {
+        q: 'Does removing metadata reduce image quality?',
+        a: 'The image is re-encoded during metadata removal. For PNG and lossless WebP the output is visually identical. For JPG, use quality 95 or above to keep loss imperceptible. The pixel content stays the same — only the hidden metadata is gone.',
+      },
+      {
+        q: 'Why should I remove metadata before sharing photos?',
+        a: 'Photos taken on phones embed GPS coordinates that reveal where you were when you took the shot. They also contain device model, serial numbers, and timestamps. Stripping metadata before posting online protects your location privacy and device fingerprint.',
+      },
+      {
+        q: 'Does this tool upload my images to a server?',
+        a: 'No. The entire process runs locally in your browser using WebAssembly. Your images are never sent to any server. You can verify this by turning off your internet connection — the tool still works.',
+      },
+      {
+        q: 'Which image formats are supported?',
+        a: 'You can remove metadata from JPG, PNG, WebP, HEIC, HEIF, and AVIF images. The output can be any supported format, or you can keep the same format as the input.',
+      },
+      {
+        q: 'Can I remove metadata from multiple images at once?',
+        a: 'Yes. You can drop up to 200 images and process them all in a single batch. Each image will have its metadata stripped individually.',
+      },
+      {
+        q: 'Does Instagram / WhatsApp / Discord remove EXIF data automatically?',
+        a: 'Most social platforms strip some metadata on upload, but not all of them remove everything, and policies change. The safest approach is to remove metadata yourself before sharing, so you are not relying on a platform to protect your privacy.',
+      },
+    ],
+    searchIntentSections: [
+      {
+        title: 'What hidden data is inside your photos',
+        body: 'Every photo taken on a phone or camera contains invisible metadata: GPS coordinates pinpointing where you stood, the exact device model and serial number, the date and time down to the second, and sometimes even the software used to edit it. This data travels with the image file when you share it, email it, or upload it — unless you strip it first.',
+      },
+      {
+        title: 'When you should remove image metadata',
+        body: 'Before posting photos online, sending images to clients or strangers, uploading product photos to marketplaces, or sharing screenshots that might contain editing software traces. If the image leaves your device and reaches someone you do not fully trust, removing metadata is the safe default.',
+      },
+      {
+        title: 'How local processing protects you better',
+        body: 'Most online metadata removers ask you to upload the image to their server first — which means they see your photo and its metadata before you can remove it. PicShift processes everything in your browser. The file never leaves your device, so your private data stays private during the removal process itself.',
+      },
+    ],
+  },
 ]
 
 export function getToolPage(slug: string): ToolPageConfig | undefined {

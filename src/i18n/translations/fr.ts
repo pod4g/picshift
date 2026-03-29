@@ -378,6 +378,37 @@ const fr: PageTranslations = {
         },
       ],
     },
+    'metadata-remover': {
+      title: 'Supprimer les métadonnées image — EXIF, GPS, données appareil | PicShift',
+      description:
+        "Supprimez les données EXIF, la localisation GPS, le modèle d'appareil photo et autres métadonnées des images JPG, PNG, WebP, HEIC et AVIF. Traitement local dans votre navigateur, aucun fichier envoyé.",
+      h1: 'Supprimer les métadonnées image',
+      introText:
+        "Supprimez les métadonnées cachées de vos photos avant de les partager. Les photos prises avec un téléphone ou un appareil photo contiennent par défaut des coordonnées GPS, le modèle de l'appareil, la date et l'heure de prise de vue et des balises logicielles. Cet outil supprime tout localement dans votre navigateur — l'image ne quitte jamais votre appareil.",
+      howToSteps: [
+        'Glissez-déposez vos images dans la zone ci-dessus, ou cliquez pour les parcourir.',
+        'Les métadonnées sont supprimées instantanément dans votre navigateur, rien n\'est envoyé.',
+        'Cliquez sur Télécharger pour enregistrer les images nettoyées, ou sur Tout télécharger pour obtenir un ZIP.',
+      ],
+      faqs: [
+        {
+          q: 'Quelles métadonnées sont supprimées ?',
+          a: "Toutes les données EXIF sont supprimées : coordonnées GPS, marque et modèle de l'appareil, informations sur l'objectif, horodatage, balises logicielles et miniatures intégrées. L'image résultante ne contient aucune métadonnée.",
+        },
+        {
+          q: "La suppression des métadonnées affecte-t-elle la qualité de l'image ?",
+          a: "Non. La suppression des métadonnées ne retire que les données non visuelles intégrées dans le fichier. Le contenu en pixels de votre image reste identique.",
+        },
+        {
+          q: 'Pourquoi supprimer les métadonnées avant de partager des photos ?',
+          a: "Les photos prises avec des téléphones et appareils photo contiennent des données cachées comme votre position GPS exacte, le modèle de votre appareil et l'heure de prise de vue. Supprimer ces métadonnées protège votre vie privée lorsque vous partagez des images en ligne ou avec d'autres personnes.",
+        },
+        {
+          q: 'Quels formats d\'image sont pris en charge ?',
+          a: "Vous pouvez supprimer les métadonnées des images JPG, PNG, WebP, HEIC et AVIF. Le format de sortie reste identique au format d'entrée.",
+        },
+      ],
+    },
   },
 }
 

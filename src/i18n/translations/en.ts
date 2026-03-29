@@ -308,6 +308,37 @@ const en: PageTranslations = {
         },
       ],
     },
+    'metadata-remover': {
+      title: 'Remove Image Metadata — EXIF, GPS, Camera Data | PicShift',
+      description:
+        'Strip EXIF, GPS location, camera model, and other metadata from JPG, PNG, WebP, HEIC, and AVIF images. Runs locally in your browser — nothing gets uploaded.',
+      h1: 'Remove Image Metadata',
+      introText:
+        'Strip hidden metadata from your photos before sharing. GPS coordinates, camera model, timestamps, and software tags are embedded in most images by default. This tool removes all of it locally in your browser — the image never leaves your device.',
+      howToSteps: [
+        'Drag and drop your images into the box above, or click to browse.',
+        'Metadata is stripped instantly in your browser — nothing is uploaded.',
+        'Click Download to save the clean images, or Download All for a ZIP.',
+      ],
+      faqs: [
+        {
+          q: 'What metadata is removed?',
+          a: 'All EXIF data is removed, including GPS coordinates, camera make and model, lens info, timestamps, software tags, and thumbnail previews. The resulting image contains no embedded metadata.',
+        },
+        {
+          q: 'Does removing metadata change the image quality?',
+          a: 'No. Metadata removal strips only the non-visual data embedded in the file. The pixel content of your image remains identical.',
+        },
+        {
+          q: 'Why should I remove metadata before sharing?',
+          a: 'Photos taken by phones and cameras contain hidden data like your exact GPS location, device model, and the time the photo was taken. Removing metadata protects your privacy when sharing images online or with others.',
+        },
+        {
+          q: 'What image formats are supported?',
+          a: 'You can remove metadata from JPG, PNG, WebP, HEIC, and AVIF images. The output retains the same format as the input.',
+        },
+      ],
+    },
   },
 }
 

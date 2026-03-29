@@ -386,6 +386,37 @@ const es: PageTranslations = {
         },
       ],
     },
+    'metadata-remover': {
+      title: 'Eliminar metadatos de imagen — EXIF, GPS, datos de cámara | PicShift',
+      description:
+        'Elimina metadatos EXIF, ubicación GPS, modelo de cámara y otros datos ocultos de imágenes JPG, PNG, WebP, HEIC y AVIF. Se ejecuta en tu navegador, sin subir nada.',
+      h1: 'Eliminar metadatos de imagen',
+      introText:
+        'Elimina los metadatos ocultos de tus fotos antes de compartirlas. Las fotos tomadas con el móvil o la cámara incluyen por defecto coordenadas GPS, modelo de dispositivo, fecha y hora, y etiquetas de software. Esta herramienta borra todo localmente en tu navegador — la imagen nunca sale de tu dispositivo.',
+      howToSteps: [
+        'Arrastra tus imágenes al área de arriba o haz clic para buscarlas.',
+        'Los metadatos se eliminan al instante en tu navegador, sin subir nada.',
+        'Haz clic en Descargar para guardar las imágenes limpias, o en Descargar todo para obtener un ZIP.',
+      ],
+      faqs: [
+        {
+          q: '¿Qué metadatos se eliminan?',
+          a: 'Se eliminan todos los datos EXIF, incluyendo coordenadas GPS, marca y modelo de cámara, información de lente, fecha y hora, etiquetas de software y miniaturas incrustadas. La imagen resultante no contiene ningún metadato.',
+        },
+        {
+          q: '¿Eliminar metadatos afecta la calidad de la imagen?',
+          a: 'No. La eliminación de metadatos solo borra los datos no visuales incrustados en el archivo. El contenido visual de tu imagen permanece idéntico.',
+        },
+        {
+          q: '¿Por qué debería eliminar los metadatos antes de compartir fotos?',
+          a: 'Las fotos tomadas con móviles y cámaras contienen datos ocultos como tu ubicación GPS exacta, el modelo de dispositivo y la hora en que se tomó la foto. Eliminar los metadatos protege tu privacidad al compartir imágenes en redes sociales o con otras personas.',
+        },
+        {
+          q: '¿Qué formatos de imagen son compatibles?',
+          a: 'Puedes eliminar metadatos de imágenes JPG, PNG, WebP, HEIC y AVIF. El formato de salida se mantiene igual al de entrada.',
+        },
+      ],
+    },
   },
 }
 

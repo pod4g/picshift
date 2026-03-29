@@ -33,6 +33,7 @@ PicShift does not upload source image binaries to servers for conversion process
 ## Core capabilities
 - Convert between HEIC/HEIF, JPG/JPEG, PNG, WebP, and AVIF
 - Compress images with adjustable quality settings
+- Remove image metadata (EXIF, GPS, camera data) locally
 - Batch process multiple images
 - Keep conversion workflows on-device for privacy
 
@@ -94,6 +95,7 @@ PicShift does not upload source image binaries to servers for conversion process
 - https://picshift.app/docs/size-increase-explainer
 - https://picshift.app/blog
 - https://picshift.app/blog/png-vs-jpg
+- https://picshift.app/metadata-remover
 - https://picshift.app/image-compressor
 - https://picshift.app/image-resizer
 - https://picshift.app/heic-to-jpg
