@@ -139,6 +139,7 @@ import '../styles/global.css';
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    {ogArticleMeta && <meta name="author" content={ogArticleMeta.author} />}
     <link rel="canonical" href={canonicalUrl} />
 
     <!-- Hreflang alternate links -->

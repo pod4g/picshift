@@ -615,7 +615,7 @@ Cover 图同时用于**文章顶部展示**和**社交分享 OG 预览**（`og:i
 - 不要在图片底部放关键内容（博客卡片展示时底部可能被标题遮挡）
 - 深色背景 + 高饱和主色调，在深色和浅色模式的 feed 里都要醒目
 
-**格式**：WebP。实测 Twitter/Facebook/LinkedIn 均支持 WebP OG 图，一图两用（文章展示 + 社交分享），无需额外生成 JPG/PNG 版本。
+**格式**：WebP，**quality 设为 95**（约 70KB）。不要用默认低质量（约 47KB），否则社交平台预览卡片会明显模糊。实测 Twitter/Facebook/LinkedIn 均支持 WebP OG 图，一图两用（文章展示 + 社交分享），无需额外生成 JPG/PNG 版本。
 
 **注意**：Cloudflare 的 **Bot Fight Mode 必须关闭**，否则 Twitter 爬虫会被拦截导致 OG 图无法加载。这不是图片格式问题，是 Cloudflare 安全策略问题。
 
