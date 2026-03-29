@@ -6,7 +6,6 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     cover: z.string().optional(),
-    ogCover: z.string().optional(),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
     author: z.string().default('PicShift'),
