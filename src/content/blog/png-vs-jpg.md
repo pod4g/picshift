@@ -8,7 +8,7 @@ tags: ["png", "jpg", "format-comparison", "guide"]
 relatedTools: ["png-to-jpg", "jpg-to-png", "jpg-to-webp"]
 ---
 
-<img src="/blog/png-vs-jpg-cover.webp" alt="PNG vs JPG format comparison" width="1200" height="630" />
+<img src="/blog/png-vs-jpg-cover.webp" alt="PNG vs JPG format comparison" width="1200" height="630" loading="eager" decoding="async" />
 
 PNG or JPG? It depends on what the image is for. One is not "better" — they solve different problems, and picking the wrong one means your file is either too large or missing something it needs.
 
@@ -63,7 +63,7 @@ Both formats are from the 1990s. Modern alternatives beat them in specific situa
 
 **Practical approach:** WebP for web delivery, PNG for editing and transparency, JPG as the universal fallback when maximum compatibility matters.
 
-<img src="/blog/png-vs-jpg-decision.webp" alt="When to use PNG vs JPG — decision flow" width="1000" height="560" />
+<img src="/blog/png-vs-jpg-decision.webp" alt="When to use PNG vs JPG — decision flow" width="1000" height="560" loading="lazy" decoding="async" />
 
 ## Quick decision guide
 

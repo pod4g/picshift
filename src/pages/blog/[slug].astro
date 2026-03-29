@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content, headings } = await post.render();
-const { title, description, publishedAt, updatedAt, author, tags, relatedTools } = post.data;
+const { title, description, cover, publishedAt, updatedAt, author, tags, relatedTools } = post.data;
 
 const canonical = `https://picshift.app/blog/${post.slug}`;
 const pagePath = `/blog/${post.slug}`;
@@ -55,7 +55,21 @@ const prevPost = currentIdx < allPosts.length - 1 ? allPosts[currentIdx + 1] : n
 const nextPost = currentIdx > 0 ? allPosts[currentIdx - 1] : null;
 ---
 
-<Layout title={`${title} | PicShift Blog`} description={description} canonical={canonical} lang="en" pagePath={pagePath}>
+<Layout
+  title={`${title} | PicShift Blog`}
+  description={description}
+  canonical={canonical}
+  lang="en"
+  pagePath={pagePath}
+  ogType="article"
+  ogImage={cover}
+  ogArticleMeta={{
+    publishedTime: publishedAt.toISOString(),
+    modifiedTime: (updatedAt ?? publishedAt).toISOString(),
+    author: author,
+    tags: tags ?? [],
+  }}
+>
   <Header lang="en" pagePath={pagePath} />
 
   <main class="flex-1">
