@@ -10,7 +10,12 @@ export default defineConfig({
   output: 'static',
   integrations: [
     react(),
-    sitemap(),
+    sitemap({
+      serialize(item) {
+        item.lastmod = new Date();
+        return item;
+      },
+    }),
     AstroPWA({
       registerType: 'autoUpdate',
       workbox: {
