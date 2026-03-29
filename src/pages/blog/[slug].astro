@@ -32,6 +32,7 @@ const articleSchema = JSON.stringify({
   description,
   url: canonical,
   inLanguage: 'en',
+  image: cover ? `https://picshift.app${cover}` : undefined,
   datePublished: publishedAt.toISOString(),
   dateModified: (updatedAt ?? publishedAt).toISOString(),
   author: { '@type': 'Organization', name: author, url: 'https://picshift.app' },
@@ -63,6 +64,7 @@ const nextPost = currentIdx > 0 ? allPosts[currentIdx - 1] : null;
   pagePath={pagePath}
   ogType="article"
   ogImage={cover}
+  noAlternate
   ogArticleMeta={{
     publishedTime: publishedAt.toISOString(),
     modifiedTime: (updatedAt ?? publishedAt).toISOString(),

@@ -1019,7 +1019,7 @@ PicShift 的差异化优势：
 #### 其他
 
 - `robots.txt` — `Allow: /` + `Sitemap:` 绝对 URL
-- `llms.txt` / `llms-full.txt` — LLM 可读的站点说明
+- `llms.txt` / `llms-full.txt` — LLM 可读的站点说明，**每次内容大更新后同步时间戳和 Key pages**
 - PWA manifest — 图标、名称、主题色
 - favicon 全套 — `favicon.ico` + PNG 16/32 + `apple-touch-icon` 180
 

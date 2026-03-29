@@ -10,6 +10,7 @@ interface Props {
   pagePath?: string;
   ogType?: 'website' | 'article';
   ogImage?: string;
+  noAlternate?: boolean;
   ogArticleMeta?: {
     publishedTime: string;
     modifiedTime: string;
@@ -18,7 +19,7 @@ interface Props {
   };
 }
 
-const { title, description, canonical, lang = 'en', pagePath = '/', ogType = 'website', ogImage, ogArticleMeta } = Astro.props;
+const { title, description, canonical, lang = 'en', pagePath = '/', ogType = 'website', ogImage, noAlternate = false, ogArticleMeta } = Astro.props;
 const siteBase = 'https://picshift.app';
 const canonicalUrl = canonical || (lang === 'en' ? `${siteBase}${pagePath}` : `${siteBase}/${lang}${pagePath === '/' ? '/' : pagePath}`);
 const ogImageUrl = ogImage ? `${siteBase}${ogImage}` : `${siteBase}/og-image.png`;
@@ -143,10 +144,10 @@ import '../styles/global.css';
     <link rel="canonical" href={canonicalUrl} />
 
     <!-- Hreflang alternate links -->
-    {SUPPORTED_LOCALES.map((locale) => (
+    {!noAlternate && SUPPORTED_LOCALES.map((locale) => (
       <link rel="alternate" hreflang={LOCALE_CONFIG[locale].hrefLang} href={buildHrefLangUrl(locale)} />
     ))}
-    <link rel="alternate" hreflang="x-default" href={buildHrefLangUrl('en' as Locale)} />
+    {!noAlternate && <link rel="alternate" hreflang="x-default" href={buildHrefLangUrl('en' as Locale)} />}
 
     <meta name="theme-color" content="#1a2332" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
