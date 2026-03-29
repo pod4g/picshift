@@ -1023,6 +1023,85 @@ PicShift 的差异化优势：
 - PWA manifest — 图标、名称、主题色
 - favicon 全套 — `favicon.ico` + PNG 16/32 + `apple-touch-icon` 180
 
+### 2026-03-29 技术 SEO 完善记录
+
+#### 本次解决的问题
+
+| 问题 | 修复 | 影响 |
+|---|---|---|
+| `WebSite` JSON-LD 有虚假 `SearchAction` | 移除 `potentialAction` | 消除 Google 结构化数据违规风险 |
+| 博客 `og:type` 固定为 `website` | Layout 支持传入 `ogType`，博客传 `article` + 文章元数据 | 社交分享正确识别为文章，解锁 `article:published_time` 等属性 |
+| 博客 OG 图用全站通用图 | `cover` 字段自动传给 Layout 的 `ogImage` | 社交分享展示文章专属 cover 图 |
+| 缺 `meta theme-color` | 深浅模式各一个 | 移动端浏览器顶栏颜色融合 |
+| 缺 `og:image:alt` / `twitter:image:alt` | 用页面 title 自动填充 | 无障碍 + 平台展示 |
+| 缺 `meta name="author"` | 博客页自动从 frontmatter 输出 | LinkedIn Post Inspector 正确识别作者 |
+| 无自定义 404 页面 | 新建 `404.astro` + wrangler `not_found_handling: "404-page"` | 品牌一致的错误页 |
+| 博客图片缺 `loading`/`decoding` | cover 用 `eager`，内文图用 `lazy`，全部 `decoding="async"` | Web Vitals 优化 |
+| Sitemap lastmod 每次 build 全刷 | 基于 git 历史的精确 lastmod，改了才更新 | 爬虫效率 + Google 信任 |
+
+#### 踩坑记录
+
+**1. Cloudflare Bot Fight Mode 拦截社交爬虫**
+
+症状：Twitter/LinkedIn 分享链接时 OG 图不显示，但 curl 测试一切正常。
+
+原因：Bot Fight Mode 对自动化请求发起 JS Challenge，社交平台爬虫（Twitterbot、LinkedInBot）不能执行 JS，被拦截。curl 能过是因为 Cloudflare 对不同来源 IP 的检测策略不同。
+
+解决：关闭 Bot Fight Mode（Security > Bots）。对需要被搜索引擎和社交平台抓取的公开网站，这个功能弊大于利。
+
+教训：**新站上线后第一时间检查 Cloudflare 安全设置，确保 Bot Fight Mode 关闭。**
+
+**2. Twitter 卡片缓存无法主动清除**
+
+症状：修复 OG 标签后重新分享同一 URL，Twitter 仍然不显示图片。
+
+原因：Twitter 在 2022 年关闭了 Card Validator 工具，现在没有官方方式强制刷新 URL 的卡片缓存。缓存是 URL 级别的，删推重发不能清除。
+
+解决：
+- 等缓存自然过期（通常几天）
+- 用 URL 参数绕过：`?v=2` 让 Twitter 认为是新 URL
+- **最重要的是：第一次分享前确保 OG 标签和图片都已生效**
+
+教训：**博客发布后，先用第三方工具（如 LinkedIn Post Inspector、opengraph.xyz）验证 OG 渲染正常，再分享到社交平台。第一次的结果会被缓存，修复成本很高。**
+
+**3. Cloudflare Workers 静态资产不自动使用 404.html**
+
+症状：创建了 `404.astro`，构建出了 `404.html`，但线上访问不存在的路径显示浏览器默认 404。
+
+原因：Cloudflare Workers 静态资产默认 `not_found_handling: "none"`，返回空 body + 404 状态码，不读 `404.html`。
+
+解决：在 `wrangler.jsonc` 里加 `"not_found_handling": "404-page"`。
+
+教训：**Cloudflare Workers ≠ Cloudflare Pages，静态资产的 404 行为需要显式配置。**
+
+**4. WebP cover 图质量不足导致社交预览模糊**
+
+症状：LinkedIn Post Inspector 预览的 cover 图明显模糊。
+
+原因：cover 图导出时用了默认 WebP 质量（约 quality 85，47KB），在社交卡片放大展示后压缩痕迹明显。
+
+解决：以后生成 cover 图统一用 WebP quality 95（约 70KB），多 20KB 但清晰度差别很大。
+
+教训：**已经压缩过的 WebP 不能通过重新保存为更高 quality 来恢复清晰度，必须从原始源文件重新导出。**
+
+**5. LinkedIn 分享方式影响 OG 卡片展示**
+
+症状：在 LinkedIn 发表"文章"（Article）并贴 URL，没有 OG 卡片预览。
+
+原因：LinkedIn 只有"直接分享帖子"才会渲染 OG 卡片。文章正文和评论里的 URL 只是纯文本链接。
+
+教训：**要在 LinkedIn 展示 OG 卡片，必须用"开始帖子" → 粘贴 URL → 等卡片出现 → 发布。不能在文章或评论里贴链接。**
+
+#### 社交分享前的验证清单
+
+每次发布新页面或博客文章，分享到社交平台前必须确认：
+
+1. **Cloudflare Bot Fight Mode** — 必须关闭
+2. **部署已完成** — 在 Cloudflare Dashboard 确认最新版本已上线
+3. **OG 标签验证** — 用 LinkedIn Post Inspector（https://www.linkedin.com/post-inspector/）检查 title/image/type 全部正确
+4. **图片可访问** — `curl -I https://picshift.app/blog/xxx-cover.webp` 返回 200
+5. **先验证再分享** — 第一次分享的结果会被缓存，修复成本高
+
 ### 不要做的事（经验教训清单）
 
 - 不要每天盯 GSC 刷数据，7 天看一次够了
@@ -1035,3 +1114,6 @@ PicShift 的差异化优势：
 - 不要信 Reddit 上说"发现了你站的漏洞要赏金"的 DM
 - **不要在 JSON-LD 里声明不存在的功能**（如 SearchAction 没有对应的站内搜索）
 - **不要所有页面都用 `og:type=website`**，博客文章要用 `article`
+- **不要在 OG 验证之前就分享到社交平台** — 第一次的缓存很难清除
+- **不要开 Cloudflare Bot Fight Mode** — 会拦截 Twitter/LinkedIn/Google 等合法爬虫
+- **不要用低质量 WebP 做 cover 图** — quality 95 只比 85 多 20KB，但社交预览清晰度差别很大
