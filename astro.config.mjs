@@ -105,6 +105,7 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg,webp,wasm,json,woff2}'],
         globIgnores: ['_routes.json', '_worker.js/**', '_headers', '_redirects', '**/*avif_enc*'],
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         navigateFallback: null,
         manifestTransforms: [
           async (entries) => {
