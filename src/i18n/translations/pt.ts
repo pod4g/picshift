@@ -211,35 +211,35 @@ const pt: PageTranslations = {
       title:
         'Converter PNG para JPG Online — Gratuito, Privado, Sem Upload | PicShift',
       description:
-        'Converta imagens PNG para JPG no navegador. Reduza o tamanho do arquivo de capturas de tela e exportações sem perder qualidade visível. 100% local, sem upload.',
+        'Converta PNG para JPG e reduza o tamanho de capturas de tela e exportações de design. Funciona direto no navegador, sem mandar nada pra nenhum servidor.',
       h1: 'Converter PNG para JPG',
       introText:
-        'Converta PNG para JPG para reduzir arquivos pesados. Capturas de tela, exportações de design e fotos salvas como PNG costumam ficar 3-5x menores em JPG com qualidade 80-85, sem diferença visível. Tudo roda no seu navegador — nenhum arquivo é enviado a servidores.',
+        'Aquele print de 3 MB ou aquela exportação de design de 5 MB? Em JPG com qualidade 80-85, cai pra 500 KB sem diferença visível. A conversão acontece direto no navegador — o arquivo não sai do seu computador.',
       howToSteps: [
-        'Arraste seus arquivos PNG para a área acima, ou clique para selecionar.',
-        'Ajuste a qualidade — 80 a 85 é o equilíbrio ideal entre tamanho e qualidade.',
-        'Baixe as imagens JPG convertidas.',
+        'Arraste os PNGs pra cá ou clique pra selecionar.',
+        'Ajuste a qualidade — entre 80 e 85 é o ponto ideal.',
+        'Baixe os JPGs prontos.',
       ],
       faqs: [
         {
-          q: 'Vou perder a transparência ao converter PNG para JPG?',
-          a: 'Sim. JPG não suporta transparência. Áreas transparentes viram fundo branco. Se precisa de transparência, mantenha PNG ou converta para WebP.',
+          q: 'E se a imagem tiver transparência?',
+          a: 'O fundo transparente vira branco. JPG não tem suporte a transparência. Se você precisa manter, use PNG ou converta pra WebP.',
         },
         {
-          q: 'Qual qualidade usar para converter PNG para JPG?',
-          a: 'Para a maioria dos casos, qualidade 80-85 reduz o tamanho em 40-60% sem diferença visível. Abaixo de 70, artefatos podem começar a aparecer em detalhes finos.',
+          q: 'Que qualidade eu devo usar?',
+          a: 'Entre 80 e 85 funciona pra quase tudo — reduz 40-60% do tamanho sem diferença visível. Abaixo de 70 pode começar a aparecer serrilhado em detalhes finos.',
         },
         {
-          q: 'Converter PNG para JPG reduz a qualidade da imagem?',
-          a: 'JPG é um formato com compressão lossy, então alguma informação é descartada. Com qualidade 80+, a diferença é imperceptível para fotos e capturas de tela. Use o modo de comparação para verificar antes de baixar.',
+          q: 'Converter pra JPG estraga a imagem?',
+          a: 'JPG descarta alguma informação, mas com qualidade 80+ a diferença é imperceptível em fotos e prints. Dá pra comparar antes de baixar.',
         },
         {
-          q: 'Posso converter vários arquivos PNG de uma vez?',
-          a: 'Sim. Arraste até 200 arquivos PNG de uma vez. Todos são convertidos em lote no seu navegador.',
+          q: 'Dá pra converter vários de uma vez?',
+          a: 'Sim. Arraste até 200 arquivos de uma vez, todos são processados em lote.',
         },
         {
-          q: 'PNG para JPG ou PNG para WebP — qual é melhor?',
-          a: 'Para compatibilidade máxima (e-mail, formulários, apps antigos), JPG. Para sites modernos com menor tamanho, WebP. JPG abre em qualquer lugar; WebP é 25-34% menor mas nem todos os contextos aceitam.',
+          q: 'JPG ou WebP — qual é melhor?',
+          a: 'JPG abre em qualquer lugar — e-mail, formulários, apps antigos. WebP é 25-34% menor, mas nem todo contexto aceita. Se é pra compatibilidade, JPG. Se é pra web moderna, WebP.',
         },
       ],
     },
@@ -337,20 +337,20 @@ const pt: PageTranslations = {
     },
     'image-resizer': {
       title: 'Redimensionar Imagens Online — Gratuito, Sem Upload | PicShift',
-      description: 'Redimensione imagens no navegador com presets ou dimensões exatas. Ideal para sites, e-commerce, redes sociais e documentos. 100% privado, sem enviar arquivos.',
+      description: 'Mude o tamanho das suas imagens direto no navegador. Presets rápidos ou largura e altura exatas. Nenhum arquivo é enviado — tudo roda local.',
       h1: 'Redimensionar Imagens',
-      introText: 'Ajuste as dimensões das suas imagens para sites, lojas online, redes sociais ou documentos. Use presets rápidos (1920px, 1080px, 50%) ou insira largura e altura exatas. Tudo roda localmente no navegador — suas imagens nunca são enviadas a nenhum servidor.',
+      introText: 'Imagem grande demais pro site, pro e-commerce ou pro formulário? Reduza com um preset (1920px, 1080px, 50%) ou coloque largura e altura na mão. O processamento é todo no navegador — nada sai do seu computador.',
       howToSteps: [
-        'Arraste suas imagens para a área acima, ou clique para selecionar.',
-        'Escolha um preset de tamanho ou insira dimensões personalizadas.',
-        'Escolha o formato de saída e a qualidade, depois baixe.',
+        'Arraste as imagens pra cá ou clique pra selecionar.',
+        'Escolha um preset ou digite as dimensões que precisa.',
+        'Escolha o formato, ajuste a qualidade e baixe.',
       ],
       faqs: [
-        { q: 'Como redimensionar uma imagem para dimensões exatas?', a: 'Use o modo Personalizado para inserir largura e altura em pixels. Se preferir, use presets como Máx 1920px, Máx 1080px, 75% ou 50% para reduzir rapidamente.' },
-        { q: 'Redimensionar reduz a qualidade da imagem?', a: 'A redução de escala usa reamostragem de alta qualidade, então diminuir dimensões é seguro. Perda visível de qualidade costuma vir da compressão forte, que você controla separadamente com o slider de qualidade.' },
-        { q: 'Posso redimensionar e converter o formato ao mesmo tempo?', a: 'Sim. Você pode alterar dimensões e formato de saída (JPG, PNG, WebP, AVIF) em uma única etapa.' },
-        { q: 'Posso redimensionar imagens para redes sociais?', a: 'Sim. Use dimensões personalizadas para Instagram (1080×1080), Facebook (1200×630), LinkedIn (1200×627) ou qualquer outro tamanho que a plataforma exigir.' },
-        { q: 'Preciso fazer upload das minhas imagens?', a: 'Não. O PicShift redimensiona tudo localmente no seu navegador. Seus arquivos nunca são enviados a nenhum servidor.' },
+        { q: 'Como colocar um tamanho exato?', a: 'Usa o modo Personalizado e digita largura e altura em pixels. Se só quer reduzir sem pensar em número exato, os presets (Máx 1920px, 50%, etc.) resolvem rápido.' },
+        { q: 'Redimensionar perde qualidade?', a: 'Diminuir dimensões em si não estraga a imagem — a reamostragem é de alta qualidade. Perda visível vem da compressão, e isso você controla separado com o slider de qualidade.' },
+        { q: 'Dá pra redimensionar e mudar o formato junto?', a: 'Sim. Muda as dimensões e o formato (JPG, PNG, WebP, AVIF) de uma vez, no mesmo passo.' },
+        { q: 'Serve pra redimensionar pra Instagram, Facebook, etc.?', a: 'Serve. Coloca 1080×1080 pro Instagram, 1200×630 pro Facebook, ou qualquer medida que a plataforma pedir.' },
+        { q: 'Meus arquivos são enviados pra algum lugar?', a: 'Não. Tudo roda no seu navegador. Pode até desligar a internet depois de carregar a página que continua funcionando.' },
       ],
     },
     'image-compressor': {

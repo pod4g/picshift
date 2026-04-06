@@ -93,30 +93,30 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     ],
     'image-resizer': [
       {
-        title: 'Quando redimensionar é a solução certa',
-        body: 'Se a imagem é maior do que o espaço que vai ocupar — no site, no e-commerce, no formulário ou na rede social — redimensionar resolve diretamente o problema. É o ajuste mais rápido para imagens de produto, banners, capturas de tela e fotos de perfil.',
+        title: 'Quando redimensionar resolve',
+        body: 'A imagem tem 4000px de largura e vai pra um slot de 800px no site? Redimensionar corta o excesso na hora. Fotos de produto, banners, prints e fotos de perfil — na maioria dos casos, o problema é simplesmente que a imagem é grande demais pro espaço.',
       },
       {
-        title: 'Dimensões exatas vs. presets rápidos',
-        body: 'Use dimensões exatas quando o CMS, marketplace ou editor de conteúdo exige um tamanho específico (ex: 1080×1080 para Instagram). Use presets como Máx 1920px ou 50% quando só precisa reduzir sem meta fixa.',
+        title: 'Tamanho exato ou preset — quando usar cada um',
+        body: 'Se o marketplace, CMS ou rede social pede uma medida específica (1080×1080, 1200×630), coloque na mão. Se só quer reduzir sem meta fixa — "deixa menor que tá bom" — os presets (Máx 1920px, 50%) resolvem em um clique.',
       },
       {
-        title: 'Quando redimensionar sozinho não basta',
-        body: 'Se a imagem ainda fica pesada depois de redimensionar, combine com conversão de formato ou compressão. O maior ganho costuma vir de reduzir tanto as dimensões quanto o formato ao mesmo tempo — de PNG 4000px para JPG 1200px, por exemplo.',
+        title: 'E se redimensionar não for suficiente?',
+        body: 'Acontece. Uma foto de 4000px redimensionada pra 1200px ainda pode ficar pesada se o formato for PNG. Nesses casos, mude o formato junto — de PNG 4000px pra JPG 1200px, por exemplo, o arquivo cai de 8 MB pra 300 KB.',
       },
     ],
     'png-to-jpg': [
       {
-        title: 'Por que converter PNG para JPG',
-        body: 'Na maioria dos casos, é porque o arquivo PNG está grande demais. Uma captura de tela de 3 MB ou uma exportação de design de 5 MB vira 500 KB em JPG com qualidade 80-85, sem diferença visível. É a conversão mais comum quando o objetivo é reduzir tamanho para upload, e-mail ou página web.',
+        title: 'Por que esse PNG tá tão grande?',
+        body: 'PNG guarda cada pixel intacto — é lossless. Isso é ótimo pra qualidade, mas o preço é tamanho. Um print de 3 MB ou uma exportação de design de 5 MB vira 500 KB em JPG com qualidade 80-85. Se o arquivo não precisa de transparência, a conversão compensa quase sempre.',
       },
       {
-        title: 'O que acontece com a transparência',
-        body: 'JPG não suporta transparência. Áreas transparentes no PNG viram fundo branco no JPG. Se a imagem precisa de transparência, mantenha como PNG ou converta para WebP.',
+        title: 'E a transparência?',
+        body: 'Vai embora. JPG não tem suporte a fundo transparente — vira branco. Se a imagem precisa de transparência, mantenha como PNG ou use WebP.',
       },
       {
-        title: 'Quando manter PNG é a melhor escolha',
-        body: 'Mantenha PNG quando a imagem vai ser editada novamente, precisa de transparência, ou será usada como arquivo de referência. Para capturas de tela com texto nítido e poucas cores, PNG pode até ser competitivo em tamanho.',
+        title: 'Quando vale a pena ficar com PNG',
+        body: 'Se você vai editar a imagem de novo, se precisa de transparência, ou se é um arquivo de referência que não pode perder nada. Pra prints com texto nítido e poucas cores, PNG às vezes nem é tão maior assim.',
       },
     ],
   },
