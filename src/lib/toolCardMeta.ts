@@ -1,6 +1,6 @@
 import type { ToolPageConfig } from '../types';
 
-export type ToolCardIconType = 'compress' | 'resize' | 'jpg' | 'png' | 'webp' | 'avif' | 'generic';
+export type ToolCardIconType = 'compress' | 'resize' | 'metadata' | 'jpg' | 'png' | 'webp' | 'avif' | 'generic';
 
 export interface ToolCardMetaInput {
   tool: ToolPageConfig;
@@ -23,6 +23,7 @@ export function getToolCardMeta(input: ToolCardMetaInput): ToolCardMeta {
   const { tool, translatedH1, translatedIntroText, compressLabel, resizeLabel } = input;
   const isCompressor = tool.slug === 'image-compressor';
   const isResizer = tool.slug === 'image-resizer';
+  const isMetadata = tool.slug === 'metadata-remover';
 
   const label = isCompressor
     ? compressLabel
@@ -32,15 +33,19 @@ export function getToolCardMeta(input: ToolCardMetaInput): ToolCardMeta {
   const outputFormat = tool.defaultOutputFormat?.toUpperCase();
   const fromTo = isCompressor
     ? 'JPG / PNG / WebP'
-    : inputFormat && outputFormat
-      ? `${inputFormat} → ${outputFormat}`
-      : resizeLabel;
+    : isMetadata
+      ? 'EXIF / GPS / IPTC'
+      : inputFormat && outputFormat
+        ? `${inputFormat} → ${outputFormat}`
+        : resizeLabel;
 
   const iconType: ToolCardIconType = isCompressor
     ? 'compress'
     : isResizer
       ? 'resize'
-      : tool.defaultOutputFormat === 'jpg'
+      : isMetadata
+        ? 'metadata'
+        : tool.defaultOutputFormat === 'jpg'
         ? 'jpg'
         : tool.defaultOutputFormat === 'png'
           ? 'png'
@@ -55,7 +60,9 @@ export function getToolCardMeta(input: ToolCardMetaInput): ToolCardMeta {
       ? 'w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center'
       : iconType === 'resize'
         ? 'w-10 h-10 rounded-lg bg-secondary-500/10 flex items-center justify-center'
-        : iconType === 'jpg'
+        : iconType === 'metadata'
+          ? 'w-10 h-10 rounded-lg bg-rose-500/10 flex items-center justify-center'
+          : iconType === 'jpg'
           ? 'w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center'
           : iconType === 'png'
             ? 'w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center'
@@ -70,7 +77,9 @@ export function getToolCardMeta(input: ToolCardMetaInput): ToolCardMeta {
       ? 'w-5 h-5 text-primary-500'
       : iconType === 'resize'
         ? 'w-5 h-5 text-secondary-500'
-        : iconType === 'jpg'
+        : iconType === 'metadata'
+          ? 'w-5 h-5 text-rose-500'
+          : iconType === 'jpg'
           ? 'w-5 h-5 text-amber-500'
           : iconType === 'png'
             ? 'w-5 h-5 text-emerald-500'

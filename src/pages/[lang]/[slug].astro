@@ -6,6 +6,7 @@ import PrivacyBadge from '../../components/seo/PrivacyBadge.astro';
 import HowTo from '../../components/seo/HowTo.astro';
 import FAQ from '../../components/seo/FAQ.astro';
 import Converter from '../../components/converter/Converter';
+import MetadataRemoverTool from '../../components/metadata/MetadataRemoverTool';
 import { TOOL_PAGES } from '../../data/tools';
 import { SUPPORTED_LOCALES, localePath } from '../../i18n';
 import { getPageTranslations } from '../../i18n/translations';
@@ -230,16 +231,20 @@ const relatedToolsItemListSchema = {
         <PrivacyBadge lang={lang} />
       </div>
 
-      <!-- Converter island -->
+      <!-- Tool island -->
       <div class="bg-card-bg rounded-xl border border-border shadow-sm p-4 md:p-6 mb-8">
-        <Converter
-          client:load
-          defaultInputFormat={tool.defaultInputFormat}
-          defaultOutputFormat={tool.defaultOutputFormat}
-          keepSmaller={tool.slug === 'image-compressor'}
-          resizeDefault={tool.slug === 'image-resizer'}
-          lang={lang}
-        />
+        {tool.slug === 'metadata-remover' ? (
+          <MetadataRemoverTool client:load lang={lang} />
+        ) : (
+          <Converter
+            client:load
+            defaultInputFormat={tool.defaultInputFormat}
+            defaultOutputFormat={tool.defaultOutputFormat}
+            keepSmaller={tool.slug === 'image-compressor'}
+            resizeDefault={tool.slug === 'image-resizer'}
+            lang={lang}
+          />
+        )}
       </div>
 
       {searchIntentSections.length > 0 && (

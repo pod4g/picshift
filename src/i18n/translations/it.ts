@@ -299,23 +299,54 @@ const it: PageTranslations = {
       title:
         'Compressore di Immagini - Riduci le Dimensioni Online, Gratuito e Privato | PicShift',
       description:
-        "Comprimi le immagini nel tuo browser. Riduci le dimensioni dei file JPG, PNG e WebP mantenendo un'ottima qualit\u00e0. 100% privato, nessun upload.",
+        "Comprimi le immagini nel tuo browser. Riduci le dimensioni dei file JPG, PNG e WebP mantenendo un'ottima qualità. 100% privato, nessun upload.",
       h1: 'Comprimi Immagini',
       introText:
-        'Riduci le dimensioni dei file delle immagini mantenendo la qualit\u00e0 visiva. Trascina il cursore della qualit\u00e0 per trovare il bilanciamento perfetto.',
+        'Riduci le dimensioni dei file delle immagini mantenendo la qualità visiva. Trascina il cursore della qualità per trovare il bilanciamento perfetto.',
       howToSteps: [
         'Trascina le tue immagini nel riquadro sopra oppure clicca per sfogliare.',
-        'Regola il cursore della qualit\u00e0 per controllare il livello di compressione.',
+        'Regola il cursore della qualità per controllare il livello di compressione.',
         'Clicca Scarica per salvare le immagini compresse.',
       ],
       faqs: [
         {
           q: 'Di quanto posso comprimere le mie immagini?',
-          a: "Il risultato della compressione dipende dall'immagine di origine. Un'impostazione di qualit\u00e0 dell'80% riduce le dimensioni dei file JPG del 40-60% nelle comparazioni di riferimento, con differenze visibili minime. Usa la vista confronto per verificare la qualit\u00e0 prima di scaricare.",
+          a: "Il risultato della compressione dipende dall'immagine di origine. Un'impostazione di qualità dell'80% riduce le dimensioni dei file JPG del 40-60% nelle comparazioni di riferimento, con differenze visibili minime. Usa la vista confronto per verificare la qualità prima di scaricare.",
         },
         {
           q: 'Quali formati posso comprimere?',
-          a: 'Puoi comprimere immagini JPG, PNG, WebP, HEIC e AVIF. Il formato di output pu\u00f2 essere JPG, PNG, WebP o AVIF.',
+          a: 'Puoi comprimere immagini JPG, PNG, WebP, HEIC e AVIF. Il formato di output può essere JPG, PNG, WebP o AVIF.',
+        },
+      ],
+    },
+    'metadata-remover': {
+      title: 'Rimuovere metadati immagine — EXIF, GPS, dati fotocamera | PicShift',
+      description:
+        'Rimuovi EXIF, posizione GPS, modello fotocamera e altri metadati dalle immagini JPG, PNG, WebP, HEIC e AVIF. Elaborazione locale nel tuo browser — nulla viene caricato.',
+      h1: 'Rimuovere metadati immagine',
+      introText:
+        'Rimuovi i metadati nascosti dalle tue foto prima di condividerle. Le foto scattate con smartphone e fotocamere contengono per impostazione predefinita coordinate GPS, modello del dispositivo, data e ora, e tag software. Questo strumento rimuove tutto localmente nel tuo browser — l\'immagine non lascia mai il tuo dispositivo.',
+      howToSteps: [
+        'Trascina le tue immagini nel riquadro sopra oppure clicca per sfogliare.',
+        'I metadati vengono rimossi istantaneamente nel browser — nulla viene caricato.',
+        'Clicca Scarica per salvare le immagini pulite, oppure Scarica tutto per ottenere un file ZIP.',
+      ],
+      faqs: [
+        {
+          q: 'Quali metadati vengono rimossi?',
+          a: 'Vengono rimossi tutti i dati EXIF, incluse le coordinate GPS, marca e modello della fotocamera, informazioni sull\'obiettivo, data e ora, tag software e anteprime incorporate. L\'immagine risultante non contiene alcun metadato.',
+        },
+        {
+          q: 'La rimozione dei metadati influisce sulla qualità dell\'immagine?',
+          a: 'No. La rimozione dei metadati elimina solo i dati non visivi incorporati nel file. Il contenuto in pixel dell\'immagine rimane identico.',
+        },
+        {
+          q: 'Perché dovrei rimuovere i metadati prima di condividere le foto?',
+          a: 'Le foto scattate con smartphone e fotocamere contengono dati nascosti come la tua posizione GPS esatta, il modello del dispositivo e l\'ora dello scatto. Rimuovere i metadati protegge la tua privacy quando condividi immagini sui social o con altre persone.',
+        },
+        {
+          q: 'Quali formati di immagine sono supportati?',
+          a: 'Puoi rimuovere i metadati da immagini JPG, PNG, WebP, HEIC e AVIF. Il formato di output rimane identico a quello di input.',
         },
       ],
     },

@@ -26,7 +26,7 @@ const ui: Record<Locale, UIStrings> = {
     heroTitle1: 'Convert Images Instantly',
     heroTitle2: 'Files Never Leave Your Device',
     heroSubtitle: 'Support HEIC, WebP, PNG, JPG, AVIF \u2014 instant convert, no upload',
-    allConverters: 'All Converters',
+    allConverters: 'All Tools',
     instantTitle: 'Instant Conversion',
     instantDesc:
       'Powered by WebAssembly for near-native performance. Convert hundreds of images in seconds.',
@@ -131,7 +131,7 @@ const ui: Record<Locale, UIStrings> = {
     heroTitle1: '\u5373\u65f6\u8f6c\u6362\u56fe\u7247',
     heroTitle2: '文件始终留在你的设备上',
     heroSubtitle: '支持 HEIC, WebP, PNG, JPG, AVIF \u2014 即时转换并优化体积，无需上传',
-    allConverters: '\u6240\u6709\u8f6c\u6362\u5668',
+    allConverters: '\u6240\u6709\u5de5\u5177',
     instantTitle: '\u5373\u65f6\u8f6c\u6362',
     instantDesc:
       '\u57fa\u4e8e WebAssembly \u6280\u672f\uff0c\u63a5\u8fd1\u539f\u751f\u6027\u80fd\u3002\u6570\u79d2\u5185\u8f6c\u6362\u6570\u767e\u5f20\u56fe\u7247\u3002',
@@ -237,7 +237,7 @@ const ui: Record<Locale, UIStrings> = {
     heroTitle1: '\u5373\u6642\u8f49\u63db\u5716\u7247',
     heroTitle2: '檔案始終留在你的裝置上',
     heroSubtitle: '支援 HEIC, WebP, PNG, JPG, AVIF \u2014 即時轉換並優化體積，無需上傳',
-    allConverters: '\u6240\u6709\u8f49\u63db\u5668',
+    allConverters: '\u6240\u6709\u5de5\u5177',
     instantTitle: '\u5373\u6642\u8f49\u63db',
     instantDesc:
       '\u57fa\u65bc WebAssembly \u6280\u8853\uff0c\u63a5\u8fd1\u539f\u751f\u6548\u80fd\u3002\u6578\u79d2\u5167\u8f49\u63db\u6578\u767e\u5f35\u5716\u7247\u3002',
@@ -343,7 +343,7 @@ const ui: Record<Locale, UIStrings> = {
     heroTitle1: 'Convierte im\u00e1genes al instante',
     heroTitle2: 'Tus archivos nunca salen de tu dispositivo',
     heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 conversi\u00f3n instant\u00e1nea, sin subir nada',
-    allConverters: 'Todos los conversores',
+    allConverters: 'Todas las herramientas',
     instantTitle: 'Conversi\u00f3n instant\u00e1nea',
     instantDesc:
       'Potenciado por WebAssembly con rendimiento casi nativo. Convierte cientos de im\u00e1genes en segundos.',
@@ -449,7 +449,7 @@ const ui: Record<Locale, UIStrings> = {
     heroTitle1: 'Convertissez vos images instantan\u00e9ment',
     heroTitle2: 'Vos fichiers ne quittent jamais votre appareil',
     heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 conversion instantan\u00e9e, rien n\u2019est envoy\u00e9',
-    allConverters: 'Tous les convertisseurs',
+    allConverters: 'Tous les outils',
     instantTitle: 'Conversion instantan\u00e9e',
     instantDesc:
       'Propuls\u00e9 par WebAssembly pour des performances quasi natives. Convertissez des centaines d\u2019images en quelques secondes.',
@@ -555,7 +555,7 @@ const ui: Record<Locale, UIStrings> = {
     heroTitle1: 'Bilder sofort konvertieren',
     heroTitle2: 'Dateien verlassen nie Ihr Ger\u00e4t',
     heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 sofort konvertieren, ohne Upload',
-    allConverters: 'Alle Konverter',
+    allConverters: 'Alle Werkzeuge',
     instantTitle: 'Sofortige Konvertierung',
     instantDesc:
       'Angetrieben durch WebAssembly f\u00fcr nahezu native Leistung. Hunderte Bilder in Sekunden konvertieren.',
@@ -670,7 +670,7 @@ const ui: Record<Locale, UIStrings> = {
     heroTitle2: 'ファイルはデバイスから出ません',
     heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 \u77ac\u6642\u306b\u5909\u63db\u3001\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u4e0d\u8981',
     allConverters:
-      '\u3059\u3079\u3066\u306e\u30b3\u30f3\u30d0\u30fc\u30bf\u30fc',
+      '\u3059\u3079\u3066\u306e\u30c4\u30fc\u30eb',
     instantTitle: '\u5373\u6642\u5909\u63db',
     instantDesc:
       'WebAssembly \u306b\u3088\u308b\u30cd\u30a4\u30c6\u30a3\u30d6\u306b\u8fd1\u3044\u6027\u80fd\u3002\u6570\u79d2\u3067\u6570\u767e\u679a\u306e\u753b\u50cf\u3092\u5909\u63db\u3002',
@@ -785,7 +785,7 @@ const ui: Record<Locale, UIStrings> = {
       '\uc774\ubbf8\uc9c0\ub97c \uc989\uc2dc \ubcc0\ud658',
     heroTitle2: '\ud30c\uc77c\uc774 \uae30\uae30\ub97c \ub5a0\ub098\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4',
     heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 \uc989\uc2dc \ubcc0\ud658, \uc5c5\ub85c\ub4dc \uc5c6\uc74c',
-    allConverters: '\ubaa8\ub4e0 \ubcc0\ud658\uae30',
+    allConverters: '\ubaa8\ub4e0 \ub3c4\uad6c',
     instantTitle: '\uc989\uc2dc \ubcc0\ud658',
     instantDesc:
       'WebAssembly \uae30\ubc18\uc758 \ub124\uc774\ud2f0\ube0c\uc5d0 \uac00\uae4c\uc6b4 \uc131\ub2a5. \uc218\ubc31 \uc7a5\uc758 \uc774\ubbf8\uc9c0\ub97c \uba87 \ucd08 \ub9cc\uc5d0 \ubcc0\ud658.',
@@ -891,7 +891,7 @@ const ui: Record<Locale, UIStrings> = {
     heroTitle1: 'Converta imagens instantaneamente',
     heroTitle2: 'Seus arquivos nunca saem do seu dispositivo',
     heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 convers\u00e3o instant\u00e2nea, sem envio',
-    allConverters: 'Todos os conversores',
+    allConverters: 'Todas as ferramentas',
     instantTitle: 'Convers\u00e3o instant\u00e2nea',
     instantDesc:
       'Impulsionado por WebAssembly com desempenho quase nativo. Converta centenas de imagens em segundos.',
@@ -1017,7 +1017,7 @@ const ui: Record<Locale, UIStrings> = {
     heroTitle2: 'Файлы никогда не покидают ваше устройство',
     heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 \u043c\u0433\u043d\u043e\u0432\u0435\u043d\u043d\u0430\u044f \u043a\u043e\u043d\u0432\u0435\u0440\u0442\u0430\u0446\u0438\u044f, \u0431\u0435\u0437 \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0438',
     allConverters:
-      '\u0412\u0441\u0435 \u043a\u043e\u043d\u0432\u0435\u0440\u0442\u0435\u0440\u044b',
+      '\u0412\u0441\u0435 \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u044b',
     instantTitle:
       '\u041c\u0433\u043d\u043e\u0432\u0435\u043d\u043d\u0430\u044f \u043a\u043e\u043d\u0432\u0435\u0440\u0442\u0430\u0446\u0438\u044f',
     instantDesc:
@@ -1148,7 +1148,7 @@ const ui: Record<Locale, UIStrings> = {
     heroTitle2: 'ملفاتك لا تغادر جهازك أبدًا',
     heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 \u062a\u062d\u0648\u064a\u0644 \u0641\u0648\u0631\u064a\u060c \u0628\u062f\u0648\u0646 \u0631\u0641\u0639',
     allConverters:
-      '\u062c\u0645\u064a\u0639 \u0627\u0644\u0645\u062d\u0648\u0651\u0644\u0627\u062a',
+      '\u062c\u0645\u064a\u0639 \u0627\u0644\u0623\u062f\u0648\u0627\u062a',
     instantTitle:
       '\u062a\u062d\u0648\u064a\u0644 \u0641\u0648\u0631\u064a',
     instantDesc:
@@ -1259,7 +1259,7 @@ const ui: Record<Locale, UIStrings> = {
     heroTitle1: 'Converti le immagini istantaneamente',
     heroTitle2: 'I file non lasciano mai il tuo dispositivo',
     heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 conversione istantanea, senza caricare nulla',
-    allConverters: 'Tutti i convertitori',
+    allConverters: 'Tutti gli strumenti',
     instantTitle: 'Conversione istantanea',
     instantDesc:
       'Basato su WebAssembly per prestazioni quasi native. Converti centinaia di immagini in pochi secondi.',
