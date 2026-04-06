@@ -1179,3 +1179,104 @@ PicShift 的差异化优势：
 2. **AI 生成的文案需要人工精修** — AI 出初稿，但场景词、长尾词、可读性必须人工逐句调
 3. **OnPage SEO 的 ROI 最高** — 不花钱，不依赖第三方，完全自己可控，效果持久
 4. **PicShift 的验证** — 我们的排名从 75 → 64，曝光从 500 → 1730，路径完全一致
+
+### 2026-04-06 迭代记录
+
+#### GSC 数据复盘（第 4 周）
+
+| 指标 | 上周 | 本周 | 变化 |
+|---|---|---|---|
+| 日均曝光 | 247 | 354 | +43% |
+| 平均排名 | 64.2 | 58.7 | -5.5（改善） |
+| 总点击 | 3 | 4 | +1 |
+| Query 数量 | — | 587 | — |
+| 国家覆盖 | — | 88 个 | — |
+
+关键发现：
+- 巴西占全站 35% 曝光（875 次），是最大市场，但 0 点击
+- 日本首次产生点击（1 次），141 次曝光
+- metadata-remover 上线 1 周即被索引，7 个语言版本有曝光
+- `/ru/heif-to-jpg` 排名 10.3，`/ja/png-to-avif` 排名 8.7 — 蓝海词已进前 11
+- 长尾词竞争力验证：AVIF 平均排名 51，HEIC/HEIF 57，WebP 63，PNG↔JPG 69，Resize/Compress 76
+
+#### 本次完成的优化
+
+**新功能：metadata-remover 产品体验重做**
+- 独立 MetadataRemoverTool 组件，不复用 Converter
+- 拖入即扫描 → 展示所有元数据（GPS 红色高亮）→ 一键清除 → 下载
+- 元数据最多的文件默认展开，无元数据的不展开
+- 支持拖拽、点击、粘贴（Ctrl+V）
+- 12 语言 UI 字符串 + 12 语言工具页翻译全部补齐
+- 首页工具卡片加盾牌图标，排在 image-compressor 之后
+- ZIP 文件名与 Converter 统一（picshift-cleaned-{ts}.zip）
+- Umami 埋点：metadata_scan / metadata_clean / metadata_download / metadata_clear
+
+**3 篇新 blog 文章**
+1. "What Is EXIF Data and Why You Should Remove It"（1242 词，4 个真实隐私泄露案例，John McAfee/CabinCr3w/McKayla Maroney）
+2. "HEIC/HEIF on Windows: Why iPhone Photos Won't Open"（1082 词，含 Windows 报错真实截图）
+3. "Does Instagram/WhatsApp/Discord Remove EXIF Data?"（985 词，8 平台逐个验证，Discord JPEG vs PNG 区分）
+
+文章内容经过事实核查：Discord 2023 年开始清除 JPEG EXIF（PNG 仍保留）、Telegram "send as file" 保留全部元数据、Slack 2020 年起只清 GPS 保留设备型号。
+
+3 篇文章形成两个内容集群：
+- 隐私集群：第 1 篇 ↔ 第 3 篇互相内链 → `/metadata-remover`
+- HEIC 集群：第 2 篇 → `/heic-to-jpg`、`/heic-to-png`、`/heif-to-webp`
+
+**SEO 内容深化**
+- 巴西（PT）：`/pt/image-resizer` 和 `/pt/png-to-jpg` — 加 searchIntentSections + FAQ 扩展 + 口语化精修
+- 日本（JA）：4 个高曝光页面加 searchIntentSections（heic-to-jpg/heic-to-png/image-resizer/png-to-avif）+ png-to-avif 完整日语翻译
+- 英文：`/png-to-avif` 从 2 FAQ 扩展到 5 FAQ + 3 searchIntentSections
+- 英文：`/metadata-remover` 内容植入 Google Trends 高增长 query（exif metadata +190%, metadata cleaner +60%, remove metadata online +7%）
+- "所有转换器" → "所有工具"（12 语言）
+
+**技术修复**
+- PWA precache 大小限制从 2MB 提高到 5MB（exifr 库导致 bundle 变大）
+- Blog 列表布局改为左图右文紧凑版
+- 对比度修复（metadata-remover 组件低透明度文字）
+- Blog 内链点击追踪（blog_link_click 事件）
+- llms.txt 时间戳更新到 4/6 + 3 篇新 blog 加入 Key pages
+
+**社交推广**
+- LinkedIn 发帖推广 PicShift（OG 卡片正常展示）
+- Reddit r/privacy 准备发帖（纯知识分享，无链接，TIL 角度）
+- Reddit r/buildinpublic 准备发帖（公开数据 + 踩坑经验）
+
+#### 下次复盘（4 月 13 日）重点观察
+
+**1. metadata-remover 表现**
+- 12 个语言版本的索引状态（上周已有 7 个被索引）
+- 曝光是否从 30 继续增长
+- `remove exif`、`metadata cleaner`、`exif remover` 等 query 的排名变化
+- Umami 埋点数据：scan → clean → download 漏斗转化率
+
+**2. 3 篇新 blog 索引情况**
+- `/blog/what-is-exif-data/` — 是否被索引？"what is exif" 类 query 出现了吗
+- `/blog/heic-heif-on-windows/` — 承接到 "heic windows" 类 query 了吗
+- `/blog/social-media-exif-stripping/` — "discord exif"、"telegram metadata" 类 query 出现了吗
+- blog_link_click 事件：哪篇文章的工具内链被点击最多
+
+**3. 巴西市场（本次重点优化）**
+- `/pt/image-resizer` 排名是否从 78 改善
+- `/pt/png-to-jpg` 排名是否从 69 改善
+- 巴西总曝光是否从 875 继续增长
+- 是否产生巴西第一次点击
+
+**4. 日本市场（本次重点优化）**
+- `/ja/heic-to-jpg` 排名是否从 69 改善
+- `/ja/png-to-avif` 排名是否守住前 10（当前 8.7）
+- `/ja/image-resizer` 排名是否从 65 改善
+- 日语 query 总量是否增长
+
+**5. 英文 png-to-avif（本次加深）**
+- 排名是否从 48 改善（Tier B 向 Tier A 推进）
+
+**6. 整体趋势**
+- 平均排名是否继续从 58 往下走
+- 日均曝光是否突破 500 稳定线
+- 是否产生更多点击
+- Reddit 帖子是否产生引荐流量（Umami referrer）
+
+**不做的事**
+- 不改 Tier A 已在前 30 的页面
+- 不急着写更多 blog — 先看这 3 篇的数据反馈
+- 不急着加新功能 — metadata-remover 产品体验优化优先
