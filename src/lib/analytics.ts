@@ -129,3 +129,31 @@ export function trackPwaInstall(): void {
 export function trackToolCardClick(slug: string): void {
   track('tool_card_click', { slug });
 }
+
+// ---------------------------------------------------------------------------
+// 13. metadata_scan — user drops files into metadata remover
+// ---------------------------------------------------------------------------
+export function trackMetadataScan(fileCount: number, totalFields: number, sensitiveFields: number): void {
+  track('metadata_scan', { files: fileCount, fields: totalFields, sensitive: sensitiveFields });
+}
+
+// ---------------------------------------------------------------------------
+// 14. metadata_clean — user clicks "Remove all metadata & download"
+// ---------------------------------------------------------------------------
+export function trackMetadataClean(fileCount: number, totalFields: number): void {
+  track('metadata_clean', { files: fileCount, fields: totalFields });
+}
+
+// ---------------------------------------------------------------------------
+// 15. metadata_download — user downloads cleaned files
+// ---------------------------------------------------------------------------
+export function trackMetadataDownload(fileCount: number, format: 'single' | 'zip'): void {
+  track('metadata_download', { files: fileCount, format });
+}
+
+// ---------------------------------------------------------------------------
+// 16. metadata_clear — user clicks "Clear all" in metadata remover
+// ---------------------------------------------------------------------------
+export function trackMetadataClear(fileCount: number): void {
+  track('metadata_clear', { files: fileCount });
+}

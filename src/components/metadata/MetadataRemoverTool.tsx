@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import type { Locale } from '../../i18n/config';
+import { trackMetadataScan, trackMetadataClean, trackMetadataDownload, trackMetadataClear } from '../../lib/analytics';
 
 const UI: Record<string, Record<string, string>> = {
   en: {
@@ -540,6 +541,9 @@ export default function MetadataRemoverTool({ lang = 'en' }: { lang?: Locale }) 
         if (f.totalCount > maxCount) { maxCount = f.totalCount; maxIdx = idx; }
       });
       setExpandedIdx(maxCount > 0 ? maxIdx : null);
+      const totalFields = prev.reduce((s, f) => s + f.totalCount, 0);
+      const sensitiveFields = prev.reduce((s, f) => s + f.highCount, 0);
+      trackMetadataScan(prev.length, totalFields, sensitiveFields);
       return prev;
     });
   }, [files.length]);
@@ -583,6 +587,8 @@ export default function MetadataRemoverTool({ lang = 'en' }: { lang?: Locale }) 
 
   const handleCleanAll = useCallback(async () => {
     setCleaning(true);
+    const totalFields = files.reduce((s, f) => s + f.totalCount, 0);
+    trackMetadataClean(files.length, totalFields);
     const updatedFiles = [...files];
 
     for (let i = 0; i < updatedFiles.length; i++) {
@@ -606,6 +612,7 @@ export default function MetadataRemoverTool({ lang = 'en' }: { lang?: Locale }) 
   const handleDownloadAll = useCallback(async () => {
     const cleaned = files.filter((f) => f.cleanedBlob);
     if (cleaned.length === 0) return;
+    trackMetadataDownload(cleaned.length, cleaned.length === 1 ? 'single' : 'zip');
 
     if (cleaned.length === 1) {
       const f = cleaned[0];
@@ -640,10 +647,11 @@ export default function MetadataRemoverTool({ lang = 'en' }: { lang?: Locale }) 
   }, [files]);
 
   const handleClear = useCallback(() => {
+    trackMetadataClear(files.length);
     setFiles([]);
     setExpandedIdx(null);
     setAllDone(false);
-  }, []);
+  }, [files.length]);
 
   const hasFiles = files.length > 0;
   const scannedCount = files.filter((f) => f.status === 'scanned' || f.status === 'done').length;
