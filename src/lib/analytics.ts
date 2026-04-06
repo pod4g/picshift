@@ -157,3 +157,10 @@ export function trackMetadataDownload(fileCount: number, format: 'single' | 'zip
 export function trackMetadataClear(fileCount: number): void {
   track('metadata_clear', { files: fileCount });
 }
+
+// ---------------------------------------------------------------------------
+// 17. blog_link_click — user clicks an internal link from a blog post
+// ---------------------------------------------------------------------------
+export function trackBlogLinkClick(from: string, to: string): void {
+  track('blog_link_click', { from, to });
+}

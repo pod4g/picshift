@@ -798,27 +798,53 @@ export const TOOL_PAGES: ToolPageConfig[] = [
   },
   {
     slug: 'png-to-avif',
-    title: 'PNG to AVIF Converter for Smaller Transparent Images | PicShift',
+    title: 'PNG to AVIF Converter — Smaller Files, Transparency Kept | PicShift',
     description:
-      'Convert PNG images to AVIF to keep transparency while reducing transfer size.',
+      'Convert PNG to AVIF and cut file size by 50-70% while keeping transparency. Runs locally in your browser — your images stay on your device.',
     defaultInputFormat: 'png',
     defaultOutputFormat: 'avif',
     h1: 'Convert PNG to AVIF',
     introText:
-      'Convert PNG images to AVIF to reduce file size while keeping transparency support in modern clients.',
+      'PNG files are lossless and large. AVIF compresses them down to a fraction of the size — often 50-70% smaller — while keeping transparency intact. If the image is going on a website, this is one of the biggest performance wins available.',
     howToSteps: [
       'Drag and drop your PNG files into the box above, or click to browse.',
-      'Files are converted to AVIF instantly in your browser.',
-      'Download each file or use Download All for batch output.',
+      'Adjust quality — 80 gives a good balance between size and sharpness.',
+      'Download the AVIF files individually or as a ZIP.',
     ],
     faqs: [
       {
-        q: 'Does AVIF support transparency?',
-        a: 'Yes. AVIF supports alpha transparency, so transparent regions from PNG remain transparent.',
+        q: 'Does AVIF support transparency like PNG?',
+        a: 'Yes. AVIF supports full alpha transparency. Transparent backgrounds, logos, and icons convert without losing their transparent regions.',
       },
       {
-        q: 'Why choose AVIF over PNG?',
-        a: 'AVIF delivers smaller files than PNG in web delivery workflows while preserving transparency.',
+        q: 'How much smaller is AVIF compared to PNG?',
+        a: 'It depends on the image, but photos typically shrink 50-70%. Graphics with flat colors and sharp edges see 30-50% reduction. The savings are significant either way.',
+      },
+      {
+        q: 'Which browsers support AVIF?',
+        a: 'Chrome, Firefox, and Safari (since version 16.4) all support AVIF. Global browser coverage is above 90% in 2026. For older browsers, serve a JPG or WebP fallback.',
+      },
+      {
+        q: 'When should I keep PNG instead of converting to AVIF?',
+        a: 'Keep PNG when you need to edit the image further (AVIF re-encoding adds loss), when the target app does not support AVIF, or when pixel-perfect accuracy matters more than file size.',
+      },
+      {
+        q: 'Is AVIF better than WebP for transparent images?',
+        a: 'AVIF compresses more aggressively than WebP at the same visual quality. If your platform supports AVIF, it is the better choice for transparent web images. WebP is the safer fallback when broader compatibility matters.',
+      },
+    ],
+    searchIntentSections: [
+      {
+        title: 'Why PNG to AVIF is the biggest size win for web images',
+        body: 'PNG stores every pixel losslessly, which is great for editing but expensive for delivery. A 2 MB PNG icon can become 200 KB in AVIF with no visible difference. For sites that serve lots of transparent assets — logos, UI elements, product shots on white backgrounds — converting PNG to AVIF can cut total page weight dramatically.',
+      },
+      {
+        title: 'When AVIF is not the right target',
+        body: 'AVIF is a delivery format, not a working format. If you plan to edit, annotate, or re-export the image, keep the PNG original and only convert to AVIF for the final published version. Also avoid AVIF when your CMS, email client, or design tool does not support it yet.',
+      },
+      {
+        title: 'How to serve AVIF with a fallback',
+        body: 'The standard approach is the HTML picture element: serve AVIF to browsers that support it, and fall back to WebP or PNG for the rest. This way you get the smallest possible file for most visitors without breaking anything for the minority on older browsers.',
       },
     ],
   },
