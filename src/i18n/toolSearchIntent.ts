@@ -91,6 +91,34 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
         body: 'Converter AVIF para JPG resolve bloqueios de suporte, mas o arquivo final pode ficar maior. Essa troca normalmente vale a pena quando usabilidade importa mais do que eficiência máxima de compressão.',
       },
     ],
+    'image-resizer': [
+      {
+        title: 'Quando redimensionar é a solução certa',
+        body: 'Se a imagem é maior do que o espaço que vai ocupar — no site, no e-commerce, no formulário ou na rede social — redimensionar resolve diretamente o problema. É o ajuste mais rápido para imagens de produto, banners, capturas de tela e fotos de perfil.',
+      },
+      {
+        title: 'Dimensões exatas vs. presets rápidos',
+        body: 'Use dimensões exatas quando o CMS, marketplace ou editor de conteúdo exige um tamanho específico (ex: 1080×1080 para Instagram). Use presets como Máx 1920px ou 50% quando só precisa reduzir sem meta fixa.',
+      },
+      {
+        title: 'Quando redimensionar sozinho não basta',
+        body: 'Se a imagem ainda fica pesada depois de redimensionar, combine com conversão de formato ou compressão. O maior ganho costuma vir de reduzir tanto as dimensões quanto o formato ao mesmo tempo — de PNG 4000px para JPG 1200px, por exemplo.',
+      },
+    ],
+    'png-to-jpg': [
+      {
+        title: 'Por que converter PNG para JPG',
+        body: 'Na maioria dos casos, é porque o arquivo PNG está grande demais. Uma captura de tela de 3 MB ou uma exportação de design de 5 MB vira 500 KB em JPG com qualidade 80-85, sem diferença visível. É a conversão mais comum quando o objetivo é reduzir tamanho para upload, e-mail ou página web.',
+      },
+      {
+        title: 'O que acontece com a transparência',
+        body: 'JPG não suporta transparência. Áreas transparentes no PNG viram fundo branco no JPG. Se a imagem precisa de transparência, mantenha como PNG ou converta para WebP.',
+      },
+      {
+        title: 'Quando manter PNG é a melhor escolha',
+        body: 'Mantenha PNG quando a imagem vai ser editada novamente, precisa de transparência, ou será usada como arquivo de referência. Para capturas de tela com texto nítido e poucas cores, PNG pode até ser competitivo em tamanho.',
+      },
+    ],
   },
   fr: {
     'webp-to-jpg': [

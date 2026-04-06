@@ -209,21 +209,37 @@ const pt: PageTranslations = {
     },
     'png-to-jpg': {
       title:
-        'Conversor de PNG para JPG - Gratuito, Privado, Sem Upload | PicShift',
+        'Converter PNG para JPG Online — Gratuito, Privado, Sem Upload | PicShift',
       description:
-        'Converta imagens PNG para o formato JPG no seu navegador. Reduza o tamanho do arquivo mantendo \u00f3tima qualidade.',
+        'Converta imagens PNG para JPG no navegador. Reduza o tamanho do arquivo de capturas de tela e exportações sem perder qualidade visível. 100% local, sem upload.',
       h1: 'Converter PNG para JPG',
       introText:
-        'Converta imagens PNG para JPG para reduzir o tamanho do arquivo. \u00d3timo para fotos salvas como PNG que n\u00e3o precisam de transpar\u00eancia.',
+        'Converta PNG para JPG para reduzir arquivos pesados. Capturas de tela, exportações de design e fotos salvas como PNG costumam ficar 3-5x menores em JPG com qualidade 80-85, sem diferença visível. Tudo roda no seu navegador — nenhum arquivo é enviado a servidores.',
       howToSteps: [
-        'Arraste e solte seus arquivos PNG na caixa acima ou clique para procurar.',
-        'Os arquivos s\u00e3o convertidos para JPG instantaneamente no seu navegador.',
-        'Ajuste o controle de qualidade para equilibrar tamanho e qualidade.',
+        'Arraste seus arquivos PNG para a área acima, ou clique para selecionar.',
+        'Ajuste a qualidade — 80 a 85 é o equilíbrio ideal entre tamanho e qualidade.',
+        'Baixe as imagens JPG convertidas.',
       ],
       faqs: [
         {
-          q: 'Vou perder a transpar\u00eancia?',
-          a: 'Sim. O JPG n\u00e3o suporta transpar\u00eancia. Quaisquer \u00e1reas transparentes no seu PNG se tornar\u00e3o brancas. Se voc\u00ea precisa de transpar\u00eancia, mantenha sua imagem como PNG ou converta para WebP.',
+          q: 'Vou perder a transparência ao converter PNG para JPG?',
+          a: 'Sim. JPG não suporta transparência. Áreas transparentes viram fundo branco. Se precisa de transparência, mantenha PNG ou converta para WebP.',
+        },
+        {
+          q: 'Qual qualidade usar para converter PNG para JPG?',
+          a: 'Para a maioria dos casos, qualidade 80-85 reduz o tamanho em 40-60% sem diferença visível. Abaixo de 70, artefatos podem começar a aparecer em detalhes finos.',
+        },
+        {
+          q: 'Converter PNG para JPG reduz a qualidade da imagem?',
+          a: 'JPG é um formato com compressão lossy, então alguma informação é descartada. Com qualidade 80+, a diferença é imperceptível para fotos e capturas de tela. Use o modo de comparação para verificar antes de baixar.',
+        },
+        {
+          q: 'Posso converter vários arquivos PNG de uma vez?',
+          a: 'Sim. Arraste até 200 arquivos PNG de uma vez. Todos são convertidos em lote no seu navegador.',
+        },
+        {
+          q: 'PNG para JPG ou PNG para WebP — qual é melhor?',
+          a: 'Para compatibilidade máxima (e-mail, formulários, apps antigos), JPG. Para sites modernos com menor tamanho, WebP. JPG abre em qualquer lugar; WebP é 25-34% menor mas nem todos os contextos aceitam.',
         },
       ],
     },
@@ -320,19 +336,21 @@ const pt: PageTranslations = {
       ],
     },
     'image-resizer': {
-      title: 'Redimensionar Imagens - Gratuito e Privado | PicShift',
-      description: 'Redimensione imagens no seu navegador. Tamanhos predefinidos ou dimensões personalizadas. 100% privado, sem upload.',
+      title: 'Redimensionar Imagens Online — Gratuito, Sem Upload | PicShift',
+      description: 'Redimensione imagens no navegador com presets ou dimensões exatas. Ideal para sites, e-commerce, redes sociais e documentos. 100% privado, sem enviar arquivos.',
       h1: 'Redimensionar Imagens',
-      introText: 'Redimensione suas imagens para dimensões exatas ou presets comuns. Tudo acontece no seu navegador — suas imagens nunca saem do seu dispositivo.',
+      introText: 'Ajuste as dimensões das suas imagens para sites, lojas online, redes sociais ou documentos. Use presets rápidos (1920px, 1080px, 50%) ou insira largura e altura exatas. Tudo roda localmente no navegador — suas imagens nunca são enviadas a nenhum servidor.',
       howToSteps: [
-        'Arraste suas imagens para a área acima, ou clique para procurar.',
-        'Escolha um tamanho predefinido ou insira dimensões personalizadas.',
+        'Arraste suas imagens para a área acima, ou clique para selecionar.',
+        'Escolha um preset de tamanho ou insira dimensões personalizadas.',
         'Escolha o formato de saída e a qualidade, depois baixe.',
       ],
       faqs: [
-        { q: 'Quais presets de tamanho estão disponíveis?', a: 'O PicShift oferece Máx 1920px (lado longo), Máx 1080px, escala 50% e um modo Personalizado para dimensões exatas em pixels ou porcentagem.' },
-        { q: 'Redimensionar reduz a qualidade da imagem?', a: 'A redução de escala usa reamostragem de alta qualidade. Você também pode ajustar o controle de qualidade para controlar a compressão.' },
-        { q: 'Posso redimensionar e converter o formato ao mesmo tempo?', a: 'Sim. Você pode alterar o formato de saída (JPG, PNG, WebP, AVIF) e as dimensões em uma única etapa.' },
+        { q: 'Como redimensionar uma imagem para dimensões exatas?', a: 'Use o modo Personalizado para inserir largura e altura em pixels. Se preferir, use presets como Máx 1920px, Máx 1080px, 75% ou 50% para reduzir rapidamente.' },
+        { q: 'Redimensionar reduz a qualidade da imagem?', a: 'A redução de escala usa reamostragem de alta qualidade, então diminuir dimensões é seguro. Perda visível de qualidade costuma vir da compressão forte, que você controla separadamente com o slider de qualidade.' },
+        { q: 'Posso redimensionar e converter o formato ao mesmo tempo?', a: 'Sim. Você pode alterar dimensões e formato de saída (JPG, PNG, WebP, AVIF) em uma única etapa.' },
+        { q: 'Posso redimensionar imagens para redes sociais?', a: 'Sim. Use dimensões personalizadas para Instagram (1080×1080), Facebook (1200×630), LinkedIn (1200×627) ou qualquer outro tamanho que a plataforma exigir.' },
+        { q: 'Preciso fazer upload das minhas imagens?', a: 'Não. O PicShift redimensiona tudo localmente no seu navegador. Seus arquivos nunca são enviados a nenhum servidor.' },
       ],
     },
     'image-compressor': {
