@@ -5,10 +5,10 @@ Image conversion and compression run locally in the browser runtime.
 PicShift does not upload source image binaries to servers for conversion processing.
 
 ## Last updated
-- 2026-03-29
+- 2026-04-06
 
 ## Version
-- 2026-03-29.1
+- 2026-04-06.1
 - Profile: full
 
 ## Lifecycle
@@ -123,6 +123,9 @@ Evidence:
 - https://picshift.app/docs/size-increase-explainer
 - https://picshift.app/blog
 - https://picshift.app/blog/png-vs-jpg
+- https://picshift.app/blog/what-is-exif-data
+- https://picshift.app/blog/heic-heif-on-windows
+- https://picshift.app/blog/social-media-exif-stripping
 - https://picshift.app/metadata-remover
 - https://picshift.app/image-compressor
 - https://picshift.app/image-resizer
