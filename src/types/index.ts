@@ -58,6 +58,11 @@ export interface ToolPageConfig {
   howToSteps: string[];
   faqs: Array<{ q: string; a: string }>;
   searchIntentSections?: Array<{ title: string; body: string }>;
+  detailSections?: Array<{
+    title: string;
+    body: string;
+    items?: string[];
+  }>;
 }
 
 export interface ToolIntentSection {

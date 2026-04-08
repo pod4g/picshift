@@ -7,7 +7,7 @@ import { getVerificationUi } from '../../i18n/verificationUi';
 
 const lang = 'en' as const;
 const title = 'How PicShift Handles Privacy and Local Processing';
-const description = 'Learn how PicShift processes images locally in your browser, what data is used, and what never leaves your device.';
+const description = 'Learn how PicShift processes images on your device, what ordinary website data we do see, and what image content never reaches our server.';
 const canonical = 'https://picshift.app/docs/privacy-local-processing';
 const pagePath = '/docs/privacy-local-processing';
 const datePublished = DOCS_DATE_PUBLISHED;
@@ -52,15 +52,15 @@ const breadcrumbSchema = {
 const faqs = [
   {
     q: 'Are images uploaded to PicShift servers for conversion?',
-    a: 'No. PicShift runs conversion inside your browser and does not upload source image content to PicShift servers for conversion processing.',
+    a: 'No. PicShift runs conversion inside your browser, and no image is uploaded to our server for conversion, compression, resizing, or metadata removal.',
   },
   {
-    q: 'Where are my converted files stored?',
-    a: 'Converted files are generated in your browser and saved only to the location you choose on your device when you download them.',
+    q: 'Does PicShift store my original or converted images?',
+    a: 'No. PicShift does not keep server-side copies of either the original image or the converted result. Files are created locally and only end up wherever you choose to save them on your own device.',
   },
   {
-    q: 'Does PicShift need an account to process files?',
-    a: 'No. Core conversion workflows run without account sign-in.',
+    q: 'Do analytics providers receive my image files?',
+    a: 'No. Services such as Cloudflare Web Analytics and Umami may process ordinary website traffic records, but they do not receive your image content for processing.',
   },
 ];
 const faqSchema = {
@@ -93,8 +93,8 @@ const faqSchema = {
         How PicShift Handles Privacy and Local Processing
       </h1>
       <p class="text-base sm:text-lg text-text-secondary mb-8">
-        PicShift is built with a local-only architecture. Image conversion and compression run in your browser,
-        so your files stay on your device during normal usage.
+        PicShift processes images on your device, not on our server. This page explains what happens to your files,
+        what ordinary website data we do see, and what image content never reaches us.
       </p>
 
       <section class="mb-8">
@@ -102,33 +102,34 @@ const faqSchema = {
         <ul class="list-disc pl-5 space-y-2 text-text-secondary">
           <li>Selected images are read by your browser and processed in local browser memory.</li>
           <li>Converted files are generated locally and returned to you as downloadable files.</li>
-          <li>PicShift does not require account sign-in to convert images.</li>
+          <li>PicShift does not require registration or sign-in to use the tools.</li>
         </ul>
       </section>
 
       <section class="mb-8">
         <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">What does not leave your device</h2>
         <ul class="list-disc pl-5 space-y-2 text-text-secondary">
-          <li>Original image content is not uploaded to PicShift servers for conversion.</li>
-          <li>Converted image binaries are not stored on PicShift servers.</li>
-          <li>No cloud storage account is required for core conversion workflows.</li>
+          <li>Original image content is not uploaded to PicShift servers for processing.</li>
+          <li>Converted image files are not uploaded or stored on PicShift servers.</li>
+          <li>No cloud storage account is required to use PicShift.</li>
         </ul>
       </section>
 
       <section class="mb-8">
         <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Local settings and analytics</h2>
         <ul class="list-disc pl-5 space-y-2 text-text-secondary">
-          <li>UI preferences (such as theme, language, and quality defaults) are stored in browser localStorage.</li>
-          <li>When enabled, privacy-friendly analytics collects usage events without needing image uploads.</li>
-          <li>If analytics are enabled, they are used for product improvement, not file content processing.</li>
+          <li>Small interface preferences such as theme, language, and default quality may be stored in browser localStorage.</li>
+          <li>PicShift also sees ordinary website traffic records such as page URL, referrer, approximate country, browser type, and whether a button or internal link was clicked.</li>
+          <li>Under the current setup, both Umami and Cloudflare Web Analytics retain analytics data for 6 months.</li>
         </ul>
       </section>
 
       <section class="mb-8">
         <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Security and trust model</h2>
         <p class="text-text-secondary">
-          PicShift follows a minimize-data approach: process locally, avoid unnecessary account requirements, and keep
-          user workflows simple. For legal details and policy language, see the Privacy page.
+          PicShift keeps the privacy model simple on purpose: image processing stays on the device, no account is needed,
+          and analytics stay at the ordinary website-traffic level. If you want the full policy language, see the
+          <a href="/privacy" class="text-primary-500 hover:underline">Privacy Policy</a>.
         </p>
       </section>
 

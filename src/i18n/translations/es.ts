@@ -8,55 +8,73 @@ const es: PageTranslations = {
       'Convierte imágenes al instante en tu navegador, sin subir archivos. De HEIC a JPG, de WebP a PNG, AVIF y más. 100% privado, funciona sin conexión. Gratis, sin límites y sin registro.',
   },
   privacy: {
-    title: 'Politica de Privacidad | PicShift',
+    title: 'Política de privacidad | PicShift',
     description:
-      'Politica de privacidad de PicShift. Todo el procesamiento de imagenes ocurre en tu dispositivo. No se suben archivos ni se recopilan datos personales.',
+      'Así tratamos tu privacidad en PicShift: convertir, comprimir, cambiar el tamaño o limpiar metadatos pasa en tu equipo; no subimos fotos para procesarlas. Abajo detallamos qué registros genera la web y qué se queda fuera.',
     sections: [
       {
-        heading: 'En pocas palabras',
+        heading: 'Versión breve',
         content:
-          'Tus imagenes se quedan en tu dispositivo, siempre. PicShift convierte imagenes directamente en tu navegador. Nada se sube a internet. Nosotros no vemos, ni almacenamos, ni tenemos acceso a tus fotos.',
+          'PicShift trabaja las imágenes en tu propio dispositivo. Conversión, compresión, redimensionar o quitar metadatos: nada de eso se envía a nuestros servidores. No hace falta registrarse ni iniciar sesión.',
       },
       {
-        heading: 'Como funciona',
+        heading: 'Qué pasa con tus imágenes',
         content:
-          'Cuando conviertes una imagen con PicShift, todo ocurre en tu propio dispositivo. Tus archivos nunca se envian a ningun servidor. De hecho, puedes desconectarte de internet y PicShift seguira funcionando perfectamente — asi de local es.',
+          'Cuando eliges un archivo, el navegador lo mete en memoria, usa códecs y módulos WebAssembly ahí dentro y te deja descargar el resultado en el mismo sitio. No existe el circuito “subir al servidor, procesar allí y bajar de nuevo”, así que no almacenamos ni el original ni el archivo final.',
       },
       {
-        heading: 'Que registramos',
+        heading: 'Qué no recogemos',
+        content: 'No nos llevamos el contenido de tus imágenes. En la práctica:',
+        items: ['No subimos imágenes ni antes ni después del procesamiento'],
+      },
+      {
+        heading: 'Qué sí vemos',
         content:
-          'Contamos cosas basicas como cuantas personas visitan PicShift para poder mejorarlo. Eso es todo:',
+          'Igual que cualquier sitio abierto en internet, vemos trazas de visita: qué URL se abrió, de dónde venías, país o región aproximados, tipo de dispositivo, navegador y si alguien pulsó un botón o enlace interno. Con eso afinamos el producto: páginas que sirven, herramientas que la gente termina, artículos que acercan al producto y sitios donde falta idioma o velocidad. Lo que debes quedarte: en esos registros no va la foto ni el archivo gráfico.',
+      },
+      {
+        heading: 'Analítica y servicios de terceros',
+        content:
+          'Para que la página cargue con fiabilidad y entender cómo se usa el sitio, recurrimos a pocos proveedores de infraestructura y estadísticas:',
         items: [
-          'No usamos cookies',
-          'No sabemos quien eres',
-          'No podemos ver que imagenes conviertes',
-          'No te rastreamos entre sitios web',
+          'Cloudflare: aloja los estáticos, reparte por CDN y aporta Cloudflare Web Analytics',
+          'Umami: estadísticas web pensadas para no ir a lo bestia con la privacidad',
+          'Manejan datos típicos de peticiones web; no reciben tus imágenes',
+          'Con la configuración actual, tanto Umami como Cloudflare Web Analytics conservan los datos de analítica durante seis meses',
         ],
       },
       {
-        heading: 'Tus datos',
+        heading: 'Cookies y seguimiento',
         content:
-          'No hay cuentas, no hay registro, no se almacenan datos personales. Tus imagenes convertidas solo existen en tu dispositivo y desaparecen al cerrar o actualizar la pagina. No tenemos base de datos de usuarios ni archivos — porque no la necesitamos.',
+          'No vendemos espacio a redes de anuncios ni instalamos scripts que te persigan por otros dominios. La analítica va justa y al grano: comprobar que la web rinde, no montarte un perfil cruzado. Las fotos no entran en ningún perfil: no nos llegan para el procesamiento.',
       },
       {
-        heading: 'Sin anuncios, sin venta de datos',
+        heading: 'Preferencias locales en el navegador',
         content:
-          'PicShift no tiene anuncios y no vende datos. Los unicos servicios externos que usamos son:',
-        items: [
-          'Umami, una herramienta de analítica de código abierto — conteo anónimo de visitantes sin cookies ni seguimiento personal',
-        ],
+          'Podemos guardar en tu navegador cosas como idioma, tema o calidad por defecto para que no rehagas ajustes cada vez. Eso vive solo en tu navegador hasta que tú lo borres.',
       },
       {
-        heading: 'Cambios en esta politica',
+        heading: 'Tus derechos',
         content:
-          'Si actualizamos esta politica, actualizaremos esta pagina. Nuestra promesa principal nunca cambiara: tus imagenes se quedan en tu dispositivo y nunca se suben.',
+          'Según tu país, puedes pedir acceso, rectificación, borrado u oposición sobre datos personales. PicShift no tiene cuentas de usuario: no recibimos información que nos diga quién eres. Escríbenos y te contamos con claridad qué tenemos y qué no.',
+      },
+      {
+        heading: 'Estado del proyecto',
+        content:
+          'PicShift es ahora un proyecto independiente en picshift.app. Si cambia quien lo opera, el hosting o el marco legal y eso altera de verdad la privacidad, actualizamos esta página; no hacemos como si no hubiera pasado nada.',
+      },
+      {
+        heading: 'Cambios en esta política',
+        content:
+          'Si retocamos este texto, actualizamos la página y la fecha de “Última actualización”. La promesa sigue igual: las imágenes se procesan en tu dispositivo, no en nuestro servidor.',
       },
       {
         heading: 'Contacto',
-        content: 'Preguntas? Escribenos a privacy@picshift.app.',
+        content:
+          'Privacidad, correcciones o peticiones sobre datos: privacy@picshift.app.',
       },
     ],
-    lastUpdated: 'Ultima actualizacion: febrero de 2026',
+    lastUpdated: 'Última actualización: abril de 2026',
   },
   tools: {
     'heic-to-jpg': {
@@ -412,8 +430,32 @@ const es: PageTranslations = {
           a: 'Las fotos tomadas con móviles y cámaras contienen datos ocultos como tu ubicación GPS exacta, el modelo de dispositivo y la hora en que se tomó la foto. Eliminar los metadatos protege tu privacidad al compartir imágenes en redes sociales o con otras personas.',
         },
         {
+          q: '¿Por qué el JPG limpio pesa más que el HEIC o HEIF original?',
+          a: 'HEIC y HEIF están pensados para comprimir muy bien, así que el original suele ocupar mucho menos que un JPG típico. En el navegador, PicShift exporta HEIC/HEIF limpios como JPG porque aún no hay soporte fiable para descargarlos en el mismo formato. Que el JPG sea más grande es normal y no indica que la limpieza haya fallado. JPG, PNG, WebP y AVIF se descargan en el mismo formato de entrada. Si te importa más el tamaño que la máxima compatibilidad, conserva los HEIC/HEIF originales cuando puedas, o usa otro formato moderno que tus herramientas acepten (por ejemplo AVIF) si encaja en tu flujo.',
+        },
+        {
           q: '¿Qué formatos de imagen son compatibles?',
-          a: 'Puedes eliminar metadatos de imágenes JPG, PNG, WebP, HEIC y AVIF. El formato de salida se mantiene igual al de entrada.',
+          a: 'JPG, PNG, WebP, HEIC, HEIF y AVIF. JPG, PNG, WebP y AVIF se descargan en el mismo formato; los HEIC/HEIF limpios se entregan como JPG.',
+        },
+      ],
+      detailSections: [
+        {
+          title: 'Alcance y limites',
+          body: 'Esta herramienta elimina los metadatos incrustados en el archivo. No modifica los pixeles visibles de la imagen, asi que sirve para evitar fugas de informacion oculta, no para borrar contenido que ya se ve en pantalla.',
+          items: [
+            'Puede quitar GPS, modelo del dispositivo, fecha, hora y etiquetas de software, pero no borra caras, matriculas, marcas de agua ni texto que ya aparezca en la imagen.',
+            'JPG, PNG, WebP y AVIF se descargan en el mismo formato. Los HEIC y HEIF limpios se descargan como JPG porque el navegador todavia no puede escribirlos de vuelta como HEIC o HEIF.',
+            'Algunas apps y redes sociales eliminan parte de los metadatos al subir una imagen, pero ese comportamiento no es consistente y puede cambiar. Lo mas seguro es limpiar el archivo tu mismo antes de usarlo.',
+          ],
+        },
+        {
+          title: 'Como eliminar metadatos de una imagen',
+          body: 'El flujo es simple: revisa primero, limpia despues y luego usa la copia limpia cuando la necesites.',
+          items: [
+            'Arrastra la imagen a la herramienta y comprueba que informacion contiene realmente el archivo.',
+            'Si solo aparecen ancho, alto o espacio de color, veras 0 datos sensibles. Si incluye GPS, datos del dispositivo o marcas de tiempo, se marcara como sensible.',
+            'Descarga el archivo limpio y usa esa version cuando vayas a guardarlo, enviarlo, subirlo o conservar una copia.',
+          ],
         },
       ],
     },

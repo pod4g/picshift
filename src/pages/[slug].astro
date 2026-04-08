@@ -40,10 +40,14 @@ const toolPageUi = getToolPageUi(lang);
 const sizeIncreaseDocUrl = 'https://picshift.app/docs/size-increase-explainer';
 const faqs = [
   ...(toolTranslation?.faqs || tool.faqs),
-  {
-    q: t.sizeIncreaseFaqQ,
-    a: `${t.sizeIncreaseFaqA} Learn more: ${sizeIncreaseDocUrl}`,
-  },
+  ...(tool.slug === 'metadata-remover'
+    ? []
+    : [
+        {
+          q: t.sizeIncreaseFaqQ,
+          a: `${t.sizeIncreaseFaqA} Learn more: ${sizeIncreaseDocUrl}`,
+        },
+      ]),
 ];
 const fallbackRelatedToolSlugs = ['image-compressor', 'image-resizer', 'png-to-jpg', 'jpg-to-png'];
 
@@ -85,7 +89,10 @@ const relatedTools = pickRelatedTools(tool).map((relatedTool) => {
   };
 });
 const limitationItems = [toolPageUi.limitationFormat, toolPageUi.limitationSize, toolPageUi.limitationCompatibility];
+const detailSections = toolTranslation?.detailSections || tool.detailSections || [];
 const searchIntentSections = tool.searchIntentSections ?? [];
+const showGenericLimitations = tool.slug !== 'metadata-remover';
+const showHowTo = tool.slug !== 'metadata-remover';
 const relatedGuides = [
   {
     href: '/docs/format-compatibility',
@@ -216,6 +223,26 @@ const relatedToolsItemListSchema = {
         )}
       </div>
 
+      {detailSections.length > 0 && (
+        <section class="mb-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {detailSections.map((section) => (
+              <article class="rounded-xl border border-border bg-card-bg p-4 sm:p-5 shadow-sm">
+                <h2 class="text-lg sm:text-xl font-semibold text-text-primary mb-2">{section.title}</h2>
+                <p class="text-sm text-text-secondary leading-6 mb-3">{section.body}</p>
+                {section.items && section.items.length > 0 && (
+                  <ul class="list-disc pl-5 space-y-2 text-sm text-text-secondary">
+                    {section.items.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                )}
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
       {searchIntentSections.length > 0 && (
         <section class="mb-8">
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -229,17 +256,19 @@ const relatedToolsItemListSchema = {
         </section>
       )}
 
-      <section class="mb-8">
-        <div class="rounded-xl border border-border bg-card-bg p-4 sm:p-5">
-          <h2 class="text-lg sm:text-xl font-semibold text-text-primary mb-2">{toolPageUi.limitations}</h2>
-          <p class="text-sm text-text-secondary mb-3">{toolPageUi.limitationsIntro}</p>
-          <ul class="list-disc pl-5 space-y-2 text-sm text-text-secondary">
-            {limitationItems.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {showGenericLimitations && (
+        <section class="mb-8">
+          <div class="rounded-xl border border-border bg-card-bg p-4 sm:p-5">
+            <h2 class="text-lg sm:text-xl font-semibold text-text-primary mb-2">{toolPageUi.limitations}</h2>
+            <p class="text-sm text-text-secondary mb-3">{toolPageUi.limitationsIntro}</p>
+            <ul class="list-disc pl-5 space-y-2 text-sm text-text-secondary">
+              {limitationItems.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
 
       <section class="mb-8">
         <div class="rounded-xl border border-border bg-card-bg p-4 sm:p-5">
@@ -274,7 +303,7 @@ const relatedToolsItemListSchema = {
       </section>
 
       <!-- How-to section -->
-      <HowTo steps={howToSteps} toolName={h1} lang={lang} />
+      {showHowTo && <HowTo steps={howToSteps} toolName={h1} lang={lang} />}
 
       <script type="application/ld+json" set:html={JSON.stringify(softwareApplicationSchema)} />
       <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

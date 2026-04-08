@@ -8,55 +8,75 @@ const fr: PageTranslations = {
       "Convertissez vos images instantanément dans votre navigateur, sans téléchargement. HEIC en JPG, WebP en PNG, AVIF et plus. 100% privé, fonctionne hors ligne. Gratuit, sans limite, sans inscription.",
   },
   privacy: {
-    title: 'Politique de Confidentialite | PicShift',
+    title: 'Politique de confidentialité | PicShift',
     description:
-      "Politique de confidentialite de PicShift. Tout le traitement des images se fait sur votre appareil. Aucun fichier n'est envoye, aucune donnee personnelle n'est collectee.",
+      'Notre position : convertir, compresser, redimensionner ou retirer les métadonnées se fait sur votre appareil ; nous n’envoyons pas vos images pour les traiter. Cette page précise aussi ce que le site enregistre côté trafic — et ce qui reste en dehors.',
     sections: [
       {
-        heading: 'En bref',
+        heading: 'En deux mots',
         content:
-          "Vos images restent sur votre appareil, toujours. PicShift convertit les images directement dans votre navigateur. Rien n'est envoye sur internet. Nous ne voyons, ne stockons et n'avons acces a aucune de vos photos.",
+          'PicShift traite vos images localement, sur votre appareil. Conversion, compression, redimensionnement, nettoyage des métadonnées : rien n’est envoyé chez nous. Pas de compte à créer, pas de connexion obligatoire.',
       },
       {
-        heading: 'Comment ca marche',
+        heading: 'Comment vos images sont traitées',
         content:
-          "Quand vous convertissez une image avec PicShift, tout se passe sur votre propre appareil. Vos fichiers ne sont jamais envoyes a un serveur. Vous pouvez meme couper votre connexion internet et PicShift fonctionnera parfaitement — c'est a quel point c'est local.",
+          'Vous choisissez un fichier : le navigateur le lit en mémoire, s’appuie sur ses codecs et des modules WebAssembly, et fabrique le fichier à télécharger au même endroit. Il n’y a pas d’étape « envoi sur notre serveur, traitement, retour » : nous ne stockons ni la source ni le résultat.',
       },
       {
-        heading: 'Ce que nous mesurons',
-        content:
-          "Nous comptons des choses basiques comme le nombre de visiteurs sur PicShift pour pouvoir l'ameliorer. C'est tout :",
+        heading: 'Ce que nous ne collectons pas',
+        content: 'Nous ne récupérons pas le contenu de vos images. Pour être clairs :',
         items: [
-          "Nous n'utilisons pas de cookies",
-          'Nous ne savons pas qui vous etes',
-          'Nous ne pouvons pas voir quelles images vous convertissez',
-          'Nous ne vous suivons pas entre les sites web',
+          "Nous n'envoyons pas d'images, ni avant ni après traitement",
         ],
       },
       {
-        heading: 'Vos donnees',
+        heading: 'Ce que nous voyons',
         content:
-          "Pas de compte, pas d'inscription, aucune donnee personnelle stockee. Vos images converties n'existent que sur votre appareil et disparaissent quand vous fermez ou actualisez la page. Nous n'avons aucune base de donnees d'utilisateurs ou de fichiers — parce que nous n'en avons pas besoin.",
+          'Comme sur tout site public, nous voyons des traces de visite : URL visitée, site d’origine, pays ou région approximatifs, type d’appareil, navigateur, clic sur un bouton ou un lien interne. Cela sert à améliorer le produit : pages utiles, outils menés au bout, articles qui amènent vers l’outil, parties du site où il manque de la localisation ou de la performance. À retenir : ces traces ne contiennent pas votre image.',
       },
       {
-        heading: 'Pas de pub, pas de vente de donnees',
+        heading: 'Analytique et services tiers',
         content:
-          "PicShift n'a pas de publicite et ne vend aucune donnee. Les seuls services externes que nous utilisons sont :",
+          'Pour que le site tienne la route et pour comprendre comment il est utilisé, nous faisons appel à peu de prestataires (infrastructure et statistiques) :',
         items: [
-          'Umami, un outil d\'analyse open source — comptage anonyme des visiteurs sans cookies ni suivi personnel',
+          'Cloudflare : fichiers statiques, CDN, Cloudflare Web Analytics',
+          'Umami : statistiques web pensées pour rester raisonnables côté vie privée',
+          'Ils traitent des données de requêtes web ; vos images, non',
+          'Dans notre configuration actuelle, Umami et Cloudflare Web Analytics conservent chacun les données d’analyse pendant six mois',
         ],
       },
       {
-        heading: 'Modifications de cette politique',
+        heading: 'Cookies et pistage',
         content:
-          'Si nous mettons a jour cette politique, nous mettrons a jour cette page. Notre promesse fondamentale ne changera jamais : vos images restent sur votre appareil et ne sont jamais envoyees.',
+          'Pas de régie publicitaire, pas de scripts qui vous suivent d’un site à l’autre. Les statistiques sont volontairement légères : vérifier que le site tient le coup, pas vous profiler ailleurs. Impossible d’utiliser vos photos pour du profilage : nous ne les recevons pas pour le traitement.',
+      },
+      {
+        heading: 'Réglages locaux dans le navigateur',
+        content:
+          'De petits réglages d’interface — langue, thème, qualité par défaut — peuvent rester dans votre navigateur pour éviter de tout refaire à chaque fois. Ils restent chez vous jusqu’à ce que vous les effaciez.',
+      },
+      {
+        heading: 'Vos droits',
+        content:
+          'Selon votre pays, vous pouvez avoir droit d’accès, de rectification, de suppression ou d’opposition. PicShift ne propose pas de compte : nous n’avons pas de données qui disent « c’est vous ». Écrivez-nous : nous vous expliquons franchement ce que nous avons et ce que nous n’avons pas.',
+      },
+      {
+        heading: 'Statut du projet',
+        content:
+          'PicShift est un projet indépendant sur picshift.app pour l’instant. Si l’exploitant, l’hébergement ou le cadre légal change d’une façon qui touche vraiment à la vie privée, nous mettrons cette page à jour au lieu de faire l’autruche.',
+      },
+      {
+        heading: 'Évolution de cette politique',
+        content:
+          'Quand nous modifions ce texte, nous mettons à jour la page et la date « Dernière mise à jour ». La ligne de conduite ne bouge pas : les images sont traitées sur votre appareil, pas sur nos serveurs.',
       },
       {
         heading: 'Contact',
-        content: 'Des questions ? Ecrivez-nous a privacy@picshift.app.',
+        content:
+          'Questions vie privée, corrections ou demandes liées aux données : privacy@picshift.app.',
       },
     ],
-    lastUpdated: 'Derniere mise a jour : fevrier 2026',
+    lastUpdated: 'Dernière mise à jour : avril 2026',
   },
   tools: {
     'heic-to-jpg': {
@@ -404,8 +424,32 @@ const fr: PageTranslations = {
           a: "Les photos prises avec des téléphones et appareils photo contiennent des données cachées comme votre position GPS exacte, le modèle de votre appareil et l'heure de prise de vue. Supprimer ces métadonnées protège votre vie privée lorsque vous partagez des images en ligne ou avec d'autres personnes.",
         },
         {
+          q: 'Pourquoi le JPG nettoyé est-il plus lourd que le fichier HEIC ou HEIF d’origine ?',
+          a: 'HEIC et HEIF visent une compression très efficace : à qualité comparable, l’original est souvent bien plus léger qu’un JPG classique. Dans le navigateur, PicShift enregistre les HEIC/HEIF nettoyés en JPG, car l’export au même format n’est pas encore fiable. Un fichier plus volumineux est donc courant et ne signifie pas que le nettoyage a échoué. Les JPG, PNG, WebP et AVIF restent au même format en téléchargement. Si la taille prime sur une compatibilité maximale, gardez vos HEIC/HEIF sources lorsque c’est possible, ou adoptez un format plus récent pris en charge par vos outils (par exemple l’AVIF) lorsque c’est pertinent.',
+        },
+        {
           q: 'Quels formats d\'image sont pris en charge ?',
-          a: "Vous pouvez supprimer les métadonnées des images JPG, PNG, WebP, HEIC et AVIF. Le format de sortie reste identique au format d'entrée.",
+          a: 'JPG, PNG, WebP, HEIC, HEIF et AVIF. JPG, PNG, WebP et AVIF se téléchargent au même format ; les HEIC/HEIF nettoyés sont fournis en JPG.',
+        },
+      ],
+      detailSections: [
+        {
+          title: 'Perimetre et limites',
+          body: 'Cet outil supprime les metadonnees integrees dans le fichier lui-meme. Il ne modifie pas les pixels visibles de l’image : il sert donc a eliminer les fuites d’informations cachees, pas a effacer ce qui apparait deja a l’ecran.',
+          items: [
+            'Il peut supprimer les coordonnees GPS, le modele de l’appareil, la date, l’heure et les balises logicielles, mais il ne retire pas les visages, plaques, filigranes ou textes deja visibles dans l’image.',
+            'Les JPG, PNG, WebP et AVIF sont telecharges dans le meme format. Les HEIC et HEIF nettoyes sont fournis en JPG, car le navigateur ne sait pas encore les reecrire de maniere fiable en HEIC ou HEIF.',
+            'Certaines applications et plateformes sociales retirent une partie des metadonnees apres envoi, mais ce comportement reste variable et peut changer. Le plus sur est donc de nettoyer le fichier vous-meme avant de l’utiliser.',
+          ],
+        },
+        {
+          title: 'Comment supprimer les metadonnees d’une image',
+          body: 'Le principe est simple : verifiez d’abord ce que contient le fichier, nettoyez-le ensuite, puis utilisez la copie nettoyee quand vous en avez besoin.',
+          items: [
+            'Deposez l’image dans l’outil pour voir exactement quelles informations le fichier contient.',
+            'Si le fichier n’affiche que la largeur, la hauteur ou l’espace colorimetrique, vous verrez 0 donnee sensible. S’il contient des coordonnees GPS, des details sur l’appareil ou des horodatages, ces elements seront signales comme sensibles.',
+            'Telechargez le fichier nettoye et utilisez cette version lorsque vous voulez l’enregistrer, l’envoyer, la mettre en ligne ou simplement la conserver.',
+          ],
         },
       ],
     },

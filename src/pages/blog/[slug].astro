@@ -5,6 +5,7 @@ import Header from '../../components/layout/Header.astro';
 import Footer from '../../components/layout/Footer.astro';
 import TableOfContents from '../../components/blog/TableOfContents.astro';
 import RelatedTools from '../../components/blog/RelatedTools.astro';
+import { TOOL_PAGES } from '../../data/tools';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -20,6 +21,7 @@ const { title, description, cover, publishedAt, updatedAt, author, tags, related
 
 const canonical = `https://picshift.app/blog/${post.slug}`;
 const pagePath = `/blog/${post.slug}`;
+const toolPaths = TOOL_PAGES.map((tool) => `/${tool.slug}`);
 const wordCount = post.body?.split(/\s+/).length ?? 0;
 const readingTime = Math.max(1, Math.round(wordCount / 230));
 const dateStr = publishedAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -160,12 +162,12 @@ const nextPost = currentIdx > 0 ? allPosts[currentIdx - 1] : null;
 
   <Footer lang="en" />
 
-  <script is:inline define:vars={{ slug: post.slug }}>
+  <script is:inline define:vars={{ slug: post.slug, toolPaths }}>
     document.addEventListener('click', function(e) {
       var link = e.target.closest('a[href^="/"]');
       if (!link) return;
       var to = link.getAttribute('href');
-      if (to && to !== '/blog/' && !to.startsWith('/blog/')) {
+      if (to && toolPaths.includes(to.replace(/\/$/, ''))) {
         try { window.umami?.track('blog_link_click', { from: '/blog/' + slug, to: to }); } catch {}
       }
     });

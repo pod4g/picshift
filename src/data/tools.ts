@@ -139,8 +139,8 @@ export const TOOL_PAGES: ToolPageConfig[] = [
         a: 'No. The entire process runs locally in your browser using WebAssembly. Your images are never sent to any server. You can verify this by turning off your internet connection — the tool still works.',
       },
       {
-        q: 'Which image formats are supported?',
-        a: 'You can remove metadata from JPG, PNG, WebP, HEIC, HEIF, and AVIF images. The output keeps the same format as the input.',
+        q: 'Why is the cleaned JPG larger than the original HEIC or HEIF file?',
+        a: 'HEIC and HEIF are built for strong compression, so originals are often much smaller on disk than a typical JPG. In the browser PicShift exports cleaned HEIC/HEIF as JPG because same-format HEIC/HEIF downloads are not widely supported yet. A larger JPG is normal and does not mean metadata removal failed. JPG, PNG, WebP, and AVIF still download in the same format as the input. If the smallest file matters more than widest compatibility, keep your HEIC/HEIF originals when you can, or use another modern format your workflow supports (for example AVIF) where applicable.',
       },
       {
         q: 'Can I remove metadata from multiple images at once?',
@@ -153,6 +153,26 @@ export const TOOL_PAGES: ToolPageConfig[] = [
       {
         q: 'What is the difference between a metadata cleaner and an EXIF remover?',
         a: 'They do the same thing. "EXIF remover" focuses on camera data, while "metadata cleaner" is broader and includes IPTC, XMP, and other embedded profiles. PicShift removes all of them.',
+      },
+    ],
+    detailSections: [
+      {
+        title: 'Scope and boundaries',
+        body: 'This tool removes metadata embedded in the file itself. It does not edit the visible pixels in the image, so it helps with privacy leaks in hidden data, not with content that is already visible on screen.',
+        items: [
+          'It removes hidden fields such as GPS coordinates, device details, timestamps, and software tags, but it does not erase faces, license plates, watermarks, or text that already appears in the image.',
+          'JPG, PNG, WebP, and AVIF are downloaded in the same format. Cleaned HEIC and HEIF files are downloaded as JPG because the browser still cannot write them back as HEIC or HEIF.',
+          'Some apps and social platforms strip part of the metadata after upload, but that behavior is inconsistent and can change. The safer move is to clean the file yourself before sharing it.',
+        ],
+      },
+      {
+        title: 'How to remove image metadata',
+        body: 'The practical workflow is simple: inspect first, then clean, then share the cleaned copy instead of the original.',
+        items: [
+          'Drop the image into the tool and check what the file actually contains before you send it anywhere.',
+          'If the file only shows width, height, or color space, you will see 0 sensitive fields. If it contains GPS, device details, or timestamps, those will be flagged as sensitive.',
+          'Download the cleaned file and use that version for email, chat, uploads, or social posting.',
+        ],
       },
     ],
     searchIntentSections: [

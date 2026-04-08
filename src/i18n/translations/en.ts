@@ -10,53 +10,71 @@ const en: PageTranslations = {
   privacy: {
     title: 'Privacy Policy | PicShift',
     description:
-      'PicShift privacy policy. All image processing happens on your device. No files are uploaded, no personal data is collected.',
+      'PicShift privacy policy. Image conversion stays on your device. We do not upload your source images for processing, and we explain exactly what traffic data we do and do not see.',
     sections: [
       {
         heading: 'The Short Version',
         content:
-          'PicShift converts images inside your browser on your device. Source files and converted binaries are not uploaded to PicShift servers for conversion, and we do not store image content on our backend.',
+          'PicShift processes image files locally in your browser. No image is uploaded to our server for conversion, compression, resizing, or metadata removal. You do not need to register or sign in.',
       },
       {
-        heading: 'How It Works',
+        heading: 'What happens to your images',
         content:
-          'When you choose a file, your browser reads it into local memory, runs conversion with in-browser codecs (including WebAssembly paths), and creates a downloadable result locally. Conversion does not require an account session or file upload pipeline.',
+          'When you pick a file, your browser reads it into local memory, runs the conversion with in-browser codecs and WebAssembly modules, and creates the result locally. We do not keep a server-side copy of the source file or the converted file because the conversion job never goes through our server in the first place.',
       },
       {
-        heading: 'What We Track',
+        heading: 'What we do not collect',
         content:
-          'We measure product usage with privacy-focused analytics for reliability and product decisions. Specifically:',
+          'We do not collect your image content. Specifically:',
+        items: ['We do not upload images before or after processing'],
+      },
+      {
+        heading: 'What we do collect',
+        content:
+          'Like any public website, PicShift sees some ordinary website traffic records. That includes the page URL, referrer, approximate country, device type, browser family, and whether a button or internal link was clicked. We use that data to improve the user experience: to see which pages are actually useful, which tools people finish using, which blog articles lead readers into the product, and which parts of the site need to be more localized or faster. The most important point is that this data still does <strong>not</strong> include the image itself.',
+      },
+      {
+        heading: 'Analytics and third-party services',
+        content:
+          'We currently use a small number of infrastructure and analytics providers so the site can load reliably and we can understand basic usage patterns:',
         items: [
-          'No analytics cookies are used for this purpose',
-          'We do not build cross-site behavioral profiles',
-          'Analytics events do not include image content or converted file binaries',
-          'We do not associate conversion activity with a personal account identity',
+          'Cloudflare for hosting, CDN delivery, and Cloudflare Web Analytics',
+          'Umami for privacy-friendly website analytics',
+          'Those services process ordinary website request data, but they do not receive your source images for conversion processing',
+          'With our current configuration, both Umami and Cloudflare Web Analytics retain analytics data for six months',
         ],
       },
       {
-        heading: 'Your Data',
+        heading: 'Cookies and tracking',
         content:
-          'PicShift conversion works without sign-up. Temporary processing data stays in your browser runtime during conversion, and in-memory buffers are cleared by the browser lifecycle after completion or tab close. Files you download are saved only where you choose on your device.',
+          'PicShift does not run ad networks or cross-site tracking scripts. Our analytics setup is intentionally lightweight and minimal. We do not use analytics to follow you across unrelated websites, and we do not use your image content for profiling because we never receive that content for processing.',
       },
       {
-        heading: 'No Ads, No Selling Data',
+        heading: 'Local preferences and browser storage',
         content:
-          'PicShift does not sell user data. The external service currently used is:',
-        items: [
-          'Umami (open-source analytics) for aggregate traffic and usage metrics',
-        ],
+          'PicShift may store small interface preferences in your browser, such as language choice, theme, or conversion defaults. That is there so the site feels consistent the next time you open it. Those settings stay in your browser unless you clear them yourself.',
       },
       {
-        heading: 'Changes to This Policy',
+        heading: 'Your rights',
         content:
-          'When this policy changes, we update this page and the Last updated date. The core processing model remains local conversion in the browser without server-side file conversion storage.',
+          'Depending on where you live, you may have the right to ask what personal data we hold about you, request correction or deletion, or object to certain processing. In PicShift’s case, we do not get data that tells us who a visitor is. If you want to make a privacy request, email us and we will explain clearly and honestly what we actually have and what we do not have.',
+      },
+      {
+        heading: 'Project status and legal scope',
+        content:
+          'PicShift is currently operated as an independent project through picshift.app. If the operating entity, governing law, or hosting structure changes in a way that materially affects privacy, we will update this page rather than pretending nothing changed.',
+      },
+      {
+        heading: 'Changes to this policy',
+        content:
+          'When this policy changes, we update this page and the Last updated date. The core promise is simple: your images are processed on your device, not on our server.',
       },
       {
         heading: 'Contact',
-        content: 'Questions? Reach out at privacy@picshift.app.',
+        content: 'Questions, corrections, or privacy requests: privacy@picshift.app.',
       },
     ],
-    lastUpdated: 'Last updated: February 2026',
+    lastUpdated: 'Last updated: April 2026',
   },
   tools: {
     'heic-to-jpg': {
@@ -334,8 +352,32 @@ const en: PageTranslations = {
           a: 'Photos taken by phones and cameras contain hidden data like your exact GPS location, device model, and the time the photo was taken. Removing metadata protects your privacy when sharing images online or with others.',
         },
         {
+          q: 'Why is the cleaned JPG larger than the original HEIC or HEIF file?',
+          a: 'HEIC and HEIF are built for strong compression, so originals are often much smaller on disk than a typical JPG. In the browser PicShift exports cleaned HEIC/HEIF as JPG because same-format HEIC/HEIF downloads are not widely supported yet. A larger JPG is normal and does not mean metadata removal failed. JPG, PNG, WebP, and AVIF still download in the same format as the input. If the smallest file matters more than widest compatibility, keep your HEIC/HEIF originals when you can, or use another modern format your workflow supports (for example AVIF) where applicable.',
+        },
+        {
           q: 'What image formats are supported?',
-          a: 'You can remove metadata from JPG, PNG, WebP, HEIC, and AVIF images. The output retains the same format as the input.',
+          a: 'JPG, PNG, WebP, HEIC, HEIF, and AVIF. JPG, PNG, WebP, and AVIF download in the same format; cleaned HEIC and HEIF are delivered as JPG.',
+        },
+      ],
+      detailSections: [
+        {
+          title: 'Scope and boundaries',
+          body: 'This tool removes metadata embedded in the file itself. It does not edit the visible pixels in the image, so it helps with privacy leaks in hidden data, not with content that is already visible on screen.',
+          items: [
+            'It removes hidden fields such as GPS coordinates, device details, timestamps, and software tags, but it does not erase faces, license plates, watermarks, or text that already appears in the image.',
+            'JPG, PNG, WebP, and AVIF are downloaded in the same format. Cleaned HEIC and HEIF files are downloaded as JPG because the browser still cannot write them back as HEIC or HEIF.',
+            'Some apps and social platforms strip part of the metadata after upload, but that behavior is inconsistent and can change. The safer move is to clean the file yourself before sharing it.',
+          ],
+        },
+        {
+          title: 'How to remove image metadata',
+          body: 'The practical workflow is simple: inspect first, then clean, then keep using the cleaned copy when needed.',
+          items: [
+            'Drop the image into the tool and check what the file actually contains.',
+            'If the file only shows width, height, or color space, you will see 0 sensitive fields. If it contains GPS, device details, or timestamps, those will be flagged as sensitive.',
+            'Download the cleaned file and use that version whenever you save, send, upload, or keep a copy.',
+          ],
         },
       ],
     },

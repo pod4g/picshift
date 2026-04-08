@@ -156,6 +156,11 @@ export interface ToolTranslation {
   introText: string;
   howToSteps: string[];
   faqs: Array<{ q: string; a: string }>;
+  detailSections?: Array<{
+    title: string;
+    body: string;
+    items?: string[];
+  }>;
 }
 
 /** Full page-level translations for a single locale */
