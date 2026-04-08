@@ -351,6 +351,9 @@ const FIELD_LABELS: Record<string, Record<string, string>> = {
     ImageHeight: '高度',
     ColorSpace: '色彩空间',
     ImageDescription: '描述',
+    ExifMetadata: 'EXIF 元数据',
+    XmpMetadata: 'XMP 元数据',
+    IccProfile: 'ICC 色彩配置',
   },
   'zh-Hant': {
     GPSLatitude: 'GPS 位置',
@@ -372,6 +375,9 @@ const FIELD_LABELS: Record<string, Record<string, string>> = {
     ImageHeight: '高度',
     ColorSpace: '色彩空間',
     ImageDescription: '描述',
+    ExifMetadata: 'EXIF 元資料',
+    XmpMetadata: 'XMP 元資料',
+    IccProfile: 'ICC 色彩描述檔',
   },
   ja: {
     GPSLatitude: 'GPS 位置',
@@ -393,6 +399,9 @@ const FIELD_LABELS: Record<string, Record<string, string>> = {
     ImageHeight: '高さ',
     ColorSpace: '色空間',
     ImageDescription: '説明',
+    ExifMetadata: 'EXIF メタデータ',
+    XmpMetadata: 'XMP メタデータ',
+    IccProfile: 'ICC プロファイル',
   },
   es: {
     GPSLatitude: 'Ubicación GPS',
@@ -414,6 +423,9 @@ const FIELD_LABELS: Record<string, Record<string, string>> = {
     ImageHeight: 'Alto',
     ColorSpace: 'Espacio de color',
     ImageDescription: 'Descripción',
+    ExifMetadata: 'Metadatos EXIF',
+    XmpMetadata: 'Metadatos XMP',
+    IccProfile: 'Perfil ICC',
   },
   fr: {
     GPSLatitude: 'Position GPS',
@@ -435,6 +447,9 @@ const FIELD_LABELS: Record<string, Record<string, string>> = {
     ImageHeight: 'Hauteur',
     ColorSpace: 'Espace colorimétrique',
     ImageDescription: 'Description',
+    ExifMetadata: 'Métadonnées EXIF',
+    XmpMetadata: 'Métadonnées XMP',
+    IccProfile: 'Profil ICC',
   },
   de: {
     GPSLatitude: 'GPS-Position',
@@ -456,6 +471,9 @@ const FIELD_LABELS: Record<string, Record<string, string>> = {
     ImageHeight: 'Höhe',
     ColorSpace: 'Farbraum',
     ImageDescription: 'Beschreibung',
+    ExifMetadata: 'EXIF-Metadaten',
+    XmpMetadata: 'XMP-Metadaten',
+    IccProfile: 'ICC-Profil',
   },
   pt: {
     GPSLatitude: 'Localização GPS',
@@ -477,6 +495,9 @@ const FIELD_LABELS: Record<string, Record<string, string>> = {
     ImageHeight: 'Altura',
     ColorSpace: 'Espaço de cor',
     ImageDescription: 'Descrição',
+    ExifMetadata: 'Metadados EXIF',
+    XmpMetadata: 'Metadados XMP',
+    IccProfile: 'Perfil ICC',
   },
   ko: {
     GPSLatitude: 'GPS 위치',
@@ -498,6 +519,9 @@ const FIELD_LABELS: Record<string, Record<string, string>> = {
     ImageHeight: '높이',
     ColorSpace: '색 공간',
     ImageDescription: '설명',
+    ExifMetadata: 'EXIF 메타데이터',
+    XmpMetadata: 'XMP 메타데이터',
+    IccProfile: 'ICC 프로필',
   },
   ru: {
     GPSLatitude: 'GPS-координаты',
@@ -519,6 +543,9 @@ const FIELD_LABELS: Record<string, Record<string, string>> = {
     ImageHeight: 'Высота',
     ColorSpace: 'Цветовое пространство',
     ImageDescription: 'Описание',
+    ExifMetadata: 'Метаданные EXIF',
+    XmpMetadata: 'Метаданные XMP',
+    IccProfile: 'Профиль ICC',
   },
   ar: {
     GPSLatitude: 'موقع GPS',
@@ -540,6 +567,9 @@ const FIELD_LABELS: Record<string, Record<string, string>> = {
     ImageHeight: 'الارتفاع',
     ColorSpace: 'مساحة اللون',
     ImageDescription: 'الوصف',
+    ExifMetadata: 'بيانات EXIF الوصفية',
+    XmpMetadata: 'بيانات XMP الوصفية',
+    IccProfile: 'ملف ICC اللوني',
   },
   it: {
     GPSLatitude: 'Posizione GPS',
@@ -561,6 +591,9 @@ const FIELD_LABELS: Record<string, Record<string, string>> = {
     ImageHeight: 'Altezza',
     ColorSpace: 'Spazio colore',
     ImageDescription: 'Descrizione',
+    ExifMetadata: 'Metadati EXIF',
+    XmpMetadata: 'Metadati XMP',
+    IccProfile: 'Profilo ICC',
   },
 }
 
@@ -577,6 +610,7 @@ interface MetadataEntry {
 }
 
 interface ScannedFile {
+  id: string
   file: File
   entries: MetadataEntry[]
   totalCount: number
@@ -584,11 +618,16 @@ interface ScannedFile {
   hasGps: boolean
   cleanedBlob: Blob | null
   status: 'scanning' | 'scanned' | 'cleaning' | 'done' | 'error'
+  batchId: number
+  batchIndex: number
   error?: string
 }
 
-function getFileId(file: File): string {
-  return `${file.name}-${file.size}-${file.lastModified}`
+function createScannedFileId(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID()
+  }
+  return `metadata-file-${Date.now()}-${Math.random().toString(36).slice(2)}`
 }
 
 async function waitForNextPaint(): Promise<void> {
@@ -622,6 +661,9 @@ const FIELD_CONFIG: Record<
   ImageHeight: { label: 'Height', icon: '📐', level: 'low' },
   ColorSpace: { label: 'Color Space', icon: '🎨', level: 'low' },
   ImageDescription: { label: 'Description', icon: '📝', level: 'medium' },
+  ExifMetadata: { label: 'EXIF Metadata', icon: '🧾', level: 'medium' },
+  XmpMetadata: { label: 'XMP Metadata', icon: '🧾', level: 'medium' },
+  IccProfile: { label: 'ICC Profile', icon: '🎨', level: 'low' },
 }
 
 const ORDERED_KEYS = [
@@ -684,6 +726,10 @@ function isHeifFamily(filename: string): boolean {
   return /\.(heic|heif)$/i.test(filename)
 }
 
+function isWebpFile(file: File): boolean {
+  return /\.webp$/i.test(file.name) || file.type === 'image/webp'
+}
+
 function isSupportedMetadataFile(file: File): boolean {
   if (/\.(jpe?g|png|webp|heic|heif|avif)$/i.test(file.name)) return true
   return [
@@ -694,18 +740,26 @@ function isSupportedMetadataFile(file: File): boolean {
   ].includes(file.type)
 }
 
-async function parseMetadata(
-  file: File,
+function textFromBytes(bytes: Uint8Array): string {
+  return new TextDecoder('ascii').decode(bytes)
+}
+
+function createMetadataEntry(
+  key: keyof typeof FIELD_CONFIG,
+  value: string,
   lang: string,
-): Promise<MetadataEntry[]> {
-  const exifr = await import('exifr')
-  const data = await exifr.parse(file, {
-    gps: true,
-    tiff: true,
-    exif: true,
-    iptc: true,
-    xmp: true,
-  })
+): MetadataEntry {
+  const cfg = FIELD_CONFIG[key]
+  return {
+    key,
+    label: fieldLabel(lang, key, cfg.label),
+    value,
+    icon: cfg.icon,
+    level: cfg.level,
+  }
+}
+
+function buildMetadataEntries(data: Record<string, unknown>, lang: string): MetadataEntry[] {
   if (!data || Object.keys(data).length === 0) return []
 
   const entries: MetadataEntry[] = []
@@ -715,7 +769,7 @@ async function parseMetadata(
     entries.push({
       key: 'GPSLatitude',
       label: fieldLabel(lang, 'GPSLatitude', cfg.label),
-      value: `${data.latitude.toFixed(6)}°, ${data.longitude.toFixed(6)}°`,
+      value: `${Number(data.latitude).toFixed(6)}°, ${Number(data.longitude).toFixed(6)}°`,
       icon: cfg.icon,
       level: cfg.level,
     })
@@ -738,6 +792,102 @@ async function parseMetadata(
   }
 
   return entries
+}
+
+async function parseWebpMetadata(
+  file: File,
+  lang: string,
+  exifr: Awaited<typeof import('exifr')>,
+): Promise<MetadataEntry[]> {
+  const buffer = await file.arrayBuffer()
+  const bytes = new Uint8Array(buffer)
+  const view = new DataView(buffer)
+
+  if (
+    bytes.length < 12 ||
+    textFromBytes(bytes.slice(0, 4)) !== 'RIFF' ||
+    textFromBytes(bytes.slice(8, 12)) !== 'WEBP'
+  ) {
+    return []
+  }
+
+  let exifChunk: Uint8Array | null = null
+  let hasXmp = false
+  let hasIcc = false
+
+  let offset = 12
+  while (offset + 8 <= bytes.length) {
+    const chunkType = textFromBytes(bytes.slice(offset, offset + 4))
+    const chunkSize = view.getUint32(offset + 4, true)
+    const chunkStart = offset + 8
+    const chunkEnd = Math.min(chunkStart + chunkSize, bytes.length)
+
+    if (chunkEnd <= chunkStart) break
+
+    if (chunkType === 'EXIF') exifChunk = bytes.slice(chunkStart, chunkEnd)
+    if (chunkType === 'XMP ') hasXmp = true
+    if (chunkType === 'ICCP') hasIcc = true
+
+    offset = chunkEnd + (chunkSize % 2)
+  }
+
+  const entries: MetadataEntry[] = []
+
+  if (exifChunk) {
+    const exifCandidates = [exifChunk]
+    if (textFromBytes(exifChunk.slice(0, 6)) === 'Exif\0\0') {
+      exifCandidates.unshift(exifChunk.slice(6))
+    }
+
+    for (const candidate of exifCandidates) {
+      try {
+        const parsed = await exifr.parse(candidate, {
+          gps: true,
+          tiff: true,
+          exif: true,
+          iptc: true,
+          xmp: true,
+        })
+        const parsedEntries = buildMetadataEntries(parsed || {}, lang)
+        if (parsedEntries.length > 0) {
+          entries.push(...parsedEntries)
+          break
+        }
+      } catch {
+        // 忽略，回退到“检测到 EXIF 块”的最小提示
+      }
+    }
+
+    if (!entries.some((entry) => entry.key === 'GPSLatitude') && entries.length === 0) {
+      entries.push(createMetadataEntry('ExifMetadata', 'Embedded', lang))
+    }
+  }
+
+  if (hasXmp) entries.push(createMetadataEntry('XmpMetadata', 'Embedded', lang))
+  if (hasIcc) entries.push(createMetadataEntry('IccProfile', 'Embedded', lang))
+
+  return entries
+}
+
+async function parseMetadata(
+  file: File,
+  lang: string,
+): Promise<MetadataEntry[]> {
+  const exifr = await import('exifr')
+  if (isWebpFile(file)) {
+    const webpEntries = await parseWebpMetadata(file, lang, exifr)
+    if (webpEntries.length > 0) return webpEntries
+    return []
+  }
+
+  const data = await exifr.parse(file, {
+    gps: true,
+    tiff: true,
+    exif: true,
+    iptc: true,
+    xmp: true,
+  })
+  return buildMetadataEntries(data || {}, lang)
 }
 
 async function cleanImage(file: File): Promise<Blob> {
@@ -811,7 +961,8 @@ function FileCard({
   onToggle: () => void
   lang?: string
 }) {
-  const isDone = scanned.status === 'done'
+  const isDone = scanned.status === 'done' || scanned.cleanedBlob !== null
+  const isError = scanned.status === 'error'
 
   return (
     <div className="border border-border rounded-lg overflow-hidden">
@@ -821,7 +972,9 @@ function FileCard({
         className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-drop-bg/50 transition-colors"
       >
         <span className="text-lg">
-          {isDone
+          {isError
+            ? '❌'
+            : isDone
             ? '✅'
             : scanned.hasGps
               ? '🔴'
@@ -835,10 +988,12 @@ function FileCard({
           </span>
           <span className="block text-xs text-text-secondary">
             {formatSize(scanned.file.size)}
-            {isDone
+            {isError
+              ? ` — ${scanned.error || 'Failed to clean'}`
+              : isDone
               ? ` — ${scanned.totalCount} ${t(lang, 'metadataRemoved')}`
               : ` — ${scanned.totalCount} ${t(lang, 'fieldsFound')}`}
-            {!isDone && (
+            {!isDone && !isError && (
               <span className="text-red-400 ml-1">
                 ({scanned.highCount} {t(lang, 'sensitive')})
               </span>
@@ -891,6 +1046,12 @@ function FileCard({
         </div>
       )}
 
+      {expanded && isError && (
+        <div className="border-t border-border px-4 py-3 text-sm text-red-300">
+          {scanned.error || 'Failed to clean'}
+        </div>
+      )}
+
       {expanded &&
         scanned.entries.length === 0 &&
         scanned.status === 'scanned' && (
@@ -917,58 +1078,66 @@ export default function MetadataRemoverTool({
   const [allDone, setAllDone] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const dropRef = useRef<HTMLDivElement>(null)
+  const batchIdRef = useRef(0)
   const [dragOver, setDragOver] = useState(false)
 
   const processFiles = useCallback(
     async (incoming: File[]) => {
-      const newFiles: ScannedFile[] = incoming.map((f) => ({
+      batchIdRef.current += 1
+      const batchId = batchIdRef.current
+      const newFiles: ScannedFile[] = incoming.map((f, batchIndex) => ({
+        id: createScannedFileId(),
         file: f,
         entries: [],
         totalCount: 0,
         highCount: 0,
         hasGps: false,
         cleanedBlob: null,
+        batchId,
+        batchIndex,
         status: 'scanning' as const,
       }))
+      const newFileIds = newFiles.map((f) => f.id)
 
-      setFiles((prev) => [...prev, ...newFiles])
+      setFiles((prev) => [...newFiles, ...prev])
       setAllDone(false)
 
-      const startIdx = files.length
-
       for (let i = 0; i < newFiles.length; i++) {
+        const fileId = newFileIds[i]
         try {
           const entries = await parseMetadata(newFiles[i].file, lang)
           const highCount = entries.filter((e) => e.level === 'high').length
           const hasGps = entries.some((e) => e.key === 'GPSLatitude')
 
           setFiles((prev) => {
-            const updated = [...prev]
-            const idx = startIdx + i
-            if (updated[idx]) {
-              updated[idx] = {
-                ...updated[idx],
-                entries,
-                totalCount: entries.length,
-                highCount,
-                hasGps,
-                status: 'scanned',
-              }
-            }
-            return updated
+            return prev.map((item) =>
+              item.id === fileId
+                ? {
+                    ...item,
+                    entries,
+                    totalCount: entries.length,
+                    highCount,
+                    hasGps,
+                    status: 'scanned',
+                  }
+                : item,
+            )
           })
         } catch {
           setFiles((prev) => {
-            const updated = [...prev]
-            const idx = startIdx + i
-            if (updated[idx]) {
-              updated[idx] = {
-                ...updated[idx],
-                status: 'error',
-                error: 'Could not read metadata',
-              }
-            }
-            return updated
+            return prev.map((item) =>
+              item.id === fileId
+                ? {
+                    ...item,
+                    entries: [],
+                    totalCount: 0,
+                    highCount: 0,
+                    hasGps: false,
+                    status: 'scanned',
+                    error: undefined,
+                  }
+                : item,
+            )
           })
         }
       }
@@ -979,7 +1148,7 @@ export default function MetadataRemoverTool({
         prev.forEach((f) => {
           if (f.totalCount > maxCount) {
             maxCount = f.totalCount
-            maxFileId = getFileId(f.file)
+            maxFileId = f.id
           }
         })
         if (maxCount > 0 && maxFileId !== null) {
@@ -994,7 +1163,7 @@ export default function MetadataRemoverTool({
         return prev
       })
     },
-    [files.length, lang],
+    [lang],
   )
 
   const handleDrop = useCallback(
@@ -1068,6 +1237,16 @@ export default function MetadataRemoverTool({
       await waitForNextPaint()
 
       try {
+        if (updatedFiles[i].totalCount === 0) {
+          updatedFiles[i] = {
+            ...updatedFiles[i],
+            cleanedBlob: updatedFiles[i].file,
+            status: 'done',
+          }
+          setFiles([...updatedFiles])
+          continue
+        }
+
         const blob = await cleanImage(updatedFiles[i].file)
         updatedFiles[i] = {
           ...updatedFiles[i],
@@ -1148,15 +1327,24 @@ export default function MetadataRemoverTool({
   const totalSensitive = files.reduce((sum, f) => sum + f.highCount, 0)
   const isScanning = files.some((f) => f.status === 'scanning')
   const hasHeifFamily = files.some((f) => isHeifFamily(f.file.name))
-  const sortedFiles = [...files].sort((a, b) => {
-    const aHasMetadata = a.totalCount > 0 ? 1 : 0
-    const bHasMetadata = b.totalCount > 0 ? 1 : 0
-    if (aHasMetadata !== bHasMetadata) return bHasMetadata - aHasMetadata
-    if (a.highCount !== b.highCount) return b.highCount - a.highCount
-    if (a.totalCount !== b.totalCount) return b.totalCount - a.totalCount
-    return a.file.name.localeCompare(b.file.name)
-  })
-
+  const displayFiles = [...new Map(
+    files
+      .map((file) => file.batchId)
+      .sort((a, b) => b - a)
+      .map((batchId) => [
+        batchId,
+        files
+          .filter((file) => file.batchId === batchId)
+          .sort((a, b) => {
+            const aHasMetadata = a.totalCount > 0 ? 1 : 0
+            const bHasMetadata = b.totalCount > 0 ? 1 : 0
+            if (aHasMetadata !== bHasMetadata) return bHasMetadata - aHasMetadata
+            if (a.highCount !== b.highCount) return b.highCount - a.highCount
+            if (a.totalCount !== b.totalCount) return b.totalCount - a.totalCount
+            return a.batchIndex - b.batchIndex
+          }),
+      ]),
+  ).values()].flat()
   return (
     <div className="flex flex-col gap-4">
       {/* Summary bar */}
@@ -1289,8 +1477,8 @@ export default function MetadataRemoverTool({
       {/* File list */}
       {hasFiles && (
         <div className="flex flex-col gap-2">
-          {sortedFiles.map((f) => {
-            const fileId = getFileId(f.file)
+          {displayFiles.map((f) => {
+            const fileId = f.id
             return (
               <FileCard
                 key={fileId}
