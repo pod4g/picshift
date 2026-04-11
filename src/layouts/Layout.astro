@@ -196,8 +196,15 @@ import '../styles/global.css';
     <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/inter-700.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- Analytics: Umami (privacy-friendly, no cookies) -->
-    {import.meta.env.PROD && <script defer src="https://cloud.umami.is/script.js" data-website-id="5e8e298a-edc6-4bb7-a7cb-04714bffc9c0"></script>}
+    <!-- Analytics: Umami（需 data-performance 才会在后台「性能」中采集 Web Vitals，见 https://docs.umami.is/docs/performance） -->
+    {import.meta.env.PROD && (
+      <script
+        defer
+        src="https://cloud.umami.is/script.js"
+        data-website-id="5e8e298a-edc6-4bb7-a7cb-04714bffc9c0"
+        data-performance="true"
+      />
+    )}
     <!-- Analytics: Cloudflare Web Analytics -->
     {import.meta.env.PROD && <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "55349de43bae4234983bd69de095874d"}'></script>}
 
