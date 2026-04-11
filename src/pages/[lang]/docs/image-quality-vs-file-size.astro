@@ -8,6 +8,7 @@ import { getDocsUi } from '../../../i18n/docsUi';
 import { SUPPORTED_LOCALES } from '../../../i18n';
 import { getPageTranslations } from '../../../i18n/translations';
 import type { Locale } from '../../../i18n/config';
+import { htmlCanonicalUrl } from '../../../lib/htmlCanonicalUrl';
 
 export function getStaticPaths() {
   return SUPPORTED_LOCALES
@@ -28,7 +29,8 @@ const pageTranslations = getPageTranslations(lang);
 const title = `PicShift ${docsUi.qualityDocTitle}`;
 const description = docsUi.qualityDocDescription;
 const pagePath = '/docs/image-quality-vs-file-size';
-const canonical = `https://picshift.app/${lang}/docs/image-quality-vs-file-size`;
+const docsHubUrl = htmlCanonicalUrl(`https://picshift.app/${lang}/docs`);
+const canonical = htmlCanonicalUrl(`https://picshift.app/${lang}/docs/image-quality-vs-file-size`);
 const datePublished = DOCS_DATE_PUBLISHED;
 const dateModified = CONTENT_DATE_MODIFIED;
 const qualityDocContent = {
@@ -391,13 +393,13 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: docsUi.home,
-      item: `https://picshift.app/${lang}/`,
+      item: htmlCanonicalUrl(`https://picshift.app/${lang}/`),
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: docsUi.docs,
-      item: `https://picshift.app/${lang}/docs`,
+      item: docsHubUrl,
     },
     {
       '@type': 'ListItem',

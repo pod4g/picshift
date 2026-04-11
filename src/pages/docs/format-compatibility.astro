@@ -3,11 +3,13 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/layout/Header.astro';
 import Footer from '../../components/layout/Footer.astro';
 import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../lib/contentDates';
+import { htmlCanonicalUrl } from '../../lib/htmlCanonicalUrl';
 
 const lang = 'en' as const;
 const title = 'PicShift Format Compatibility Guide';
 const description = 'Supported input and output formats in PicShift, with practical notes for quality, transparency, and common conversion choices.';
-const canonical = 'https://picshift.app/docs/format-compatibility';
+const docsHubUrl = htmlCanonicalUrl('https://picshift.app/docs');
+const canonical = htmlCanonicalUrl('https://picshift.app/docs/format-compatibility');
 const pagePath = '/docs/format-compatibility';
 const datePublished = DOCS_DATE_PUBLISHED;
 const dateModified = CONTENT_DATE_MODIFIED;
@@ -37,7 +39,7 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 2,
       name: 'Docs',
-      item: 'https://picshift.app/docs',
+      item: docsHubUrl,
     },
     {
       '@type': 'ListItem',

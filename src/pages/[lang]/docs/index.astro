@@ -6,6 +6,7 @@ import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../../lib/content
 import { getDocsUi } from '../../../i18n/docsUi';
 import { SUPPORTED_LOCALES } from '../../../i18n';
 import type { Locale } from '../../../i18n/config';
+import { htmlCanonicalUrl } from '../../../lib/htmlCanonicalUrl';
 
 export function getStaticPaths() {
   return SUPPORTED_LOCALES
@@ -25,7 +26,7 @@ const docsUi = getDocsUi(lang);
 const title = docsUi.docsGuidesTitle;
 const description = docsUi.docsGuidesDescription;
 const pagePath = '/docs';
-const canonical = `https://picshift.app/${lang}/docs`;
+const canonical = htmlCanonicalUrl(`https://picshift.app/${lang}/docs`);
 const datePublished = DOCS_DATE_PUBLISHED;
 const dateModified = CONTENT_DATE_MODIFIED;
 const articleSchema = {
@@ -47,7 +48,7 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: docsUi.home,
-      item: `https://picshift.app/${lang}/`,
+      item: htmlCanonicalUrl(`https://picshift.app/${lang}/`),
     },
     {
       '@type': 'ListItem',
@@ -95,7 +96,7 @@ const docsItemListSchema = {
     '@type': 'ListItem',
     position: index + 1,
     name: doc.title,
-    url: `https://picshift.app${doc.href}`,
+    url: htmlCanonicalUrl(`https://picshift.app${doc.href}`),
   })),
 };
 ---

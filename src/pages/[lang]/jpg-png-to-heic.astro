@@ -4,6 +4,7 @@ import Header from '../../components/layout/Header.astro';
 import Footer from '../../components/layout/Footer.astro';
 import { SUPPORTED_LOCALES } from '../../i18n';
 import type { Locale } from '../../i18n/config';
+import { htmlCanonicalUrl } from '../../lib/htmlCanonicalUrl';
 
 export function getStaticPaths() {
   return SUPPORTED_LOCALES
@@ -20,7 +21,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const pagePath = '/jpg-png-to-heic';
-const canonical = `https://picshift.app/${lang}/jpg-png-to-heic`;
+const canonical = htmlCanonicalUrl(`https://picshift.app/${lang}/jpg-png-to-heic`);
 
 const localized: Record<Locale, {
   title: string;
