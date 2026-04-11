@@ -113,9 +113,9 @@ const fr: PageTranslations = {
     },
     'heic-to-png': {
       title:
-        'Convertisseur HEIC en PNG - Gratuit, Prive, Sans Envoi | PicShift',
+        'HEIC en PNG en ligne — lots, sans envoi | PicShift',
       description:
-        'Convertissez vos photos HEIC en format PNG dans votre navigateur. Qualite sans perte, 100% prive, aucun envoi requis.',
+        'Convertissez les photos HEIC (iPhone) en PNG sans perte pour l\u2019\u00e9dition ou l\u2019archivage. Jusqu\u2019\u00e0 200 fichiers dans le navigateur, sans t\u00e9l\u00e9versement vers un serveur.',
       h1: 'Convertir HEIC en PNG',
       introText:
         "Convertissez vos photos HEIC d'iPhone en format PNG sans perte. Tout le traitement se fait localement dans votre navigateur.",
@@ -358,16 +358,27 @@ const fr: PageTranslations = {
       ],
     },
     'image-resizer': {
-      title: 'Redimensionner une image en ligne - Gratuit et prive | PicShift',
-      description: 'Redimensionnez une image ou une photo dans votre navigateur. Dimensions exactes, tailles predefinies, aucun envoi, 100% prive.',
+      title:
+        'Redimensionner une image en ligne — taille et r\u00e9solution | PicShift',
+      description:
+        'Changez la taille ou la r\u00e9solution (largeur, hauteur, pr\u00e9r\u00e9glages) dans le navigateur. Jusqu\u2019\u00e0 200 fichiers par lot, sans envoi vers un serveur.',
       h1: 'Redimensionner les Images',
-      introText: "Redimensionnez une image aux bonnes dimensions pour un site, un formulaire, un envoi ou un reseau social. Vous pouvez choisir une taille predefinie ou entrer une largeur et une hauteur exactes, sans jamais televerser vos fichiers.",
+      introText:
+        "Redimensionner une image ou ajuster la r\u00e9solution en pixels sert pour les sites, formulaires et r\u00e9seaux sociaux. Choisissez un pr\u00e9r\u00e9glage ou des dimensions exactes : tout reste local dans votre navigateur.",
       howToSteps: [
         'Déposez vos images dans la zone ci-dessus, ou cliquez pour parcourir.',
         'Choisissez une taille prédéfinie ou entrez des dimensions personnalisées.',
         'Choisissez le format de sortie et la qualité, puis téléchargez.',
       ],
       faqs: [
+        {
+          q: 'Comment changer la taille d\u2019une image sans logiciel lourd ?',
+          a: "D\u00e9posez l\u2019image dans PicShift, choisissez un preset ou le mode Personnalis\u00e9 pour entrer largeur et hauteur, puis t\u00e9l\u00e9chargez. Le traitement reste dans le navigateur, sans envoi de fichiers \u00e0 un serveur.",
+        },
+        {
+          q: 'Comment changer la r\u00e9solution d\u2019une image en pixels ?',
+          a: "La r\u00e9solution affich\u00e9e correspond souvent \u00e0 la largeur et la hauteur en pixels. En mode Personnalis\u00e9, entrez les valeurs souhait\u00e9es (ou un pourcentage) : PicShift recalcule l\u2019image avec un r\u00e9\u00e9chantillonnage de haute qualit\u00e9.",
+        },
         { q: 'Comment redimensionner une image sans la deformer ?', a: "Choisissez une largeur et une hauteur adaptees a votre usage, ou utilisez un préréglage. PicShift conserve les proportions lorsque c'est pertinent et applique un redimensionnement de haute qualité pour eviter un rendu degrade." },
         { q: 'Quels préréglages de taille sont disponibles ?', a: 'PicShift propose Max 1920px (côté long), Max 1080px, échelle 50%, et un mode Personnalisé pour entrer des dimensions exactes en pixels ou un pourcentage.' },
         { q: 'Quelle taille choisir pour une photo a envoyer ou televerser ?', a: "Pour un televersement ou un envoi rapide, une image de 1080px ou 1920px sur le cote long suffit souvent. Si le site impose une taille precise, utilisez le mode Personnalise pour entrer les dimensions exactes." },
@@ -376,9 +387,9 @@ const fr: PageTranslations = {
     },
     'image-compressor': {
       title:
-        "Compresseur d'Images Gratuit - Réduire la Taille en Ligne | PicShift",
+        "Compresser des images en ligne — lots, sans envoi | PicShift",
       description:
-        'Compressez vos images dans votre navigateur. Réduisez la taille des fichiers JPG, PNG, WebP, HEIC et AVIF tout en conservant une excellente qualité. 100% privé, sans envoi.',
+        'Compressez JPG, PNG, WebP, HEIC et AVIF pour r\u00e9duire le poids avant envoi ou t\u00e9l\u00e9versement. Jusqu\u2019\u00e0 200 fichiers par lot dans le navigateur, sans serveur.',
       h1: 'Compresser des Images Gratuitement',
       introText:
         "Réduisez la taille de vos fichiers image tout en conservant la qualité visuelle. Ajustez le curseur de qualité pour trouver l'équilibre idéal.",
@@ -388,6 +399,10 @@ const fr: PageTranslations = {
         'Cliquez sur Telecharger pour enregistrer les images compressees.',
       ],
       faqs: [
+        {
+          q: 'Puis-je compresser beaucoup d\u2019images \u00e0 la fois ?',
+          a: "Oui, jusqu\u00e0 200 fichiers par ex\u00e9cution. Pour les tr\u00e8s gros lots, si le navigateur ralentit, traitez en plusieurs passes et t\u00e9l\u00e9chargez entre chaque lot.",
+        },
         {
           q: 'De combien puis-je compresser mes images ?',
           a: "Le resultat de compression depend de l'image source. Un reglage de qualite a 80% reduit la taille des fichiers JPG de 40 a 60% dans les comparaisons de reference, avec une difference visible minimale. Utilisez la vue de comparaison pour verifier la qualite avant de telecharger.",

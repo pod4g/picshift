@@ -212,12 +212,13 @@ const en: PageTranslations = {
       ],
     },
     'jpg-to-png': {
-      title: 'JPG to PNG Converter - Editing and Re-export | PicShift',
+      title:
+        'JPG to PNG converter online — batch, no upload | PicShift',
       description:
-        'Convert JPG images to PNG when you need stable editing and repeated re-export without additional lossy encoding.',
+        'Turn JPG into PNG for safer editing, markup, and re-export without stacking more lossy saves. Up to 200 files in your browser — nothing is sent to servers.',
       h1: 'Convert JPG to PNG',
       introText:
-        'Convert JPG images to lossless PNG format. Useful when you need a lossless version for editing.',
+        'Use this JPG-to-PNG converter when you need a lossless container for edits or annotations. It does not recover quality already lost in the source JPG, but it helps avoid extra degradation on every future save.',
       howToSteps: [
         'Drag and drop your JPG files into the box above, or click to browse.',
         'Files are converted to PNG instantly in your browser.',
@@ -225,8 +226,20 @@ const en: PageTranslations = {
       ],
       faqs: [
         {
+          q: 'How do I convert JPG to PNG online?',
+          a: 'Drop your JPG files in, keep PNG as the output format, then download. PicShift runs entirely in your browser with batch support (up to 200 files per run) and no upload.',
+        },
+        {
           q: 'Does converting JPG to PNG improve quality?',
           a: 'No. Converting from JPG to PNG does not restore quality lost during JPG compression. However, converting to PNG prevents any further quality loss if you need to edit and re-save the image.',
+        },
+        {
+          q: 'When is PNG better than staying on JPG?',
+          a: 'Choose PNG when you need transparency, lossless intermediate files, or a workflow where you will save many times. Stay on JPG when you only need a small file to share or upload.',
+        },
+        {
+          q: 'Will the PNG file be larger than the JPG?',
+          a: 'Usually yes. PNG stores more image information and is less aggressive about discarding detail, so file size often increases — that is normal when you prioritize edit stability over size.',
         },
       ],
     },
@@ -288,34 +301,50 @@ const en: PageTranslations = {
       ],
     },
     'image-resizer': {
-      title: 'Image Resizer - Resize Images Online Free & Private | PicShift',
-      description: 'Resize images in your browser. Preset sizes or custom dimensions. 100% private, no upload.',
+      title:
+        'Resize images online — width, height, presets | PicShift',
+      description:
+        'Change image size or pixel dimensions in your browser: presets or exact width and height. Up to 200 files per batch, no upload, local processing.',
       h1: 'Resize Images',
-      introText: 'Resize your images to exact dimensions or common presets. Everything happens in your browser — your images never leave your device.',
+      introText:
+        'Resize photos for websites, forms, email, or social posts. Pick a preset (1920px, 1080px, 50%) or enter custom pixels — all processing stays on your device.',
       howToSteps: [
         'Upload your images by dragging them into the box above, or click to browse.',
         'Pick a size preset or enter custom dimensions.',
         'Choose output format and quality, then download.',
       ],
       faqs: [
+        {
+          q: 'How do I change image resolution (pixel width and height)?',
+          a: 'Use Custom mode and enter the target width and height in pixels (or a percentage). PicShift downscales with high-quality resampling so the result stays sharp for typical screen use.',
+        },
+        {
+          q: 'Can I resize images without installing software?',
+          a: 'Yes. Add files in the browser, choose a preset or custom dimensions, then download. Nothing is uploaded to a server.',
+        },
         { q: 'What resize presets are available?', a: 'PicShift offers Max 1920px (long edge), Max 1080px, 50% scale, and a Custom mode where you can enter exact pixel dimensions or a percentage.' },
         { q: 'Does resizing reduce image quality?', a: 'Downscaling uses high-quality resampling. You can also adjust the quality slider to control compression. The combination of resize + compression gives you the best control over file size.' },
         { q: 'Can I resize and convert format at the same time?', a: 'Yes. You can change both the output format (JPG, PNG, WebP, AVIF) and the dimensions in a single step.' },
       ],
     },
     'image-compressor': {
-      title: 'Image Compressor - Reduce Image Size Online | PicShift',
+      title:
+        'Image compressor online — batch, no upload | PicShift',
       description:
-        'Compress images in your browser. Reduce JPG, PNG, and WebP file sizes while keeping great quality. 100% private, no upload.',
+        'Shrink JPG, PNG, WebP, HEIC, and AVIF files before you upload or share them. Up to 200 images per batch in the browser — 100% local, no upload.',
       h1: 'Compress Images',
       introText:
-        'Reduce image file sizes while maintaining visual quality. Drag the quality slider to find the perfect balance.',
+        'Shrink file sizes while keeping the picture usable for web or email. Move the quality slider and check the side-by-side preview before you download.',
       howToSteps: [
         'Drag and drop your images into the box above, or click to browse.',
         'Adjust the quality slider to control compression level.',
         'Click Download to save the compressed images.',
       ],
       faqs: [
+        {
+          q: 'Can I compress many images at once?',
+          a: 'Yes — up to 200 files per run. For very large batches, if the browser slows down, split into smaller groups and download between runs.',
+        },
         {
           q: 'How much can I compress my images?',
           a: 'Compression result is source-dependent. A quality setting of 80% reduces JPG file sizes by 40-60% in benchmark comparisons with minimal visible difference. Use the comparison view to verify before downloading.',
@@ -329,7 +358,7 @@ const en: PageTranslations = {
     'metadata-remover': {
       title: 'Remove Image Metadata — EXIF, GPS, Camera Data | PicShift',
       description:
-        'Strip EXIF, GPS location, camera model, and other metadata from JPG, PNG, WebP, HEIC, and AVIF images. Runs locally in your browser — nothing gets uploaded.',
+        'Remove EXIF, GPS, and camera metadata from JPG, PNG, WebP, HEIC, and AVIF in your browser. Free tool — your files never upload.',
       h1: 'Remove Image Metadata',
       introText:
         'Strip hidden metadata from your photos before sharing. GPS coordinates, camera model, timestamps, and software tags are embedded in most images by default. This tool removes all of it locally in your browser — the image never leaves your device.',

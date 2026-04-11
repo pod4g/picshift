@@ -1,6 +1,7 @@
 ---
 import { SUPPORTED_LOCALES, LOCALE_CONFIG } from '../i18n/config';
 import type { Locale } from '../i18n/config';
+import { htmlCanonicalUrl } from '../lib/htmlCanonicalUrl';
 
 interface Props {
   title: string;
@@ -21,7 +22,9 @@ interface Props {
 
 const { title, description, canonical, lang = 'en', pagePath = '/', ogType = 'website', ogImage, noAlternate = false, ogArticleMeta } = Astro.props;
 const siteBase = 'https://picshift.app';
-const canonicalUrl = canonical || (lang === 'en' ? `${siteBase}${pagePath}` : `${siteBase}/${lang}${pagePath === '/' ? '/' : pagePath}`);
+const rawCanonical =
+  canonical || (lang === 'en' ? `${siteBase}${pagePath}` : `${siteBase}/${lang}${pagePath === '/' ? '/' : pagePath}`);
+const canonicalUrl = htmlCanonicalUrl(rawCanonical);
 const ogImageUrl = ogImage ? `${siteBase}${ogImage}` : `${siteBase}/og-image.png`;
 const ogImageType = ogImageUrl.endsWith('.webp') ? 'image/webp' : ogImageUrl.endsWith('.jpg') || ogImageUrl.endsWith('.jpeg') ? 'image/jpeg' : 'image/png';
 
@@ -40,8 +43,8 @@ const OG_LOCALE: Record<string, string> = {
 const normalizedPath = pagePath === '/' ? '' : pagePath;
 
 function buildHrefLangUrl(locale: Locale): string {
-  if (locale === 'en') return `${siteBase}${pagePath}`;
-  return `${siteBase}/${locale}${normalizedPath || '/'}`;
+  const raw = locale === 'en' ? `${siteBase}${pagePath}` : `${siteBase}/${locale}${normalizedPath || '/'}`;
+  return htmlCanonicalUrl(raw);
 }
 
 // Organization schema for home page

@@ -15,10 +15,21 @@ export function getLangFromUrl(url: URL): Locale {
   return DEFAULT_LOCALE;
 }
 
+/** 页面型路径补尾斜杠（与 Astro trailingSlash: always 一致）；静态资源路径（末段含 `.`）不改 */
+function ensureHtmlPathTrailingSlash(path: string): string {
+  if (!path || path === '/') return '/';
+  if (path.endsWith('/')) return path;
+  const lastSeg = path.split('/').filter(Boolean).pop() ?? '';
+  if (lastSeg.includes('.')) return path;
+  return `${path}/`;
+}
+
 /** Build a locale-prefixed path (no prefix for default locale) */
 export function localePath(path: string, lang: Locale): string {
-  if (lang === DEFAULT_LOCALE) return path;
-  return `/${lang}${path.startsWith('/') ? '' : '/'}${path}`;
+  const normalized = ensureHtmlPathTrailingSlash(path);
+  if (lang === DEFAULT_LOCALE) return normalized;
+  if (normalized === '/') return `/${lang}/`;
+  return `/${lang}${normalized}`;
 }
 
 /** Replace {key} placeholders in a template string */

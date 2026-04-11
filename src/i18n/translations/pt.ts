@@ -83,10 +83,10 @@ const pt: PageTranslations = {
       title:
         'Conversor de HEIC para JPG - Abrir no Windows e enviar com mais facilidade | PicShift',
       description:
-        'Converta HEIC para JPG no navegador quando uma foto do iPhone nao abre no Windows, nao sobe em um site ou precisa ficar mais compativel.',
+        'Converta HEIC para JPG no navegador quando uma foto do iPhone não abre no Windows, não sobe em um site ou precisa ficar mais compatível.',
       h1: 'Converter HEIC para JPG',
       introText:
-        'Converta fotos HEIC do iPhone para JPG quando voce precisa de um arquivo que abra com mais facilidade em apps antigos, sites, formularios de upload e PCs com Windows. Tudo acontece no seu navegador, sem enviar nada.',
+        'Converta fotos HEIC do iPhone para JPG quando você precisa de um arquivo que abra com mais facilidade em apps antigos, sites, formulários de upload e PCs com Windows. Tudo acontece no seu navegador, sem enviar nada.',
       howToSteps: [
         'Arraste e solte seus arquivos HEIC na caixa acima ou clique para procurar.',
         'Suas fotos s\u00e3o convertidas instantaneamente no navegador \u2014 nada \u00e9 enviado.',
@@ -99,15 +99,15 @@ const pt: PageTranslations = {
         },
         {
           q: 'Por que converter HEIC para JPG?',
-          a: 'Porque JPG ainda e o formato mais aceito no dia a dia. Se a foto precisa abrir no Windows, entrar em um sistema antigo, ser enviada por e-mail ou subir em um site sem erro, JPG continua sendo a opcao mais segura.',
+          a: 'Porque JPG ainda é o formato mais aceito no dia a dia. Se a foto precisa abrir no Windows, entrar em um sistema antigo, ser enviada por e-mail ou subir em um site sem erro, JPG continua sendo a opção mais segura.',
         },
         {
           q: 'Como transformar HEIC em JPG para usar no Windows ou em sites?',
-          a: 'Basta adicionar o arquivo HEIC, manter JPG como formato de saida e baixar a imagem convertida. Isso resolve a maioria dos casos em que o arquivo do iPhone nao abre direito ou nao e aceito no upload.',
+          a: 'Basta adicionar o arquivo HEIC, manter JPG como formato de saída e baixar a imagem convertida. Isso resolve a maioria dos casos em que o arquivo do iPhone não abre direito ou não é aceito no upload.',
         },
         {
           q: 'HEIC para JPG perde qualidade?',
-          a: 'JPG usa compressao com perda, entao nao e a melhor opcao para um fluxo de edicao sem perdas. Mesmo assim, para compartilhar, enviar ou abrir em mais lugares, costuma ser a troca certa quando a compatibilidade vem em primeiro lugar.',
+          a: 'JPG usa compressão com perda, então não é a melhor opção para um fluxo de edição sem perdas. Mesmo assim, para compartilhar, enviar ou abrir em mais lugares, costuma ser a troca certa quando a compatibilidade vem em primeiro lugar.',
         },
         {
           q: '\u00c9 seguro converter minhas fotos aqui?',
@@ -115,18 +115,18 @@ const pt: PageTranslations = {
         },
         {
           q: 'Quando vale a pena manter HEIC?',
-          a: 'Vale manter HEIC se o seu fluxo ja funciona bem no iPhone, no Mac ou em apps modernos e se voce quer arquivos menores. Converta para JPG quando a foto precisar circular por sistemas mais antigos ou por sites que ainda nao aceitam HEIC.',
+          a: 'Vale manter HEIC se o seu fluxo já funciona bem no iPhone, no Mac ou em apps modernos e se você quer arquivos menores. Converta para JPG quando a foto precisar circular por sistemas mais antigos ou por sites que ainda não aceitam HEIC.',
         },
       ],
     },
     'heic-to-png': {
       title:
-        'Conversor de HEIC para PNG - Qualidade sem perda | PicShift',
+        'HEIC para PNG online — conversor em lote, sem upload | PicShift',
       description:
-        'Converta HEIC para PNG quando voce precisa de qualidade sem perda para edicao, revisao ou um arquivo mais facil de reutilizar em ferramentas graficas.',
+        'Converta fotos HEIC do iPhone para PNG (qualidade sem perda) para editar ou arquivar com mais margem. Até 200 arquivos no navegador — sem enviar nada a servidores.',
       h1: 'Converter HEIC para PNG',
       introText:
-        'Converta fotos HEIC do iPhone para PNG quando voce precisa de um arquivo sem perda para editar, anotar ou revisar. O PNG e maior que o JPG, mas mais estavel para fluxos de trabalho que exigem qualidade intacta.',
+        'Converta fotos HEIC do iPhone para PNG quando você precisa de um arquivo sem perda para editar, anotar ou revisar. O PNG é maior que o JPG, mas mais estável para fluxos de trabalho que exigem qualidade intacta.',
       howToSteps: [
         'Arraste e solte seus arquivos HEIC na caixa acima ou clique para procurar.',
         'Os arquivos s\u00e3o convertidos para PNG sem perda instantaneamente no seu navegador.',
@@ -135,19 +135,19 @@ const pt: PageTranslations = {
       faqs: [
         {
           q: 'Por que converter HEIC para PNG em vez de JPG?',
-          a: 'Porque PNG nao adiciona mais uma camada de compressao com perda. E melhor para edicao, anotacoes, revisao de design ou quando voce quer um arquivo estavel que possa ser reexportado sem se degradar.',
+          a: 'Porque PNG não adiciona mais uma camada de compressão com perda. É melhor para edição, anotações, revisão de design ou quando você quer um arquivo estável que possa ser reexportado sem se degradar.',
         },
         {
           q: 'O arquivo PNG fica muito maior que o HEIC ou JPG?',
-          a: 'Sim, bem maior na maioria das fotos. HEIC comprime muito bem e PNG guarda muito mais informacao por pixel. O aumento de tamanho e normal quando voce prioriza qualidade sem perda.',
+          a: 'Sim, bem maior na maioria das fotos. HEIC comprime muito bem e PNG guarda muito mais informação por pixel. O aumento de tamanho é normal quando você prioriza qualidade sem perda.',
         },
         {
-          q: 'Quando e melhor converter para JPG?',
-          a: 'Quando o objetivo e um arquivo leve para compartilhar, enviar ou subir, e voce nao precisa de transparencia nem de edicao posterior. JPG e mais pratico no dia a dia; PNG e melhor para fluxos mais exigentes.',
+          q: 'Quando é melhor converter para JPG?',
+          a: 'Quando o objetivo é um arquivo leve para compartilhar, enviar ou subir, e você não precisa de transparência nem de edição posterior. JPG é mais prático no dia a dia; PNG é melhor para fluxos mais exigentes.',
         },
         {
           q: 'Como converter HEIC para PNG?',
-          a: 'Adicione o arquivo HEIC, mantenha PNG como formato de saida e baixe a imagem. O PicShift faz tudo no navegador, sem enviar nada para nenhum servidor.',
+          a: 'Adicione o arquivo HEIC, mantenha PNG como formato de saída e baixe a imagem. O PicShift faz tudo no navegador, sem enviar nada para nenhum servidor.',
         },
       ],
     },
@@ -177,12 +177,12 @@ const pt: PageTranslations = {
     },
     'webp-to-jpg': {
       title:
-        'Conversor de WebP para JPG - Mais compativel para abrir e enviar | PicShift',
+        'Conversor de WebP para JPG - Mais compatível para abrir e enviar | PicShift',
       description:
-        'Converta WebP para JPG quando um app, site ou formulario nao aceita bem o formato WebP.',
+        'Converta WebP para JPG quando um app, site ou formulário não aceita bem o formato WebP.',
       h1: 'Converter WebP para JPG',
       introText:
-        'Converta imagens WebP para JPG quando voce precisa de um arquivo que abra, envie ou suba com menos problema. JPG continua sendo a opcao mais facil para muitos apps antigos, clientes de e-mail e sistemas de upload.',
+        'Converta imagens WebP para JPG quando você precisa de um arquivo que abra, envie ou suba com menos problema. JPG continua sendo a opção mais fácil para muitos apps antigos, clientes de e-mail e sistemas de upload.',
       howToSteps: [
         'Arraste e solte seus arquivos WebP na caixa acima ou clique para procurar.',
         'Os arquivos s\u00e3o convertidos para JPG instantaneamente no seu navegador.',
@@ -191,19 +191,19 @@ const pt: PageTranslations = {
       faqs: [
         {
           q: 'Por que converter WebP para JPG?',
-          a: 'WebP funciona muito bem no navegador, mas fora da web ainda falha em alguns aplicativos antigos, clientes de e-mail, ferramentas de escritorio e formul\u00e1rios de upload. JPG continua sendo o formato mais facil de usar no dia a dia.',
+          a: 'WebP funciona muito bem no navegador, mas fora da web ainda falha em alguns aplicativos antigos, clientes de e-mail, ferramentas de escritório e formul\u00e1rios de upload. JPG continua sendo o formato mais fácil de usar no dia a dia.',
         },
         {
           q: 'Como converter WebP para JPG?',
-          a: 'Adicione o arquivo WebP, mantenha JPG como formato de saida e baixe a imagem convertida. E a forma mais rapida de resolver casos em que uma plataforma nao aceita WebP.',
+          a: 'Adicione o arquivo WebP, mantenha JPG como formato de saída e baixe a imagem convertida. É a forma mais rápida de resolver casos em que uma plataforma não aceita WebP.',
         },
         {
-          q: 'Por que alguns sites ou apps nao aceitam WebP?',
-          a: 'Muitos sistemas mais antigos ainda foram pensados para JPG e PNG. Quando a validacao de arquivo usa uma lista antiga de formatos, o WebP pode ser recusado mesmo funcionando bem no navegador.',
+          q: 'Por que alguns sites ou apps não aceitam WebP?',
+          a: 'Muitos sistemas mais antigos ainda foram pensados para JPG e PNG. Quando a validação de arquivo usa uma lista antiga de formatos, o WebP pode ser recusado mesmo funcionando bem no navegador.',
         },
         {
           q: 'O arquivo JPG pode ficar maior?',
-          a: 'Pode sim. WebP costuma ser mais eficiente que JPG, entao converter para ganhar compatibilidade pode gerar um arquivo um pouco maior dependendo da imagem e da qualidade escolhida.',
+          a: 'Pode sim. WebP costuma ser mais eficiente que JPG, então converter para ganhar compatibilidade pode gerar um arquivo um pouco maior dependendo da imagem e da qualidade escolhida.',
         },
       ],
     },
@@ -229,9 +229,9 @@ const pt: PageTranslations = {
     },
     'png-to-jpg': {
       title:
-        'Converter PNG para JPG Online — Gratuito, Privado, Sem Upload | PicShift',
+        'Conversor PNG para JPG — lote, sem upload | PicShift',
       description:
-        'Converta PNG para JPG e reduza o tamanho de capturas de tela e exportações de design. Funciona direto no navegador, sem mandar nada pra nenhum servidor.',
+        'PNG para JPG no navegador: reduza capturas de tela e PNGs grandes para e-mail ou formulários. Até 200 por lote, qualidade ajustável, local e sem upload.',
       h1: 'Converter PNG para JPG',
       introText:
         'Aquele print de 3 MB ou aquela exportação de design de 5 MB? Em JPG com qualidade 80-85, cai pra 500 KB sem diferença visível. A conversão acontece direto no navegador — o arquivo não sai do seu computador.',
@@ -265,12 +265,12 @@ const pt: PageTranslations = {
     },
     'jpg-to-png': {
       title:
-        'Conversor de JPG para PNG - Sem perda, gratuito | PicShift',
+        'Conversor de JPG para PNG online — em lote, sem upload | PicShift',
       description:
-        'Converta JPG para PNG quando voce precisa de um arquivo mais estavel para edicao, anotacoes ou reexportacao sem perda adicional.',
+        'Converta JPG para PNG quando você precisa de um arquivo mais estável para edição, anotações ou reexportação. Até 200 imagens por vez, direto no navegador — nada é enviado a servidores.',
       h1: 'Converter JPG para PNG',
       introText:
-        'Converta um JPG para PNG quando voce quer um arquivo que aguente melhor edicao, anotacoes ou varios re-exports. Isso nao melhora a qualidade original, mas evita que o proximo salvamento degrade ainda mais a imagem.',
+        'Use o conversor de JPG para PNG quando você quer transformar JPG em PNG para edição, anotações ou vários reexports sem nova compressão com perda. Isso não recupera qualidade já perdida no JPG original, mas evita que cada salvamento seguinte degrade ainda mais a imagem.',
       howToSteps: [
         'Arraste e solte seus arquivos JPG na caixa acima ou clique para procurar.',
         'Os arquivos s\u00e3o convertidos para PNG instantaneamente no seu navegador.',
@@ -278,20 +278,28 @@ const pt: PageTranslations = {
       ],
       faqs: [
         {
+          q: 'Como transformar JPG em PNG online?',
+          a: 'Arraste os arquivos JPG para a ferramenta, deixe PNG como saída e baixe. Tudo roda no navegador — até 200 arquivos por vez, sem upload.',
+        },
+        {
+          q: 'O conversor de JPG para PNG serve para várias fotos?',
+          a: 'Sim. Você pode processar até 200 imagens em lote. Para lotes muito grandes, se o navegador ficar lento, divida em duas levas e baixe entre uma e outra.',
+        },
+        {
           q: 'Converter JPG para PNG melhora a qualidade?',
-          a: 'Nao. A conversao nao recupera qualidade ja perdida na compressao JPG. Mas evita que salvar de novo degrade ainda mais a imagem, o que e util quando voce precisa editar ou anotar o arquivo.',
+          a: 'Não. A conversão não recupera qualidade já perdida na compressão JPG. Mas evita que salvar de novo degrade ainda mais a imagem, o que é útil quando você precisa editar ou anotar o arquivo.',
         },
         {
           q: 'Por que converter JPG para PNG?',
-          a: 'Normalmente para poder editar a imagem com mais seguranca, adicionar anotacoes ou reexportar sem perder mais qualidade a cada salvamento. PNG tambem e necessario quando voce precisa de transparencia.',
+          a: 'Normalmente para poder editar a imagem com mais segurança, adicionar anotações ou reexportar sem perder mais qualidade a cada salvamento. PNG também é necessário quando você precisa de transparência.',
         },
         {
           q: 'O arquivo PNG fica maior que o JPG?',
-          a: 'Sim, na maioria dos casos fica bem maior. PNG guarda mais dados de imagem e comprime menos. Isso e normal quando o objetivo e estabilidade e nao leveza.',
+          a: 'Sim, na maioria dos casos fica bem maior. PNG guarda mais dados de imagem e comprime menos. Isso é normal quando o objetivo é estabilidade e não leveza.',
         },
         {
-          q: 'Quando e melhor ficar com JPG?',
-          a: 'Quando voce so precisa de um arquivo leve para compartilhar, enviar ou subir, e nao precisa de transparencia nem de edicao posterior.',
+          q: 'Quando é melhor ficar com JPG?',
+          a: 'Quando você só precisa de um arquivo leve para compartilhar, enviar ou subir, e não precisa de transparência nem de edição posterior.',
         },
       ],
     },
@@ -356,8 +364,10 @@ const pt: PageTranslations = {
       ],
     },
     'image-resizer': {
-      title: 'Redimensionar Imagens Online — Gratuito, Sem Upload | PicShift',
-      description: 'Mude o tamanho das suas imagens direto no navegador. Presets rápidos ou largura e altura exatas. Nenhum arquivo é enviado — tudo roda local.',
+      title:
+        'Redimensionar imagem online — mudar tamanho, largura e altura | PicShift',
+      description:
+        'Redimensionamento de imagem no navegador: presets (1920px, 1080px, 50%) ou largura e altura exatas. Em lote, gratuito e sem upload — processamento 100% local.',
       h1: 'Redimensionar Imagens',
       introText: 'Imagem grande demais pro site, pro e-commerce ou pro formulário? Reduza com um preset (1920px, 1080px, 50%) ou coloque largura e altura na mão. O processamento é todo no navegador — nada sai do seu computador.',
       howToSteps: [
@@ -375,18 +385,22 @@ const pt: PageTranslations = {
     },
     'image-compressor': {
       title:
-        'Compressor de Imagens - Reduza o Tamanho Online, Gratuito e Privado | PicShift',
+        'Comprimir imagens online — lote, sem upload | PicShift',
       description:
-        'Comprima imagens no seu navegador. Reduza o tamanho de arquivos JPG, PNG e WebP mantendo \u00f3tima qualidade. 100% privado, sem upload.',
+        'Comprima JPG, PNG, WebP, HEIC e AVIF para reduzir peso antes de enviar ou subir. Até 200 por vez no navegador, sem upload; dá para comparar antes de baixar.',
       h1: 'Comprimir Imagens',
       introText:
-        'Reduza o tamanho dos arquivos de imagem mantendo a qualidade visual. Arraste o controle de qualidade para encontrar o equil\u00edbrio perfeito.',
+        'Reduza o tamanho dos arquivos mantendo boa qualidade visual: ajuste o slider, use a comparação e baixe. Funciona em lote e tudo fica local no seu navegador.',
       howToSteps: [
         'Arraste e solte suas imagens na caixa acima ou clique para procurar.',
         'Ajuste o controle de qualidade para controlar o n\u00edvel de compress\u00e3o.',
         'Clique em Baixar para salvar as imagens comprimidas.',
       ],
       faqs: [
+        {
+          q: 'Dá para comprimir muitas imagens de uma vez?',
+          a: 'Sim, até 200 por execução. Se o lote for enorme e o navegador pesar, processe em partes e baixe entre uma e outra.',
+        },
         {
           q: 'Quanto posso comprimir minhas imagens?',
           a: 'O resultado da compress\u00e3o depende da imagem de origem. Uma configura\u00e7\u00e3o de qualidade de 80% reduz o tamanho dos arquivos JPG de 40 a 60% em compara\u00e7\u00f5es de refer\u00eancia, com diferen\u00e7a vis\u00edvel m\u00ednima. Use a visualiza\u00e7\u00e3o de compara\u00e7\u00e3o para verificar a qualidade antes de baixar.',
@@ -434,20 +448,20 @@ const pt: PageTranslations = {
       detailSections: [
         {
           title: 'Escopo e limites',
-          body: 'Esta ferramenta remove os metadados embutidos no proprio arquivo. Ela nao altera os pixels visiveis da imagem. Ou seja: ajuda a evitar vazamento de informacao oculta, mas nao apaga o que ja aparece na tela.',
+          body: 'Esta ferramenta remove os metadados embutidos no próprio arquivo. Ela não altera os pixels visíveis da imagem. Ou seja: ajuda a evitar vazamento de informação oculta, mas não apaga o que já aparece na tela.',
           items: [
-            'Ela pode remover GPS, modelo do aparelho, horario de captura e tags de software, mas nao apaga rostos, placas, marcas d’agua nem textos que ja estao visiveis na imagem.',
-            'JPG, PNG, WebP e AVIF sao baixados no mesmo formato. HEIC e HEIF limpos saem como JPG porque o navegador ainda nao consegue gravar esses formatos de volta com confianca.',
-            'Alguns apps e plataformas sociais removem parte dos metadados depois do upload, mas esse comportamento nao e consistente e pode mudar. O mais seguro e limpar o arquivo voce mesmo antes de usa-lo.',
+            'Ela pode remover GPS, modelo do aparelho, horário de captura e tags de software, mas não apaga rostos, placas, marcas d’água nem textos que já estão visíveis na imagem.',
+            'JPG, PNG, WebP e AVIF são baixados no mesmo formato. HEIC e HEIF limpos saem como JPG porque o navegador ainda não consegue gravar esses formatos de volta com confiança.',
+            'Alguns apps e plataformas sociais removem parte dos metadados depois do upload, mas esse comportamento não é consistente e pode mudar. O mais seguro é limpar o arquivo você mesmo antes de usá-lo.',
           ],
         },
         {
           title: 'Como remover metadados de uma imagem',
-          body: 'O fluxo e simples: primeiro confira o que o arquivo contem, depois limpe e, quando precisar, use a copia limpa.',
+          body: 'O fluxo é simples: primeiro confira o que o arquivo contém, depois limpe e, quando precisar, use a cópia limpa.',
           items: [
-            'Arraste a imagem para a ferramenta e veja exatamente quais informacoes o arquivo traz.',
-            'Se aparecerem apenas largura, altura ou espaco de cor, voce vera 0 dados sensiveis. Se houver GPS, dados do aparelho ou horario, isso sera marcado como sensivel.',
-            'Baixe o arquivo limpo e use essa versao quando for salvar, enviar, subir ou apenas guardar uma copia.',
+            'Arraste a imagem para a ferramenta e veja exatamente quais informações o arquivo traz.',
+            'Se aparecerem apenas largura, altura ou espaço de cor, você verá 0 dados sensíveis. Se houver GPS, dados do aparelho ou horário, isso será marcado como sensível.',
+            'Baixe o arquivo limpo e use essa versão quando for salvar, enviar, subir ou apenas guardar uma cópia.',
           ],
         },
       ],

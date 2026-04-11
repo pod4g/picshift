@@ -111,9 +111,9 @@ const es: PageTranslations = {
     },
     'heic-to-png': {
       title:
-        'Convertidor de HEIC a PNG - Calidad sin perdida, gratis | PicShift',
+        'HEIC a PNG online - Convertidor sin subir archivos | PicShift',
       description:
-        'Convierte HEIC a PNG cuando necesitas calidad sin perdida, transparencia o un archivo mas comodo para editar o retocar.',
+        'Pasa fotos HEIC a PNG cuando necesitas calidad sin perdida, transparencia o un archivo mas estable para editar. Hasta 200 archivos en el navegador, sin subirlos a ningun servidor.',
       h1: 'Convertir HEIC a PNG',
       introText:
         'Convierte fotos HEIC del iPhone a PNG cuando necesitas un archivo sin perdida para edicion, revision o diseno. El PNG es mas pesado que el JPG, pero es mejor opcion cuando la estabilidad de la imagen importa mas que el tamano.',
@@ -138,6 +138,10 @@ const es: PageTranslations = {
         {
           q: 'Como paso HEIC a PNG?',
           a: 'Anade tu archivo HEIC, deja PNG como formato de salida y descarga la imagen convertida. PicShift lo hace todo en tu navegador, sin enviar nada a ningun servidor.',
+        },
+        {
+          q: 'Es lo mismo HEIC a PNG que HEIC a JPG?',
+          a: 'No. PNG es sin perdida y suele pesar mas, pero es mejor cuando vas a retocar, recortar o reexportar varias veces. JPG es mas ligero y practico si solo quieres compartir o subir la foto con menos peso.',
         },
       ],
     },
@@ -356,16 +360,27 @@ const es: PageTranslations = {
       ],
     },
     'image-resizer': {
-      title: 'Redimensionar imagen online - Gratis y privado | PicShift',
-      description: 'Redimensiona una imagen o foto en tu navegador. Elige dimensiones exactas o un tamaño predefinido, sin subir archivos.',
+      title:
+        'Redimensionar imagen online: tamaño y resolución | PicShift',
+      description:
+        'Cambia el tamaño o la resolución de imágenes (ancho, alto o presets) en el navegador. Hasta 200 archivos por lote, sin subir nada al servidor.',
       h1: 'Redimensionar Imágenes',
-      introText: 'Redimensiona una imagen al tamano exacto que necesitas para un sitio web, un formulario, una red social o un envio por correo. Todo se procesa en tu navegador y tus archivos nunca salen de tu dispositivo.',
+      introText:
+        'Redimensionar imagen o cambiar la resolución en píxeles sirve para webs, formularios, redes sociales o correo. Puedes usar un preset o medidas exactas; todo ocurre en tu navegador y los archivos no salen de tu dispositivo.',
       howToSteps: [
         'Arrastra tus imagenes al area de arriba o haz clic para explorar.',
         'Elige un tamano predefinido o introduce dimensiones personalizadas.',
         'Elige el formato de salida y la calidad, luego descarga.',
       ],
       faqs: [
+        {
+          q: '¿Cómo cambiar el tamaño de una imagen sin instalar programas?',
+          a: 'Arrastra la imagen a PicShift, elige un preset o escribe ancho y alto en el modo Personalizado, luego descarga. El redimensionado ocurre en tu navegador (sin subir archivos a ningún servidor) y puedes combinarlo con cambio de formato si lo necesitas.',
+        },
+        {
+          q: '¿Cómo cambiar la resolución de una imagen (en píxeles)?',
+          a: 'La resolución en pantalla suele medirse en píxeles de ancho y alto. En el modo Personalizado introduces el ancho y el alto deseados (o un porcentaje) y PicShift recalcula la imagen con muestreo de alta calidad.',
+        },
         { q: 'Como redimensionar una imagen sin deformarla?', a: 'Elige una anchura y altura adecuadas para tu uso, o selecciona un preset. PicShift mantiene las proporciones cuando corresponde y aplica un redimensionado de alta calidad para evitar que el resultado se vea degradado.' },
         { q: 'Que presets de tamano hay disponibles?', a: 'PicShift ofrece Max 1920px (lado largo), Max 1080px, escala al 50%, y un modo Personalizado para introducir dimensiones exactas en pixeles o un porcentaje.' },
         { q: 'Que tamano elegir para subir una foto a un sitio o enviarla?', a: 'Para un envio rapido o un formulario web, una imagen de 1080px o 1920px en el lado largo suele ser suficiente. Si el sitio pide un tamano exacto, usa el modo Personalizado.' },
@@ -376,7 +391,7 @@ const es: PageTranslations = {
       title:
         'Comprimir imagenes online - Gratis, privado, sin subir | PicShift',
       description:
-        'Comprime imagenes en tu navegador para reducir su peso sin perder demasiada calidad. Compatible con JPG, PNG, WebP, HEIC y AVIF.',
+        'Comprime imagenes (JPG, PNG, WebP, HEIC, AVIF) para bajar peso antes de subirlas o enviarlas. Hasta 200 archivos por lote en el navegador, sin subir nada a servidores.',
       h1: 'Comprimir Imagenes Gratis',
       introText:
         'Reduce el peso de tus imagenes sin que se note mucho la diferencia visual. Es util para subir fotos a una web, enviarlas por correo, cumplir limites de tamano o simplemente ahorrar espacio.',
@@ -386,6 +401,10 @@ const es: PageTranslations = {
         'Haz clic en Descargar para guardar las imagenes comprimidas.',
       ],
       faqs: [
+        {
+          q: 'Puedo comprimir muchas imagenes a la vez?',
+          a: 'Si. Puedes arrastrar hasta 200 archivos en un solo lote. Para lotes muy grandes, si el navegador va lento, conviene procesar en grupos mas pequenos y descargar entre tandas.',
+        },
         {
           q: 'Cuanto puedo comprimir mis imagenes?',
           a: 'Depende de la imagen original. Con calidad al 80%, los archivos JPG suelen reducirse entre un 40% y un 60% sin que la diferencia sea visible a simple vista. Puedes usar la vista de comparacion para verificar antes de descargar.',

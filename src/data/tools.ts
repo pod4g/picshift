@@ -111,7 +111,7 @@ export const TOOL_PAGES: ToolPageConfig[] = [
     slug: 'metadata-remover',
     title: 'Remove Image Metadata Online — EXIF, GPS, Camera Data | PicShift',
     description:
-      'Remove EXIF metadata, GPS location, and camera data from photos online. Works with JPG, PNG, WebP, HEIC, and AVIF. Free metadata cleaner that runs in your browser — nothing gets uploaded.',
+      'Remove EXIF, GPS, and camera metadata from JPG, PNG, WebP, HEIC, and AVIF in your browser. Free tool — your files never upload.',
     defaultInputFormat: null,
     h1: 'Remove Image Metadata',
     introText:
@@ -818,7 +818,7 @@ export const TOOL_PAGES: ToolPageConfig[] = [
   },
   {
     slug: 'png-to-avif',
-    title: 'PNG to AVIF Converter — Smaller Files, Transparency Kept | PicShift',
+    title: 'PNG to AVIF — Smaller Files, Keeps Transparency | PicShift',
     description:
       'Convert PNG to AVIF and cut file size by 50-70% while keeping transparency. Runs locally in your browser — your images stay on your device.',
     defaultInputFormat: 'png',

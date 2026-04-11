@@ -219,9 +219,10 @@ const de: PageTranslations = {
       ],
     },
     'jpg-to-png': {
-      title: 'JPG in PNG umwandeln - Verlustfrei, kostenlos, ohne Upload | PicShift',
+      title:
+        'JPG in PNG umwandeln online – Stapel, ohne Upload | PicShift',
       description:
-        'Wandeln Sie JPG-Bilder in PNG um, wenn Sie eine verlustfreie Datei zum Bearbeiten, Beschriften oder Weiterverarbeiten brauchen.',
+        'Wandeln Sie JPG in PNG um, wenn Sie eine verlustfreie Datei zum Bearbeiten, Beschriften oder erneuten Export brauchen. Bis zu 200 Dateien pro Durchlauf, lokal im Browser — kein Upload.',
       h1: 'JPG in PNG konvertieren',
       introText:
         'Wandeln Sie ein JPG-Bild in PNG um, wenn Sie eine Datei brauchen, die sich besser bearbeiten, beschriften oder erneut exportieren laesst. Das verbessert nicht die Ausgangsqualitaet, verhindert aber, dass beim naechsten Speichern weitere Qualitaet verloren geht.',
@@ -310,16 +311,27 @@ const de: PageTranslations = {
       ],
     },
     'image-resizer': {
-      title: 'Bilder Skalieren - Kostenlos und Privat | PicShift',
-      description: 'Bilder im Browser skalieren. Voreingestellte Größen oder benutzerdefinierte Abmessungen. 100% privat, kein Upload.',
+      title:
+        'Bildgroesse online aendern – skalieren, ohne Upload | PicShift',
+      description:
+        'Bildaufloesung oder Kantenlaenge im Browser anpassen: Presets oder eigene Pixelmasse. Auch fuer WebP und Screenshots geeignet. Bis zu 200 Dateien pro Durchlauf, kein Upload.',
       h1: 'Bilder Skalieren',
-      introText: 'Skalieren Sie Ihre Bilder auf exakte Abmessungen oder gängige Voreinstellungen. Alles geschieht in Ihrem Browser — Ihre Bilder verlassen nie Ihr Gerät.',
+      introText:
+        'Aufloesung und Abmessungen aendern, wenn ein Portal feste Pixel vorgibt oder ein Screenshot zu gross ist. Waehlen Sie eine Voreinstellung oder exakte Werte — die Verarbeitung bleibt lokal im Browser.',
       howToSteps: [
         'Ziehen Sie Ihre Bilder in den Bereich oben, oder klicken Sie zum Durchsuchen.',
         'Wählen Sie eine Größenvoreinstellung oder geben Sie benutzerdefinierte Abmessungen ein.',
         'Wählen Sie Ausgabeformat und Qualität, dann laden Sie herunter.',
       ],
       faqs: [
+        {
+          q: 'Kann ich auch WebP-Bilder verkleinern oder die Groesse aendern?',
+          a: 'Ja. WebP-Dateien koennen Sie wie JPG oder PNG einfuegen und dann Preset oder eigene Pixelwerte waehlen. Bei Bedarf aendern Sie im selben Schritt noch das Ausgabeformat.',
+        },
+        {
+          q: 'Was ist der Unterschied zwischen Skalieren und Aufloesung aendern?',
+          a: 'Hier meinen wir dasselbe: Sie setzen neue Breite und Hoehe in Pixeln (oder einen Prozentwert), damit die Datei weniger Pixel enthaelt. Das senkt meist staerker das Dateigewicht als reine Kompression.',
+        },
         { q: 'Welche Größenvoreinstellungen sind verfügbar?', a: 'PicShift bietet Max 1920px (lange Seite), Max 1080px, 50% Skalierung und einen benutzerdefinierten Modus für exakte Pixel-Abmessungen oder Prozentangaben.' },
         { q: 'Verringert das Skalieren die Bildqualität?', a: 'Die Verkleinerung verwendet hochwertige Neuabtastung. Sie können auch den Qualitätsregler anpassen, um die Komprimierung zu steuern.' },
         { q: 'Kann ich gleichzeitig skalieren und das Format konvertieren?', a: 'Ja. Sie können sowohl das Ausgabeformat (JPG, PNG, WebP, AVIF) als auch die Abmessungen in einem Schritt ändern. Wenn Sie primär Dateigröße sparen möchten, nutzen Sie zusätzlich /de/image-compressor.' },

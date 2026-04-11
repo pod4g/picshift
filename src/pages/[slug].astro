@@ -12,6 +12,7 @@ import { getPageTranslations } from '../i18n/translations';
 import { getUI } from '../i18n/ui';
 import { getToolPageUi } from '../i18n/toolPageUi';
 import type { ToolPageConfig } from '../types';
+import { htmlCanonicalUrl } from '../lib/htmlCanonicalUrl';
 
 const lang = 'en' as const;
 
@@ -27,6 +28,8 @@ interface Props {
 }
 
 const { tool } = Astro.props;
+const canonical = htmlCanonicalUrl(`https://picshift.app/${tool.slug}`);
+const pagePath = `/${tool.slug}/`;
 const pageTranslations = getPageTranslations(lang);
 const toolTranslation = pageTranslations.tools[tool.slug];
 
@@ -37,7 +40,7 @@ const introText = toolTranslation?.introText || tool.introText;
 const howToSteps = toolTranslation?.howToSteps || tool.howToSteps;
 const t = getUI(lang);
 const toolPageUi = getToolPageUi(lang);
-const sizeIncreaseDocUrl = 'https://picshift.app/docs/size-increase-explainer';
+const sizeIncreaseDocUrl = htmlCanonicalUrl('https://picshift.app/docs/size-increase-explainer');
 const faqs = [
   ...(toolTranslation?.faqs || tool.faqs),
   ...(tool.slug === 'metadata-remover'
@@ -84,7 +87,7 @@ function pickRelatedTools(currentTool: ToolPageConfig): ToolPageConfig[] {
 const relatedTools = pickRelatedTools(tool).map((relatedTool) => {
   const relatedTranslation = pageTranslations.tools[relatedTool.slug];
   return {
-    href: `/${relatedTool.slug}`,
+    href: `/${relatedTool.slug}/`,
     title: relatedTranslation?.h1 || relatedTool.h1,
   };
 });
@@ -95,25 +98,22 @@ const showGenericLimitations = tool.slug !== 'metadata-remover';
 const showHowTo = tool.slug !== 'metadata-remover';
 const relatedGuides = [
   {
-    href: '/docs/format-compatibility',
+    href: '/docs/format-compatibility/',
     title: 'Format Compatibility Guide',
   },
   {
-    href: '/docs/image-quality-vs-file-size',
+    href: '/docs/image-quality-vs-file-size/',
     title: 'Image Quality vs File Size',
   },
   {
-    href: '/docs/size-increase-explainer',
+    href: '/docs/size-increase-explainer/',
     title: 'Why Output Size Can Increase',
   },
   {
-    href: '/docs/privacy-local-processing',
+    href: '/docs/privacy-local-processing/',
     title: 'Privacy and Local Processing',
   },
 ];
-
-const canonical = `https://picshift.app/${tool.slug}`;
-const pagePath = `/${tool.slug}`;
 const softwareApplicationSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
@@ -164,7 +164,7 @@ const relatedGuidesItemListSchema = {
     '@type': 'ListItem',
     position: index + 1,
     name: guide.title,
-    url: `https://picshift.app${guide.href}`,
+    url: htmlCanonicalUrl(`https://picshift.app${guide.href}`),
   })),
 };
 const relatedToolsItemListSchema = {
@@ -177,7 +177,7 @@ const relatedToolsItemListSchema = {
     '@type': 'ListItem',
     position: index + 1,
     name: relatedTool.title,
-    url: `https://picshift.app${relatedTool.href}`,
+    url: htmlCanonicalUrl(`https://picshift.app${relatedTool.href}`),
   })),
 };
 ---

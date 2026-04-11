@@ -90,6 +90,7 @@ function getLastmod(url) {
 }
 
 export default defineConfig({
+  trailingSlash: "always",
   site: 'https://picshift.app',
   output: 'static',
   integrations: [

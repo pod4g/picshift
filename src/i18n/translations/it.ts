@@ -300,16 +300,27 @@ const it: PageTranslations = {
       ],
     },
     'image-resizer': {
-      title: 'Ridimensiona Immagini - Gratuito e Privato | PicShift',
-      description: 'Ridimensiona immagini nel browser. Dimensioni predefinite o personalizzate. 100% privato, senza upload.',
+      title:
+        'Ridimensionare immagini online — pixel e preset | PicShift',
+      description:
+        'Cambia larghezza, altezza o risoluzione in pixel nel browser. Anche WebP e screenshot: fino a 200 file per batch, senza upload.',
       h1: 'Ridimensiona Immagini',
-      introText: 'Ridimensiona le tue immagini a dimensioni esatte o preset comuni. Tutto avviene nel tuo browser — le tue immagini non lasciano mai il tuo dispositivo.',
+      introText:
+        'Ridimensionare foto o cambiare risoluzione serve per siti, moduli e social. Scegli un preset o dimensioni personalizzate: tutto resta nel browser sul tuo dispositivo.',
       howToSteps: [
         'Trascina le tue immagini nell\'area sopra, o clicca per sfogliare.',
         'Scegli una dimensione predefinita o inserisci dimensioni personalizzate.',
         'Scegli il formato di output e la qualità, poi scarica.',
       ],
       faqs: [
+        {
+          q: 'Come cambiare la risoluzione di un\u2019immagine in pixel?',
+          a: 'In modalità Personalizzata inserisci larghezza e altezza desiderate (o una percentuale). PicShift ricalcola l\u2019immagine con ricampionamento di alta qualità.',
+        },
+        {
+          q: 'Posso ridimensionare anche file WebP?',
+          a: 'Sì: trascina il WebP come qualsiasi altro formato, scegli preset o pixel, e se serve cambia anche il formato di output nello stesso passaggio.',
+        },
         { q: 'Quali preset di dimensione sono disponibili?', a: 'PicShift offre Max 1920px (lato lungo), Max 1080px, scala 50% e una modalità Personalizzata per dimensioni esatte in pixel o percentuale.' },
         { q: 'Il ridimensionamento riduce la qualità dell\'immagine?', a: 'La riduzione usa un ricampionamento di alta qualità. Puoi anche regolare il cursore della qualità per controllare la compressione.' },
         { q: 'Posso ridimensionare e convertire il formato contemporaneamente?', a: 'Sì. Puoi cambiare sia il formato di output (JPG, PNG, WebP, AVIF) che le dimensioni in un solo passaggio.' },
@@ -317,9 +328,9 @@ const it: PageTranslations = {
     },
     'image-compressor': {
       title:
-        'Compressore di Immagini - Riduci le Dimensioni Online, Gratuito e Privato | PicShift',
+        'Comprimere immagini online — batch, senza upload | PicShift',
       description:
-        "Comprimi le immagini nel tuo browser. Riduci le dimensioni dei file JPG, PNG e WebP mantenendo un'ottima qualità. 100% privato, nessun upload.",
+        "Comprimi JPG, PNG, WebP, HEIC e AVIF per alleggerire file prima di inviarli. Fino a 200 immagini per batch nel browser, senza caricamento su server.",
       h1: 'Comprimi Immagini',
       introText:
         'Riduci le dimensioni dei file delle immagini mantenendo la qualità visiva. Trascina il cursore della qualità per trovare il bilanciamento perfetto.',
@@ -329,6 +340,10 @@ const it: PageTranslations = {
         'Clicca Scarica per salvare le immagini compresse.',
       ],
       faqs: [
+        {
+          q: 'Posso comprimere molte immagini in una volta?',
+          a: 'Sì, fino a 200 file per esecuzione. Con lotti enormi, se il browser rallenta, conviene lavorare a gruppi e scaricare tra un gruppo e l\'altro.',
+        },
         {
           q: 'Di quanto posso comprimere le mie immagini?',
           a: "Il risultato della compressione dipende dall'immagine di origine. Un'impostazione di qualità dell'80% riduce le dimensioni dei file JPG del 40-60% nelle comparazioni di riferimento, con differenze visibili minime. Usa la vista confronto per verificare la qualità prima di scaricare.",
