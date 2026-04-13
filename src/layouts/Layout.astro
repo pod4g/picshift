@@ -199,6 +199,7 @@ import '../styles/global.css';
     <!-- Analytics: Umami（需 data-performance 才会在后台「性能」中采集 Web Vitals，见 https://docs.umami.is/docs/performance） -->
     {import.meta.env.PROD && (
       <script
+        is:inline
         defer
         src="https://cloud.umami.is/script.js"
         data-website-id="5e8e298a-edc6-4bb7-a7cb-04714bffc9c0"
