@@ -14,13 +14,14 @@ interface ResizeSelectorProps {
 /** 与 Tailwind sm 断点一致：窄屏下拉用 fixed + 视口内 clamp，避免相对窄触发器时撑出横向滚动 */
 const MOBILE_BREAKPOINT_PX = 640;
 
-function computeMobileFloatingPanelStyle(trigger: HTMLElement | null): CSSProperties | null {
-  if (typeof window === 'undefined' || !trigger) return null;
+/** 仅用触发按钮定位；勿用含 fixed 子面板的容器 rect，否则重算时 top/left 会飘到点击附近 */
+function computeMobileFloatingPanelStyle(anchorButton: HTMLElement | null): CSSProperties | null {
+  if (typeof window === 'undefined' || !anchorButton) return null;
   if (window.innerWidth >= MOBILE_BREAKPOINT_PX) return null;
   const margin = 12;
   const vw = window.innerWidth;
   const width = Math.min(288, vw - margin * 2);
-  const r = trigger.getBoundingClientRect();
+  const r = anchorButton.getBoundingClientRect();
   let left = r.left;
   if (left + width > vw - margin) left = vw - margin - width;
   if (left < margin) left = margin;
@@ -62,23 +63,41 @@ export default function ResizeSelector({
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [mobilePanelStyle, setMobilePanelStyle] = useState<CSSProperties | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const triggerButtonRef = useRef<HTMLButtonElement>(null);
 
   useLayoutEffect(() => {
     if (!dropdownOpen && !customPanelOpen) {
       setMobilePanelStyle(null);
       return;
     }
-    const update = () => {
-      setMobilePanelStyle(computeMobileFloatingPanelStyle(containerRef.current));
+    const focusInsideRoot = () => {
+      const el = containerRef.current;
+      const a = document.activeElement;
+      return !!(el && a instanceof Node && el.contains(a));
     };
-    update();
-    const raf = requestAnimationFrame(() => update());
-    window.addEventListener('resize', update);
-    window.addEventListener('scroll', update, true);
+
+    const updatePosition = () => {
+      setMobilePanelStyle(computeMobileFloatingPanelStyle(triggerButtonRef.current));
+    };
+
+    // 聚焦输入时浏览器会 scrollIntoView，触发按钮的 rect 会变；若此时按 scroll 重算 top，fixed 面板会跟着「往上跑」
+    const onScroll = () => {
+      if (focusInsideRoot()) return;
+      updatePosition();
+    };
+
+    const onResize = () => {
+      updatePosition();
+    };
+
+    updatePosition();
+    const raf = requestAnimationFrame(() => updatePosition());
+    window.addEventListener('resize', onResize);
+    window.addEventListener('scroll', onScroll, true);
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener('resize', update);
-      window.removeEventListener('scroll', update, true);
+      window.removeEventListener('resize', onResize);
+      window.removeEventListener('scroll', onScroll, true);
     };
   }, [dropdownOpen, customPanelOpen]);
 
@@ -90,22 +109,48 @@ export default function ResizeSelector({
       : !!(value.width && value.width > 0 && value.height && value.height > 0)
   );
 
+  const dismissPanels = useCallback(() => {
+    setDropdownOpen(false);
+    setCustomPanelOpen(false);
+    if (value.preset === 'custom' && !isCustomValid) {
+      onChange({ preset: 'original' });
+    }
+  }, [value.preset, isCustomValid, onChange]);
+
   useEffect(() => {
     if (!dropdownOpen && !customPanelOpen) return;
     const handler = (e: PointerEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setDropdownOpen(false);
-        setCustomPanelOpen(false);
-        // Reset to original if custom values are invalid
-        if (value.preset === 'custom' && !isCustomValid) {
-          onChange({ preset: 'original' });
-        }
-      }
+      const root = containerRef.current;
+      if (!root) return;
+      // 捕获阶段先判断，避免子面板上 stopPropagation 干扰；composedPath 应对 input 与 target 异常
+      const path = typeof e.composedPath === 'function' ? e.composedPath() : [e.target];
+      const inside = path.some((node) => node instanceof Node && root.contains(node));
+      if (inside) return;
+      dismissPanels();
     };
-    // pointerdown 覆盖鼠标 + 触摸；仅用 mousedown 时手机点外侧常关不掉下拉
-    document.addEventListener('pointerdown', handler);
-    return () => document.removeEventListener('pointerdown', handler);
-  }, [dropdownOpen, customPanelOpen, value, isCustomValid, onChange]);
+    // capture: 先于冒泡阶段，外侧点击一定能关面板；pointerdown 覆盖鼠标 + 触摸
+    document.addEventListener('pointerdown', handler, true);
+    return () => document.removeEventListener('pointerdown', handler, true);
+  }, [dropdownOpen, customPanelOpen, dismissPanels]);
+
+  // iOS 键盘工具栏「完成/对钩」只让输入框 blur，通常没有可捕获的 document pointerdown；随后 resize 还会重算 fixed 位置
+  useEffect(() => {
+    if (!dropdownOpen && !customPanelOpen) return;
+    const root = containerRef.current;
+    if (!root) return;
+
+    const onFocusOut = (e: FocusEvent) => {
+      const next = e.relatedTarget;
+      if (next instanceof Node && root.contains(next)) return;
+      window.setTimeout(() => {
+        if (root.contains(document.activeElement)) return;
+        dismissPanels();
+      }, 0);
+    };
+
+    root.addEventListener('focusout', onFocusOut);
+    return () => root.removeEventListener('focusout', onFocusOut);
+  }, [dropdownOpen, customPanelOpen, dismissPanels]);
 
   // Button display text: show actual values for custom preset
   let displayLabel: string;
@@ -133,6 +178,12 @@ export default function ResizeSelector({
   const handlePresetSelect = useCallback(
     (preset: ResizePreset) => {
       if (preset === 'custom') {
+        // 已从「自定义」进入过并改过尺寸时，再次点「自定义…」只打开面板，勿用原图/默认尺寸覆盖
+        if (value.preset === 'custom') {
+          setDropdownOpen(false);
+          setCustomPanelOpen(true);
+          return;
+        }
         const w = originalWidth ?? 1920;
         const h = originalHeight ?? 1080;
         onChange({
@@ -151,7 +202,7 @@ export default function ResizeSelector({
         setCustomPanelOpen(false);
       }
     },
-    [onChange, originalWidth, originalHeight],
+    [onChange, originalWidth, originalHeight, value.preset],
   );
 
   const handleDropdownKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -260,6 +311,7 @@ export default function ResizeSelector({
   return (
     <div ref={containerRef} className="relative min-w-0">
       <button
+        ref={triggerButtonRef}
         type="button"
         onClick={handleButtonClick}
         onKeyDown={handleDropdownKeyDown}
