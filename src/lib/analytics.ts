@@ -3,18 +3,37 @@ import type { InputFormat, OutputFormatKey } from '../types';
 declare global {
   interface Window {
     umami?: {
-      track: (event: string, data?: Record<string, string | number>) => void;
+      /** @see https://docs.umami.is/docs/tracker-functions — 支持函数形态以覆盖 timestamp */
+      track: (
+        nameOrPayloadOrFn:
+          | string
+          | Record<string, unknown>
+          | ((props: Record<string, unknown>) => Record<string, unknown>),
+        data?: Record<string, string | number>,
+      ) => void;
     };
   }
 }
 
 /**
  * Send a custom event to Umami analytics.
+ * 注入调用时刻的 Unix 秒级 timestamp：否则云端活动流常用「入库时间」，快速连续或延迟送达时多条会显示同一秒。
  * No-ops gracefully if Umami is not loaded.
  */
 export function track(event: string, data?: Record<string, string | number>): void {
   try {
-    window.umami?.track(event, data);
+    const timestamp = Math.floor(Date.now() / 1000);
+    window.umami?.track((props: Record<string, unknown>) => {
+      const payload: Record<string, unknown> = {
+        ...props,
+        name: event,
+        timestamp,
+      };
+      if (data && Object.keys(data).length > 0) {
+        payload.data = data;
+      }
+      return payload;
+    });
   } catch {
     // Analytics should never break the app.
   }

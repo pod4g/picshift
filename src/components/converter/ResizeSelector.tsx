@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect, useCallback, type CSSProperties } from 'react';
 import type { ResizeOption, ResizePreset, ResizeCustomMode } from '../../types';
 import { useLang } from '../../i18n/LangContext';
 import { getUI } from '../../i18n/ui';
@@ -9,6 +9,32 @@ interface ResizeSelectorProps {
   disabled?: boolean;
   originalWidth?: number;
   originalHeight?: number;
+}
+
+/** 与 Tailwind sm 断点一致：窄屏下拉用 fixed + 视口内 clamp，避免相对窄触发器时撑出横向滚动 */
+const MOBILE_BREAKPOINT_PX = 640;
+
+function computeMobileFloatingPanelStyle(trigger: HTMLElement | null): CSSProperties | null {
+  if (typeof window === 'undefined' || !trigger) return null;
+  if (window.innerWidth >= MOBILE_BREAKPOINT_PX) return null;
+  const margin = 12;
+  const vw = window.innerWidth;
+  const width = Math.min(288, vw - margin * 2);
+  const r = trigger.getBoundingClientRect();
+  let left = r.left;
+  if (left + width > vw - margin) left = vw - margin - width;
+  if (left < margin) left = margin;
+  const top = r.bottom + 6;
+  const maxHeight = Math.max(200, window.innerHeight - top - margin);
+  return {
+    position: 'fixed',
+    top,
+    left,
+    width,
+    maxWidth: width,
+    maxHeight,
+    overflowY: 'auto',
+  };
 }
 
 const PRESETS: { key: ResizePreset; labelKey: keyof ReturnType<typeof getUI>; descKey: keyof ReturnType<typeof getUI> }[] = [
@@ -34,7 +60,27 @@ export default function ResizeSelector({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [customPanelOpen, setCustomPanelOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [mobilePanelStyle, setMobilePanelStyle] = useState<CSSProperties | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (!dropdownOpen && !customPanelOpen) {
+      setMobilePanelStyle(null);
+      return;
+    }
+    const update = () => {
+      setMobilePanelStyle(computeMobileFloatingPanelStyle(containerRef.current));
+    };
+    update();
+    const raf = requestAnimationFrame(() => update());
+    window.addEventListener('resize', update);
+    window.addEventListener('scroll', update, true);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', update);
+      window.removeEventListener('scroll', update, true);
+    };
+  }, [dropdownOpen, customPanelOpen]);
 
   // Close dropdown / custom panel on outside click
   // Check if custom values are valid
@@ -46,7 +92,7 @@ export default function ResizeSelector({
 
   useEffect(() => {
     if (!dropdownOpen && !customPanelOpen) return;
-    const handler = (e: MouseEvent) => {
+    const handler = (e: PointerEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setDropdownOpen(false);
         setCustomPanelOpen(false);
@@ -56,8 +102,9 @@ export default function ResizeSelector({
         }
       }
     };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+    // pointerdown 覆盖鼠标 + 触摸；仅用 mousedown 时手机点外侧常关不掉下拉
+    document.addEventListener('pointerdown', handler);
+    return () => document.removeEventListener('pointerdown', handler);
   }, [dropdownOpen, customPanelOpen, value, isCustomValid, onChange]);
 
   // Button display text: show actual values for custom preset
@@ -211,7 +258,7 @@ export default function ResizeSelector({
     : undefined;
 
   return (
-    <div ref={containerRef} className="relative">
+    <div ref={containerRef} className="relative min-w-0">
       <button
         type="button"
         onClick={handleButtonClick}
@@ -237,7 +284,14 @@ export default function ResizeSelector({
 
       {/* Preset dropdown */}
       {dropdownOpen && (
-        <div className="absolute top-full left-0 z-30 mt-1 min-w-[160px] rounded-lg border border-border bg-card-bg py-1 shadow-lg">
+        <div
+          className={`z-[100] rounded-lg border border-border bg-card-bg py-1 shadow-lg ${
+            mobilePanelStyle
+              ? 'fixed mt-0 min-w-0'
+              : 'absolute left-0 top-full mt-1 min-w-[160px] max-w-[calc(100vw-1.5rem)]'
+          }`}
+          style={mobilePanelStyle ?? undefined}
+        >
           {PRESETS.map(({ key, labelKey, descKey }, idx) => (
             <button
               key={key}
@@ -261,7 +315,14 @@ export default function ResizeSelector({
 
       {/* Custom panel */}
       {customPanelOpen && value.preset === 'custom' && (
-        <div className="absolute top-full left-0 z-20 mt-1 min-w-[260px] rounded-lg border border-border bg-card-bg p-3 flex flex-col gap-3 shadow-lg">
+        <div
+          className={`z-[100] flex flex-col gap-3 rounded-lg border border-border bg-card-bg p-3 shadow-lg ${
+            mobilePanelStyle
+              ? 'fixed mt-0 min-h-0 min-w-0'
+              : 'absolute left-0 top-full mt-1 max-w-[calc(100vw-1.5rem)] sm:min-w-[260px]'
+          }`}
+          style={mobilePanelStyle ?? undefined}
+        >
           {/* Original size reference */}
           {originalWidth && originalHeight && (
             <p className="text-xs text-text-secondary">
@@ -269,15 +330,15 @@ export default function ResizeSelector({
             </p>
           )}
 
-          {/* Mode toggle */}
-          <div className="flex items-center gap-1 rounded-md border border-border bg-drop-bg p-0.5 w-fit">
+          {/* 窄屏纵向全宽，避免「Percentage」等长词在双列里溢出；sm+ 恢复横排 */}
+          <div className="flex min-w-0 w-full flex-col gap-1 rounded-md border border-border bg-drop-bg p-0.5 sm:w-fit sm:flex-row">
             <button
               type="button"
               disabled={disabled}
               onClick={() => handleCustomModeChange('pixels')}
-              className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+              className={`w-full rounded-md px-2 py-2 text-center text-xs font-medium transition-colors sm:w-auto sm:whitespace-nowrap sm:px-2.5 sm:py-1 ${
                 value.customMode === 'pixels'
-                  ? 'bg-primary-600 dark:bg-primary-500 text-white'
+                  ? 'bg-primary-600 text-white dark:bg-primary-500'
                   : 'text-text-secondary hover:text-text-primary'
               }`}
             >
@@ -287,9 +348,9 @@ export default function ResizeSelector({
               type="button"
               disabled={disabled}
               onClick={() => handleCustomModeChange('percentage')}
-              className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+              className={`w-full rounded-md px-2 py-2 text-center text-xs font-medium transition-colors sm:w-auto sm:whitespace-nowrap sm:px-2.5 sm:py-1 ${
                 value.customMode === 'percentage'
-                  ? 'bg-primary-600 dark:bg-primary-500 text-white'
+                  ? 'bg-primary-600 text-white dark:bg-primary-500'
                   : 'text-text-secondary hover:text-text-primary'
               }`}
             >
@@ -298,9 +359,10 @@ export default function ResizeSelector({
           </div>
 
           {value.customMode === 'pixels' ? (
-            <div className="flex flex-col gap-1.5">
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1">
+            <div className="flex min-w-0 flex-col gap-2">
+              {/* 全端一致：先宽/高两行（标签对齐）；锁单独一行在底部靠左 */}
+              <div className="flex min-w-0 flex-col gap-2">
+                <div className="grid max-w-full grid-cols-[auto_minmax(0,1fr)] items-center gap-x-2 gap-y-2.5 sm:max-w-xs">
                   <label className="text-xs text-text-secondary">{t.resizeWidth}</label>
                   <input
                     type="number"
@@ -311,13 +373,10 @@ export default function ResizeSelector({
                     onChange={(e) => handleWidthChange(Number(e.target.value))}
                     onKeyDown={handleInputKeyDown}
                     disabled={disabled}
-                    className={`w-20 rounded-md border px-2 py-1 text-sm text-text-primary focus:outline-none disabled:opacity-50 ${
+                    className={`min-w-0 w-full rounded-md border px-2 py-1.5 text-base text-text-primary focus:outline-none disabled:opacity-50 sm:py-1 sm:text-sm ${
                       !value.width ? 'border-error focus:border-error' : 'border-border focus:border-primary-500'
                     }`}
                   />
-                </div>
-                <span className="text-xs text-text-secondary">×</span>
-                <div className="flex items-center gap-1">
                   <label className="text-xs text-text-secondary">{t.resizeHeight}</label>
                   <input
                     type="number"
@@ -328,60 +387,84 @@ export default function ResizeSelector({
                     onChange={(e) => handleHeightChange(Number(e.target.value))}
                     onKeyDown={handleInputKeyDown}
                     disabled={disabled}
-                    className={`w-20 rounded-md border px-2 py-1 text-sm text-text-primary focus:outline-none disabled:opacity-50 ${
+                    className={`min-w-0 w-full rounded-md border px-2 py-1.5 text-base text-text-primary focus:outline-none disabled:opacity-50 sm:py-1 sm:text-sm ${
                       !value.height ? 'border-error focus:border-error' : 'border-border focus:border-primary-500'
                     }`}
                   />
+                  <button
+                    type="button"
+                    onClick={toggleLock}
+                    disabled={disabled}
+                    title={value.lockAspectRatio ? t.resizeUnlockAspect : t.resizeLockAspect}
+                    className={`col-start-1 justify-self-start rounded-lg py-1.5 pl-0 pr-1.5 transition-colors sm:rounded-md sm:py-1 sm:pr-1 ${
+                      value.lockAspectRatio
+                        ? 'text-primary-700 dark:text-primary-500 hover:bg-primary-500/10'
+                        : 'text-text-secondary hover:bg-drop-bg'
+                    }`}
+                  >
+                    {value.lockAspectRatio ? (
+                      <svg className="h-5 w-5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                      </svg>
+                    ) : (
+                      <svg className="h-5 w-5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 1 1 9 0v3.75M3.75 21.75h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                      </svg>
+                    )}
+                  </button>
                 </div>
-                {/* Lock aspect ratio */}
-                <button
-                  type="button"
-                  onClick={toggleLock}
-                  disabled={disabled}
-                  title={value.lockAspectRatio ? t.resizeUnlockAspect : t.resizeLockAspect}
-                  className={`rounded-md p-1 transition-colors ${
-                    value.lockAspectRatio
-                      ? 'text-primary-700 dark:text-primary-500 hover:bg-primary-500/10'
-                      : 'text-text-secondary hover:bg-drop-bg'
-                  }`}
-                >
-                  {value.lockAspectRatio ? (
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
-                    </svg>
-                  ) : (
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 1 1 9 0v3.75M3.75 21.75h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
-                    </svg>
-                  )}
-                </button>
               </div>
               {(!value.width || !value.height) && (
                 <p className="text-xs text-error">≥ 1</p>
               )}
             </div>
           ) : (
-            <div className="flex flex-col gap-1.5">
-              <div className="flex items-center gap-2">
-                <input
-                  type="number"
-                  inputMode="numeric"
-                  min={1}
-                  max={500}
-                  value={value.percentage || ''}
-                  onChange={(e) => handlePercentageChange(Number(e.target.value))}
-                  onKeyDown={handleInputKeyDown}
-                  disabled={disabled}
-                  className={`w-20 rounded-md border px-2 py-1 text-sm text-text-primary focus:outline-none disabled:opacity-50 ${
-                    !value.percentage ? 'border-error focus:border-error' : 'border-border focus:border-primary-500'
-                  }`}
-                />
-              <span className="text-xs text-text-secondary">%</span>
-              {previewW && previewH && (
-                <span className="text-xs text-text-secondary">
-                  → {previewW} × {previewH}
-                </span>
-              )}
+            <div className="flex min-w-0 flex-col gap-2">
+              {/* 与像素模式一致：先标签+输入（及预览）；锁单独一行在底部靠左 */}
+              <div className="flex min-w-0 flex-col gap-2">
+                <div className="grid max-w-full grid-cols-[auto_minmax(0,1fr)] items-center gap-x-2 gap-y-2.5 sm:max-w-xs">
+                  <label className="text-xs text-text-secondary">%</label>
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    min={1}
+                    max={500}
+                    value={value.percentage || ''}
+                    onChange={(e) => handlePercentageChange(Number(e.target.value))}
+                    onKeyDown={handleInputKeyDown}
+                    disabled={disabled}
+                    aria-label={t.resizePercentage}
+                    className={`min-w-0 w-full rounded-md border px-2 py-1.5 text-base text-text-primary focus:outline-none disabled:opacity-50 sm:py-1 sm:text-sm ${
+                      !value.percentage ? 'border-error focus:border-error' : 'border-border focus:border-primary-500'
+                    }`}
+                  />
+                  {previewW && previewH && (
+                    <p className="col-span-2 text-xs leading-snug text-text-secondary">
+                      → {previewW} × {previewH}
+                    </p>
+                  )}
+                  <button
+                    type="button"
+                    onClick={toggleLock}
+                    disabled={disabled}
+                    title={value.lockAspectRatio ? t.resizeUnlockAspect : t.resizeLockAspect}
+                    className={`col-start-1 justify-self-start rounded-lg py-1.5 pl-0 pr-1.5 transition-colors sm:rounded-md sm:py-1 sm:pr-1 ${
+                      value.lockAspectRatio
+                        ? 'text-primary-700 dark:text-primary-500 hover:bg-primary-500/10'
+                        : 'text-text-secondary hover:bg-drop-bg'
+                    }`}
+                  >
+                    {value.lockAspectRatio ? (
+                      <svg className="h-5 w-5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                      </svg>
+                    ) : (
+                      <svg className="h-5 w-5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 1 1 9 0v3.75M3.75 21.75h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
               </div>
               {!value.percentage && (
                 <p className="text-xs text-error">≥ 1</p>

@@ -6,6 +6,7 @@ import {
   trackMetadataDownload,
   trackMetadataClear,
 } from '../../lib/analytics'
+import { createClientId } from '../../lib/clientId'
 
 const UI: Record<string, Record<string, string>> = {
   en: {
@@ -623,13 +624,6 @@ interface ScannedFile {
   error?: string
 }
 
-function createScannedFileId(): string {
-  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
-    return crypto.randomUUID()
-  }
-  return `metadata-file-${Date.now()}-${Math.random().toString(36).slice(2)}`
-}
-
 async function waitForNextPaint(): Promise<void> {
   await new Promise<void>((resolve) => {
     requestAnimationFrame(() => {
@@ -1086,7 +1080,7 @@ export default function MetadataRemoverTool({
       batchIdRef.current += 1
       const batchId = batchIdRef.current
       const newFiles: ScannedFile[] = incoming.map((f, batchIndex) => ({
-        id: createScannedFileId(),
+        id: createClientId(),
         file: f,
         entries: [],
         totalCount: 0,

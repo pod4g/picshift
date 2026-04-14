@@ -35,13 +35,13 @@ export default function QualitySlider({
         onChange={(e) => onChange(Number(e.target.value))}
         disabled={disabled}
         className="
-          h-2 w-full cursor-pointer appearance-none rounded-full bg-border
+          h-3 w-full cursor-pointer appearance-none rounded-full bg-border
           disabled:cursor-not-allowed disabled:opacity-50
-          [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4
+          [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5
           [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full
           [&::-webkit-slider-thumb]:bg-primary-500 [&::-webkit-slider-thumb]:shadow-sm
           [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110
-          [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4
+          [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5
           [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0
           [&::-moz-range-thumb]:bg-primary-500 [&::-moz-range-thumb]:shadow-sm
         "

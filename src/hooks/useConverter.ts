@@ -10,6 +10,7 @@ import { OUTPUT_MIME, OUTPUT_EXT } from '../types';
 import { triggerDownload } from '../lib/download';
 import { StreamingZip } from '../lib/zip';
 import { isAcceptedFile, MAX_FILE_SIZE, MAX_FILE_COUNT, MAX_TOTAL_SIZE } from '../lib/format-utils';
+import { createClientId } from '../lib/clientId';
 import { trackConvertFile, trackConvertError, trackDownloadZip, trackDownloadSingle, trackCompareOpen, trackClearAll } from '../lib/analytics';
 
 /** Derive InputFormat from file extension (fallback for sync addFiles). */
@@ -309,7 +310,7 @@ export function useConverter(options?: {
       if (valid.length === 0) return;
 
       const newEntries: ConvertFile[] = valid.map((f) => ({
-        id: crypto.randomUUID(),
+        id: createClientId(),
         originalFile: f,
         name: f.name,
         inputFormat: extToInputFormat(f.name),

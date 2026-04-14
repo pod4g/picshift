@@ -169,7 +169,16 @@ const nextPost = currentIdx > 0 ? allPosts[currentIdx - 1] : null;
       if (!link) return;
       var to = link.getAttribute('href');
       if (to && toolPaths.includes(to.replace(/\/$/, ''))) {
-        try { window.umami?.track('blog_link_click', { from: '/blog/' + slug + '/', to: to }); } catch {}
+        try {
+          var ts = Math.floor(Date.now() / 1000);
+          window.umami?.track(function (props) {
+            return Object.assign({}, props, {
+              name: 'blog_link_click',
+              timestamp: ts,
+              data: { from: '/blog/' + slug + '/', to: to },
+            });
+          });
+        } catch {}
       }
     });
   </script>

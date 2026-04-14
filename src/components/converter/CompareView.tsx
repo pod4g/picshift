@@ -30,7 +30,10 @@ export default function CompareView({
   const [position, setPosition] = useState(50);
   const [viewMode, setViewMode] = useState<'slider' | 'side-by-side'>('slider');
   const containerRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
+  /** 鼠标 / 触控笔（Pointer Events） */
+  const isPointerDragging = useRef(false);
+  /** 手指触摸（Touch Events；iOS 上比单纯 Pointer 可靠） */
+  const isTouchSliderDragging = useRef(false);
   const thumbStripRef = useRef<HTMLDivElement>(null);
 
   const completedFiles = useMemo(
@@ -75,11 +78,31 @@ export default function CompareView({
     setPosition(pct);
   }, []);
 
+  const endPointerDrag = useCallback((e: React.PointerEvent) => {
+    const el = containerRef.current;
+    if (el && el.hasPointerCapture(e.pointerId)) {
+      try {
+        el.releasePointerCapture(e.pointerId);
+      } catch {
+        /* ignore */
+      }
+    }
+    isPointerDragging.current = false;
+  }, []);
+
   const handlePointerDown = useCallback(
     (e: React.PointerEvent) => {
       if (viewMode !== 'slider') return;
-      isDragging.current = true;
-      (e.target as HTMLElement).setPointerCapture(e.pointerId);
+      // 手指触摸交给下方 Touch + window 监听；避免与 iOS 上 Pointer 抢手势
+      if (e.pointerType === 'touch') return;
+      e.preventDefault();
+      const el = e.currentTarget as HTMLElement;
+      try {
+        el.setPointerCapture(e.pointerId);
+      } catch {
+        /* ignore */
+      }
+      isPointerDragging.current = true;
       updatePosition(e.clientX);
     },
     [updatePosition, viewMode],
@@ -87,15 +110,67 @@ export default function CompareView({
 
   const handlePointerMove = useCallback(
     (e: React.PointerEvent) => {
-      if (!isDragging.current) return;
+      if (!isPointerDragging.current) return;
+      e.preventDefault();
       updatePosition(e.clientX);
     },
     [updatePosition],
   );
 
-  const handlePointerUp = useCallback(() => {
-    isDragging.current = false;
+  const handlePointerUp = useCallback(
+    (e: React.PointerEvent) => {
+      endPointerDrag(e);
+    },
+    [endPointerDrag],
+  );
+
+  const handlePointerCancel = useCallback(
+    (e: React.PointerEvent) => {
+      endPointerDrag(e);
+    },
+    [endPointerDrag],
+  );
+
+  const handleLostPointerCapture = useCallback(() => {
+    isPointerDragging.current = false;
   }, []);
+
+  // 移动端：Touch + 非 passive 的 touchmove，并在 window 上跟手（手指移出对比区仍能拖）
+  useEffect(() => {
+    if (viewMode !== 'slider') return;
+    const el = containerRef.current;
+    if (!el) return;
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length !== 1) return;
+      e.preventDefault();
+      isTouchSliderDragging.current = true;
+      updatePosition(e.touches[0].clientX);
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (!isTouchSliderDragging.current || e.touches.length !== 1) return;
+      e.preventDefault();
+      updatePosition(e.touches[0].clientX);
+    };
+
+    const onTouchEnd = () => {
+      isTouchSliderDragging.current = false;
+    };
+
+    const touchCapture = true;
+    el.addEventListener('touchstart', onTouchStart, { passive: false, capture: touchCapture });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('touchend', onTouchEnd);
+    window.addEventListener('touchcancel', onTouchEnd);
+
+    return () => {
+      el.removeEventListener('touchstart', onTouchStart, touchCapture);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', onTouchEnd);
+      window.removeEventListener('touchcancel', onTouchEnd);
+    };
+  }, [viewMode, updatePosition]);
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -233,37 +308,46 @@ export default function CompareView({
               onPointerDown={handlePointerDown}
               onPointerMove={handlePointerMove}
               onPointerUp={handlePointerUp}
-              style={{ touchAction: 'none' }}
+              onPointerCancel={handlePointerCancel}
+              onLostPointerCapture={handleLostPointerCapture}
+              style={{
+                touchAction: 'none',
+                WebkitTouchCallout: 'none',
+                WebkitUserSelect: 'none',
+                userSelect: 'none',
+              }}
             >
-              {/* Original image (left side) */}
+              {/* Original image（触摸交给容器，避免顶层 img 在移动端吞掉 pointer 系列事件） */}
               <img
                 src={originalUrl}
                 alt="Original"
-                className="absolute inset-0 h-full w-full object-contain"
+                className="pointer-events-none absolute inset-0 h-full w-full touch-none object-contain"
                 style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
                 draggable={false}
               />
 
-              {/* Converted image (right side) */}
+              {/* Converted image */}
               <img
                 src={convertedUrl}
                 alt="Converted"
-                className="absolute inset-0 h-full w-full object-contain"
+                className="pointer-events-none absolute inset-0 h-full w-full touch-none object-contain"
                 style={{ clipPath: `inset(0 0 0 ${position}%)` }}
                 draggable={false}
               />
 
-              {/* Divider line */}
+              {/* 分割线：加宽透明命中区；z 高于左右翻页按钮，避免叠层抢触摸 */}
               <div
-                className="absolute top-0 bottom-0 z-10 w-0.5 bg-white shadow-lg"
+                className="absolute top-0 bottom-0 z-30 flex w-12 cursor-ew-resize items-stretch justify-center bg-transparent sm:w-10"
                 style={{ left: `${position}%`, transform: 'translateX(-50%)' }}
               >
-                {/* Handle grip */}
-                <div className="absolute top-1/2 left-1/2 flex h-10 w-6 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full bg-white shadow-lg">
-                  <svg className="h-4 w-4 text-text-primary" viewBox="0 0 24 24" fill="currentColor">
-                    <rect x="8" y="4" width="2" height="16" rx="1" />
-                    <rect x="14" y="4" width="2" height="16" rx="1" />
-                  </svg>
+                <div className="relative h-full w-0.5 bg-white shadow-lg">
+                  {/* Handle grip */}
+                  <div className="absolute top-1/2 left-1/2 flex h-10 w-6 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full bg-white shadow-lg">
+                    <svg className="h-4 w-4 text-text-primary" viewBox="0 0 24 24" fill="currentColor">
+                      <rect x="8" y="4" width="2" height="16" rx="1" />
+                      <rect x="14" y="4" width="2" height="16" rx="1" />
+                    </svg>
+                  </div>
                 </div>
               </div>
 

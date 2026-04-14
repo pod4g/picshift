@@ -93,6 +93,12 @@ export default defineConfig({
   trailingSlash: "always",
   site: 'https://picshift.app',
   output: 'static',
+  // 默认只监听 localhost，用局域网 IP 会 connection refused；true = 0.0.0.0 便于手机/同网设备调试
+  server: {
+    host: true,
+    port: 4321,
+    allowedHosts: true,
+  },
   integrations: [
     react(),
     sitemap({
