@@ -223,6 +223,9 @@ const relatedToolsItemListSchema = {
         )}
       </div>
 
+      <!-- How-to section -->
+      {showHowTo && <HowTo steps={howToSteps} toolName={h1} lang={lang} />}
+
       {detailSections.length > 0 && (
         <section class="mb-8">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -301,9 +304,6 @@ const relatedToolsItemListSchema = {
           </div>
         </div>
       </section>
-
-      <!-- How-to section -->
-      {showHowTo && <HowTo steps={howToSteps} toolName={h1} lang={lang} />}
 
       <script type="application/ld+json" set:html={JSON.stringify(softwareApplicationSchema)} />
       <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
