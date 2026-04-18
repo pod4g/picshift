@@ -81,7 +81,7 @@ This is the part that surprises people. The answer is "it depends, and it change
 
 The tricky one is Telegram. Most people use "Send as file" to preserve image quality without realizing it also preserves their GPS coordinates. Discord used to be a major risk but started stripping EXIF in 2023 — if you search older articles, you will find outdated advice saying Discord keeps everything.
 
-The safest approach: remove metadata yourself before sharing. Platform policies change, and the one time you assume a platform strips EXIF is the time it does not. For a full breakdown, see [which platforms strip EXIF and which don't](/blog/social-media-exif-stripping/).
+The safest approach: remove metadata yourself before sharing. Platform policies change, and the one time you assume a platform strips EXIF is the time it does not. For a full breakdown, see [which platforms strip EXIF and which don't](/blog/social-media-exif-stripping).
 
 ## How to remove EXIF metadata
 

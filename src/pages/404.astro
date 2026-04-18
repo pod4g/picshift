@@ -5,7 +5,7 @@ import Footer from '../components/layout/Footer.astro';
 ---
 
 <Layout title="Page Not Found | PicShift" description="The page you're looking for doesn't exist." lang="en" pagePath="/404">
-  <Header lang="en" pagePath="/404" />
+  <Header lang="en" pagePath="/404" languageSwitchMode="locale-home" />
 
   <main class="flex-1 flex items-center justify-center px-4">
     <div class="text-center max-w-md py-20">
@@ -22,7 +22,7 @@ import Footer from '../components/layout/Footer.astro';
           Go to Homepage
         </a>
         <a
-          href="/blog/"
+          href="/blog"
           class="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-border text-text-secondary hover:text-text-primary hover:border-text-secondary transition-colors"
         >
           Read Blog

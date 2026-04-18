@@ -9,12 +9,12 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 
 const title = 'PicShift Blog — Image Format Guides, Conversion Tips, and Web Optimization';
 const description = 'Practical guides on choosing between PNG, JPG, WebP, AVIF, and HEIC. Learn when to convert, why files get larger, and how to optimize images for web delivery and privacy.';
-const canonical = 'https://picshift.app/blog/';
-const pagePath = '/blog/';
+const canonical = 'https://picshift.app/blog';
+const pagePath = '/blog';
 ---
 
 <Layout title={title} description={description} canonical={canonical} lang="en" pagePath={pagePath} noAlternate>
-  <Header lang="en" pagePath={pagePath} />
+  <Header lang="en" pagePath={pagePath} languageSwitchMode="locale-home" />
 
   <main class="flex-1">
     <div class="max-w-3xl mx-auto px-4 py-10 sm:py-14">
@@ -37,7 +37,7 @@ const pagePath = '/blog/';
 
           return (
             <a
-              href={`/blog/${post.slug}/`}
+              href={`/blog/${post.slug}`}
               class="block group rounded-xl border border-border bg-card-bg overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
             >
               <div class="flex flex-col sm:flex-row">

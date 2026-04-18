@@ -98,7 +98,7 @@ That is a lot of assumptions for something you can solve in 5 seconds yourself.
 
 ## The safer approach
 
-Strip metadata before the photo leaves your device. Then it does not matter which platform you use, which "send" button you press, or what the platform's current policy is. If you are not sure what EXIF data is or why it matters, start with [What Is EXIF Data and Why You Should Remove It](/blog/what-is-exif-data/).
+Strip metadata before the photo leaves your device. Then it does not matter which platform you use, which "send" button you press, or what the platform's current policy is. If you are not sure what EXIF data is or why it matters, start with [What Is EXIF Data and Why You Should Remove It](/blog/what-is-exif-data).
 
 [Remove EXIF data from your photos →](/metadata-remover)
 

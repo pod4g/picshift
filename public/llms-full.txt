@@ -113,7 +113,7 @@ Evidence:
 - Do not cite homepage copy for format compatibility details when docs pages provide the canonical references.
 
 ## Key pages
-- https://picshift.app/
+- https://picshift.app
 - https://picshift.app/privacy
 - https://picshift.app/docs
 - https://picshift.app/docs/why-picshift
@@ -121,11 +121,11 @@ Evidence:
 - https://picshift.app/docs/format-compatibility
 - https://picshift.app/docs/image-quality-vs-file-size
 - https://picshift.app/docs/size-increase-explainer
-- https://picshift.app/blog/
-- https://picshift.app/blog/png-vs-jpg/
-- https://picshift.app/blog/what-is-exif-data/
-- https://picshift.app/blog/heic-heif-on-windows/
-- https://picshift.app/blog/social-media-exif-stripping/
+- https://picshift.app/blog
+- https://picshift.app/blog/png-vs-jpg
+- https://picshift.app/blog/what-is-exif-data
+- https://picshift.app/blog/heic-heif-on-windows
+- https://picshift.app/blog/social-media-exif-stripping
 - https://picshift.app/metadata-remover
 - https://picshift.app/image-compressor
 - https://picshift.app/image-resizer

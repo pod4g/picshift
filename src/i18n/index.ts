@@ -15,20 +15,20 @@ export function getLangFromUrl(url: URL): Locale {
   return DEFAULT_LOCALE;
 }
 
-/** 页面型路径补尾斜杠（与 Astro trailingSlash: always 一致）；静态资源路径（末段含 `.`）不改 */
-function ensureHtmlPathTrailingSlash(path: string): string {
+/** 页面型路径去掉尾斜杠（与 Astro trailingSlash: never 一致）；静态资源路径（末段含 `.`）不改 */
+function normalizeHtmlPath(path: string): string {
   if (!path || path === '/') return '/';
-  if (path.endsWith('/')) return path;
-  const lastSeg = path.split('/').filter(Boolean).pop() ?? '';
+  const normalized = path.replace(/\/+$/, '');
+  const lastSeg = normalized.split('/').filter(Boolean).pop() ?? '';
   if (lastSeg.includes('.')) return path;
-  return `${path}/`;
+  return normalized || '/';
 }
 
 /** Build a locale-prefixed path (no prefix for default locale) */
 export function localePath(path: string, lang: Locale): string {
-  const normalized = ensureHtmlPathTrailingSlash(path);
+  const normalized = normalizeHtmlPath(path);
   if (lang === DEFAULT_LOCALE) return normalized;
-  if (normalized === '/') return `/${lang}/`;
+  if (normalized === '/') return `/${lang}`;
   return `/${lang}${normalized}`;
 }
 

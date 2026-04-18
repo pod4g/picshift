@@ -23,7 +23,7 @@ function getLastmod(url) {
   let lang = null;
   let rest = path;
   for (const loc of NON_EN_LOCALES) {
-    if (path === `/${loc}/` || path.startsWith(`/${loc}/`)) {
+    if (path === `/${loc}` || path === `/${loc}/` || path.startsWith(`/${loc}/`)) {
       lang = loc;
       rest = path.slice(loc.length + 1);
       break;
@@ -90,7 +90,7 @@ function getLastmod(url) {
 }
 
 export default defineConfig({
-  trailingSlash: "always",
+  trailingSlash: "never",
   site: 'https://picshift.app',
   output: 'static',
   // 默认只监听 localhost，用局域网 IP 会 connection refused；true = 0.0.0.0 便于手机/同网设备调试
@@ -114,24 +114,6 @@ export default defineConfig({
         globIgnores: ['_routes.json', '_worker.js/**', '_headers', '_redirects', '**/*avif_enc*'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         navigateFallback: null,
-        manifestTransforms: [
-          async (entries) => {
-            const manifest = entries.map((entry) => {
-              // HTML pages are precached without trailing slash (e.g. "zh", "privacy")
-              // but browsers request them with trailing slash ("zh/", "privacy/").
-              // Append "/" so precache keys match navigation requests.
-              if (
-                entry.url !== '' &&
-                !entry.url.endsWith('/') &&
-                !entry.url.match(/\.[a-zA-Z0-9]+$/i)
-              ) {
-                return { ...entry, url: entry.url + '/' };
-              }
-              return entry;
-            });
-            return { manifest };
-          },
-        ],
       },
       manifest: {
         name: 'PicShift',

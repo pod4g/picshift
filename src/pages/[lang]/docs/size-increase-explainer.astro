@@ -4,7 +4,7 @@ import Header from '../../../components/layout/Header.astro';
 import Footer from '../../../components/layout/Footer.astro';
 import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../../lib/contentDates';
 import { getDocsUi } from '../../../i18n/docsUi';
-import { SUPPORTED_LOCALES } from '../../../i18n';
+import { SUPPORTED_LOCALES, localePath } from '../../../i18n';
 import type { Locale } from '../../../i18n/config';
 import { htmlCanonicalUrl } from '../../../lib/htmlCanonicalUrl';
 
@@ -461,7 +461,7 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: docsUi.home,
-      item: htmlCanonicalUrl(`https://picshift.app/${lang}/`),
+      item: htmlCanonicalUrl(`https://picshift.app/${lang}`),
     },
     {
       '@type': 'ListItem',
@@ -497,7 +497,7 @@ const faqSchema = {
   <main class="flex-1">
     <article class="max-w-3xl mx-auto px-4 py-10 sm:py-14">
       <nav aria-label="Breadcrumb" class="mb-4 text-sm text-text-secondary">
-        <a href={`/${lang}/`} class="hover:text-text-primary hover:underline">{docsUi.home}</a>
+        <a href={localePath('/', lang)} class="hover:text-text-primary hover:underline">{docsUi.home}</a>
         <span class="mx-2">/</span>
         <a href={`/${lang}/docs`} class="hover:text-text-primary hover:underline">{docsUi.docs}</a>
         <span class="mx-2">/</span>

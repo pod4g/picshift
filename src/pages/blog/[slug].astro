@@ -19,9 +19,9 @@ const { post } = Astro.props;
 const { Content, headings } = await post.render();
 const { title, description, cover, publishedAt, updatedAt, author, tags, relatedTools } = post.data;
 
-// 与 Cloudflare 静态托管「目录 URL」一致，避免 canonical 无斜杠却 307 到有斜杠
-const canonical = `https://picshift.app/blog/${post.slug}/`;
-const pagePath = `/blog/${post.slug}/`;
+// 博客页统一使用无尾斜杠规范 URL，和全站 canonical 策略保持一致
+const canonical = `https://picshift.app/blog/${post.slug}`;
+const pagePath = `/blog/${post.slug}`;
 const toolPaths = TOOL_PAGES.map((tool) => `/${tool.slug}`);
 const wordCount = post.body?.split(/\s+/).length ?? 0;
 const readingTime = Math.max(1, Math.round(wordCount / 230));
@@ -46,8 +46,8 @@ const breadcrumbSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://picshift.app/' },
-    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://picshift.app/blog/' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://picshift.app' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://picshift.app/blog' },
     { '@type': 'ListItem', position: 3, name: title, item: canonical },
   ],
 });
@@ -75,7 +75,7 @@ const nextPost = currentIdx > 0 ? allPosts[currentIdx - 1] : null;
     tags: tags ?? [],
   }}
 >
-  <Header lang="en" pagePath={pagePath} />
+  <Header lang="en" pagePath={pagePath} languageSwitchMode="locale-home" />
 
   <main class="flex-1">
     <div class="max-w-5xl mx-auto px-4 py-8 sm:py-12">
@@ -86,7 +86,7 @@ const nextPost = currentIdx > 0 ? allPosts[currentIdx - 1] : null;
           <nav aria-label="Breadcrumb" class="mb-6 text-sm text-text-secondary font-sans">
             <a href="/" class="hover:text-text-primary hover:underline">Home</a>
             <span class="mx-2">/</span>
-            <a href="/blog/" class="hover:text-text-primary hover:underline">Blog</a>
+            <a href="/blog" class="hover:text-text-primary hover:underline">Blog</a>
             <span class="mx-2">/</span>
             <span class="text-text-primary">{title}</span>
           </nav>
@@ -133,7 +133,7 @@ const nextPost = currentIdx > 0 ? allPosts[currentIdx - 1] : null;
           {(prevPost || nextPost) && (
             <nav class="mt-12 pt-8 border-t border-border flex justify-between gap-4 font-sans">
               {prevPost ? (
-                <a href={`/blog/${prevPost.slug}/`} class="group flex-1 min-w-0">
+                <a href={`/blog/${prevPost.slug}`} class="group flex-1 min-w-0">
                   <span class="text-xs text-text-secondary uppercase tracking-wider">Previous</span>
                   <p class="text-sm font-medium text-text-primary group-hover:text-primary-500 transition-colors truncate mt-1">
                     {prevPost.data.title}
@@ -141,7 +141,7 @@ const nextPost = currentIdx > 0 ? allPosts[currentIdx - 1] : null;
                 </a>
               ) : <div />}
               {nextPost ? (
-                <a href={`/blog/${nextPost.slug}/`} class="group flex-1 min-w-0 text-right">
+                <a href={`/blog/${nextPost.slug}`} class="group flex-1 min-w-0 text-right">
                   <span class="text-xs text-text-secondary uppercase tracking-wider">Next</span>
                   <p class="text-sm font-medium text-text-primary group-hover:text-primary-500 transition-colors truncate mt-1">
                     {nextPost.data.title}
@@ -175,7 +175,7 @@ const nextPost = currentIdx > 0 ? allPosts[currentIdx - 1] : null;
             return Object.assign({}, props, {
               name: 'blog_link_click',
               timestamp: ts,
-              data: { from: '/blog/' + slug + '/', to: to },
+              data: { from: '/blog/' + slug, to: to },
             });
           });
         } catch {}

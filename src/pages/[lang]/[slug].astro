@@ -41,7 +41,7 @@ interface Props {
 
 const { lang, tool } = Astro.props;
 const canonical = htmlCanonicalUrl(`https://picshift.app/${lang}/${tool.slug}`);
-const pagePath = `/${tool.slug}/`;
+const pagePath = `/${tool.slug}`;
 const pageTranslations = getPageTranslations(lang);
 const toolTranslation = pageTranslations.tools[tool.slug];
 const localizedMeta = getLocalizedToolMeta(lang, tool);
@@ -145,7 +145,7 @@ const relatedGuides = [
   },
 ];
 
-const localizedHomeUrl = `https://picshift.app/${lang}/`;
+const localizedHomeUrl = htmlCanonicalUrl(`https://picshift.app/${lang}`);
 const softwareApplicationSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
@@ -222,7 +222,7 @@ const relatedToolsItemListSchema = {
       <!-- Page heading -->
       <div class="mb-5 sm:mb-6">
         <nav aria-label="Breadcrumb" class="mb-3 text-sm text-text-secondary">
-          <a href={`/${lang}/`} class="hover:text-text-primary hover:underline">{docsUi.home}</a>
+          <a href={localePath('/', lang)} class="hover:text-text-primary hover:underline">{docsUi.home}</a>
           <span class="mx-2">/</span>
           <span class="text-text-primary">{h1}</span>
         </nav>

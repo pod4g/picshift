@@ -29,7 +29,7 @@ interface Props {
 
 const { tool } = Astro.props;
 const canonical = htmlCanonicalUrl(`https://picshift.app/${tool.slug}`);
-const pagePath = `/${tool.slug}/`;
+const pagePath = `/${tool.slug}`;
 const pageTranslations = getPageTranslations(lang);
 const toolTranslation = pageTranslations.tools[tool.slug];
 
@@ -87,7 +87,7 @@ function pickRelatedTools(currentTool: ToolPageConfig): ToolPageConfig[] {
 const relatedTools = pickRelatedTools(tool).map((relatedTool) => {
   const relatedTranslation = pageTranslations.tools[relatedTool.slug];
   return {
-    href: `/${relatedTool.slug}/`,
+    href: `/${relatedTool.slug}`,
     title: relatedTranslation?.h1 || relatedTool.h1,
   };
 });
@@ -98,19 +98,19 @@ const showGenericLimitations = tool.slug !== 'metadata-remover';
 const showHowTo = tool.slug !== 'metadata-remover';
 const relatedGuides = [
   {
-    href: '/docs/format-compatibility/',
+    href: '/docs/format-compatibility',
     title: 'Format Compatibility Guide',
   },
   {
-    href: '/docs/image-quality-vs-file-size/',
+    href: '/docs/image-quality-vs-file-size',
     title: 'Image Quality vs File Size',
   },
   {
-    href: '/docs/size-increase-explainer/',
+    href: '/docs/size-increase-explainer',
     title: 'Why Output Size Can Increase',
   },
   {
-    href: '/docs/privacy-local-processing/',
+    href: '/docs/privacy-local-processing',
     title: 'Privacy and Local Processing',
   },
 ];
@@ -144,7 +144,7 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: 'https://picshift.app/',
+      item: 'https://picshift.app',
     },
     {
       '@type': 'ListItem',

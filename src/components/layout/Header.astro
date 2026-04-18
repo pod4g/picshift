@@ -5,11 +5,19 @@ import type { Locale } from '../../i18n/config';
 interface Props {
   lang?: Locale;
   pagePath?: string;
+  languageSwitchMode?: 'equivalent-page' | 'locale-home';
 }
 
-const { lang = 'en', pagePath = '/' } = Astro.props;
+const { lang = 'en', pagePath = '/', languageSwitchMode = 'equivalent-page' } = Astro.props;
 const ui = getUI(lang);
 const currentNativeName = LOCALE_CONFIG[lang].nativeName;
+
+function getLanguageSwitchHref(locale: Locale): string {
+  if (languageSwitchMode === 'locale-home' && locale !== 'en') {
+    return localePath('/', locale);
+  }
+  return localePath(pagePath, locale);
+}
 ---
 
 <header class="sticky top-0 z-50 bg-card-bg/95 backdrop-blur-sm border-b border-border">
@@ -46,7 +54,7 @@ const currentNativeName = LOCALE_CONFIG[lang].nativeName;
         {ui.navPrivacy}
       </a>
       <a
-        href="/blog/"
+        href="/blog"
         class="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
       >
         Blog
@@ -69,7 +77,7 @@ const currentNativeName = LOCALE_CONFIG[lang].nativeName;
         <div class="absolute right-0 top-full mt-1 w-48 bg-card-bg rounded-xl shadow-lg border border-border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 max-h-80 overflow-y-auto">
           {SUPPORTED_LOCALES.map((locale) => (
             <a
-              href={localePath(pagePath, locale)}
+              href={getLanguageSwitchHref(locale)}
               data-lang-switch={locale}
               class={`block px-4 py-2 text-sm transition-colors ${locale === lang ? 'text-primary-500 font-medium bg-primary-500/5' : 'text-text-secondary hover:text-text-primary hover:bg-drop-bg'}`}
             >
@@ -143,7 +151,7 @@ const currentNativeName = LOCALE_CONFIG[lang].nativeName;
         {ui.privacyPolicy}
       </a>
       <a
-        href="/blog/"
+        href="/blog"
         data-close-mobile-menu="1"
         class="block py-2 px-3 text-sm text-text-secondary hover:text-text-primary hover:bg-drop-bg rounded-lg transition-colors"
       >
@@ -155,7 +163,7 @@ const currentNativeName = LOCALE_CONFIG[lang].nativeName;
       <div class="grid grid-cols-2 gap-1">
         {SUPPORTED_LOCALES.map((locale) => (
           <a
-            href={localePath(pagePath, locale)}
+            href={getLanguageSwitchHref(locale)}
             data-lang-switch={locale}
             class={`block py-2 px-3 text-sm rounded-lg transition-colors ${locale === lang ? 'text-primary-500 font-medium bg-primary-500/5' : 'text-text-secondary hover:text-text-primary hover:bg-drop-bg'}`}
           >
