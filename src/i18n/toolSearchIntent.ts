@@ -93,16 +93,16 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
   pt: {
     'jpg-to-png': [
       {
-        title: 'Quando converter JPG para PNG faz sentido',
-        body: 'PNG é útil quando você quer editar, anotar ou reexportar a imagem sem que cada salvamento degrade mais a qualidade. Não melhora o que já foi perdido, mas evita perda adicional.',
+        title: 'Como converter JPG para PNG sem piorar mais a imagem',
+        body: 'JPG para PNG faz sentido quando você vai editar, assinar, anotar ou reenviar o arquivo várias vezes. PNG não recupera o que já se perdeu no JPG original, mas evita somar mais perda a cada novo salvamento.',
       },
       {
-        title: 'O que esperar do tamanho do arquivo',
-        body: 'O PNG costuma ser bem maior que o JPG original, porque armazena mais dados de imagem. Esse aumento é normal quando a prioridade é estabilidade de edição e não leveza.',
+        title: 'Quando JPG para PNG realmente vale a pena',
+        body: 'Vale a pena quando estabilidade de edição importa mais que leveza. Se o arquivo vai entrar em revisão, anotação, aprovação ou reexportação, PNG costuma ser mais confortável do que continuar em JPG.',
       },
       {
-        title: 'Quando é melhor ficar com JPG',
-        body: 'Se o objetivo é só compartilhar, enviar ou subir um arquivo leve, JPG costuma ser mais prático. PNG faz mais sentido quando você precisa de transparência ou de um arquivo mais estável para trabalhar.',
+        title: 'Quando é melhor continuar em JPG',
+        body: 'Se o objetivo é só compartilhar, enviar ou subir um arquivo leve, JPG continua mais prático. PNG faz mais sentido quando você precisa de transparência ou de um arquivo estável para trabalhar depois.',
       },
     ],
     'heic-to-png': [
@@ -149,16 +149,16 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     ],
     'image-resizer': [
       {
-        title: 'Quando redimensionar resolve',
-        body: 'A imagem tem 4000px de largura e vai pra um slot de 800px no site? Redimensionar corta o excesso na hora. Fotos de produto, banners, prints e fotos de perfil — na maioria dos casos, o problema é simplesmente que a imagem é grande demais pro espaço.',
+        title: 'Como redimensionar imagem online sem complicação',
+        body: 'Se a imagem tem 4000px e vai para um espaço de 800px no site, o problema é excesso de dimensão. Redimensionar online resolve rápido para banner, produto, formulário, perfil e post de rede social.',
       },
       {
-        title: 'Tamanho exato ou preset — quando usar cada um',
-        body: 'Se o marketplace, CMS ou rede social pede uma medida específica (1080×1080, 1200×630), coloque na mão. Se só quer reduzir sem meta fixa — "deixa menor que tá bom" — os presets (Máx 1920px, 50%) resolvem em um clique.',
+        title: 'Quando usar largura e altura exatas',
+        body: 'Se o marketplace, CMS ou rede social pede uma medida específica (1080×1080, 1200×630, 1600×900), coloque largura e altura na mão. Se você só quer reduzir rápido, os presets resolvem em um clique.',
       },
       {
-        title: 'E se redimensionar não for suficiente?',
-        body: 'Acontece. Uma foto de 4000px redimensionada pra 1200px ainda pode ficar pesada se o formato for PNG. Nesses casos, mude o formato junto — de PNG 4000px pra JPG 1200px, por exemplo, o arquivo cai de 8 MB pra 300 KB.',
+        title: 'Quando redimensionar e comprimir juntos',
+        body: 'Uma imagem pode continuar pesada mesmo depois de ficar menor, especialmente se ainda estiver em PNG. Nessas horas, combinar redimensionamento com compressão ou mudança de formato costuma trazer o maior ganho.',
       },
     ],
     'png-to-jpg': [
@@ -191,18 +191,46 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
         body: 'Le JPG est plus universel, mais le fichier final peut être plus lourd que le WebP d’origine. Cette conversion est donc avant tout un choix de compatibilité, pas d’optimisation maximale.',
       },
     ],
+    'heif-to-jpg': [
+      {
+        title: 'Pourquoi convertir HEIF en JPG reste utile',
+        body: 'HEIF est efficace, mais le format crée encore des frictions dans Windows, les outils bureautiques, les formulaires d’upload et certains flux de partage. JPG reste le repli le plus simple quand on veut juste que le fichier s’ouvre et passe partout.',
+      },
+      {
+        title: 'Quand JPG est la sortie la plus sûre',
+        body: 'Choisissez JPG si le fichier part vers un PC Windows, un service client, un site d’upload, un e-mail ou un collègue dont vous ne maîtrisez pas l’environnement. C’est le format le plus tolérant dans ces cas-là.',
+      },
+      {
+        title: 'Quand il vaut mieux garder HEIF',
+        body: 'Si tous vos appareils et applications prennent déjà bien HEIF en charge, convertir n’est pas toujours nécessaire. Gardez HEIF quand votre priorité est un fichier plus efficace en taille et qu’aucun blocage de compatibilité ne se présente.',
+      },
+    ],
     'image-resizer': [
       {
-        title: 'Quand le redimensionnement est la bonne solution',
-        body: 'Si l’image est beaucoup plus grande que l’espace d’affichage final, réduire les dimensions est souvent le moyen le plus direct de régler un problème de poids ou de mise en page.',
+        title: 'Comment redimensionner une image en ligne rapidement',
+        body: 'Si l’image est beaucoup plus grande que l’espace d’affichage final, réduire les dimensions est souvent le moyen le plus direct de régler un problème de poids ou de mise en page. C’est typiquement le bon réflexe pour un formulaire, une fiche produit ou un visuel social.',
       },
       {
-        title: 'Cas utiles pour des dimensions exactes',
-        body: 'Les dimensions précises sont utiles pour les fiches produit, les mises en page éditoriales, les visuels sociaux, ou les outils qui imposent une taille stricte en pixels.',
+        title: 'Quand utiliser une largeur et une hauteur exactes',
+        body: 'Des dimensions précises sont utiles pour les fiches produit, les mises en page éditoriales, les visuels sociaux ou les outils qui imposent une taille stricte en pixels. Les préréglages servent quand vous voulez juste réduire vite.',
       },
       {
-        title: 'Quand le redimensionnement ne suffit pas',
-        body: 'Si le fichier reste trop lourd après redimensionnement, combinez la réduction de dimensions avec une conversion de format ou une compression. Le gain vient souvent des deux ensemble.',
+        title: 'Quand il faut redimensionner puis compresser',
+        body: 'Si le fichier reste trop lourd après redimensionnement, combinez la réduction de dimensions avec une conversion de format ou une compression. Le meilleur gain vient souvent de ces deux actions ensemble.',
+      },
+    ],
+    'png-to-jpg': [
+      {
+        title: 'Pourquoi utiliser un convertisseur PNG JPG en ligne',
+        body: 'Parce qu’un PNG photo ou une capture exportée peut devenir inutilement lourd. Convertir PNG vers JPG est souvent la solution la plus simple quand vous voulez un fichier plus léger pour l’envoi, le partage ou la mise en ligne.',
+      },
+      {
+        title: 'Quand PNG vers JPG est le bon choix',
+        body: 'C’est le bon choix quand la transparence n’a plus d’utilité et que votre priorité devient le poids du fichier. Pour un formulaire d’upload, un e-mail ou une image à publier, JPG est souvent plus pratique.',
+      },
+      {
+        title: 'Quand il vaut mieux garder PNG',
+        body: 'Gardez PNG si l’image contient de la transparence, du texte fin, une interface, un logo ou si vous voulez éviter une compression avec perte. Dans ces cas, la stabilité du PNG vaut souvent plus que le gain de poids du JPG.',
       },
     ],
   },
@@ -281,16 +309,30 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
   ru: {
     'image-compressor': [
       {
-        title: 'Когда сжатие — самый прямой путь',
-        body: 'Если проблема в весе файла, а не в его размерах, сжатие — самый быстрый способ уменьшить объём. Это полезно для загрузки на сайт, отправки по почте или когда файл не проходит по ограничению размера.',
+        title: 'Как сжать фото онлайн, если файл слишком большой',
+        body: 'Если проблема именно в весе файла, а не в его размерах, сжатие — самый быстрый способ уменьшить объём. Это особенно полезно для загрузки на сайт, отправки по почте и файлов, которые не проходят по лимиту.',
       },
       {
-        title: 'Почему иногда сжатие почти не уменьшает файл',
-        body: 'Некоторые изображения уже сильно сжаты или хранятся в формате, который плохо поддаётся дальнейшей компрессии. В таких случаях помогает уменьшение разрешения или смена формата.',
+        title: 'Как уменьшить размер фото без сильной потери качества',
+        body: 'Начните с умеренного качества и сравните результат перед скачиванием. На большинстве фото заметного ухудшения не видно, пока вы не уходите в слишком агрессивное сжатие.',
       },
       {
-        title: 'Когда лучше уменьшить размер, а не сжимать',
-        body: 'Если разрешение картинки намного больше, чем нужно для отображения, уменьшение размеров даст больший эффект, чем одно только сжатие. Часто лучший результат — сначала уменьшить, потом сжать.',
+        title: 'Когда лучше уменьшить размеры, а не только сжимать',
+        body: 'Если разрешение картинки намного больше, чем нужно для показа, уменьшение размеров даст больший эффект, чем одно только сжатие. Часто лучший результат — сначала уменьшить, потом сжать.',
+      },
+    ],
+    'heif-to-jpg': [
+      {
+        title: 'Почему HEIF в JPG всё ещё нужен',
+        body: 'HEIF экономичен, но формат до сих пор вызывает трение в Windows, старых приложениях, формах загрузки и офисных инструментах. JPG остаётся самым надёжным способом получить файл, который просто откроется и отправится без сюрпризов.',
+      },
+      {
+        title: 'Когда JPG — самый безопасный вариант',
+        body: 'Если файл идёт в Windows, на сайт с загрузкой изображений, по почте, в офисный сервис или человеку с непредсказуемой средой, JPG обычно безопаснее всего. Это формат с наименьшим количеством сюрпризов.',
+      },
+      {
+        title: 'Когда лучше не переводить HEIF в JPG',
+        body: 'Если ваши устройства и приложения уже хорошо работают с HEIF и вам важна эффективность по размеру, конвертация не всегда обязательна. JPG нужен тогда, когда совместимость начинает мешать работе.',
       },
     ],
   },

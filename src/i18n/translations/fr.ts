@@ -159,6 +159,42 @@ const fr: PageTranslations = {
         },
       ],
     },
+    'heif-to-jpg': {
+      title:
+        'Convertisseur HEIF en JPG — Windows, upload, sans envoi | PicShift',
+      description:
+        "Convertissez HEIF en JPG pour Windows, les formulaires d'upload, l'e-mail et les outils qui gèrent mal HEIF. Tout reste local dans votre navigateur, sans téléversement.",
+      h1: 'Convertir HEIF en JPG',
+      introText:
+        "Convertissez un fichier HEIF en JPG quand vous avez besoin d'une version qui s'ouvre plus facilement sous Windows, passe dans un formulaire d'upload ou se partage sans friction. Le traitement se fait localement dans votre navigateur, sans envoi de fichier vers un serveur.",
+      howToSteps: [
+        'Glissez-déposez vos fichiers HEIF dans la zone ci-dessus, ou cliquez pour les sélectionner.',
+        'Les fichiers sont convertis en JPG instantanément dans votre navigateur.',
+        'Ajustez la qualité si besoin, puis téléchargez chaque fichier ou tout le lot.',
+      ],
+      faqs: [
+        {
+          q: 'Pourquoi convertir HEIF en JPG ?',
+          a: "Parce que JPG reste beaucoup plus simple à ouvrir dans Windows, à joindre dans un e-mail, à téléverser sur un site ou à partager avec quelqu'un qui n'utilise pas un environnement compatible HEIF.",
+        },
+        {
+          q: 'HEIF et HEIC, est-ce la même chose ?',
+          a: "HEIF est la famille de formats, tandis que HEIC est le format photo HEIF le plus connu sur les appareils Apple. Dans la pratique, les mêmes problèmes de compatibilité reviennent souvent, et la conversion en JPG règle ces blocages.",
+        },
+        {
+          q: 'Quand JPG est-il la sortie la plus sûre ?',
+          a: "Quand le fichier part vers un PC Windows, un formulaire d'upload, un service client, un outil bureautique ou un collègue dont vous ne maîtrisez pas l'environnement. JPG reste le format le plus tolérant dans ces contextes.",
+        },
+        {
+          q: 'La conversion HEIF en JPG fait-elle perdre de la qualité ?',
+          a: "Oui, JPG est un format avec perte. Cela dit, c'est souvent le meilleur compromis quand la compatibilité compte plus que la conservation parfaite de chaque donnée de l'image.",
+        },
+        {
+          q: 'Quand faut-il garder HEIF au lieu de le convertir ?',
+          a: "Gardez HEIF si tous vos appareils et applications le prennent déjà en charge et si vous voulez profiter d'un format plus efficace en taille. Convertissez en JPG dès qu'un partage, un upload ou un logiciel commence à poser problème.",
+        },
+      ],
+    },
     'webp-to-jpg': {
       title:
         'Convertisseur WebP en JPG - Plus compatible, sans envoi | PicShift',
@@ -224,12 +260,12 @@ const fr: PageTranslations = {
       ],
     },
     'png-to-jpg': {
-      title: 'Convertisseur PNG en JPG - Plus leger, en ligne, sans envoi | PicShift',
+      title: 'Convertisseur PNG JPG en ligne — plus léger, sans envoi | PicShift',
       description:
-        "Convertissez un PNG en JPG pour obtenir un fichier plus leger, plus simple a partager et plus facile a televerser quand la transparence n'est pas necessaire.",
+        "Utilisez ce convertisseur PNG JPG en ligne pour alléger un PNG avant envoi, partage ou téléversement quand la transparence n'est pas nécessaire.",
       h1: 'Convertir PNG en JPG',
       introText:
-        "Convertissez un PNG en JPG lorsque votre image est trop lourde pour l'envoi, le partage ou la mise en ligne. C'est souvent le bon choix pour une photo ou une capture exportee en PNG alors que la transparence ne sert plus a rien.",
+        "Utilisez un convertisseur PNG JPG en ligne quand un PNG est trop lourd pour un formulaire, un e-mail ou une mise en ligne. C'est souvent le bon choix pour une capture, une photo ou une exportation qui n'a plus besoin de transparence.",
       howToSteps: [
         'Glissez-deposez vos fichiers PNG dans la zone ci-dessus, ou cliquez pour les parcourir.',
         'Les fichiers sont convertis en JPG instantanement dans votre navigateur.',
@@ -237,20 +273,24 @@ const fr: PageTranslations = {
       ],
       faqs: [
         {
+          q: 'Quand utiliser un convertisseur PNG JPG en ligne ?',
+          a: "Utilisez-le quand votre PNG est trop lourd pour un e-mail, un upload, un site ou un partage rapide, et que la transparence n'est plus utile. C'est un cas très fréquent avec les captures d'écran, exports ou photos enregistrées en PNG.",
+        },
+        {
+          q: 'Pourquoi le JPG est-il souvent plus leger que le PNG ?',
+          a: "Parce que PNG est sans perte et garde davantage de donnees image. Pour une photo ou une capture sans transparence, JPG suffit souvent et permet de reduire fortement la taille du fichier.",
+        },
+        {
           q: 'Vais-je perdre la transparence ?',
           a: 'Oui. JPG ne prend pas en charge la transparence. Les zones transparentes de votre PNG deviendront blanches. Si vous avez besoin de transparence, gardez votre image en PNG ou convertissez-la en WebP.',
         },
         {
-          q: 'Pourquoi convertir un PNG en JPG ?',
-          a: "La raison la plus courante est simple : un JPG est souvent beaucoup plus leger qu'un PNG. C'est utile pour envoyer une photo, publier une image sur un site ou passer une limite de taille lors d'un televersement.",
+          q: 'Quand faut-il garder PNG au lieu de convertir vers JPG ?',
+          a: "Gardez PNG si l'image contient de la transparence, du texte fin, une interface, un logo ou si vous voulez eviter une compression avec perte. Pour les visuels de travail ou les assets transparents, PNG reste souvent plus adapte.",
         },
         {
-          q: 'Le JPG est-il plus leger que le PNG ?',
-          a: "Oui, dans la plupart des cas photo. Le PNG garde plus de donnees et devient vite lourd. Le JPG est generalement plus adapte quand vous voulez un fichier plus leger et que la transparence n'est pas necessaire.",
-        },
-        {
-          q: 'Quand faut-il garder le format PNG ?',
-          a: "Gardez le PNG si votre image contient de la transparence, du texte fin, une interface ou si vous voulez eviter une compression avec perte. Pour un logo transparent ou une capture d'ecran detaillee, le PNG reste souvent le meilleur choix.",
+          q: 'PNG vers JPG degrade-t-il fortement l’image ?',
+          a: "Pas forcément. Avec une qualité raisonnable, l'écart est souvent très faible à l'œil sur les photos et les captures simples. Vérifiez surtout les zones fines, le texte et les aplats avant de télécharger.",
         },
       ],
     },
@@ -359,12 +399,12 @@ const fr: PageTranslations = {
     },
     'image-resizer': {
       title:
-        'Redimensionner une image en ligne — taille et r\u00e9solution | PicShift',
+        'Redimensionner image en ligne — largeur, hauteur, résolution | PicShift',
       description:
-        'Changez la taille ou la r\u00e9solution (largeur, hauteur, pr\u00e9r\u00e9glages) dans le navigateur. Jusqu\u2019\u00e0 200 fichiers par lot, sans envoi vers un serveur.',
-      h1: 'Redimensionner les Images',
+        "Redimensionnez une image en ligne avec largeur/hauteur exactes ou des préréglages rapides. Pratique pour formulaires, fiches produit et réseaux sociaux, sans téléversement.",
+      h1: 'Redimensionner une image en ligne',
       introText:
-        "Redimensionner une image ou ajuster la r\u00e9solution en pixels sert pour les sites, formulaires et r\u00e9seaux sociaux. Choisissez un pr\u00e9r\u00e9glage ou des dimensions exactes : tout reste local dans votre navigateur.",
+        "Redimensionner une image en ligne sert quand un fichier est trop grand pour un site, un formulaire, une fiche produit ou un visuel social. Choisissez une largeur/hauteur exacte ou un préréglage : tout reste local dans votre navigateur.",
       howToSteps: [
         'Déposez vos images dans la zone ci-dessus, ou cliquez pour parcourir.',
         'Choisissez une taille prédéfinie ou entrez des dimensions personnalisées.',
@@ -372,17 +412,17 @@ const fr: PageTranslations = {
       ],
       faqs: [
         {
-          q: 'Comment changer la taille d\u2019une image sans logiciel lourd ?',
-          a: "D\u00e9posez l\u2019image dans PicShift, choisissez un preset ou le mode Personnalis\u00e9 pour entrer largeur et hauteur, puis t\u00e9l\u00e9chargez. Le traitement reste dans le navigateur, sans envoi de fichiers \u00e0 un serveur.",
+          q: 'Comment redimensionner une image en ligne ?',
+          a: "Déposez l'image dans PicShift, choisissez un préréglage ou le mode Personnalisé pour entrer largeur et hauteur, puis téléchargez. Le traitement reste dans le navigateur, sans envoi de fichier à un serveur.",
         },
         {
-          q: 'Comment changer la r\u00e9solution d\u2019une image en pixels ?',
-          a: "La r\u00e9solution affich\u00e9e correspond souvent \u00e0 la largeur et la hauteur en pixels. En mode Personnalis\u00e9, entrez les valeurs souhait\u00e9es (ou un pourcentage) : PicShift recalcule l\u2019image avec un r\u00e9\u00e9chantillonnage de haute qualit\u00e9.",
+          q: 'Comment changer largeur et hauteur en pixels ?',
+          a: "En mode Personnalisé, entrez les dimensions exactes en pixels ou un pourcentage. PicShift recalcule l'image avec un rééchantillonnage de haute qualité pour rester propre après réduction.",
         },
-        { q: 'Comment redimensionner une image sans la deformer ?', a: "Choisissez une largeur et une hauteur adaptees a votre usage, ou utilisez un préréglage. PicShift conserve les proportions lorsque c'est pertinent et applique un redimensionnement de haute qualité pour eviter un rendu degrade." },
-        { q: 'Quels préréglages de taille sont disponibles ?', a: 'PicShift propose Max 1920px (côté long), Max 1080px, échelle 50%, et un mode Personnalisé pour entrer des dimensions exactes en pixels ou un pourcentage.' },
-        { q: 'Quelle taille choisir pour une photo a envoyer ou televerser ?', a: "Pour un televersement ou un envoi rapide, une image de 1080px ou 1920px sur le cote long suffit souvent. Si le site impose une taille precise, utilisez le mode Personnalise pour entrer les dimensions exactes." },
-        { q: 'Puis-je redimensionner et convertir le format en meme temps ?', a: "Oui. Vous pouvez changer le format de sortie (JPG, PNG, WebP, AVIF) et les dimensions en une seule etape. Si votre vrai probleme est surtout le poids du fichier, combinez le redimensionnement avec /fr/image-compressor." },
+        { q: 'Comment redimensionner une image sans la déformer ?', a: "Choisissez une largeur et une hauteur adaptées à votre usage, ou utilisez un préréglage. PicShift conserve les proportions lorsque c'est pertinent et applique un redimensionnement propre pour éviter un rendu dégradé." },
+        { q: 'Quels préréglages de taille sont disponibles ?', a: 'PicShift propose Max 1920px (côté long), Max 1080px, échelle 50%, et un mode Personnalisé pour entrer des dimensions exactes en pixels ou en pourcentage.' },
+        { q: 'Quelle taille choisir pour un upload ou un visuel social ?', a: "Pour un téléversement, un e-mail ou une publication sociale, 1080px ou 1920px sur le côté long suffisent souvent. Si la plateforme impose une taille précise, utilisez le mode Personnalisé." },
+        { q: 'Puis-je redimensionner et convertir le format en même temps ?', a: "Oui. Vous pouvez changer le format de sortie (JPG, PNG, WebP, AVIF) et les dimensions en une seule étape. Si votre vrai problème est surtout le poids du fichier, combinez le redimensionnement avec /fr/image-compressor." },
       ],
     },
     'image-compressor': {

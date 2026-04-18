@@ -42,7 +42,9 @@ function getLastmod(url) {
       if (f.startsWith('src/content/blog/')) candidates.push(f);
     }
   } else if (rest.startsWith('/docs/') || rest === '/docs') {
-    const docSlug = rest.replace('/docs/', '').replace(/\/$/, '');
+    const docSlug = rest === '/docs'
+      ? ''
+      : rest.replace('/docs/', '').replace(/\/$/, '');
     const fileName = docSlug || 'index';
     if (lang) {
       candidates.push(`src/pages/[lang]/docs/${fileName}.astro`);

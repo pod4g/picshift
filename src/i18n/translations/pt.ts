@@ -265,12 +265,12 @@ const pt: PageTranslations = {
     },
     'jpg-to-png': {
       title:
-        'Conversor de JPG para PNG online — em lote, sem upload | PicShift',
+        'Converter JPG para PNG online — editar, anotar, sem upload | PicShift',
       description:
-        'Converta JPG para PNG quando você precisa de um arquivo mais estável para edição, anotações ou reexportação. Até 200 imagens por vez, direto no navegador — nada é enviado a servidores.',
+        'Converta JPG para PNG online quando você precisa editar, anotar ou reenviar sem adicionar mais perda. Em lote, no navegador e sem upload.',
       h1: 'Converter JPG para PNG',
       introText:
-        'Use o conversor de JPG para PNG quando você quer transformar JPG em PNG para edição, anotações ou vários reexports sem nova compressão com perda. Isso não recupera qualidade já perdida no JPG original, mas evita que cada salvamento seguinte degrade ainda mais a imagem.',
+        'Use o conversor de JPG para PNG online quando você quer transformar JPG em PNG para edição, marcação, assinatura ou vários reexports sem nova compressão com perda. Isso não recupera o que já se perdeu no JPG original, mas evita degradar mais a cada salvamento.',
       howToSteps: [
         'Arraste e solte seus arquivos JPG na caixa acima ou clique para procurar.',
         'Os arquivos s\u00e3o convertidos para PNG instantaneamente no seu navegador.',
@@ -278,11 +278,11 @@ const pt: PageTranslations = {
       ],
       faqs: [
         {
-          q: 'Como transformar JPG em PNG online?',
+          q: 'Como converter JPG para PNG online?',
           a: 'Arraste os arquivos JPG para a ferramenta, deixe PNG como saída e baixe. Tudo roda no navegador — até 200 arquivos por vez, sem upload.',
         },
         {
-          q: 'O conversor de JPG para PNG serve para várias fotos?',
+          q: 'Dá para converter várias fotos de uma vez?',
           a: 'Sim. Você pode processar até 200 imagens em lote. Para lotes muito grandes, se o navegador ficar lento, divida em duas levas e baixe entre uma e outra.',
         },
         {
@@ -290,16 +290,16 @@ const pt: PageTranslations = {
           a: 'Não. A conversão não recupera qualidade já perdida na compressão JPG. Mas evita que salvar de novo degrade ainda mais a imagem, o que é útil quando você precisa editar ou anotar o arquivo.',
         },
         {
-          q: 'Por que converter JPG para PNG?',
-          a: 'Normalmente para poder editar a imagem com mais segurança, adicionar anotações ou reexportar sem perder mais qualidade a cada salvamento. PNG também é necessário quando você precisa de transparência.',
+          q: 'Quando vale a pena converter JPG para PNG?',
+          a: 'Quando você vai editar, assinar, anotar ou reexportar a imagem mais de uma vez. Nesses casos, PNG é mais estável do que continuar salvando o mesmo JPG repetidamente.',
         },
         {
           q: 'O arquivo PNG fica maior que o JPG?',
           a: 'Sim, na maioria dos casos fica bem maior. PNG guarda mais dados de imagem e comprime menos. Isso é normal quando o objetivo é estabilidade e não leveza.',
         },
         {
-          q: 'Quando é melhor ficar com JPG?',
-          a: 'Quando você só precisa de um arquivo leve para compartilhar, enviar ou subir, e não precisa de transparência nem de edição posterior.',
+          q: 'Quando é melhor continuar em JPG?',
+          a: 'Quando você só precisa de um arquivo leve para compartilhar, enviar ou subir, e não precisa de transparência nem de edição posterior. Se o objetivo é compatibilidade e peso baixo, JPG continua mais prático.',
         },
       ],
     },
@@ -365,22 +365,23 @@ const pt: PageTranslations = {
     },
     'image-resizer': {
       title:
-        'Redimensionar imagem online — mudar tamanho, largura e altura | PicShift',
+        'Redimensionar imagem online grátis — largura, altura e presets | PicShift',
       description:
-        'Redimensionamento de imagem no navegador: presets (1920px, 1080px, 50%) ou largura e altura exatas. Em lote, gratuito e sem upload — processamento 100% local.',
-      h1: 'Redimensionar Imagens',
-      introText: 'Imagem grande demais pro site, pro e-commerce ou pro formulário? Reduza com um preset (1920px, 1080px, 50%) ou coloque largura e altura na mão. O processamento é todo no navegador — nada sai do seu computador.',
+        'Redimensione imagem online grátis com largura/altura exatas ou presets rápidos. Ideal para site, formulário, e-commerce e redes sociais, sem upload.',
+      h1: 'Redimensionar imagem online',
+      introText: 'Precisa redimensionar imagem online para site, formulário, e-commerce ou rede social? Escolha um preset ou defina largura e altura na mão. O processamento é 100% local — nada sai do seu computador.',
       howToSteps: [
         'Arraste as imagens pra cá ou clique pra selecionar.',
         'Escolha um preset ou digite as dimensões que precisa.',
         'Escolha o formato, ajuste a qualidade e baixe.',
       ],
       faqs: [
-        { q: 'Como colocar um tamanho exato?', a: 'Usa o modo Personalizado e digita largura e altura em pixels. Se só quer reduzir sem pensar em número exato, os presets (Máx 1920px, 50%, etc.) resolvem rápido.' },
-        { q: 'Redimensionar perde qualidade?', a: 'Diminuir dimensões em si não estraga a imagem — a reamostragem é de alta qualidade. Perda visível vem da compressão, e isso você controla separado com o slider de qualidade.' },
-        { q: 'Dá pra redimensionar e mudar o formato junto?', a: 'Sim. Muda as dimensões e o formato (JPG, PNG, WebP, AVIF) de uma vez, no mesmo passo.' },
-        { q: 'Serve pra redimensionar pra Instagram, Facebook, etc.?', a: 'Serve. Coloca 1080×1080 pro Instagram, 1200×630 pro Facebook, ou qualquer medida que a plataforma pedir.' },
-        { q: 'Meus arquivos são enviados pra algum lugar?', a: 'Não. Tudo roda no seu navegador. Pode até desligar a internet depois de carregar a página que continua funcionando.' },
+        { q: 'Como redimensionar imagem online grátis?', a: 'Arraste a imagem pra ferramenta, escolha um preset ou o modo Personalizado e baixe. Tudo roda no navegador, sem cadastro e sem upload.' },
+        { q: 'Como colocar largura e altura exatas?', a: 'Use o modo Personalizado e digite largura e altura em pixels. Se você só quer reduzir sem meta exata, os presets (Máx 1920px, 50% etc.) resolvem mais rápido.' },
+        { q: 'Redimensionar perde qualidade?', a: 'Diminuir dimensões em si não estraga a imagem — a reamostragem é de alta qualidade. A perda visível normalmente vem da compressão, e isso você controla separado no slider de qualidade.' },
+        { q: 'Dá pra redimensionar e mudar o formato junto?', a: 'Sim. Você pode mudar as dimensões e o formato (JPG, PNG, WebP, AVIF) de uma vez, no mesmo passo.' },
+        { q: 'Serve para Instagram, loja, formulário e rede social?', a: 'Serve. Você pode colocar 1080×1080 para Instagram, 1200×630 para Facebook, imagem de produto para marketplace ou qualquer medida exata que o site pedir.' },
+        { q: 'Meus arquivos são enviados pra algum lugar?', a: 'Não. Tudo roda no seu navegador. Pode até desligar a internet depois de abrir a página que a ferramenta continua funcionando.' },
       ],
     },
     'image-compressor': {
