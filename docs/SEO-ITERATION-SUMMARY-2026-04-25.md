@@ -193,11 +193,15 @@
 | P3 | hero 副标题就是格式列表 | CTR 偏弱、与 tinypng/cloudconvert 同质 | 11 语言重写 + `OfflineBadge` |
 | GEO | LLM 引用基础信号 | 仅靠隐式允许 + 旧版 `llms.txt` | 33 个 UA 显式 allow + facts 扩到 12-14 + schema 增 featureList/mentions |
 
-## GEO 流量基线（2026-04-25 当日 Umami 来源域名快照）
+## GEO 流量基线（2026-04-25 优化**之前**的 Umami 来源域名快照）
 
-> **重要**：本轮第一次拿到可量化的 GEO 流量信号。此基线是后续判定 GEO 优化是否起效的基准，**5-02 复盘必须 diff 这张表**。
+> **时间归属说明**：截图取自 **2026-04-25 13:04**，而本轮 4-25 GEO 优化的 commit 在 12:47-12:53 才推到 main，部署 + AI 爬虫重抓 + LLM 索引更新最少需要数天，所以这张表的 GEO 信号**100% 来自本次优化之前的存量基础设施**（早期 `llms.txt`、`robots.txt` 不封禁、schema 多样、内容质量），**与本轮 G1/G2/G4 的效果无关**。
+>
+> 这条数据的真实意义有两个：
+> 1. **作为 5-02 复盘的对照基线**——5-02 看到的数据 vs 这张表，差值才是 4-25 改动是否起效的可量化证据。
+> 2. **回答了"GEO 优化是不是空打"这个问题**——优化前就已经有 28% 的 GEO 流量回流，说明 PicShift 进入 LLM 引用池这件事**早就在发生**，不是从零做起。
 
-### 当日来源域名分布（25 个访客快照）
+### 当日来源域名分布（25 个访客快照，4-25 GEO 改动落地前）
 
 | 来源域名 | 访客 | 占比 | 渠道归类 |
 |---|---:|---:|---|
@@ -210,12 +214,12 @@
 | com.reddit.frontpage | 1 | 4% | 社交 |
 | in.search.yahoo.com | 1 | 4% | 传统搜索 |
 
-### 关键观察
+### 关键观察（优化前的存量水平）
 
 - **GEO 渠道合计 = 7 / 25 = 28%**，与 Google 持平、显著高于 Bing（16%）
-- **`chatgpt.com` 排第 2**：OpenAI 已经在 ChatGPT 的回答里把 PicShift 当成可点击的来源链接外露给用户，且用户在主动点过来——这是**真实"引用 + 转化"**信号，不只是"被爬"
-- **`doubao.com` 出现**：国际盘（OpenAI）+ 中文盘（字节）双线在跑，这也是 4-25 把 15 个中文 AI bot 加进 robots.txt 的判断依据
-- **本轮 GEO 强化（G1/G2/G4）方向被验证**：4-25 之前已经有 GEO 流量回流，说明基础设施就位；本轮做的事是放大已有信号，不是从零开始
+- **`chatgpt.com` 排第 2**：在 4-25 改动**之前**，OpenAI 就已经在 ChatGPT 回答里把 PicShift 作为可点击来源链接外露给用户。这是**优化前**的"引用 + 转化"水平，不是优化成果
+- **`doubao.com` 出现**：在 4-25 改动**之前**，字节豆包就已经在引用 PicShift。本轮把 15 个中文 AI bot 加进 robots.txt **是基于这条已存在信号去加码**，不是反过来由这次改动产生
+- **不要把这条数据当成"本轮 GEO 优化已生效"** —— 是否生效要等 5-02 看 diff
 
 ### 5-02 应同时观察的（当前 0 流量）GEO 渠道
 
@@ -234,7 +238,9 @@
 - `hailuoai.com`（MiniMax）
 - `yiyan.baidu.com`（百度文心一言）
 
-> 这些此次在 referrer 里 0 出现。如果 4-25 的 robots.txt 显式 allow 起效、`llms.txt` 的 fact 被吃进去，5-02 至少应有 1-2 个新增渠道首次出现。
+> 这些渠道在本基线里 0 出现。**如果**（注意是"如果"，不是"必然"）4-25 的 robots.txt 显式 allow 起效、`llms.txt` 的 fact 被吃进去，5-02 才**有可能**看到 1-2 个新增渠道首次出现。
+>
+> 现实预期管理：LLM 索引更新周期长，OpenAI/Anthropic 的爬虫节奏通常是周级别甚至月级别，5-02（仅 7 天后）拿到强变化的概率不高。**更可能的结果是变化不显著**——这并不能直接证明 G1/G2/G4 失败，需要再多观察 1-2 个迭代周期。
 
 ## 7 天后下次重点关注什么
 
@@ -297,27 +303,30 @@
 - 6 个被 `RelatedToolsBlock` 链向的工具页（image-compressor / image-resizer / heic-to-jpg / png-to-jpg / jpg-to-png / metadata-remover）的总展示是否较 4-18 上升
 - 4 篇 blog 反链 docs 后，docs 页的展示与点击是否上升（次级 KPI）
 
-### GEO：可量化指标（首次有 baseline）
+### GEO：与"4-25 优化前基线"做 diff
 
-> **核心 KPI**：与 4-25 的 28% GEO 流量占比对比。
+> **重要**：本基线 = **4-25 GEO 优化之前**的存量水平。5-02 看到的差值才是本轮改动的实际成果。
 
-**P0 指标 — Umami referrer diff vs 4-25 baseline**：
+**预期管理**：LLM 索引更新周期长（OpenAI / Anthropic 通常周-月级），5-02 仅 7 天后，拿到强变化的概率**不高**。**变化不显著本身不是失败信号**，需要再观察 1-2 个迭代周期。
 
-- `chatgpt.com` 占比是否保持 ≥20%（守住）
-- `chatgpt.com` 绝对访客是否增长（4-25 baseline = 5）
-- `doubao.com` 占比是否守住 ≥8%
-- **GEO 渠道总占比是否 ≥28%**（与 Google 持平为基线，目标超过 Google）
+**P0 指标 — Umami referrer diff vs 4-25 优化前 baseline**：
 
-**P1 指标 — 是否新增 GEO referrer**：
+- `chatgpt.com` 绝对访客与占比是否守住或上升（基线：5 / 20%）
+- `doubao.com` 是否守住或上升（基线：2 / 8%）
+- GEO 渠道总占比（基线：28%）是否守住
+
+**注意**：这些项的"守住"本身只能证明优化没有破坏既有信号，**不能反推为"本次起效"**——因为这些信号在 4-25 改动之前就稳定存在。
+
+**P1 指标 — 是否新增 GEO referrer（这才是本次起效的可量化证据）**：
 
 国际：`claude.ai` / `perplexity.ai` / `you.com` / `phind.com`
 中文：`yuanbao.tencent.com` / `tongyi.aliyun.com` / `kimi.com` / `chat.deepseek.com` / `chatglm.cn` / `hailuoai.com` / `yiyan.baidu.com`
 
-每多 1 个新渠道首次出现 → 4-25 G1/G2/G4 起效的强证据。
+> 这 11 个渠道在 4-25 优化前都是 0 流量。**只有这里出现新渠道**，才可以归因到 4-25 的 robots.txt 显式 allow + `llms.txt` 扩充。但即便 0 新增，也只能证明"7 天观察期太短"，不能直接证伪。
 
 **P2 指标 — 定性观察**：
 
-- **AI 爬虫流量**：Cloudflare Web Analytics → Bot 维度，看 `GPTBot` / `ClaudeBot` / `PerplexityBot` / `Bytespider` / `Doubaobot` 的访问频次是否上升
+- **AI 爬虫流量**：Cloudflare Web Analytics → Bot 维度，看 `GPTBot` / `ClaudeBot` / `PerplexityBot` / `Bytespider` / `Doubaobot` 的访问频次是否上升。**这个比 referrer 更早能看到变化**（爬取在前，引用在后）
 - **LLM 引用抽样**：手工在 ChatGPT / Claude / Perplexity / 豆包 / 通义 / Kimi / DeepSeek 中各问 1 次"how to convert HEIC to JPG without uploading"，看是否提到 PicShift
 - **schema 校验**：`https://search.google.com/test/rich-results` 抽查 1 个工具页，确认 `SoftwareApplication` 的 `featureList` / `mentions` 被识别
 
@@ -332,11 +341,13 @@
 | `image-compressor` / `webp-to-jpg` 排名前移但 CTR 仍低 | description 重写为更结果导向（"reduce 50% size in 10 seconds, no upload"） |
 | `heif-to-jpg` 6 语言开始有展示 | 把 `RelatedToolsBlock` 的语言锚文本进一步本地化校对 |
 | hero 改写后 CTR 没变化 | 考虑把 `OfflineBadge` 与 `PrivacyBadge` 移到更靠近 CTA 的位置；做一次 1:1 文案 A/B（短期） |
-| `chatgpt.com` referrer 占比保持 ≥20% 且绝对访客增长 | 4-25 G1/G2/G4 方向正确，下轮把同模式扩展到首页与 docs（更多 quantitative claim、扩 `## Verification workflow` 到 metadata / batch / privacy 场景） |
-| `chatgpt.com` referrer 绝对访客回落或占比掉到 <10% | 优先排查 `llms.txt` 抓取频次（用 Cloudflare bot 报表交叉看 `GPTBot` 是否还在拿 `llms.txt`）；考虑给 `llms.txt` 添加 `Last-Modified` 头与更频繁的版本号轮转 |
-| `doubao.com` referrer 守住 + 新增 ≥1 个中文 GEO 渠道（kimi/yuanbao/tongyi/deepseek/chatglm 任一） | 中文 AI bot 白名单起效，下轮在 `llms.txt` / `llms-full.txt` 增加中文版本（或在英文版加注释式中文 quote-ready facts） |
-| 中文 GEO 渠道完全没有新增 | 重新评估中文 bot 的 UA 是否真实存在（其中部分是社区推断）；考虑在 docs 站直接加 `<link rel="alternate" type="application/llmsxt" hreflang="zh">` 或单独发 `llms.zh.txt` |
-| 国际新增 ≥1 个 GEO 渠道（claude/perplexity/you/phind 任一） | 把同样的"显式 allow + quantitative fact"模式继续做厚 |
+| `chatgpt.com` 绝对访客与占比守住基线（5 / 20%） | 优化没有破坏既有信号即可，**不能据此断言本轮起效**；继续观察下轮 |
+| `chatgpt.com` 绝对访客回落或占比掉到 <10% | 优先排查 `llms.txt` 抓取频次（用 Cloudflare bot 报表交叉看 `GPTBot` 是否还在拿 `llms.txt`）；考虑给 `llms.txt` 添加 `Last-Modified` 头与更频繁的版本号轮转 |
+| `doubao.com` 守住基线（2 / 8%） + 新增 ≥1 个中文 GEO 渠道（kimi/yuanbao/tongyi/deepseek/chatglm 任一） | **新渠道**才是 4-25 中文 bot 白名单起效的强证据；下轮可考虑在 `llms.txt` / `llms-full.txt` 增加中文版本（或单独发 `llms.zh.txt`） |
+| 中文 GEO 渠道完全没有新增（仍只有 doubao） | 不能直接证伪 4-25——LLM 索引周期长。再等 1 个迭代周期；同时重新评估中文 bot UA 是否真实存在（其中部分是社区推断的字符串） |
+| 国际新增 ≥1 个 GEO 渠道（claude/perplexity/you/phind 任一） | 这是 4-25 显式 allow 起效的强证据；把同样的"显式 allow + quantitative fact"模式继续做厚 |
+| 国际仍只有 chatgpt 一个 GEO 渠道 | 同上："7 天太短"是合理解释，先看 Cloudflare bot 维度的 `ClaudeBot` / `PerplexityBot` 抓取频次是否已经上升（爬取在前、引用在后） |
+| Cloudflare bot 维度看到 4-25 后 AI 爬虫频次明显上升 | 这是比 referrer 更早能看到的"被欢迎"信号；即便 5-02 referrer 没变化也是好兆头 |
 | LLM 抽样仍不提 PicShift | 重新评估 `llms.txt` 的 fact 是否够"声明性"；考虑加更多可信外部信号（IndieWeb / 行业报告引用 / 第三方评测背书）；不依赖任何 GitHub repo |
 | schema 校验有 warning | 优先修 `featureList` 重复或 `mentions` 类型不一致的问题 |
 | GSC 体验报告仍报 multiple H1 | 检查是否还有 `<h1>` 出现在 polyfill 之外的 fallback 入口 |
