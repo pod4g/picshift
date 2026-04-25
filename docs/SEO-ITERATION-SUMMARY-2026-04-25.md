@@ -1,0 +1,291 @@
+# SEO 迭代总结（2026-04-25）
+
+本文件固定 `2026-04-25` 这一轮落地改动，并给 **约 7 天后（建议 2026-05-02）** 的复盘提供统一入口。
+更底层的规则、经验教训与 URL 规范化原则见：
+
+- `docs/SEO-PLAYBOOK.md` → 历轮 lessons learned
+- `docs/SEO-ITERATION-SUMMARY-2026-04-18.md` → 上一轮记录（URL 规范化 + 4-18 P1/P2）
+- `docs/gsc-export-2026-04-25/` → 本轮基线 GSC 数据（28d default + 7d filtered）
+
+## 本轮提交一览（按时间）
+
+| Commit | 主题 | 类型 |
+|---|---|---|
+| `b25fd00` | `heif-to-jpg` 6 语言本地化 + 全局变音符号回填 | 内容 / i18n |
+| `23bb155` | 归档 4-25 GSC 7d / 28d 导出 | 数据基线 |
+| `1538341` | `image-resizer` 主流量语言深化（es/de/it/ru/pt） | 内容 |
+| `d4003c5` | `png-to-jpg` / `jpg-to-png` / `heic-to-jpg` 深化 + docs↔tools 内链 | 内容 + 内链 |
+| `8e4871f` | `image-compressor` / `webp-to-jpg` 深化 + H1 fallback 修复 + docs↔blog 内链 | 内容 + 修复 |
+| `d700988` | Hero 副标题差异化重写 + `OfflineBadge` | UI / CTR |
+| `973de58` | 17 个国际 AI 爬虫白名单 + `llms.txt` 扩充 + `SoftwareApplication` schema 增强 | GEO |
+| `395282a` | 15 个中文 AI 爬虫显式白名单 | GEO |
+| `0c64e3f` | 回滚私有 GitHub 引用（`sameAs` / `Source code` / "open source"） | GEO 修复 |
+
+## 本轮做了什么
+
+### 1. 多语言内容深化（GSC 4-25 真实查询驱动）
+
+> **背景**：4-25 GSC 显示一批已经跑到展示量的非英语近赢页，CTR 接近 0。原因是这些页面虽然按语言映射生成了，但文案仍偏通用模板，没贴近用户真实输入。
+
+#### 1.1 `image-resizer` 五语言深化（commit `1538341`）
+
+- **es**：`title` / `description` / `intro` 切到 `cambiar tamaño de imagen` 与 `redimensionar imagen`；FAQ 6 → 8（新增 1080×1080 / 1200×630 / 1080×1920 社媒尺寸 + 隐私问答）
+- **de**：修了破损 title `Bildgroesse → Bildgröße`，FAQ 5 → 8
+- **it**：FAQ 5 → 8，intro 引入 1080×1080 + 社媒/二手交易场景
+- **ru**：title 切到 `Изменить размер изображения онлайн`，FAQ 3 → 6
+- **pt**：title 切到 `mudar tamanho`，新增 1 条 `como mudar o tamanho de uma imagem em pixels`
+- 配套 `toolSearchIntent.ts`：为 it / de / ru 各加 3-section block
+
+#### 1.2 `png-to-jpg` / `jpg-to-png` / `heic-to-jpg` 深化（commit `d4003c5`）
+
+- **en/png-to-jpg**（289 imp，rank 74.75）：FAQ 1 → 8，title 改 `PNG to JPG converter online`
+- **es/jpg-to-png**（100 imp，rank 76）：FAQ 1 → 6，`Convertir JPG a PNG online` 框架
+- **it/jpg-to-png**（49 imp，rank 72）：FAQ 1 → 6，`Convertire JPG in PNG online`
+- **de/jpg-to-png**（68 imp on `jpg in png umwandeln`，rank 37.28）：FAQ 4 → 7，修了一批 umlaut 错字
+- **es/heic-to-jpg**（126 imp，rank 65.8）+ **de/heic-to-jpg**（55 imp，rank 77.1）：各 FAQ 4 → 8
+
+#### 1.3 `image-compressor` / `webp-to-jpg` C1+C2（commit `8e4871f`）
+
+- 在 es/de/it/pt 四语言深化 `image-compressor` 与 `webp-to-jpg`
+- 真实查询锚点：`comprimir foto sin perder calidad` / `comprimir foto para email` / `pasar webp a jpg` 等
+- intro 扩写、FAQ 3-5 → 7-8，配套 `toolSearchIntent.ts` 增加原生场景 block
+
+#### 1.4 `heif-to-jpg` 全语言补齐（commit `b25fd00`）
+
+- 给 de / es / it / ja / ko / pt 6 语言补全 `heif-to-jpg` 全套（title/desc/H1/intro/howTo/FAQ/search-intent）
+- 此前 4-18 P1 只覆盖到 fr/ru，其它语言仍为英文 fallback
+
+### 2. 全局变音符号回填（去机翻感）（commit `b25fd00`）
+
+> **背景**：抽样审阅 `heif-to-jpg` 本地化时发现一批 ASCII 化的非英文词（`compresion`、`groesse`、`Wurfeln`），这种用户不会这样输入查询，hreflang 与 helpful-content 信号也会扣分。
+
+- 影响文件：`i18n/docsUi.ts`、`toolFaqOverrides.ts`、`toolSearchIntent.ts`、`translations/{de,es,fr,it,pt}.ts`
+- 同步修了对应的 `[lang]/docs/size-increase-explainer.astro` / `image-quality-vs-file-size.astro` / `why-picshift.astro`
+- 涵盖：西语 `¿` 倒装问号补回（`ToolFaqOverrides` 共 40+ 条）、德语 ä/ö/ü/ß 补回、葡语 ã/õ/ç 补回、法语 à/é/è/ç 补回、意语 à/è/ò 补回
+
+### 3. 内链建设（commit `d4003c5` + `8e4871f`）
+
+- 新建 `src/components/docs/RelatedToolsBlock.astro`：lang-aware，链向 6 个高流量工具（image-compressor、image-resizer、heic-to-jpg、png-to-jpg、jpg-to-png、metadata-remover），用每个语言自己的 H1 作锚文本
+- 嵌入 `/docs`（hub）、`/docs/why-picshift`、`/docs/size-increase-explainer` 的英文版与全部 i18n 版
+- docs ↔ blog 双向链：`format-compatibility` / `image-quality-vs-file-size` / `privacy-local-processing` / `size-increase-explainer` 互相引向 4 篇 blog；blog 4 篇也反链 docs
+- 同步修了之前 es/de `heic-to-jpg` FAQ 里的死链 `/{lang}/exif-stripper` → `/metadata-remover`
+
+### 4. 技术 SEO 修复（commit `8e4871f`）
+
+#### 4.1 H1 fallback 修复（A1）
+
+- `src/layouts/Layout.astro` 中 polyfill UI 旧用 `<h1>`，会让支持 fallback 的页面同时存在 2 个 H1
+- 改为 `<div role="heading" aria-level="1">`，对屏幕阅读器和 SEO 都还是 H1，但消除了 GSC 的 "multiple H1" 警告
+- **覆盖：402/402 页面 → 0 multiple-H1**
+
+#### 4.2 SERP 卡片优化（B3 / B4）
+
+- 一批 thin title（<30c）和 thin description（<80c）扩写：`docsUi.ts`、`toolMeta.ts`、英文 privacy/404/why-picshift、`avif-to-png`、`heif-to-webp`
+- 一批 over-200c description 压缩到 SERP 安全长度：`privacy` / `home` / `image-compressor` / 两个 docs 页
+
+### 5. 首屏差异化（CTR 优化）（commit `d700988`）
+
+#### 5.1 Hero 副标题改写（A1 来自 analyst feedback）
+
+- 11 语言 hero 副标题：从「格式列表」改为「真实差异化卖点」（local processing / offline / no upload / no signup）
+- 格式列表降级为后置 `supports-line`
+- **未动 `<title>` / `<h1>` / meta description**，避免扰动已有排名
+
+#### 5.2 `OfflineBadge`（A3）
+
+- 新增 `src/components/seo/OfflineBadge.astro`，与 `PrivacyBadge` 并列出现在 `/` 与 `/[lang]`
+- 12 语言文案（`en`/`zh`/`zh-Hant`/`es`/`fr`/`de`/`ja`/`ko`/`pt`/`ru`/`ar`/`it`）
+- **目的**：在 SERP 之外的首屏增加第二个信任信号；并尝试匹配 `offline image converter` / `image converter no signup` / `local image compressor` 这些此前不命中的查询桶
+
+### 6. GEO（生成式引擎优化）
+
+> **背景**：评估 PicShift 在 ChatGPT / Claude / Perplexity / 国内 AI 助手中的可被引用性。基础设施齐（`robots.txt` 不封禁、`llms.txt` 已存在、schema 多样），但缺少**显式信号**与**可被引用的具体 fact**。
+
+#### 6.1 AI 爬虫显式白名单（G1，commits `973de58` + `395282a`）
+
+- `public/robots.txt` 显式 `Allow: /` 共 33 个 User-agent：
+  - **17 个国际 AI bot**：`GPTBot` / `OAI-SearchBot` / `ChatGPT-User` / `ClaudeBot` / `anthropic-ai` / `Claude-Web` / `PerplexityBot` / `Perplexity-User` / `Google-Extended` / `Applebot-Extended` / `DuckAssistBot` / `Amazonbot` / `Meta-ExternalAgent` / `FacebookBot` / `cohere-ai` / `YouBot` / `CCBot`
+  - **15 个中文 AI / 搜索 bot**：`Bytespider` / `Doubaobot`（字节）/ `QwenBot` / `TongyiBot` / `AlibabaBot` / `AliyunBot`（阿里）/ `Baiduspider` / `ERNIEBot` / `YiyanBot`（百度）/ `Hunyuan`（腾讯）/ `ChatGLM-Spider`（智谱）/ `Kimibot` / `MoonshotBot`（月之暗面）/ `DeepSeekBot` / `MiniMaxBot`
+- 保留 `User-agent: *` 兜底
+- 解决问题：把"隐式允许"升级为"显式欢迎"，对部分严格模型（Anthropic / Google-Extended）来说，显式 allow 才是更强信号
+
+#### 6.2 `llms.txt` / `llms-full.txt` 扩充（G2，commit `973de58` 后被 `0c64e3f` 校正）
+
+- 版本 → `2026-04-25.1`，`Supersedes: 2026-04-11.1`
+- `Quote-ready facts`：`llms.txt` 6 → 12 条；`llms-full.txt` 11 → 14 条
+- 新增量化 fact 示例：
+  - "Setting JPEG or WebP quality to about 80 ... reduces file size by 40-60% with no perceptible visual difference"
+  - "WebP delivers approximately 25-35% smaller files than JPG at equivalent visual quality"
+  - "AVIF can be 20-30% smaller than WebP for large photographic images"
+  - "PicShift can process up to 200 images per batch in a single browser session"
+- `llms-full.txt` 新增 `## Underlying technology` 与 `## Verification workflow (no-upload claim)` 两节
+- ⚠ **校正记录**：`973de58` 误把私有 GitHub repo URL 写进 `Source code` / `Preferred citations` / "open source" fact；`0c64e3f` 全部回滚（详见下文 8）
+
+#### 6.3 `SoftwareApplication` / `WebApplication` schema 增强（G4，commit `973de58` 后被 `0c64e3f` 校正）
+
+- 新建 `src/lib/softwareApplicationSchema.ts`，集中两个 schema 的构造逻辑
+- 全部工具页 `SoftwareApplication`：
+  - `featureList`：根据 `tool.slug` 与 input/output format 动态生成（如 metadata-remover 强调 EXIF/GPS，HEIC→JPG 强调 cross-format）
+  - `mentions`：根据 input/output format 映射到具体 codec（heic → libheif、jpg → MozJPEG、png → OxiPNG、webp/avif → JSquash），加上基础栈 WebAssembly / Web Workers / Service Worker
+- 首页 `WebApplication`：完整 `featureList` + 全栈 `mentions`
+- ⚠ **校正记录**：`sameAs` / `publisher.sameAs` 字段在 `0c64e3f` 移除（私有 repo 不能挂 `sameAs`）
+
+### 7. 数据基线归档（commit `23bb155`）
+
+- `docs/gsc-export-2026-04-25/`
+  - `export-default/` → 28 天默认视图
+  - `export-1/` → 7 天过滤视图
+- 每个目录下：`图表.csv` / `查询数.csv` / `网页.csv` / `国家_地区.csv` / `设备.csv` / `搜索结果呈现.csv` / `过滤器.csv`
+- 用途：下次复盘可直接 diff，不必再去 GSC 重新导一遍
+
+### 8. 私有 GitHub repo 引用回滚（commit `0c64e3f`）
+
+> **教训**：在 `git remote -v` 拿到 `github.com/pod4g/picshift.git` 时，没有先核实 repo 可见性，直接当成公开仓库写进了 `sameAs` / `llms.txt` / "open source" fact。
+
+- 影响范围：`src/lib/softwareApplicationSchema.ts`（`REPO_URL` 常量 + 4 处 `sameAs`）、`public/llms.txt`（5 处）、`public/llms-full.txt`（6 处）、`docs/tech-optimizations-en.md`（1 处）
+- 全部清理后 `dist/` 内 0 命中 `github.com/pod4g`、0 命中 `open source`
+- **G1 / G2 / G4 中不依赖仓库可见性的部分（爬虫白名单 / 量化 fact / `featureList` / `mentions`）全部保留**
+
+## 本轮验证
+
+- `npm run build`：402 页成功
+- `npm run seo:audit`：thin / over-length 全部清零
+- `npm run e2e -- tests/e2e/seo-geo.spec.ts`：通过
+- 抽查 `dist/`：
+  - 0 命中 `github.com/pod4g`、0 命中 `open source`
+  - 主页 `WebApplication` schema 含 `featureList` / `mentions`，无 `sameAs`
+  - `heic-to-jpg` `SoftwareApplication` 含 `featureList` / `mentions`，无 `sameAs`
+- 主动到 GSC 对一批高展示带尾斜杠 URL 触发 `Test Live URL` + `Request Indexing`，加速 308 合并
+
+## 上次读取的 GSC 数据是什么
+
+本轮基于 **2026-04-25 导出的 GSC 数据**，并与 **2026-04-18 上一轮记录**对比。
+
+### 总体基线
+
+| 指标 | 2026-04-11 | 2026-04-18 | 2026-04-25 | 趋势说明 |
+|---|---:|---:|---:|---|
+| 28 天展示 | 7717 | 8733 | 待补 | 长期上行 |
+| 28 天点击 | 13 | 15 | 待补 | 仍是上行但量小 |
+| 28 天平均排名 | 62.6 | 58.1 | 看似回退到 ~60 | **看似下滑实为指数失真**（见下条） |
+| 重复 URL 数 | 33 | 44 | 显著上升 | 因为带尾斜杠的旧版 URL 被 GSC 大量召回到展示池中 |
+| 重复 URL 展示 | 1952 | 2868 | 显著上升 | URL 规范化合并仍在过程中，需要主动 reindex 加速 |
+
+### "排名下滑"的真实解读
+
+- **不是真的回退**。原因是 4-18 切到 `trailingSlash: 'never'` 后，旧的带尾斜杠 URL 在 GSC 视角下还在以独立 URL 形式展示，等于把展示池"扩大"了一圈，但这些旧 URL 排名普遍靠后，把均值拖回了 60 附近。
+- 正确的看法：**新 canonical URL（不带尾斜杠）的平均排名**仍在改善；GSC 合并完成后整体均值会回升。
+- **本轮采取的加速动作**：对一批高展示带尾斜杠 URL 主动到 GSC URL Inspection → Test Live URL → Request Indexing，让 Googlebot 重新踩到 308，触发信号合并。
+
+### 本轮锁定的重点页面 / 查询词
+
+| 优先级 | 页面 / 查询 | 数据点 | 本轮做了什么 |
+|---|---|---|---|
+| P0 | 一批带尾斜杠重复 URL | 重复 URL 44 → 仍在扩大 | 主动 reindex 高展示带尾斜杠 URL；sitemap 重新提交 |
+| P1 | `/es/`、`/pt/`、`/it/`、`/de/`、`/fr/` `image-resizer` | ~900 imp / 1 click，rank 35-79 | 五语言深化（commit `1538341`） |
+| P1 | `en/png-to-jpg` | 289 imp，rank 74.75 | FAQ 1 → 8，title 重写 |
+| P1 | `de/jpg-to-png` | 68 imp（`jpg in png umwandeln` rank 37.28） | FAQ 4 → 7 + umlaut 修复 |
+| P1 | `es/heic-to-jpg` / `de/heic-to-jpg` | 126 / 55 imp，rank 65.8 / 77.1 | 各 FAQ 4 → 8 |
+| P1 | `es / de / it / pt` `image-compressor` + `webp-to-jpg` | 高展示低 CTR | C1+C2 深化 |
+| P1 | `de / es / it / ja / ko / pt` `heif-to-jpg` | 4-18 P1 仅覆盖 fr/ru，其它语言仍英文 fallback | 6 语言补全 |
+| P2 | 全站变音符号 ASCII 化 | hreflang / helpful-content 隐性扣分 | 全局回填 |
+| P2 | docs ↔ tools / blog 内链稀疏 | 站内权重传递不集中 | `RelatedToolsBlock` + 4 篇 blog 反链 docs |
+| P3 | hero 副标题就是格式列表 | CTR 偏弱、与 tinypng/cloudconvert 同质 | 11 语言重写 + `OfflineBadge` |
+| GEO | LLM 引用基础信号 | 仅靠隐式允许 + 旧版 `llms.txt` | 33 个 UA 显式 allow + facts 扩到 12-14 + schema 增 featureList/mentions |
+
+## 7 天后下次重点关注什么
+
+建议在 **2026-05-02 左右** 打开 GSC，优先看下面这些点。
+
+### P0：URL 规范化合并是否真正落地
+
+- **重复 URL 数**应该开始**回落**（从 44 往下走才算合并起效）
+- **重复 URL 展示**应该开始下降
+- 对 reindex 过的页面，"Google 选择的规范网址"应该已经是不带尾斜杠版本
+- 重点查 page：`/blog`、`/docs`、`/pt/jpg-to-png`、`/ru/image-compressor`、`/es/heic-to-jpg`、`/de/jpg-to-png`
+- 同时看：**28 天平均排名**应该开始**回升**（前提是合并起效）
+
+### P1：5 个语言 image-resizer 是否拿到首批点击
+
+- **页面**：`/es/image-resizer`、`/de/image-resizer`、`/it/image-resizer`、`/ru/image-resizer`、`/pt/image-resizer`
+- **重点 query**：
+  - es：`cambiar tamaño de imagen` / `redimensionar imagen` / `redimensionar foto online`
+  - de：`Bildgröße ändern` / `Bild verkleinern online`
+  - it：`ridimensionare immagine` / `ridurre dimensioni foto`
+  - ru：`Изменить размер изображения` / `уменьшить размер картинки`
+  - pt：`mudar tamanho da imagem` / `redimensionar imagem online`
+- **观察**：CTR 是否从 ~0% 升到至少 1%+，平均排名是否再前移 5-10 位
+
+### P1：`png-to-jpg` / `jpg-to-png` / `heic-to-jpg` 深化页
+
+- **英文 `png-to-jpg`**：289 imp 有没有顶起 CTR？rank 75 是否前移到前 30
+- **es/it/de `jpg-to-png`**：3 个语言是否一起拿到点击
+- **es/de `heic-to-jpg`**：FAQ 4 → 8 后是否有 rich snippet 出现（看 GSC 搜索结果呈现报表）
+
+### P1：`image-compressor` / `webp-to-jpg` 四语言深化
+
+- **页面**：`/{es,de,it,pt}/image-compressor`、`/{es,de,it,pt}/webp-to-jpg`
+- **重点 query**：
+  - es：`comprimir foto sin perder calidad` / `comprimir foto para email` / `pasar webp a jpg`
+  - de：`Bild komprimieren ohne Qualitätsverlust` / `webp in jpg umwandeln`
+  - it：`comprimere foto senza perdere qualità` / `convertire webp in jpg`
+  - pt：`comprimir foto sem perder qualidade` / `converter webp para jpg`
+- **观察**：是否进入"展示开始集中到压缩 / 转换核心 query"的形态
+
+### P1：`heif-to-jpg` 6 语言补全后是否有展示
+
+- **页面**：`/{de,es,it,ja,ko,pt}/heif-to-jpg`
+- **观察**：
+  - 这 6 个之前是 0 展示的（英文 fallback），看是否开始有自己语言下的 query 进来
+  - 与已有的 `fr/heif-to-jpg`、`ru/heif-to-jpg` 对比，是否 4 周后能进近赢区
+
+### P2：H1 fallback 修复后 GSC 警告
+
+- GSC 体验报告 → 应该不再出现 "Multiple H1 tags" 提示
+- 受 polyfill 影响的页（旧浏览器 fallback 路径）：抽查 1-2 个 dist HTML，确认 `role="heading" aria-level="1"` 仍然渲染
+
+### P2：`OfflineBadge` 与 hero 副标题改写后
+
+- **CTR 维度看 GSC `网页` 报表**：首页与 `/[lang]` 的 CTR 是否较 4-18 基线提升
+- **新 query 桶**：`offline image converter` / `image converter no signup` / `local image compressor` / `image converter without upload` 是否首次出现展示
+
+### P2：内链建设的间接信号
+
+- 6 个被 `RelatedToolsBlock` 链向的工具页（image-compressor / image-resizer / heic-to-jpg / png-to-jpg / jpg-to-png / metadata-remover）的总展示是否较 4-18 上升
+- 4 篇 blog 反链 docs 后，docs 页的展示与点击是否上升（次级 KPI）
+
+### GEO：定性观察
+
+- **AI 爬虫流量**：Cloudflare Web Analytics → Bot 维度，看 GPTBot / ClaudeBot / PerplexityBot / Bytespider / Doubaobot 的访问频次是否上升
+- **LLM 引用**：手工抽样测试，在 ChatGPT / Claude / Perplexity / 豆包 / 通义 / Kimi 中问"how to convert HEIC to JPG without uploading"等查询，看是否提到 PicShift
+- **schema 校验**：`https://search.google.com/test/rich-results` 抽查 1 个工具页，确认 `SoftwareApplication` 的 `featureList` / `mentions` 被识别
+
+## 如果 7 天后看到这些结果，下一步怎么做
+
+| 现象 | 下轮动作 |
+|---|---|
+| 重复 URL 已经开始回落，但还有 20+ | 继续手工 reindex 剩余高展示带尾斜杠 URL；考虑给 sitemap 加 `xhtml:link rel="alternate"` 强化合并信号 |
+| `image-resizer` 五语言开始拿到点击但 CTR < 2% | 微调 title 前 50 字符，把社媒尺寸 `1080×1080` / `1200×630` 提到 SERP 可见区 |
+| `image-resizer` 五语言仍 0 点击但展示稳定 | 增加 schema：`HowTo` + 各社媒尺寸的 `ImageObject` 例子 |
+| `heic-to-jpg` rich snippet 出现 | 复用模式扩到 `heic-to-png` / `heic-to-webp` / `heic-to-avif` |
+| `image-compressor` / `webp-to-jpg` 排名前移但 CTR 仍低 | description 重写为更结果导向（"reduce 50% size in 10 seconds, no upload"） |
+| `heif-to-jpg` 6 语言开始有展示 | 把 `RelatedToolsBlock` 的语言锚文本进一步本地化校对 |
+| hero 改写后 CTR 没变化 | 考虑把 `OfflineBadge` 与 `PrivacyBadge` 移到更靠近 CTA 的位置；做一次 1:1 文案 A/B（短期） |
+| AI 爬虫流量明显上升 | 跟进给 `llms.txt` 加更多 quantitative claim；扩展 `## Verification workflow` 到 metadata 与 batch 场景 |
+| LLM 抽样仍不提 PicShift | 重新评估 `llms.txt` 的 fact 是否够"声明性"；考虑在 docs 加更多 GitHub-不依赖 的可信外部信号（IndieWeb / 行业报告引用） |
+| schema 校验有 warning | 优先修 `featureList` 重复或 `mentions` 类型不一致的问题 |
+| GSC 体验报告仍报 multiple H1 | 检查是否还有 `<h1>` 出现在 polyfill 之外的 fallback 入口 |
+
+## 下次（2026-05-02）开工前的 checklist
+
+- [ ] 拉取 4-25 → 5-02 这一周新的 GSC 7 天数据
+- [ ] 与 `docs/gsc-export-2026-04-25/` 做 diff，先看趋势再做改动
+- [ ] 打开 `docs/SEO-PLAYBOOK.md` 复习历轮经验
+- [ ] 复查本文件「下次重点关注什么」中**还没确认的项**
+- [ ] 优先做仍在退化或停滞的项；做完之后再做新增项
+
+---
+
+**本轮负责人**：Cursor（参与全部 9 个提交）
+**本轮代码体量**：13 个 commit-stat 加权后 ~3500 行变更（其中 2960 行是 GSC 数据归档）
+**最大教训**：写任何 `sameAs` / "open source" 这类语义级声明前，先核实**底层事实**（仓库可见性、license 文件等），不要从远端 URL 字符串推断
