@@ -39,8 +39,17 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-# DuckDuckGo AI assist
+# DuckDuckGo (search index + AI answer + favicon fetch)
+# DuckDuckBot feeds the core SERP; DuckAssistBot powers DuckAssist
+# (Anthropic Claude under the hood); DuckDuckGo-Favicons-Bot fetches
+# our site icon for SERP and the DuckDuckGo browser.
+User-agent: DuckDuckBot
+Allow: /
+
 User-agent: DuckAssistBot
+Allow: /
+
+User-agent: DuckDuckGo-Favicons-Bot
 Allow: /
 
 # Amazon / Alexa

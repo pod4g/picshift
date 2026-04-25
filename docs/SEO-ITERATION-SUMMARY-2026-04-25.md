@@ -103,11 +103,12 @@
 
 #### 6.1 AI 爬虫显式白名单（G1，commits `973de58` + `395282a`）
 
-- `public/robots.txt` 显式 `Allow: /` 共 33 个 User-agent：
-  - **17 个国际 AI bot**：`GPTBot` / `OAI-SearchBot` / `ChatGPT-User` / `ClaudeBot` / `anthropic-ai` / `Claude-Web` / `PerplexityBot` / `Perplexity-User` / `Google-Extended` / `Applebot-Extended` / `DuckAssistBot` / `Amazonbot` / `Meta-ExternalAgent` / `FacebookBot` / `cohere-ai` / `YouBot` / `CCBot`
+- `public/robots.txt` 显式 `Allow: /` 共 35 个 User-agent：
+  - **19 个国际 AI / 搜索 bot**：`GPTBot` / `OAI-SearchBot` / `ChatGPT-User` / `ClaudeBot` / `anthropic-ai` / `Claude-Web` / `PerplexityBot` / `Perplexity-User` / `Google-Extended` / `Applebot-Extended` / `DuckDuckBot` / `DuckAssistBot` / `DuckDuckGo-Favicons-Bot` / `Amazonbot` / `Meta-ExternalAgent` / `FacebookBot` / `cohere-ai` / `YouBot` / `CCBot`
   - **15 个中文 AI / 搜索 bot**：`Bytespider` / `Doubaobot`（字节）/ `QwenBot` / `TongyiBot` / `AlibabaBot` / `AliyunBot`（阿里）/ `Baiduspider` / `ERNIEBot` / `YiyanBot`（百度）/ `Hunyuan`（腾讯）/ `ChatGLM-Spider`（智谱）/ `Kimibot` / `MoonshotBot`（月之暗面）/ `DeepSeekBot` / `MiniMaxBot`
 - 保留 `User-agent: *` 兜底
 - 解决问题：把"隐式允许"升级为"显式欢迎"，对部分严格模型（Anthropic / Google-Extended）来说，显式 allow 才是更强信号
+- **DuckDuckGo 三件套**：因为 DuckDuckGo 在 4-25 referrer 中占 12%（仅次于 Google / ChatGPT / Bing），单独把搜索爬虫 `DuckDuckBot`、AI 答案爬虫 `DuckAssistBot`（背后是 Anthropic Claude）、favicon 爬虫 `DuckDuckGo-Favicons-Bot` 全部显式列出，与 DuckAssist 形成"搜索 + AI 答案 + 站标"完整白名单
 
 #### 6.2 `llms.txt` / `llms-full.txt` 扩充（G2，commit `973de58` 后被 `0c64e3f` 校正）
 
@@ -191,7 +192,7 @@
 | P2 | 全站变音符号 ASCII 化 | hreflang / helpful-content 隐性扣分 | 全局回填 |
 | P2 | docs ↔ tools / blog 内链稀疏 | 站内权重传递不集中 | `RelatedToolsBlock` + 4 篇 blog 反链 docs |
 | P3 | hero 副标题就是格式列表 | CTR 偏弱、与 tinypng/cloudconvert 同质 | 11 语言重写 + `OfflineBadge` |
-| GEO | LLM 引用基础信号 | 仅靠隐式允许 + 旧版 `llms.txt` | 33 个 UA 显式 allow + facts 扩到 12-14 + schema 增 featureList/mentions |
+| GEO | LLM 引用基础信号 | 仅靠隐式允许 + 旧版 `llms.txt` | 35 个 UA 显式 allow（含 DuckDuckGo 三件套）+ facts 扩到 12-14 + schema 增 featureList/mentions |
 
 ## GEO 流量基线（2026-04-25 优化**之前**的 Umami 过去 7 天来源域名）
 
