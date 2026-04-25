@@ -257,12 +257,12 @@ const it: PageTranslations = {
     },
     'jpg-to-png': {
       title:
-        'Convertitore da JPG a PNG - Gratuito, Privato, Nessun Upload | PicShift',
+        'Convertire JPG in PNG online — senza perdita, batch | PicShift',
       description:
-        'Converti le immagini JPG in formato PNG senza perdita nel tuo browser. Gratuito, privato, nessun upload.',
-      h1: 'Converti JPG in PNG',
+        'Converti JPG in PNG quando ti serve una versione senza perdita per modificare, annotare o riesportare. Fino a 200 file per batch nel browser, senza upload.',
+      h1: 'Convertire JPG in PNG',
       introText:
-        'Converti le immagini JPG in formato PNG senza perdita. Utile quando hai bisogno di una versione senza perdita per la modifica.',
+        'Converti JPG in PNG quando devi modificare, ritagliare o annotare un\u2019immagine e non vuoi che ogni nuova esportazione perda qualità. PNG conserva i pixel intatti — non recupera dettaglio già perso nel JPG di partenza, ma evita ulteriori degradazioni.',
       howToSteps: [
         'Trascina i tuoi file JPG nel riquadro sopra oppure clicca per sfogliare.',
         'I file vengono convertiti in PNG istantaneamente nel tuo browser.',
@@ -270,8 +270,28 @@ const it: PageTranslations = {
       ],
       faqs: [
         {
-          q: 'Convertire JPG in PNG migliora la qualit\u00e0?',
-          a: "No. Convertire da JPG a PNG non ripristina la qualit\u00e0 persa durante la compressione JPG. Tuttavia, la conversione in PNG impedisce ulteriori perdite di qualit\u00e0 se devi modificare e risalvare l'immagine.",
+          q: 'Come convertire JPG in PNG online?',
+          a: 'Trascina i JPG in PicShift, mantieni PNG come formato di output e scarica. La conversione gira interamente nel browser con supporto batch (fino a 200 file per volta) e senza upload.',
+        },
+        {
+          q: 'Convertire JPG in PNG migliora la qualità?',
+          a: 'No. La conversione da JPG a PNG non ripristina la qualità persa durante la compressione JPG. Però, passando a PNG, eviti ulteriori perdite se devi modificare e risalvare l\u2019immagine.',
+        },
+        {
+          q: 'Quando conviene passare a PNG invece di restare su JPG?',
+          a: 'Scegli PNG quando ti servono trasparenza, screenshot nitidi, grafiche con testo o un file intermedio da modificare più volte. Resta su JPG se devi solo condividere o caricare un file leggero.',
+        },
+        {
+          q: 'Il PNG sarà più grande del JPG di partenza?',
+          a: 'Di solito sì. PNG conserva più informazioni e scarta meno dettaglio, quindi la dimensione cresce — è normale quando dai priorità alla stabilità di editing rispetto al peso.',
+        },
+        {
+          q: 'Posso convertire più JPG insieme?',
+          a: 'Sì. PicShift gestisce fino a 200 file per batch direttamente nel browser. Per carichi grandi, procedi in gruppi di 50–100 per mantenere reattivo il browser.',
+        },
+        {
+          q: 'I miei file vengono caricati su un server?',
+          a: 'No. Tutto avviene nel tuo browser con WebAssembly. Puoi anche disattivare la connessione dopo aver aperto la pagina e lo strumento continua a funzionare.',
         },
       ],
     },

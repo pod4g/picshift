@@ -2,6 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import Header from '../../../components/layout/Header.astro';
 import Footer from '../../../components/layout/Footer.astro';
+import RelatedToolsBlock from '../../../components/docs/RelatedToolsBlock.astro';
 import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../../lib/contentDates';
 import { getDocsUi } from '../../../i18n/docsUi';
 import { SUPPORTED_LOCALES, localePath } from '../../../i18n';
@@ -127,6 +128,8 @@ const docsItemListSchema = {
           </a>
         ))}
       </div>
+      <RelatedToolsBlock lang={lang} />
+
       <p class="text-sm text-text-secondary pt-4 border-t border-border mt-6">{docsUi.lastUpdated}: {dateModified}</p>
     </section>
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />

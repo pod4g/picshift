@@ -79,12 +79,12 @@ const es: PageTranslations = {
   tools: {
     'heic-to-jpg': {
       title:
-        'Convertidor de HEIC a JPG - Gratis, Privado, Sin Subir | PicShift',
+        'Convertir HEIC a JPG online — fotos del iPhone en tu navegador | PicShift',
       description:
-        'Convierte fotos HEIC a JPG al instante en tu navegador. 100% privado: los archivos nunca salen de tu dispositivo. Gratis, sin límites, sin registro.',
+        'Convierte HEIC a JPG cuando Windows, una página web, un correo o un formulario no abre las fotos del iPhone. Hasta 200 archivos por lote en el navegador, sin subir nada.',
       h1: 'Convertir HEIC a JPG',
       introText:
-        'Convierte tus fotos HEIC del iPhone a formato JPG al instante. Todo ocurre en tu navegador: tus fotos nunca salen de tu dispositivo.',
+        'Convierte HEIC a JPG cuando un PC con Windows, un sitio web, un correo o un formulario rechaza las fotos del iPhone. JPG es el formato que abre todo el mundo, y todo el proceso ocurre en tu navegador — las fotos nunca salen de tu dispositivo.',
       howToSteps: [
         'Arrastra y suelta tus archivos HEIC en el área de arriba, o haz clic para buscarlos.',
         'Tus fotos se convierten al instante en tu navegador, sin subir nada.',
@@ -92,20 +92,36 @@ const es: PageTranslations = {
       ],
       faqs: [
         {
+          q: '¿Cómo convertir HEIC a JPG online?',
+          a: 'Arrastra los archivos HEIC del iPhone a PicShift, mantén JPG como formato de salida y descarga. La conversión ocurre dentro del navegador — los archivos no se suben a ningún servidor.',
+        },
+        {
+          q: '¿Por qué convertir HEIC a JPG?',
+          a: 'Muchos PCs con Windows, formularios web, programas de correo y sitios de comercio electrónico todavía no abren HEIC. JPG sí lo abren todos. Si vas a enviar la foto a alguien que no conoces (o a un sistema que no controlas), JPG suele ser la opción que evita problemas.',
+        },
+        {
           q: '¿Qué es el formato HEIC?',
-          a: 'HEIC (High Efficiency Image Container) es el formato de foto predeterminado en iPhones desde iOS 11. Produce archivos más pequeños que JPG manteniendo la misma calidad. Sin embargo, muchas aplicaciones de Windows y sitios web no soportan HEIC.',
+          a: 'HEIC (High Efficiency Image Container) es el formato predeterminado de fotos en iPhone desde iOS 11. Produce archivos más pequeños que JPG con calidad similar, pero sigue sin tener soporte universal fuera del ecosistema Apple.',
         },
         {
-          q: '¿Es seguro convertir mis fotos aquí?',
-          a: 'Sí. PicShift procesa todo en tu navegador usando WebAssembly. Tus fotos nunca salen de tu dispositivo; no se sube ningún archivo a ningún servidor. Puedes verificarlo desconectándote de internet e intentando usar el convertidor.',
+          q: '¿Perderé calidad al convertir HEIC a JPG?',
+          a: 'La configuración predeterminada (calidad 85) produce un JPG visualmente idéntico al HEIC original en pantalla. Si necesitas máxima fidelidad para imprimir o archivar, sube el control de calidad a 90–95.',
         },
         {
-          q: '¿Cuántos archivos puedo convertir a la vez?',
-          a: 'Puedes convertir hasta 200 archivos a la vez. Para un mejor rendimiento con lotes grandes, recomendamos 100 o menos.',
+          q: '¿La conversión conserva la rotación y la fecha de la foto?',
+          a: 'Sí. PicShift conserva la orientación correcta y respeta los metadatos básicos. Si prefieres eliminar EXIF antes de compartir, puedes pasar el resultado por /es/metadata-remover.',
         },
         {
-          q: '¿Perderé calidad de imagen?',
-          a: 'La configuración de calidad predeterminada (85%) produce archivos visualmente idénticos al original. Puedes ajustar el control de calidad: valores más altos significan mejor calidad pero archivos más grandes.',
+          q: '¿Cuántas fotos HEIC puedo convertir a la vez?',
+          a: 'Hasta 200 archivos por lote directamente en el navegador. Para tandas muy grandes, ve en grupos de 50–100 para mantener el navegador fluido.',
+        },
+        {
+          q: '¿Es seguro? ¿Mis fotos se suben a algún servidor?',
+          a: 'No. PicShift procesa todo en tu navegador con WebAssembly — las fotos nunca salen de tu dispositivo. Puedes desconectarte de internet después de cargar la página y la herramienta sigue funcionando.',
+        },
+        {
+          q: '¿Hay alguna alternativa si necesito transparencia?',
+          a: 'JPG no soporta transparencia. Si tu foto la necesita, usa /es/heic-to-png (sin pérdida) o convierte a WebP, que combina transparencia y archivos pequeños.',
         },
       ],
     },
@@ -305,12 +321,13 @@ const es: PageTranslations = {
       ],
     },
     'jpg-to-png': {
-      title: 'Convertidor de JPG a PNG - Gratis, Privado, Sin Subir | PicShift',
+      title:
+        'Convertir JPG a PNG online — sin pérdida, por lotes | PicShift',
       description:
-        'Convierte imágenes JPG a formato PNG sin pérdida en tu navegador. Gratis, privado, sin subir archivos.',
+        'Convertir JPG a PNG cuando necesitas una versión sin pérdida para editar, anotar o re-exportar. Hasta 200 archivos por lote, todo en tu navegador, sin subir nada.',
       h1: 'Convertir JPG a PNG',
       introText:
-        'Convierte imágenes JPG a formato PNG sin pérdida. Útil cuando necesitas una versión sin pérdida para edición.',
+        'Convierte JPG a PNG cuando vas a editar, recortar o anotar una imagen y no quieres que cada nueva exportación pierda calidad. PNG conserva los píxeles intactos — no recupera detalle ya perdido en el JPG, pero evita degradación adicional.',
       howToSteps: [
         'Arrastra y suelta tus archivos JPG en el área de arriba, o haz clic para buscarlos.',
         'Los archivos se convierten a PNG al instante en tu navegador.',
@@ -318,8 +335,28 @@ const es: PageTranslations = {
       ],
       faqs: [
         {
+          q: '¿Cómo convertir JPG a PNG online?',
+          a: 'Arrastra los JPG a PicShift, mantén PNG como formato de salida y descarga. La conversión ocurre dentro del navegador con soporte por lotes (hasta 200 archivos por tanda) y sin subir nada al servidor.',
+        },
+        {
           q: '¿Convertir JPG a PNG mejora la calidad?',
-          a: 'No. Convertir de JPG a PNG no restaura la calidad perdida durante la compresión JPG. Sin embargo, convertir a PNG evita cualquier pérdida de calidad adicional si necesitas editar y volver a guardar la imagen.',
+          a: 'No. Convertir de JPG a PNG no restaura la calidad perdida durante la compresión JPG. Sin embargo, convertir a PNG evita cualquier pérdida adicional si vas a editar y volver a guardar la imagen.',
+        },
+        {
+          q: '¿Cuándo conviene pasar a PNG en lugar de seguir en JPG?',
+          a: 'Elige PNG cuando necesites transparencia, capturas de pantalla nítidas, gráficos con texto o un archivo intermedio para editar varias veces. Mantente en JPG si solo vas a compartir o subir un archivo pequeño.',
+        },
+        {
+          q: '¿El PNG resultante pesará más que el JPG original?',
+          a: 'Normalmente sí. PNG guarda más información de imagen y descarta menos detalle, así que el archivo crece — es lo esperado cuando priorizas la estabilidad de edición sobre el tamaño.',
+        },
+        {
+          q: '¿Puedo convertir varios JPG a la vez?',
+          a: 'Sí. PicShift procesa hasta 200 archivos por lote en el navegador. Para cargas muy grandes, ve en grupos de 50–100 para mantener el navegador fluido.',
+        },
+        {
+          q: '¿Mis archivos se suben a algún servidor?',
+          a: 'No. Todo se procesa en tu navegador con WebAssembly. Puedes incluso desconectarte de internet después de cargar la página y la herramienta sigue funcionando.',
         },
       ],
     },

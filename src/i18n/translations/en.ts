@@ -193,21 +193,50 @@ const en: PageTranslations = {
       ],
     },
     'png-to-jpg': {
-      title: 'PNG to JPG Converter - Reduce PNG Size | PicShift',
+      title:
+        'PNG to JPG converter online — batch, no upload | PicShift',
       description:
-        'Convert PNG to JPG to reduce file size for faster uploads and sharing. Browser-based processing without file upload.',
+        'Convert PNG to JPG online to shrink photos before email, web upload or e-commerce listings. Adjust quality, batch up to 200 files, fully in-browser — no upload.',
       h1: 'Convert PNG to JPG',
       introText:
-        "Convert PNG images to JPG to reduce file size. Great for photos saved as PNG that don't need transparency.",
+        'Convert PNG to JPG when a photo saved as PNG is too heavy for email, a contact form, or a website. JPG drops transparency but typically cuts file size by 60–80% on photographic images. Everything runs in your browser — files never leave your device.',
       howToSteps: [
         'Drag and drop your PNG files into the box above, or click to browse.',
-        'Files are converted to JPG instantly in your browser.',
-        'Adjust the quality slider to balance size vs. quality.',
+        'Adjust the quality slider — 80–85 is a safe default for photos.',
+        'Click Download to save each file, or Download All to get a ZIP.',
       ],
       faqs: [
         {
-          q: 'Will I lose transparency?',
-          a: 'Yes. JPG does not support transparency. Any transparent areas in your PNG will become white. If you need transparency, keep your image as PNG or convert to WebP.',
+          q: 'How do I convert PNG to JPG online?',
+          a: 'Drop your PNG files into PicShift, keep JPG as the output format, optionally tune the quality slider, then download. The conversion runs entirely in your browser — files are not uploaded to any server.',
+        },
+        {
+          q: 'Why convert PNG to JPG?',
+          a: 'PNG stores every pixel losslessly, which makes photographic PNGs surprisingly heavy. Converting to JPG typically cuts file size by 60–80% with no visible difference at quality 80–85, so it is the standard fix when an email, form or website rejects your file for being too large.',
+        },
+        {
+          q: 'Will I lose transparency when converting PNG to JPG?',
+          a: 'Yes. JPG does not support transparency, so any transparent area becomes white in the JPG. If you need to keep transparency, convert to WebP instead — it supports both transparency and small file sizes.',
+        },
+        {
+          q: 'How much smaller is JPG compared to PNG?',
+          a: 'For photographic content, JPG is usually 60–80% smaller than PNG at quality 80–85. For flat graphics, screenshots or text, the gap is smaller and you may want to keep PNG to avoid blurry edges.',
+        },
+        {
+          q: 'What quality setting should I use?',
+          a: 'For most photos, quality 80–85 is the sweet spot — visually identical to the source on a typical screen but much smaller. Drop to 70 for the smallest file, or stay at 90 for portfolio-grade work.',
+        },
+        {
+          q: 'When should I keep PNG instead of converting?',
+          a: 'Keep PNG for screenshots, app UI captures, line art, logos and anything with sharp text or hard edges. JPG can introduce subtle blocking around high-contrast edges, while PNG stays crisp.',
+        },
+        {
+          q: 'Can I convert multiple PNG files at once?',
+          a: 'Yes. PicShift handles up to 200 files per batch directly in the browser. For very large jobs, process in groups of 50–100 to keep the browser responsive.',
+        },
+        {
+          q: 'Are my PNG files uploaded to a server?',
+          a: 'No. Conversion happens entirely in your browser via WebAssembly. You can even disconnect from the network after the page loads — the tool keeps working.',
         },
       ],
     },

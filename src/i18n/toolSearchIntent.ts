@@ -277,6 +277,48 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     ],
   },
   es: {
+    'png-to-jpg': [
+      {
+        title: 'Cuándo convertir PNG a JPG ahorra mucho peso',
+        body: 'PNG guarda cada píxel sin pérdida, lo que hace que las fotos en PNG terminen siendo innecesariamente pesadas. Con calidad 80–85, el JPG suele pesar un 60–80% menos sin diferencia visible — es la solución estándar cuando un correo, formulario o web rechaza tu archivo por exceso de tamaño.',
+      },
+      {
+        title: 'La advertencia clave: pierdes la transparencia',
+        body: 'JPG no soporta transparencia. Si el PNG es un logo, un icono o un gráfico con fondo transparente, convertirlo a JPG llenará el fondo de blanco. En esos casos conviene quedarse en PNG o pasar a WebP, que sí mantiene transparencia con archivos pequeños.',
+      },
+      {
+        title: 'Cuándo es mejor mantener el PNG',
+        body: 'Mantén PNG cuando se trate de capturas de pantalla, interfaces, texto o líneas finas. JPG puede introducir bordes borrosos en zonas de alto contraste, mientras que PNG conserva la nitidez del original.',
+      },
+    ],
+    'jpg-to-png': [
+      {
+        title: 'Cuándo convertir JPG a PNG tiene sentido',
+        body: 'PNG ayuda cuando vas a editar, anotar o re-exportar la imagen y no quieres que cada nueva versión pierda calidad. No recupera nada del JPG original, pero evita que cada nuevo guardado degrade más.',
+      },
+      {
+        title: 'Lo que no obtienes al pasar de JPG a PNG',
+        body: 'No mejora la calidad: lo que ya se perdió en la compresión JPG no vuelve. Tampoco baja el peso — al contrario, el PNG suele ser bastante más grande. La ganancia real es la estabilidad para futuras ediciones.',
+      },
+      {
+        title: 'Cuándo conviene quedarse en JPG',
+        body: 'Si solo quieres compartir, subir o enviar la foto sin trabajo posterior, JPG sigue siendo la opción correcta: archivo pequeño y compatibilidad universal. PNG es mejor cuando hay edición de por medio.',
+      },
+    ],
+    'heic-to-jpg': [
+      {
+        title: 'Por qué HEIC se convierte en problema fuera del iPhone',
+        body: 'HEIC es eficiente en iPhone, pero muchos PCs con Windows, formularios web, programas de correo y sitios de comercio electrónico todavía no lo abren bien. Convertir a JPG es la forma más rápida de evitar la fricción cuando la foto sale del ecosistema Apple.',
+      },
+      {
+        title: 'JPG es la salida más segura cuando no controlas el destino',
+        body: 'Si vas a enviar la foto a alguien que no conoces, subirla a un trámite, adjuntarla a un correo o publicarla en un sitio que no controlas, JPG es la opción que abre todo el mundo. Pesa más que HEIC, pero ahorra problemas de apertura.',
+      },
+      {
+        title: 'Cuándo conservar HEIC',
+        body: 'Si todos tus dispositivos y apps abren HEIC sin problema y quieres aprovechar archivos más pequeños, no hay urgencia de convertir. La conversión a JPG cobra sentido cuando un sistema externo no acepta el formato.',
+      },
+    ],
     'webp-to-jpg': [
       {
         title: 'Por qué WebP a JPG sigue siendo útil',
@@ -407,6 +449,20 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     ],
   },
   de: {
+    'heic-to-jpg': [
+      {
+        title: 'Warum HEIC außerhalb des iPhones zum Problem wird',
+        body: 'HEIC spart Speicher auf dem iPhone, aber viele Windows-PCs, Bewerbungsportale, Behörden-Formulare, E-Mail-Programme und Online-Shops können das Format bis heute nicht zuverlässig öffnen. Die Umwandlung in JPG ist meist der schnellste Weg, diese Hürden zu beseitigen.',
+      },
+      {
+        title: 'JPG ist die sicherste Wahl, wenn Sie das Zielsystem nicht kennen',
+        body: 'Wenn die Datei an einen unbekannten Empfänger geht, in ein Online-Formular hochgeladen wird, an einer E-Mail hängt oder auf einer fremden Plattform landet, ist JPG das Format, das wirklich überall öffnet. Etwas größer als HEIC, dafür ohne Kompatibilitätsprobleme.',
+      },
+      {
+        title: 'Wann sich HEIC behalten lohnt',
+        body: 'Wenn alle eigenen Geräte und Programme HEIC sauber öffnen, lohnt es sich, das kompakte Format zu behalten. Erst wenn ein externer Workflow das Format ablehnt, wird die Umwandlung in JPG zur sinnvollen Lösung.',
+      },
+    ],
     'image-resizer': [
       {
         title: 'Wann Bildgröße ändern die direkte Lösung ist',
@@ -451,6 +507,20 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     ],
   },
   it: {
+    'jpg-to-png': [
+      {
+        title: 'Quando convertire JPG in PNG ha senso',
+        body: 'PNG aiuta quando devi modificare, annotare o riesportare un\u2019immagine e non vuoi che ogni nuova versione perda qualità. Non recupera nulla dal JPG di partenza, ma evita che ogni salvataggio successivo degradi ulteriormente l\u2019immagine.',
+      },
+      {
+        title: 'Cosa non ottieni passando da JPG a PNG',
+        body: 'Non migliora la qualità: ciò che è già andato perso nella compressione JPG non torna. Nemmeno il peso scende — al contrario, il PNG di solito è ben più grande. Il vantaggio reale è la stabilità per futuri ritocchi.',
+      },
+      {
+        title: 'Quando conviene restare su JPG',
+        body: 'Se devi solo condividere, caricare o inviare l\u2019immagine senza altri ritocchi, JPG resta la scelta giusta: file leggero e compatibilità universale. PNG è preferibile quando ci sarà editing di mezzo.',
+      },
+    ],
     'image-resizer': [
       {
         title: 'Quando ridimensionare è la soluzione più diretta',

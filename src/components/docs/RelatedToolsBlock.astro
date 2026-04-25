@@ -1,0 +1,51 @@
+---
+import { TOOL_PAGES } from '../../data/tools';
+import { localePath } from '../../i18n';
+import type { Locale } from '../../i18n/config';
+import { getLocalizedToolContent } from '../../i18n/toolContent';
+import { getToolPageUi } from '../../i18n/toolPageUi';
+
+interface Props {
+  lang: Locale;
+  /** 限定要展示的工具 slug 顺序；默认为站内主推的 6 个核心工具 */
+  slugs?: string[];
+}
+
+const POPULAR_SLUGS = [
+  'image-compressor',
+  'image-resizer',
+  'heic-to-jpg',
+  'png-to-jpg',
+  'jpg-to-png',
+  'metadata-remover',
+];
+
+const { lang, slugs = POPULAR_SLUGS } = Astro.props;
+const toolPageUi = getToolPageUi(lang);
+
+const items = slugs
+  .map((slug) => TOOL_PAGES.find((t) => t.slug === slug))
+  .filter((t): t is (typeof TOOL_PAGES)[number] => Boolean(t))
+  .map((tool) => {
+    const localized = getLocalizedToolContent(lang, tool);
+    return {
+      slug: tool.slug,
+      href: localePath(`/${tool.slug}`, lang),
+      label: localized.h1 || tool.h1,
+    };
+  });
+---
+
+<section class="mt-10 pt-6 border-t border-border">
+  <h2 class="text-lg sm:text-xl font-semibold text-text-primary mb-3">{toolPageUi.relatedTools}</h2>
+  <div class="flex flex-wrap gap-2">
+    {items.map((item) => (
+      <a
+        href={item.href}
+        class="inline-flex items-center rounded-lg border border-border px-3 py-1.5 text-sm text-text-secondary hover:text-text-primary hover:bg-drop-bg transition-colors"
+      >
+        {item.label}
+      </a>
+    ))}
+  </div>
+</section>

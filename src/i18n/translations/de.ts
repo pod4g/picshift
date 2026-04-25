@@ -81,33 +81,49 @@ const de: PageTranslations = {
   tools: {
     'heic-to-jpg': {
       title:
-        'HEIC in JPG Konverter - Kostenlos, Privat, Ohne Upload | PicShift',
+        'HEIC in JPG umwandeln online — iPhone-Fotos im Browser | PicShift',
       description:
-        'Konvertieren Sie HEIC-Fotos sofort in Ihrem Browser in JPG. 100% privat -- Dateien verlassen nie Ihr Geraet. Kostenlos, ohne Limits, ohne Registrierung.',
-      h1: 'HEIC in JPG konvertieren',
+        'HEIC in JPG umwandeln, wenn Windows, eine Webseite, ein E-Mail-Anhang oder ein Bewerbungsformular die iPhone-Fotos nicht öffnet. Bis zu 200 Dateien pro Durchlauf, ohne Upload.',
+      h1: 'HEIC in JPG umwandeln',
       introText:
-        'Konvertieren Sie Ihre iPhone HEIC-Fotos sofort in das JPG-Format. Alles geschieht in Ihrem Browser -- Ihre Fotos verlassen nie Ihr Geraet.',
+        'Wandeln Sie HEIC in JPG um, wenn ein Windows-PC, eine Webseite, ein E-Mail-Programm oder ein Online-Formular die iPhone-Fotos nicht annimmt. JPG öffnet einfach jeder, und die Umwandlung läuft komplett in Ihrem Browser — die Fotos verlassen Ihr Gerät nie.',
       howToSteps: [
         'Ziehen Sie Ihre HEIC-Dateien in den Bereich oben oder klicken Sie zum Durchsuchen.',
-        'Ihre Fotos werden sofort in Ihrem Browser konvertiert -- nichts wird hochgeladen.',
+        'Ihre Fotos werden sofort in Ihrem Browser konvertiert — nichts wird hochgeladen.',
         'Klicken Sie auf Herunterladen, um jede Datei zu speichern, oder auf Alle herunterladen für eine ZIP-Datei.',
       ],
       faqs: [
         {
+          q: 'Wie kann ich HEIC online in JPG umwandeln?',
+          a: 'Ziehen Sie die HEIC-Dateien vom iPhone in PicShift, behalten Sie JPG als Ausgabeformat und laden Sie sie herunter. Die Umwandlung läuft direkt im Browser — die Dateien werden nicht auf einen Server hochgeladen.',
+        },
+        {
+          q: 'Warum HEIC in JPG umwandeln?',
+          a: 'Viele Windows-PCs, Bewerbungs- und Web-Formulare, E-Mail-Programme und Online-Shops öffnen HEIC bis heute nicht zuverlässig. JPG hingegen öffnet jeder. Wenn Sie das Foto an jemanden senden oder in ein System hochladen, das Sie nicht kontrollieren, ist JPG meist die problemlose Wahl.',
+        },
+        {
           q: 'Was ist das HEIC-Format?',
-          a: 'HEIC (High Efficiency Image Container) ist das Standard-Fotoformat auf iPhones seit iOS 11. Es erzeugt kleinere Dateien als JPG bei gleicher Qualität. Allerdings unterstützen viele Windows-Anwendungen und Websites HEIC nicht.',
+          a: 'HEIC (High Efficiency Image Container) ist das Standard-Fotoformat auf iPhones seit iOS 11. Die Dateien sind kleiner als JPG bei vergleichbarer Qualität, werden aber außerhalb des Apple-Ökosystems noch nicht überall unterstützt.',
         },
         {
-          q: 'Ist es sicher, meine Fotos hier zu konvertieren?',
-          a: 'Ja. PicShift verarbeitet alles in Ihrem Browser mit WebAssembly. Ihre Fotos verlassen nie Ihr Geraet -- es werden keine Dateien auf einen Server hochgeladen. Sie können dies überprüfen, indem Sie die Internetverbindung trennen und den Konverter ausprobieren.',
+          q: 'Verliere ich Qualität beim Umwandeln in JPG?',
+          a: 'Mit der Standard-Einstellung (Qualität 85) ist das JPG am Bildschirm visuell nicht vom HEIC zu unterscheiden. Wer maximale Schärfe für Druck oder Archiv braucht, stellt den Qualitätsregler einfach auf 90–95.',
         },
         {
-          q: 'Wie viele Dateien kann ich gleichzeitig konvertieren?',
-          a: 'Sie k\u00f6nnen bis zu 200 Dateien auf einmal konvertieren. F\u00fcr beste Leistung bei gro\u00dfen Mengen empfehlen wir 100 oder weniger.',
+          q: 'Bleibt die Bildausrichtung und das Aufnahmedatum erhalten?',
+          a: 'Ja. PicShift behält die korrekte Drehung bei und respektiert die wichtigsten Metadaten. Wenn Sie EXIF vor dem Teilen entfernen möchten, lassen Sie das Ergebnis durch /de/metadata-remover laufen.',
         },
         {
-          q: 'Geht Bildqualität verloren?',
-          a: 'Die Standard-Qualitätseinstellung (85%) erzeugt Dateien, die visuell identisch mit dem Original sind. Sie können den Qualitätsregler anpassen -- höhere Werte bedeuten bessere Qualität, aber größere Dateien.',
+          q: 'Wie viele HEIC-Fotos kann ich auf einmal umwandeln?',
+          a: 'Bis zu 200 Dateien pro Durchlauf direkt im Browser. Bei sehr großen Mengen empfehlen sich Gruppen von 50–100, damit der Browser flüssig bleibt.',
+        },
+        {
+          q: 'Werden meine Fotos auf einen Server hochgeladen?',
+          a: 'Nein. PicShift verarbeitet alles im Browser mit WebAssembly — die Fotos verlassen Ihr Gerät nie. Sie können nach dem Laden der Seite sogar offline gehen, das Tool arbeitet weiter.',
+        },
+        {
+          q: 'Was, wenn ich Transparenz oder verlustfreie Qualität brauche?',
+          a: 'JPG unterstützt keine Transparenz. Brauchen Sie sie, nutzen Sie /de/heic-to-png (verlustfrei) oder konvertieren in WebP — das vereint Transparenz mit kleinen Dateien.',
         },
       ],
     },
@@ -256,12 +272,12 @@ const de: PageTranslations = {
     },
     'jpg-to-png': {
       title:
-        'JPG in PNG umwandeln online – Stapel, ohne Upload | PicShift',
+        'JPG in PNG umwandeln online — verlustfrei, im Stapel | PicShift',
       description:
-        'Wandeln Sie JPG in PNG um, wenn Sie eine verlustfreie Datei zum Bearbeiten, Beschriften oder erneuten Export brauchen. Bis zu 200 Dateien pro Durchlauf, lokal im Browser — kein Upload.',
-      h1: 'JPG in PNG konvertieren',
+        'JPG in PNG umwandeln, wenn Sie eine verlustfreie Datei zum Bearbeiten, Beschriften oder erneuten Export brauchen. Bis zu 200 Dateien pro Durchlauf, lokal im Browser — kein Upload.',
+      h1: 'JPG in PNG umwandeln',
       introText:
-        'Wandeln Sie ein JPG-Bild in PNG um, wenn Sie eine Datei brauchen, die sich besser bearbeiten, beschriften oder erneut exportieren lässt. Das verbessert nicht die Ausgangsqualität, verhindert aber, dass beim nächsten Speichern weitere Qualität verloren geht.',
+        'Wandeln Sie ein JPG in PNG um, wenn Sie das Bild noch bearbeiten, zuschneiden oder beschriften möchten und nicht wollen, dass jeder neue Export weitere Qualität kostet. PNG behält die Pixel verlustfrei — es kann verlorene Details aus dem JPG nicht zurückholen, verhindert aber zusätzliche Verschlechterung.',
       howToSteps: [
         'Ziehen Sie Ihre JPG-Dateien in den Bereich oben oder klicken Sie zum Durchsuchen.',
         'Dateien werden sofort in Ihrem Browser in PNG konvertiert.',
@@ -269,20 +285,32 @@ const de: PageTranslations = {
       ],
       faqs: [
         {
+          q: 'Wie kann ich JPG in PNG online umwandeln?',
+          a: 'Ziehen Sie die JPG-Dateien in PicShift, behalten Sie PNG als Ausgabeformat und laden Sie sie herunter. Die Umwandlung läuft komplett im Browser, mit Stapelverarbeitung (bis zu 200 Dateien pro Durchlauf) und ohne Upload.',
+        },
+        {
           q: 'Verbessert die Konvertierung von JPG in PNG die Qualität?',
           a: 'Nein. Die Konvertierung stellt keine verlorene Qualität wieder her. Aber sie verhindert, dass beim nächsten Speichern weitere Qualität verloren geht — das ist nützlich, wenn Sie das Bild bearbeiten oder beschriften wollen.',
         },
         {
           q: 'Warum JPG in PNG umwandeln?',
-          a: 'Meistens, um ein Bild stabiler bearbeiten zu können. PNG ist verlustfrei, d.h. wiederholtes Speichern fuehrt nicht zu weiterer Verschlechterung. Auch wenn Transparenz noetig ist, ist PNG die bessere Wahl.',
+          a: 'Meistens, um ein Bild stabiler bearbeiten zu können. PNG ist verlustfrei, d.h. wiederholtes Speichern führt nicht zu weiterer Verschlechterung. Auch wenn Transparenz nötig ist, ist PNG die bessere Wahl.',
         },
         {
           q: 'Wird die PNG-Datei größer als das JPG?',
-          a: 'Ja, in den meisten Faellen deutlich größer. PNG speichert mehr Bilddaten und komprimiert weniger aggressiv. Das ist normal, wenn Ihnen Bearbeitungsstabilitaet wichtiger ist als Dateigröße.',
+          a: 'Ja, in den meisten Fällen deutlich größer. PNG speichert mehr Bilddaten und komprimiert weniger aggressiv. Das ist normal, wenn Ihnen Bearbeitungsstabilität wichtiger ist als Dateigröße.',
         },
         {
           q: 'Wann ist JPG die bessere Wahl?',
-          a: 'Wenn Sie einfach eine kleinere Datei zum Teilen, Hochladen oder Versenden brauchen und keine Transparenz oder verlustfreie Bearbeitung benoetigen.',
+          a: 'Wenn Sie einfach eine kleinere Datei zum Teilen, Hochladen oder Versenden brauchen und keine Transparenz oder verlustfreie Bearbeitung benötigen.',
+        },
+        {
+          q: 'Kann ich mehrere JPG gleichzeitig umwandeln?',
+          a: 'Ja. PicShift verarbeitet bis zu 200 Dateien pro Stapel direkt im Browser. Bei sehr großen Aufträgen empfehlen wir Gruppen von 50–100, damit der Browser flüssig bleibt.',
+        },
+        {
+          q: 'Werden meine Dateien auf einen Server hochgeladen?',
+          a: 'Nein. Alles läuft im Browser über WebAssembly. Sie können nach dem Laden der Seite sogar offline gehen — das Tool arbeitet weiter.',
         },
       ],
     },

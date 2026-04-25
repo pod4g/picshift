@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/layout/Header.astro';
 import Footer from '../../components/layout/Footer.astro';
+import RelatedToolsBlock from '../../components/docs/RelatedToolsBlock.astro';
 import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../lib/contentDates';
 import { htmlCanonicalUrl } from '../../lib/htmlCanonicalUrl';
 
@@ -160,6 +161,8 @@ const faqSchema = {
           <li><a href="/docs" class="text-primary-500 hover:underline">All docs</a></li>
         </ul>
       </section>
+
+      <RelatedToolsBlock lang={lang} slugs={["image-compressor","image-resizer","png-to-jpg","jpg-to-webp"]} />
 
       <p class="text-sm text-text-secondary pt-4 border-t border-border">Last updated: {dateModified}</p>
     </article>
