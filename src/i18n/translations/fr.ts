@@ -5,12 +5,12 @@ const fr: PageTranslations = {
     title:
       "PicShift - Convertisseur d'Images Gratuit | HEIC, WebP, PNG, JPG, AVIF | Sans Téléchargement",
     description:
-      "Convertissez vos images instantanément dans votre navigateur, sans téléchargement. HEIC en JPG, WebP en PNG, AVIF et plus. 100% privé, fonctionne hors ligne. Gratuit, sans limite, sans inscription.",
+      "Convertissez vos images dans le navigateur : HEIC en JPG, WebP en PNG, AVIF et plus. 100% privé, hors ligne, gratuit, sans inscription.",
   },
   privacy: {
-    title: 'Politique de confidentialité | PicShift',
+    title: 'Politique de confidentialité — traitement local | PicShift',
     description:
-      'Notre position : convertir, compresser, redimensionner ou retirer les métadonnées se fait sur votre appareil ; nous n’envoyons pas vos images pour les traiter. Cette page précise aussi ce que le site enregistre côté trafic — et ce qui reste en dehors.',
+      'Convertir, compresser, redimensionner ou retirer les métadonnées se fait sur votre appareil. Nous n’envoyons pas vos images. Cette page précise aussi ce que le trafic enregistre.',
     sections: [
       {
         heading: 'En deux mots',
@@ -456,7 +456,7 @@ const fr: PageTranslations = {
     'metadata-remover': {
       title: 'Supprimer les métadonnées image — EXIF, GPS, données appareil | PicShift',
       description:
-        "Supprimez les données EXIF, la localisation GPS, le modèle d'appareil photo et autrès métadonnées des images JPG, PNG, WebP, HEIC et AVIF. Traitement local dans votre navigateur, aucun fichier envoyé.",
+        "Supprimez EXIF, géolocalisation GPS, modèle d'appareil et autres métadonnées des images JPG, PNG, WebP, HEIC, AVIF. Traitement local dans le navigateur, aucun envoi.",
       h1: 'Supprimer les métadonnées image',
       introText:
         "Supprimez les métadonnées cachées de vos photos avant de les partager. Les photos prises avec un téléphone ou un appareil photo contiennent par défaut des coordonnées GPS, le modèle de l'appareil, la date et l'heure de prise de vue et des balises logicielles. Cet outil supprime tout localement dans votre navigateur — l'image ne quitte jamais votre appareil.",
@@ -476,7 +476,7 @@ const fr: PageTranslations = {
         },
         {
           q: 'Pourquoi supprimer les métadonnées avant de partager des photos ?',
-          a: "Les photos prises avec des téléphones et appareils photo contiennent des données cachées comme votre position GPS exacte, le modèle de votre appareil et l'heure de prise de vue. Supprimer ces métadonnées protège votre vie privée lorsque vous partagez des images en ligne ou avec d'autrès personnes.",
+          a: "Les photos prises avec des téléphones et appareils photo contiennent des données cachées comme votre position GPS exacte, le modèle de votre appareil et l'heure de prise de vue. Supprimer ces métadonnées protège votre vie privée lorsque vous partagez des images en ligne ou avec d'autres personnes.",
         },
         {
           q: 'Pourquoi le JPG nettoyé est-il plus lourd que le fichier HEIC ou HEIF d’origine ?',

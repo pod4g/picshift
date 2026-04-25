@@ -36,16 +36,21 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     picShiftHome: 'PicShift Home',
     privacyPolicy: 'Privacy Policy',
     lastUpdated: 'Last updated',
-    docsGuidesTitle: 'PicShift Docs and Guides',
-    docsGuidesDescription: 'Explore practical guides for private image processing, format decisions, and compression quality.',
+    docsGuidesTitle: 'PicShift Docs — Image Format, Quality and Privacy Guides',
+    docsGuidesDescription:
+      'Practical guides for picking the right image format (HEIC, WebP, AVIF, PNG, JPG), tuning quality without losing detail, and processing images locally without uploads.',
     privacyDocTitle: 'Privacy and Local Processing',
-    privacyDocDescription: 'How PicShift keeps image processing on-device and what data is or is not used.',
+    privacyDocDescription:
+      'How PicShift keeps image processing on-device — what stays in your browser, what we never see, and what limited traffic data analytics receives.',
     formatDocTitle: 'Format Compatibility Guide',
-    formatDocDescription: 'A practical compatibility matrix for JPG, PNG, WebP, HEIC/HEIF, and AVIF.',
+    formatDocDescription:
+      'A practical compatibility matrix for JPG, PNG, WebP, HEIC/HEIF and AVIF — what each format does best, where it breaks, and which one to pick for email, social media or e-commerce uploads.',
     qualityDocTitle: 'Image Quality vs File Size',
-    qualityDocDescription: 'How to pick quality settings for the best trade-off between visual clarity and size.',
+    qualityDocDescription:
+      'How to pick image quality for the best trade-off between visual clarity and file size — what really changes between 70 and 95, when to switch to WebP/AVIF, and how to avoid re-save artifacts.',
     sizeIncreaseDocTitle: 'Why Output Size Can Increase',
-    sizeIncreaseDocDescription: 'How PicShift estimates deep compression and computes B/pixel in size-increase explanations.',
+    sizeIncreaseDocDescription:
+      'Why a converted image can end up larger than the original — how PicShift estimates already-deep compression, how the B/pixel signal is computed, and when re-compressing stops paying off.',
     whyPicShiftDocTitle: 'Why I Built PicShift',
     whyPicShiftDocDescription: 'The motivation behind a local-only, privacy-first image converter and how it is continuously improved.',
     aboutPicShift: 'About PicShift',
@@ -108,16 +113,21 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     picShiftHome: 'Inicio de PicShift',
     privacyPolicy: 'Política de privacidad',
     lastUpdated: 'Última actualización',
-    docsGuidesTitle: 'Documentación y guías de PicShift',
-    docsGuidesDescription: 'Explora guías prácticas sobre privacidad local, decisiones de formato y calidad de compresión.',
+    docsGuidesTitle: 'Documentación PicShift — formatos, calidad y privacidad',
+    docsGuidesDescription:
+      'Guías prácticas para elegir el formato correcto (HEIC, WebP, AVIF, PNG, JPG), ajustar la calidad sin perder detalle y procesar imágenes en local, sin subir archivos.',
     privacyDocTitle: 'Privacidad y procesamiento local',
-    privacyDocDescription: 'Cómo PicShift procesa imágenes en el dispositivo y qué datos se usan o no se usan.',
+    privacyDocDescription:
+      'Cómo PicShift procesa imágenes en tu dispositivo: qué se queda en tu navegador, qué nunca vemos y qué datos limitados de tráfico recibe la analítica.',
     formatDocTitle: 'Guía de compatibilidad de formatos',
-    formatDocDescription: 'Matriz de compatibilidad práctica para JPG, PNG, WebP, HEIC/HEIF y AVIF.',
+    formatDocDescription:
+      'Matriz práctica para JPG, PNG, WebP, HEIC/HEIF y AVIF: qué hace bien cada formato, dónde falla y cuál usar para correos, redes sociales o subidas a tiendas online.',
     qualityDocTitle: 'Calidad de imagen vs tamaño de archivo',
-    qualityDocDescription: 'Cómo elegir la calidad para equilibrar nitidez visual y tamaño.',
+    qualityDocDescription:
+      'Cómo elegir la calidad para equilibrar nitidez y peso: qué cambia entre 70 y 95, cuándo conviene WebP/AVIF y cómo evitar artefactos al volver a guardar.',
     sizeIncreaseDocTitle: 'Por qué puede aumentar el tamaño final',
-    sizeIncreaseDocDescription: 'Cómo PicShift estima la compresión profunda y calcula B/píxel en sus explicaciones.',
+    sizeIncreaseDocDescription:
+      'Por qué a veces el archivo convertido pesa más que el original: cómo PicShift detecta la compresión profunda y avisa cuándo volver a comprimir ya no compensa.',
     whyPicShiftDocTitle: 'Por qué creé PicShift',
     whyPicShiftDocDescription: 'La motivación de un convertidor local-only enfocado en privacidad, con mejora continua.',
     aboutPicShift: 'Acerca de PicShift',
@@ -132,16 +142,21 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     picShiftHome: 'Accueil PicShift',
     privacyPolicy: 'Politique de confidentialité',
     lastUpdated: 'Dernière mise à jour',
-    docsGuidesTitle: 'Documentation et guides PicShift',
-    docsGuidesDescription: 'Consultez des guides pratiques sur la confidentialité locale, les formats et la qualité de compression.',
+    docsGuidesTitle: 'Documentation PicShift — formats, qualité et confidentialité',
+    docsGuidesDescription:
+      'Guides pratiques pour choisir le format (HEIC, WebP, AVIF, PNG, JPG), régler la qualité et traiter les images en local, sans téléverser de fichiers.',
     privacyDocTitle: 'Confidentialité et traitement local',
-    privacyDocDescription: 'Comment PicShift traite les images sur l\'appareil et quelles données sont ou ne sont pas utilisées.',
+    privacyDocDescription:
+      'Comment PicShift garde le traitement sur votre appareil : ce qui reste dans le navigateur, ce que nous ne voyons jamais et quelles données de trafic limitées atteignent les analytics.',
     formatDocTitle: 'Guide de compatibilité des formats',
-    formatDocDescription: 'Matrice pratique de compatibilité pour JPG, PNG, WebP, HEIC/HEIF et AVIF.',
+    formatDocDescription:
+      'Matrice pratique pour JPG, PNG, WebP, HEIC/HEIF et AVIF : ce que chaque format fait bien, où il bloque et lequel choisir pour un e-mail, un site ou un envoi e-commerce.',
     qualityDocTitle: 'Qualité d\'image vs taille de fichier',
-    qualityDocDescription: 'Comment régler la qualité pour équilibrer clarté visuelle et taille.',
+    qualityDocDescription:
+      'Comment régler la qualité pour équilibrer netteté et poids : ce qui change entre 70 et 95, quand passer à WebP/AVIF, et éviter les artefacts au ré-enregistrement.',
     sizeIncreaseDocTitle: 'Pourquoi la taille peut augmenter',
-    sizeIncreaseDocDescription: 'Comment PicShift estime la compression profonde et calcule les B/pixel.',
+    sizeIncreaseDocDescription:
+      'Pourquoi le fichier converti pèse parfois plus que l\'original : comment PicShift détecte une compression déjà poussée et signale quand re-compresser n\'apporte plus rien.',
     whyPicShiftDocTitle: 'Pourquoi j\'ai créé PicShift',
     whyPicShiftDocDescription: 'La motivation derrière un convertisseur local-only, axé sur la confidentialité et l\'amélioration continue.',
     aboutPicShift: 'À propos de PicShift',
@@ -156,16 +171,21 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     picShiftHome: 'PicShift Startseite',
     privacyPolicy: 'Datenschutzrichtlinie',
     lastUpdated: 'Zuletzt aktualisiert',
-    docsGuidesTitle: 'PicShift Dokumentation und Anleitungen',
-    docsGuidesDescription: 'Praktische Anleitungen zu lokalem Datenschutz, Formatwahl und Kompressionsqualität.',
+    docsGuidesTitle: 'PicShift Dokumentation — Bildformate, Qualität und lokale Verarbeitung',
+    docsGuidesDescription:
+      'Praxisnahe Anleitungen, um das passende Bildformat (HEIC, WebP, AVIF, PNG, JPG) zu wählen, die Qualität ohne Detailverlust zu steuern und Bilder lokal ohne Upload zu verarbeiten.',
     privacyDocTitle: 'Datenschutz und lokale Verarbeitung',
-    privacyDocDescription: 'Wie PicShift Bilder auf dem Gerät verarbeitet und welche Daten verwendet oder nicht verwendet werden.',
+    privacyDocDescription:
+      'Wie PicShift die Verarbeitung auf deinem Gerät hält: was im Browser bleibt, was wir nie sehen und welche begrenzten Traffic-Daten in der Analyse landen.',
     formatDocTitle: 'Leitfaden zur Formatkompatibilität',
-    formatDocDescription: 'Praktische Kompatibilitätsmatrix für JPG, PNG, WebP, HEIC/HEIF und AVIF.',
+    formatDocDescription:
+      'Praktische Übersicht zu JPG, PNG, WebP, HEIC/HEIF und AVIF: was jedes Format gut kann, wo es scheitert und welches du für E-Mail, Web oder Shop-Uploads wählst.',
     qualityDocTitle: 'Bildqualität vs Dateigröße',
-    qualityDocDescription: 'So wählst du Qualitätseinstellungen für den besten Kompromiss aus Klarheit und Größe.',
+    qualityDocDescription:
+      'Wie du die richtige Bildqualität wählst: was sich zwischen 70 und 95 ändert, wann WebP/AVIF lohnt und wie du Artefakte beim erneuten Speichern vermeidest.',
     sizeIncreaseDocTitle: 'Warum die Ausgabegröße steigen kann',
-    sizeIncreaseDocDescription: 'Wie PicShift starke Vorabkomprimierung einschätzt und B/Pixel berechnet.',
+    sizeIncreaseDocDescription:
+      'Warum eine konvertierte Datei manchmal größer ist als das Original: wie PicShift bereits stark komprimierte Bilder erkennt und meldet, wann erneutes Komprimieren nichts mehr bringt.',
     whyPicShiftDocTitle: 'Warum ich PicShift gebaut habe',
     whyPicShiftDocDescription: 'Motivation für einen local-only, datenschutzorientierten Konverter mit kontinuierlicher Verbesserung.',
     aboutPicShift: 'Über PicShift',
@@ -228,16 +248,21 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     picShiftHome: 'Início do PicShift',
     privacyPolicy: 'Política de privacidade',
     lastUpdated: 'Última atualização',
-    docsGuidesTitle: 'Documentação e guias do PicShift',
-    docsGuidesDescription: 'Explore guias práticos sobre privacidade local, escolha de formatos e qualidade de compressão.',
+    docsGuidesTitle: 'Documentação PicShift — formatos, qualidade e privacidade',
+    docsGuidesDescription:
+      'Guias práticos para escolher o formato certo (HEIC, WebP, AVIF, PNG, JPG), ajustar a qualidade sem perder detalhe e processar imagens em local, sem enviar arquivos.',
     privacyDocTitle: 'Privacidade e processamento local',
-    privacyDocDescription: 'Como o PicShift processa imagens no dispositivo e quais dados são ou não utilizados.',
+    privacyDocDescription:
+      'Como o PicShift mantém o processamento no dispositivo: o que fica no navegador, o que nunca vemos e quais dados de tráfego limitados chegam à analítica.',
     formatDocTitle: 'Guia de compatibilidade de formatos',
-    formatDocDescription: 'Matriz prática de compatibilidade para JPG, PNG, WebP, HEIC/HEIF e AVIF.',
+    formatDocDescription:
+      'Matriz prática para JPG, PNG, WebP, HEIC/HEIF e AVIF: o que cada formato faz bem, onde falha e qual escolher para e-mail, redes sociais ou uploads em e-commerce.',
     qualityDocTitle: 'Qualidade de imagem vs tamanho do arquivo',
-    qualityDocDescription: 'Como definir a qualidade para equilibrar clareza visual e tamanho.',
+    qualityDocDescription:
+      'Como definir a qualidade da imagem para equilibrar nitidez e peso: o que muda de fato entre 70 e 95, quando ir para WebP/AVIF e como evitar artefatos ao salvar de novo.',
     sizeIncreaseDocTitle: 'Por que o tamanho de saída pode aumentar',
-    sizeIncreaseDocDescription: 'Como o PicShift estima compressão profunda e calcula B/pixel nas explicações.',
+    sizeIncreaseDocDescription:
+      'Por que às vezes o arquivo final pesa mais que o original: como o PicShift detecta compressão já profunda e avisa quando comprimir de novo já não compensa.',
     whyPicShiftDocTitle: 'Por que eu criei o PicShift',
     whyPicShiftDocDescription: 'A motivação de um conversor local-only e focado em privacidade, com evolução contínua.',
     aboutPicShift: 'Sobre o PicShift',
@@ -300,16 +325,21 @@ const DOCS_UI_MAP: Record<Locale, DocsUiStrings> = {
     picShiftHome: 'Home PicShift',
     privacyPolicy: 'Informativa sulla privacy',
     lastUpdated: 'Ultimo aggiornamento',
-    docsGuidesTitle: 'Documentazione e guide PicShift',
-    docsGuidesDescription: 'Esplora guide pratiche su privacy locale, scelta dei formati e qualità di compressione.',
-    privacyDocTitle: 'Privacy e elaborazione locale',
-    privacyDocDescription: 'Come PicShift elabora le immagini sul dispositivo e quali dati vengono o non vengono usati.',
+    docsGuidesTitle: 'Documentazione PicShift — formati, qualità e privacy locale',
+    docsGuidesDescription:
+      'Guide pratiche per scegliere il formato (HEIC, WebP, AVIF, PNG, JPG), regolare la qualità e lavorare le immagini in locale, senza caricare file.',
+    privacyDocTitle: 'Privacy ed elaborazione locale',
+    privacyDocDescription:
+      'Come PicShift tiene l\'elaborazione sul tuo dispositivo: cosa resta nel browser, cosa non vediamo mai e quali dati di traffico limitati arrivano agli analytics.',
     formatDocTitle: 'Guida alla compatibilità dei formati',
-    formatDocDescription: 'Matrice pratica di compatibilità per JPG, PNG, WebP, HEIC/HEIF e AVIF.',
+    formatDocDescription:
+      'Matrice pratica per JPG, PNG, WebP, HEIC/HEIF e AVIF: cosa fa bene ogni formato, dove si rompe e quale usare per e-mail, social o caricamenti su e-commerce.',
     qualityDocTitle: 'Qualità immagine vs dimensione file',
-    qualityDocDescription: 'Come scegliere la qualità per bilanciare nitidezza visiva e dimensione.',
+    qualityDocDescription:
+      'Come scegliere la qualità per bilanciare nitidezza e peso: cosa cambia tra 70 e 95, quando passare a WebP/AVIF e come evitare artefatti quando salvi di nuovo.',
     sizeIncreaseDocTitle: 'Perché la dimensione in uscita può aumentare',
-    sizeIncreaseDocDescription: 'Come PicShift stima la compressione profonda e calcola i B/pixel nelle spiegazioni.',
+    sizeIncreaseDocDescription:
+      'Perché a volte il file finale pesa più dell\'originale: come PicShift rileva una compressione già profonda e avvisa quando comprimere di nuovo non ha più senso.',
     whyPicShiftDocTitle: 'Perché ho creato PicShift',
     whyPicShiftDocDescription: 'La motivazione dietro un convertitore local-only orientato alla privacy e al miglioramento continuo.',
     aboutPicShift: 'Informazioni su PicShift',

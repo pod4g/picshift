@@ -14,7 +14,7 @@ const META_TEMPLATE_MAP: Record<Locale, MetaTemplate> = {
   en: {
     converterTitle: (input, output) => `${input} to ${output} Converter | PicShift`,
     converterDescription: (input, output) =>
-      `Convert ${input} images to ${output} in your browser. Local processing with no upload.`,
+      `Convert ${input} images to ${output} directly in your browser — batches stay on your device, with no upload to a server and no signup.`,
     resizerTitle: 'Image Resizer - Resize Images Online | PicShift',
     resizerDescription:
       'Resize images in your browser with presets or custom dimensions. Local processing with no upload.',
@@ -43,7 +43,7 @@ const META_TEMPLATE_MAP: Record<Locale, MetaTemplate> = {
   es: {
     converterTitle: (input, output) => `Convertidor de ${input} a ${output} | PicShift`,
     converterDescription: (input, output) =>
-      `Convierte imágenes ${input} a ${output} en tu navegador. Procesamiento local sin subidas.`,
+      `Convierte imágenes ${input} a ${output} directamente en tu navegador. Procesa varios archivos a la vez, en local y sin subirlos a ningún servidor.`,
     resizerTitle: 'Redimensionador de Imágenes Online | PicShift',
     resizerDescription:
       'Redimensiona imágenes en tu navegador con presets o tamaño personalizado. Procesamiento local sin subidas.',
@@ -54,7 +54,7 @@ const META_TEMPLATE_MAP: Record<Locale, MetaTemplate> = {
   fr: {
     converterTitle: (input, output) => `Convertisseur ${input} vers ${output} | PicShift`,
     converterDescription: (input, output) =>
-      `Convertissez des images ${input} en ${output} dans votre navigateur. Traitement local sans téléversement.`,
+      `Convertissez vos images ${input} en ${output} directement dans votre navigateur. Traitement local par lots, sans téléverser vos fichiers ni créer de compte.`,
     resizerTitle: "Redimensionneur d'images en ligne | PicShift",
     resizerDescription:
       "Redimensionnez des images dans votre navigateur avec des préréglages ou des dimensions personnalisées. Traitement local sans téléversement.",
@@ -65,7 +65,7 @@ const META_TEMPLATE_MAP: Record<Locale, MetaTemplate> = {
   de: {
     converterTitle: (input, output) => `${input} zu ${output} Konverter | PicShift`,
     converterDescription: (input, output) =>
-      `Konvertieren Sie ${input}-Bilder zu ${output} direkt im Browser. Lokale Verarbeitung ohne Upload.`,
+      `Wandle ${input}-Bilder direkt im Browser in ${output} um. Stapel werden lokal verarbeitet, ohne Upload zu einem Server und ohne Registrierung.`,
     resizerTitle: 'Bildgrößen-Tool Online | PicShift',
     resizerDescription:
       'Ändern Sie Bildgrößen im Browser mit Presets oder benutzerdefinierten Maßen. Lokale Verarbeitung ohne Upload.',
@@ -97,7 +97,7 @@ const META_TEMPLATE_MAP: Record<Locale, MetaTemplate> = {
   pt: {
     converterTitle: (input, output) => `Conversor de ${input} para ${output} | PicShift`,
     converterDescription: (input, output) =>
-      `Converta imagens ${input} para ${output} no navegador. Processamento local sem upload.`,
+      `Converta imagens ${input} para ${output} direto no navegador. Processe vários arquivos em lote, localmente e sem enviar nada para um servidor.`,
     resizerTitle: 'Redimensionar Imagens Online | PicShift',
     resizerDescription:
       'Redimensione imagens no navegador com presets ou dimensões personalizadas. Processamento local sem upload.',
@@ -130,7 +130,7 @@ const META_TEMPLATE_MAP: Record<Locale, MetaTemplate> = {
   it: {
     converterTitle: (input, output) => `Convertitore da ${input} a ${output} | PicShift`,
     converterDescription: (input, output) =>
-      `Converti immagini ${input} in ${output} nel browser. Elaborazione locale senza upload.`,
+      `Converti immagini ${input} in ${output} direttamente nel browser. Elaborazione locale a batch, senza caricare i file su un server e senza registrazione.`,
     resizerTitle: 'Ridimensiona Immagini Online | PicShift',
     resizerDescription:
       'Ridimensiona immagini nel browser con preset o dimensioni personalizzate. Elaborazione locale senza upload.',

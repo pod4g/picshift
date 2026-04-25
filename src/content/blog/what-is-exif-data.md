@@ -120,3 +120,5 @@ EXIF metadata is useful for photographers who want to track their settings. It i
 The fix takes seconds. Check what is inside your photos, strip what you do not want to share, and download the clean version. That is it.
 
 [Remove EXIF data from your photos →](/metadata-remover)
+
+If you want to understand exactly what PicShift does and does not see, our [privacy and local processing guide](/docs/privacy) walks through the architecture: every conversion happens inside your browser, source images are never uploaded, and the small amount of traffic data we do receive is documented in plain English.

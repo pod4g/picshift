@@ -217,6 +217,34 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
         body: 'Se todos os seus dispositivos e aplicativos já lidam bem com HEIF e o arquivo mais leve importa, não há pressa para converter. A conversão para JPG entra em cena quando um upload, um envio ou um programa começa a travar.',
       },
     ],
+    'image-compressor': [
+      {
+        title: 'Quando comprimir imagens é o caminho certo',
+        body: 'Se o problema é o peso do arquivo e não o tamanho em pixels, comprimir é o passo mais direto. Funciona pra subir foto num site que limita 2 MB, mandar anexo por e-mail sem o servidor reclamar, ou só aliviar a pasta de fotos. Em qualidade 80 a maioria das fotos perde 40–60% sem diferença visível na tela.',
+      },
+      {
+        title: 'Por que às vezes a compressão entrega pouco',
+        body: 'Se o arquivo já saiu de outro compressor ou veio de uma rede social, ele pode estar perto do mínimo possível pro JPG. Insistir em comprimir vai degradar a imagem sem reduzir muito. Nesses casos vale mais redimensionar pra menos pixels ou converter pra WebP, que rende mais por byte.',
+      },
+      {
+        title: 'Compressor de imagens vs redimensionar: o que escolher',
+        body: 'Se a foto está em 4000×3000 e vai aparecer num espaço de 800px, redimensionar primeiro economiza muito mais que só comprimir. Se já está numa resolução adequada, basta comprimir. Pra pegar o melhor dos dois, redimensiona pra 1920px no lado maior e depois comprime em qualidade 80.',
+      },
+    ],
+    'webp-to-jpg': [
+      {
+        title: 'Por que converter WebP para JPG ainda é prático',
+        body: 'WebP é o padrão do navegador moderno, mas fora dele continua tropeçando em programas de escritório, sistemas internos e plataformas de upload mais antigas. Converter pra JPG (ou "passar webp para jpg" como muita gente busca) resolve o caso quando o destino simplesmente não aceita o formato.',
+      },
+      {
+        title: 'Quando o JPG é a escolha mais segura',
+        body: 'Se o arquivo vai pra um e-mail corporativo, um formulário governamental, um sistema de RH, ou alguém cujo computador você não conhece, JPG é o formato com a maior probabilidade de abrir do outro lado. Pesa mais que o WebP, mas elimina pergunta de "não consegui abrir".',
+      },
+      {
+        title: 'O custo de virar JPG: compatibilidade vs peso',
+        body: 'WebP comprime melhor que JPG, então o arquivo final pode ficar um pouco maior depois da conversão. Se isso for crítico, encadeie a conversão com o compressor de imagens — você sai com um JPG legível em qualquer lugar e ainda enxuto.',
+      },
+    ],
   },
   fr: {
     'webp-to-jpg': [
@@ -505,6 +533,34 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
         body: 'Wenn alle Ihre Geräte und Programme HEIF bereits problemlos öffnen und Ihnen die kleinere Dateigröße wichtig ist, müssen Sie nicht umwandeln. Die Umwandlung in JPG wird dann relevant, wenn ein Upload, ein Versand oder ein Programm anfängt zu haken.',
       },
     ],
+    'image-compressor': [
+      {
+        title: 'Wann ein Bildkomprimierer wirklich hilft',
+        body: 'Sobald eine E-Mail einen Anhang ablehnt, ein Bewerbungsportal weniger als 2 MB verlangt oder eine Webseite zu langsam lädt, ist Komprimieren der schnellste Hebel. Bei Qualität 80 schrumpft ein typisches Smartphone-JPG um 40–60 % — ohne dass du den Unterschied am Bildschirm siehst.',
+      },
+      {
+        title: 'Warum manche Bilder kaum kleiner werden',
+        body: 'Schon stark komprimierte JPGs oder Bilder mit feinen Details bringen am Qualitätsregler wenig Spielraum. Hier hilft ein Formatwechsel zu WebP oder ein Verkleinern der Auflösung mehr als noch aggressiver zu komprimieren — sonst verlierst du Schärfe ohne nennenswerten Größengewinn.',
+      },
+      {
+        title: 'Wann Verkleinern besser ist als Komprimieren',
+        body: 'Bei einer Originalauflösung von 4000×3000, die nur in einem 800-Pixel-Bereich angezeigt wird, bringt ein Skalieren auf 1920 Pixel sofort viel mehr als das Drehen am Qualitätsregler. In der Praxis lohnt sich oft die Kombi: erst auf Zielgröße bringen, dann mit Qualität 80 komprimieren.',
+      },
+    ],
+    'webp-to-jpg': [
+      {
+        title: 'Warum WebP in JPG umwandeln immer noch hilft',
+        body: 'WebP funktioniert in modernen Browsern bestens, aber außerhalb davon bremsen es ältere Office-Programme, viele Bewerbungsportale und ein Teil der Mail-Programme aus. JPG ist der pragmatische Weg, eine WebP-Datei dort einsetzbar zu machen, wo das Zielsystem keinen WebP-Support kennt.',
+      },
+      {
+        title: 'Wann „WebP als JPG speichern" der richtige Reflex ist',
+        body: 'Wenn du eine WebP-Datei aus einem Browser-Download zugespielt bekommst und sie in Word, PowerPoint oder einem alten Bildbetrachter brauchst — eine Konvertierung in JPG erspart dir das Suchen nach speziellen Plug-ins. Genau dafür ist diese Umwandlung gemacht.',
+      },
+      {
+        title: 'Der Trade-off: kompatibler, manchmal etwas größer',
+        body: 'WebP komprimiert effizienter als JPG, daher kann die Ausgabedatei nach der Umwandlung etwas größer sein als das Original. Wenn dir Größe wichtiger ist als Kompatibilität, kombiniere die Umwandlung mit unserem Bildkompressor — du bekommst beides in einem Durchlauf.',
+      },
+    ],
   },
   it: {
     'jpg-to-png': [
@@ -547,6 +603,34 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
       {
         title: 'Quando conviene tenere HEIF',
         body: "Se tutti i tuoi dispositivi e applicazioni lo aprono già bene e vuoi sfruttare file più leggeri, non c'è fretta di convertire. La conversione in JPG ha senso quando un upload, un invio o un programma iniziano a creare problemi.",
+      },
+    ],
+    'image-compressor': [
+      {
+        title: 'Come comprimere le foto: quando serve davvero',
+        body: 'Quando la mail rifiuta un allegato, un sito chiede meno di 2 MB o un caricamento si blocca per dimensioni, il primo passo è comprimere — non ridimensionare. A qualità 80 una foto JPG di smartphone perde tipicamente il 40–60% del peso senza differenze visibili a occhio.',
+      },
+      {
+        title: 'Comprimere foto per email: i limiti reali',
+        body: 'Gmail accetta fino a 25 MB per messaggio, Outlook 20 MB, ma molte aziende tagliano già a 10 MB. Comprimere a 80 di solito basta per stare sotto questi limiti senza ridimensionare. Per allegati misti (foto + PDF) lascia un margine di 2–3 MB per altri file e firma automatica.',
+      },
+      {
+        title: 'Quando ridurre il peso non basta più',
+        body: 'Se la foto è molto grande in pixel (4000×3000 da fotocamera) ma serve solo a 1920 pixel sul web, ridimensionare prima della compressione fa più della sola compressione. La combinazione è spesso quella che dà il maggiore risparmio: prima dimensione, poi qualità.',
+      },
+    ],
+    'webp-to-jpg': [
+      {
+        title: 'Perché convertire WebP in JPG resta utile',
+        body: 'WebP funziona alla grande nei browser moderni, ma fuori dal browser molti programmi Office, vecchi visualizzatori, alcuni client e-mail e moduli di upload non lo accettano. Trasformare il WebP in JPG è il modo più pragmatico per far entrare il file in flussi che non riconoscono ancora il formato.',
+      },
+      {
+        title: 'Quando "salvare WebP come JPG" è il riflesso giusto',
+        body: 'Se ti capita un WebP scaricato da una pagina e ti serve in Word, PowerPoint, Photoshop in versioni vecchie o in un programma di stampa, conviene convertire una volta sola in JPG invece di cercare plug-in dedicati per ogni applicazione.',
+      },
+      {
+        title: 'Il compromesso: più compatibile, a volte più pesante',
+        body: 'JPG si apre ovunque, ma comprime meno bene di WebP, quindi il file finale può pesare un po\' di più. Se la dimensione conta, abbina la conversione al nostro compressore immagini: ottieni compatibilità e file leggero nello stesso passaggio.',
       },
     ],
   },

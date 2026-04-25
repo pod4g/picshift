@@ -102,4 +102,6 @@ Strip metadata before the photo leaves your device. Then it does not matter whic
 
 [Remove EXIF data from your photos →](/metadata-remover)
 
+A removal in the browser also avoids the obvious irony of "EXIF removers" that upload your file to a server first. Our [privacy and local processing guide](/docs/privacy) covers exactly what stays in your browser and what — if anything — we ever see on our side.
+
 The fix takes seconds. Drop your images in, see what metadata is embedded, clean it, download. Done. No more guessing about platform behavior.

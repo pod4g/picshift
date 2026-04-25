@@ -450,7 +450,7 @@ export const TOOL_PAGES: ToolPageConfig[] = [
     slug: 'heif-to-webp',
     title: 'HEIF to WebP Converter for Web Delivery | PicShift',
     description:
-      'Convert HEIF images to WebP for smaller payloads in modern websites and apps.',
+      'Convert HEIF images to WebP for smaller payloads in modern websites and apps. Batches stay on your device, with no upload to a server and no signup.',
     defaultInputFormat: 'heif',
     defaultOutputFormat: 'webp',
     h1: 'Convert HEIF to WebP',

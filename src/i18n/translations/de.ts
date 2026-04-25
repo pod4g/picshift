@@ -8,9 +8,9 @@ const de: PageTranslations = {
       'Konvertieren Sie Bilder sofort in Ihrem Browser — ohne Upload. HEIC in JPG, WebP in PNG, AVIF und mehr. 100% privat, funktioniert offline. Kostenlos, ohne Limits, ohne Registrierung.',
   },
   privacy: {
-    title: 'Datenschutzerklärung | PicShift',
+    title: 'Datenschutzerklärung — Lokale Bildverarbeitung | PicShift',
     description:
-      'So sehen wir Privatsphäre: Konvertieren, Komprimieren, Größe ändern oder Metadaten streichen passiert auf Ihrem Gerät — wir laden dafür keine Bilder hoch. Unten steht, welche Zugriffsprotokolle die Website sieht und was gar nicht bei uns ankommt.',
+      'Konvertieren, Komprimieren, Größe ändern oder Metadaten streichen passiert auf Ihrem Gerät — wir laden keine Bilder hoch. Unten steht, welche Zugriffsdaten die Website sieht.',
     sections: [
       {
         heading: 'Kurzfassung',
@@ -213,21 +213,45 @@ const de: PageTranslations = {
     },
     'webp-to-jpg': {
       title:
-        'WebP in JPG Konverter - Kostenlos, Privat, Ohne Upload | PicShift',
+        'WebP in JPG umwandeln online — kompatibel, ohne Upload | PicShift',
       description:
-        'Konvertieren Sie WebP-Bilder in Ihrem Browser in das JPG-Format. Kostenlos, privat, ohne Upload.',
-      h1: 'WebP in JPG konvertieren',
+        'Wandle WebP-Dateien in JPG um, wenn eine App, eine E-Mail oder ein Formular WebP nicht akzeptiert. Stapelumwandlung direkt im Browser, ohne Upload zu einem Server und ohne Anmeldung.',
+      h1: 'WebP in JPG umwandeln',
       introText:
-        'Konvertieren Sie WebP-Bilder in das universell kompatible JPG-Format. Die gesamte Verarbeitung erfolgt lokal in Ihrem Browser.',
+        'Wandle WebP-Bilder in JPG um, wenn du eine Datei brauchst, die sich überall öffnen, anhängen und hochladen lässt. JPG bleibt das pragmatischste Format für E-Mail, Office-Programme und ältere Upload-Formulare, die mit WebP nichts anfangen können.',
       howToSteps: [
-        'Ziehen Sie Ihre WebP-Dateien in den Bereich oben oder klicken Sie zum Durchsuchen.',
-        'Dateien werden sofort in Ihrem Browser in JPG konvertiert.',
-        'Klicken Sie auf Herunterladen, um jede Datei zu speichern, oder auf Alle herunterladen für eine ZIP-Datei.',
+        'Ziehe deine WebP-Dateien in den Bereich oben oder klicke zum Auswählen.',
+        'Lass JPG als Ausgabeformat — die Umwandlung läuft sofort im Browser.',
+        'Klicke auf Herunterladen für einzelne Dateien oder auf Alle herunterladen für einen ZIP-Stapel.',
       ],
       faqs: [
         {
-          q: 'Warum WebP in JPG konvertieren?',
-          a: 'Obwohl WebP in Browsern weit verbreitet ist, akzeptieren einige aeltere Anwendungen, E-Mail-Clients und Social-Media-Plattformen WebP möglicherweise nicht. JPG ist das universell kompatibelste Bildformat.',
+          q: 'Wie wandle ich eine WebP-Datei in JPG um?',
+          a: 'Zieh die WebP-Datei in den Bereich oben, lass JPG als Ausgabeformat eingestellt und klicke auf Herunterladen. Das ist der schnellste Weg, wenn eine Plattform WebP ablehnt oder du einfach eine kompatiblere Version zum Versenden brauchst — alles passiert im Browser, ohne Upload.',
+        },
+        {
+          q: 'Warum WebP in JPG umwandeln?',
+          a: 'WebP funktioniert in Browsern hervorragend, aber außerhalb des Webs scheitern noch immer einige ältere Anwendungen, E-Mail-Programme, Office-Tools und Upload-Formulare daran. Eine Umwandlung in JPG ist meistens die einfachste Lösung und du bekommst eine Datei, die jedes Programm öffnet.',
+        },
+        {
+          q: 'Wie speichere ich WebP als JPG?',
+          a: 'Statt im Bild „Speichern unter" zu suchen (nicht jeder Browser bietet das an), zieh die Datei einfach hier rein, wähl JPG und klicke auf Download. Das funktioniert auf Windows, Mac, Linux, ChromeOS und auch auf dem Smartphone gleich.',
+        },
+        {
+          q: 'Verliert WebP zu JPG an Qualität?',
+          a: 'WebP und JPG sind beide verlustbehaftete Formate, eine kleine Re-Komprimierung gibt es also immer. Bei Qualität 85–90 ist der Unterschied auf dem Bildschirm praktisch nicht zu sehen. Für Druck oder Weiterbearbeitung bietet sich besser <a href="/de/webp-to-png">WebP zu PNG</a> an, das verlustfrei arbeitet.',
+        },
+        {
+          q: 'Kann die JPG-Datei größer werden als das WebP-Original?',
+          a: 'Ja, kann passieren. WebP komprimiert effizienter als JPG, daher kann die Ausgabedatei nach der Umwandlung etwas größer sein, besonders bei hohen Auflösungen. Wenn das stört, hänge unseren <a href="/de/image-compressor">Bildkompressor</a> hinten dran und du bekommst beides — Kompatibilität und kleine Dateigröße.',
+        },
+        {
+          q: 'Kann ich mehrere WebP-Dateien gleichzeitig umwandeln?',
+          a: 'Ja. Du kannst mehrere Dateien — auch hunderte — gleichzeitig in den Bereich ziehen, PicShift verarbeitet sie als Stapel im Browser. Lade sie einzeln oder als ZIP herunter. Da nichts hochgeladen wird, gibt es keine Server-Warteschlange.',
+        },
+        {
+          q: 'Wann ist PNG die bessere Wahl als JPG?',
+          a: 'PNG ist sinnvoll, wenn die Datei Transparenz hat (z. B. ein Logo) oder wenn du eine verlustfreie Ausgabe für spätere Bearbeitung willst. Für reine Foto-Kompatibilität bleibt JPG die bessere Wahl. Wenn du PNG bevorzugst, nutze stattdessen den <a href="/de/webp-to-png">WebP zu PNG Konverter</a>.',
         },
       ],
     },
@@ -424,25 +448,45 @@ const de: PageTranslations = {
     },
     'image-compressor': {
       title:
-        'Bildkomprimierer Kostenlos - Dateigröße online reduzieren | PicShift',
+        'Bildkomprimierer online — kostenlos, im Stapel, ohne Upload | PicShift',
       description:
-        'Komprimieren Sie Bilder in Ihrem Browser. Reduzieren Sie die Größe von JPG-, PNG-, WebP-, HEIC- und AVIF-Dateien bei hoher Qualität. 100% privat, ohne Upload.',
-      h1: 'Bilder komprimieren',
+        'Bilder kostenlos komprimieren: JPG, PNG, WebP, HEIC und AVIF lokal im Browser verkleinern — vor E-Mail, Anhang oder Upload. Bis zu 200 Dateien pro Stapel, ohne Server.',
+      h1: 'Bilder kostenlos komprimieren',
       introText:
-        'Reduzieren Sie die Dateigröße Ihrer Bilder bei gleichbleibender visueller Qualität. Passen Sie den Qualitätsregler an, um die perfekte Balance zu finden.',
+        'Verkleinere deine Fotos, ohne dass du den Unterschied wirklich siehst — praktisch, wenn ein Anhang zu groß ist, ein Formular weniger als 2 MB erlaubt oder du einfach Speicher sparen willst. Du kannst mehrere Dateien gleichzeitig ziehen, die Qualität feinjustieren und vor dem Download Vorher/Nachher vergleichen.',
       howToSteps: [
-        'Ziehen Sie Ihre Bilder in den Bereich oben oder klicken Sie zum Durchsuchen.',
-        'Passen Sie den Qualitätsregler an, um den Komprimierungsgrad zu steuern.',
-        'Klicken Sie auf Herunterladen, um die komprimierten Bilder zu speichern.',
+        'Ziehe deine Bilder in den Bereich oben oder klicke zum Auswählen.',
+        'Passe den Qualitätsregler an, um die Stärke der Komprimierung zu steuern.',
+        'Klicke auf Herunterladen, um die komprimierten Bilder einzeln zu speichern, oder auf Alle herunterladen für einen ZIP-Stapel.',
       ],
       faqs: [
         {
-          q: 'Wie stark kann ich meine Bilder komprimieren?',
-          a: 'Das hängt vom Ausgangsbild ab. Eine Qualitätseinstellung von 80% reduziert die Größe von JPG-Dateien typischerweise um 40-60% bei minimalem sichtbarem Unterschied. Nutzen Sie die Vergleichsansicht, um die Qualität vor dem Herunterladen zu überprüfen.',
+          q: 'Wie komprimiere ich Bilder ohne sichtbaren Qualitätsverlust?',
+          a: 'Ziehe deine Datei rein, lass die Qualität bei 80–85 und schau dir die Vergleichsansicht an. In diesem Bereich ist der Unterschied auf dem Bildschirm meist nicht zu erkennen, die Datei wird aber typischerweise 40–60 % kleiner. Erst weiter unten (60 oder darunter) werden Artefakte am Himmel oder bei Hauttönen wirklich sichtbar.',
+        },
+        {
+          q: 'Wie stark lassen sich meine Bilder komprimieren?',
+          a: 'Das hängt vom Ausgangsmaterial ab. Ein typisches JPG aus dem Smartphone wird bei Qualität 80 etwa 40–60 % kleiner. Ein PNG-Screenshot, der nach JPG umgewandelt wird, verliert oft 70–80 %. Logos und Grafik mit wenigen Farben profitieren weniger — dafür sind WebP oder PNG die bessere Wahl.',
+        },
+        {
+          q: 'Wie komprimiere ich Fotos für eine E-Mail (Gmail, Outlook)?',
+          a: 'Gmail erlaubt 25 MB pro E-Mail, Outlook 20 MB, viele Firmen-Gateways aber nur 10 MB. Komprimieren bei Qualität 80 reicht oft schon, um darunter zu kommen, ohne die Auflösung zu ändern. Falls es immer noch zu viel ist, kombiniere Komprimierung mit Verkleinern auf 2000 Pixel an der langen Seite.',
+        },
+        {
+          q: 'Kann ich viele Bilder gleichzeitig komprimieren?',
+          a: 'Ja, bis zu 200 Dateien pro Durchgang. Bei sehr großen Stapeln, wenn der Browser träge wird, einfach in kleineren Gruppen verarbeiten und zwischendurch herunterladen. Da alles lokal läuft, gibt es keine Warteschlange auf dem Server.',
         },
         {
           q: 'Welche Formate kann ich komprimieren?',
-          a: 'Sie können JPG-, PNG-, WebP-, HEIC- und AVIF-Bilder komprimieren. Das Ausgabeformat kann JPG, PNG, WebP oder AVIF sein.',
+          a: 'Eingang: JPG, PNG, WebP, HEIC und AVIF. Ausgang wahlweise JPG, PNG, WebP oder AVIF. Für moderne Webseiten ist WebP bei Qualität 80 meist der beste Kompromiss aus Größe und Qualität; für maximale Kompatibilität (E-Mail, Office, alte Software) bleibst du besser bei JPG.',
+        },
+        {
+          q: 'Komprimieren oder Größe ändern — was bringt mehr?',
+          a: 'Wenn das Bild riesig in Pixeln ist (z. B. 4000×3000 aus der Kamera für eine Webseite), bringt das Verkleinern auf 1920–2000 Pixel oft mehr als reines Komprimieren. Bei bereits passenden Auflösungen reicht Komprimieren. In der Praxis kombiniert man oft beides: erst auf Zielgröße bringen, dann mit Qualität 80 komprimieren.',
+        },
+        {
+          q: 'Werden meine Bilder hochgeladen?',
+          a: 'Nein. Die Komprimierung läuft komplett im Browser über JavaScript und Canvas. Deine Dateien verlassen das Gerät nicht, es gibt keinen Upload, keine Server-Kopie, keinen Account.',
         },
       ],
     },

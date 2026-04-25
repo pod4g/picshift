@@ -63,6 +63,8 @@ Both formats are from the 1990s. Modern alternatives beat them in specific situa
 
 **Practical approach:** WebP for web delivery, PNG for editing and transparency, JPG as the universal fallback when maximum compatibility matters.
 
+If you are weighing format trade-offs across the full set, our [format compatibility guide](/docs/format-compatibility) lays out which formats open where, including the pitfalls with HEIC, AVIF and older Office tools.
+
 <img src="/blog/png-vs-jpg-decision.webp" alt="When to use PNG vs JPG — decision flow" width="1000" height="560" loading="lazy" decoding="async" />
 
 ## Quick decision guide
@@ -83,3 +85,5 @@ Both formats are from the 1990s. Modern alternatives beat them in specific situa
 PNG and JPG are not competing. PNG wins when you need lossless quality, transparency, or editing stability. JPG wins when you need smaller files and broad compatibility. And for web delivery in 2026, WebP is increasingly the answer to both.
 
 Pick the format that fits your actual workflow, not the one with the better spec sheet.
+
+If you are tuning quality settings while you decide, our notes on [image quality vs file size](/docs/image-quality-vs-file-size) cover what really changes between quality 70 and 95 — and when re-saving an already-compressed image stops paying off, which we explain in [why output size can increase](/docs/size-increase-explainer).

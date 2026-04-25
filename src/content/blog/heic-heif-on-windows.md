@@ -125,3 +125,5 @@ One-at-a-time conversion is not practical. You need batch processing:
 HEIC is a better format than JPG — smaller files, better quality, modern compression. Apple made the right technical choice. The problem is that Windows still has not caught up, and the ecosystem around HEIC remains fragmented.
 
 Until that changes, converting HEIC to JPG remains the most reliable way to move iPhone photos into the rest of the world. It takes seconds, and the quality difference at 85+ is invisible.
+
+For a side-by-side view of where HEIC, HEIF, WebP, AVIF, PNG and JPG actually open without friction — and where they still break — see our [format compatibility guide](/docs/format-compatibility). And if you are wondering why a converted JPG sometimes ends up bigger than the HEIC original, we explain that in [why output size can increase](/docs/size-increase-explainer).

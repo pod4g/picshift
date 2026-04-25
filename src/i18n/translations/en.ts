@@ -8,9 +8,9 @@ const en: PageTranslations = {
       'Convert images instantly in your browser — without uploading. HEIC to JPG, WebP to PNG, AVIF and more. 100% private, works offline. Free, no limits, no sign-up.',
   },
   privacy: {
-    title: 'Privacy Policy | PicShift',
+    title: 'Privacy Policy — Local Image Processing, No Uploads | PicShift',
     description:
-      'PicShift privacy policy. Image conversion stays on your device. We do not upload your source images for processing, and we explain exactly what traffic data we do and do not see.',
+      'How PicShift keeps your photos private: images are processed inside your browser, source files never leave your device, and we explain exactly what analytics we do see.',
     sections: [
       {
         heading: 'The Short Version',
@@ -313,7 +313,7 @@ const en: PageTranslations = {
     'avif-to-png': {
       title: 'AVIF to PNG Converter for Lossless Workflow | PicShift',
       description:
-        'Convert AVIF images to PNG for lossless editing and asset pipeline stability.',
+        'Convert AVIF images to PNG for lossless editing, transparency support, and stable asset pipelines. Batches stay in your browser, with no upload to a server.',
       h1: 'Convert AVIF to PNG',
       introText:
         'Convert AVIF images to lossless PNG format. Perfect for preserving maximum quality.',

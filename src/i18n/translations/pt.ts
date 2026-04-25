@@ -8,9 +8,9 @@ const pt: PageTranslations = {
       'Converta imagens instantaneamente no seu navegador \u2014 sem upload. HEIC para JPG, WebP para PNG, AVIF e muito mais. 100% privado, funciona offline. Gratuito, sem limites, sem cadastro.',
   },
   privacy: {
-    title: 'Pol\u00edtica de privacidade | PicShift',
+    title: 'Pol\u00edtica de privacidade — Processamento local | PicShift',
     description:
-      'O que vale para o PicShift: converter, comprimir, redimensionar ou tirar metadados acontece no seu aparelho; a gente n\u00e3o sobe suas fotos para processar. Abaixo est\u00e1 o que o site registra de tr\u00e1fego e o que nem chega a n\u00f3s.',
+      'Converter, comprimir, redimensionar ou tirar metadados acontece no seu aparelho: n\u00e3o subimos suas fotos para processar. Abaixo est\u00e1 o que o site registra de tr\u00e1fego.',
     sections: [
       {
         heading: 'Vers\u00e3o curta',
@@ -179,7 +179,7 @@ const pt: PageTranslations = {
       title:
         'Conversor HEIF para JPG — Windows, upload, sem envio | PicShift',
       description:
-        'Converta HEIF para JPG quando o arquivo precisa abrir no Windows, passar em um formulário de upload, seguir por e-mail ou rodar em programas que não entendem bem HEIF. Tudo acontece no seu navegador, sem subir nada.',
+        'Converta HEIF para JPG quando o arquivo precisa abrir no Windows, passar em formulário ou e-mail, ou rodar em programas que não entendem HEIF. Tudo no navegador, sem subir nada.',
       h1: 'Converter HEIF para JPG',
       introText:
         'Converta um arquivo HEIF para JPG quando você precisa de uma versão que abre sem travar no Windows, passa em um formulário de upload e chega até o outro lado sem dor de cabeça. O processamento acontece localmente no seu navegador, sem enviar o arquivo para um servidor.',
@@ -213,33 +213,49 @@ const pt: PageTranslations = {
     },
     'webp-to-jpg': {
       title:
-        'Conversor de WebP para JPG - Mais compatível para abrir e enviar | PicShift',
+        'Converter WebP para JPG online — em lote, sem upload | PicShift',
       description:
-        'Converta WebP para JPG quando um app, site ou formulário não aceita bem o formato WebP.',
+        'Transforme arquivos WebP em JPG quando um app, e-mail ou formulário não aceita o formato. Conversão em lote direto no navegador, sem enviar nada para servidor e sem cadastro.',
       h1: 'Converter WebP para JPG',
       introText:
-        'Converta imagens WebP para JPG quando você precisa de um arquivo que abra, envie ou suba com menos problema. JPG continua sendo a opção mais fácil para muitos apps antigos, clientes de e-mail e sistemas de upload.',
+        'Converta imagens WebP para JPG quando você precisa de um arquivo que abra, envie ou suba sem problema. JPG continua sendo a opção mais simples para apps antigos, clientes de e-mail, programas de escritório e formulários que ainda não reconhecem WebP.',
       howToSteps: [
         'Arraste e solte seus arquivos WebP na caixa acima ou clique para procurar.',
-        'Os arquivos s\u00e3o convertidos para JPG instantaneamente no seu navegador.',
-        'Clique em Baixar para salvar cada arquivo ou Baixar tudo para obter um ZIP.',
+        'Deixe JPG como formato de saída — a conversão acontece na hora, no navegador.',
+        'Clique em Baixar para salvar cada arquivo, ou em Baixar tudo para obter um ZIP.',
       ],
       faqs: [
         {
-          q: 'Por que converter WebP para JPG?',
-          a: 'WebP funciona muito bem no navegador, mas fora da web ainda falha em alguns aplicativos antigos, clientes de e-mail, ferramentas de escritório e formul\u00e1rios de upload. JPG continua sendo o formato mais fácil de usar no dia a dia.',
+          q: 'Como converter WebP para JPG?',
+          a: 'Arraste o arquivo WebP, mantenha JPG como formato de saída e clique em Baixar. É a forma mais rápida de resolver quando uma plataforma não aceita WebP ou quando você precisa de uma versão mais compatível para enviar — tudo acontece no navegador, sem upload.',
         },
         {
-          q: 'Como converter WebP para JPG?',
-          a: 'Adicione o arquivo WebP, mantenha JPG como formato de saída e baixe a imagem convertida. É a forma mais rápida de resolver casos em que uma plataforma não aceita WebP.',
+          q: 'Como transformar um ficheiro WebP para JPG?',
+          a: 'O processo é o mesmo: solta o ficheiro na caixa, deixa JPG como saída, clica em Baixar. Funciona em Windows, Mac, Linux e telemóvel — não precisas instalar nada nem criar conta. (Em pt-PT também serve para "transformar webp em jpg".)',
+        },
+        {
+          q: 'Por que converter WebP para JPG?',
+          a: 'WebP funciona muito bem no navegador, mas fora da web ainda falha em alguns aplicativos antigos, clientes de e-mail, ferramentas de escritório e formulários de upload. JPG continua sendo o formato mais fácil de usar no dia a dia, aceito basicamente em qualquer lugar.',
         },
         {
           q: 'Por que alguns sites ou apps não aceitam WebP?',
-          a: 'Muitos sistemas mais antigos ainda foram pensados para JPG e PNG. Quando a validação de arquivo usa uma lista antiga de formatos, o WebP pode ser recusado mesmo funcionando bem no navegador.',
+          a: 'Muitos sistemas mais antigos foram pensados só para JPG e PNG. Quando a validação do arquivo usa uma lista antiga de formatos, o WebP pode ser recusado mesmo funcionando bem no navegador. Converter para JPG resolve sem precisar mexer no software do outro lado.',
         },
         {
-          q: 'O arquivo JPG pode ficar maior?',
-          a: 'Pode sim. WebP costuma ser mais eficiente que JPG, então converter para ganhar compatibilidade pode gerar um arquivo um pouco maior dependendo da imagem e da qualidade escolhida.',
+          q: 'A conversão de WebP para JPG perde qualidade?',
+          a: 'WebP e JPG são formatos com perda, então sempre rola uma pequena recompressão. Com qualidade entre 85 e 90 a diferença na tela é praticamente imperceptível. Se for para impressão ou edição posterior, prefira <a href="/pt/webp-to-png">WebP para PNG</a>, que é sem perda.',
+        },
+        {
+          q: 'O arquivo JPG pode ficar maior que o WebP original?',
+          a: 'Pode acontecer. WebP é mais eficiente que JPG na compressão, então converter pode aumentar um pouco o peso final, especialmente em fotos de alta resolução. Se o tamanho importa, depois da conversão passe pelo nosso <a href="/pt/image-compressor">compressor de imagens</a> para reduzir.',
+        },
+        {
+          q: 'Posso converter vários WebP de uma vez?',
+          a: 'Sim. Arraste vários arquivos juntos — até centenas — e o PicShift processa em lote no navegador. Você baixa um por um ou tudo num ZIP. Como nada é enviado para servidor, não há fila nem espera.',
+        },
+        {
+          q: 'Quando vale mais converter para PNG em vez de JPG?',
+          a: 'Vale a pena PNG se a imagem tem transparência (logos, ícones) ou se você quer uma saída sem perda para editar depois. JPG é melhor quando a prioridade é abrir, enviar ou subir sem problema. Nesses casos use o <a href="/pt/webp-to-png">conversor de WebP para PNG</a>.',
         },
       ],
     },
@@ -445,29 +461,45 @@ const pt: PageTranslations = {
     },
     'image-compressor': {
       title:
-        'Comprimir imagens online — lote, sem upload | PicShift',
+        'Comprimir imagens online — em lote, sem upload | PicShift',
       description:
-        'Comprima JPG, PNG, WebP, HEIC e AVIF para reduzir peso antes de enviar ou subir. Até 200 por vez no navegador, sem upload; dá para comparar antes de baixar.',
+        'Comprima JPG, PNG, WebP, HEIC e AVIF para reduzir o peso antes de e-mail, formulário ou upload. Até 200 imagens por lote, direto no navegador, sem mandar nada ao servidor.',
       h1: 'Comprimir Imagens',
       introText:
-        'Reduza o tamanho dos arquivos mantendo boa qualidade visual: ajuste o slider, use a comparação e baixe. Funciona em lote e tudo fica local no seu navegador.',
+        'Reduza o peso das suas fotos sem perder nitidez visível — útil quando o e-mail trava no anexo, o site exige menos de 2 MB ou você só quer aliviar a pasta. Arraste vários arquivos juntos, ajuste a qualidade e compare antes/depois antes de baixar.',
       howToSteps: [
         'Arraste e solte suas imagens na caixa acima ou clique para procurar.',
-        'Ajuste o controle de qualidade para controlar o n\u00edvel de compress\u00e3o.',
-        'Clique em Baixar para salvar as imagens comprimidas.',
+        'Ajuste o controle de qualidade para controlar o nível de compressão.',
+        'Clique em Baixar para salvar as imagens comprimidas, ou em Baixar tudo para obter um ZIP.',
       ],
       faqs: [
         {
-          q: 'Dá para comprimir muitas imagens de uma vez?',
-          a: 'Sim, até 200 por execução. Se o lote for enorme e o navegador pesar, processe em partes e baixe entre uma e outra.',
+          q: 'Como comprimir uma imagem sem perder qualidade?',
+          a: 'Arraste o arquivo, deixe a qualidade entre 80 e 85 e use a vista de comparação. Nessa faixa quase não dá para perceber diferença na tela, mas o arquivo costuma cair de 40% a 60% em relação ao original. Só abaixo de 70 começam a aparecer artefatos visíveis em céu, pele e gradientes.',
         },
         {
-          q: 'Quanto posso comprimir minhas imagens?',
-          a: 'O resultado da compress\u00e3o depende da imagem de origem. Uma configura\u00e7\u00e3o de qualidade de 80% reduz o tamanho dos arquivos JPG de 40 a 60% em compara\u00e7\u00f5es de refer\u00eancia, com diferen\u00e7a vis\u00edvel m\u00ednima. Use a visualiza\u00e7\u00e3o de compara\u00e7\u00e3o para verificar a qualidade antes de baixar.',
+          q: 'Dá para comprimir várias imagens de uma vez?',
+          a: 'Sim, até 200 arquivos por execução. Se o lote for muito grande e o navegador travar, processe em partes menores e baixe entre uma e outra. Como tudo é local, não tem fila de servidor.',
         },
         {
-          q: 'Quais formatos posso comprimir?',
-          a: 'Você pode comprimir imagens JPG, PNG, WebP, HEIC e AVIF. O formato de saída pode ser JPG, PNG, WebP ou AVIF.',
+          q: 'Como comprimir foto para enviar por e-mail (Gmail, Outlook)?',
+          a: 'O Gmail aceita até 25 MB por e-mail e o Outlook 20 MB, mas muitos provedores corporativos cortam em 10 MB. Comprimir com qualidade 80 já costuma ser suficiente para passar nesses limites sem mexer na resolução. Se ainda ficar grande, combine com redimensionar para 2000 px no lado maior.',
+        },
+        {
+          q: 'Quanto consigo reduzir o tamanho?',
+          a: 'Depende da imagem. Um JPG de celular cai entre 40% e 60% com qualidade 80; um PNG de captura de tela convertido em JPG perde de 70% a 80%. Imagens com poucas cores (logos, gráficos) reduzem menos — nesses casos PNG ou WebP funcionam melhor que JPG.',
+        },
+        {
+          q: 'Quais formatos posso usar como compressor de imagens?',
+          a: 'Entrada: JPG, PNG, WebP, HEIC e AVIF. Saída: JPG, PNG, WebP ou AVIF. Para web moderno, WebP em qualidade 80 costuma ser o melhor equilíbrio de peso e qualidade; para máxima compatibilidade (e-mail, Office, sistemas antigos) é melhor manter JPG.',
+        },
+        {
+          q: 'Comprimir ou redimensionar — qual é melhor?',
+          a: 'Se a imagem está enorme em pixels (uma foto de câmera 4000×3000 para usar num site, por exemplo), redimensionar reduz mais peso do que só comprimir. Se já está numa resolução razoável, comprimir basta. Na prática se faz os dois: redimensionar para 1920–2000 px no lado maior e depois comprimir em 80.',
+        },
+        {
+          q: 'Minhas imagens são enviadas para um servidor?',
+          a: 'Não. A compressão acontece dentro do seu navegador, com JavaScript e Canvas. Os arquivos não saem do seu dispositivo, não há upload, não fica nenhuma cópia no servidor e não precisa de cadastro.',
         },
       ],
     },
