@@ -401,23 +401,46 @@ const pt: PageTranslations = {
     },
     'image-resizer': {
       title:
-        'Redimensionar imagem online grátis — largura, altura e presets | PicShift',
+        'Redimensionar imagem online — mudar tamanho e largura | PicShift',
       description:
-        'Redimensione imagem online grátis com largura/altura exatas ou presets rápidos. Ideal para site, formulário, e-commerce e redes sociais, sem upload.',
+        'Mudar tamanho da imagem ou redimensionar foto online com largura e altura exatas, ou usando presets rápidos. Ideal para site, formulário, e-commerce e redes sociais, sem upload.',
       h1: 'Redimensionar imagem online',
-      introText: 'Precisa redimensionar imagem online para site, formulário, e-commerce ou rede social? Escolha um preset ou defina largura e altura na mão. O processamento é 100% local — nada sai do seu computador.',
+      introText:
+        'Precisa redimensionar imagem ou mudar o tamanho de uma foto para site, formulário, e-commerce ou rede social? Escolha um preset ou defina largura e altura na mão. O processamento é 100% local — nada sai do seu computador.',
       howToSteps: [
         'Arraste as imagens pra cá ou clique pra selecionar.',
         'Escolha um preset ou digite as dimensões que precisa.',
         'Escolha o formato, ajuste a qualidade e baixe.',
       ],
       faqs: [
-        { q: 'Como redimensionar imagem online grátis?', a: 'Arraste a imagem pra ferramenta, escolha um preset ou o modo Personalizado e baixe. Tudo roda no navegador, sem cadastro e sem upload.' },
-        { q: 'Como colocar largura e altura exatas?', a: 'Use o modo Personalizado e digite largura e altura em pixels. Se você só quer reduzir sem meta exata, os presets (Máx 1920px, 50% etc.) resolvem mais rápido.' },
-        { q: 'Redimensionar perde qualidade?', a: 'Diminuir dimensões em si não estraga a imagem — a reamostragem é de alta qualidade. A perda visível normalmente vem da compressão, e isso você controla separado no slider de qualidade.' },
-        { q: 'Dá pra redimensionar e mudar o formato junto?', a: 'Sim. Você pode mudar as dimensões e o formato (JPG, PNG, WebP, AVIF) de uma vez, no mesmo passo.' },
-        { q: 'Serve para Instagram, loja, formulário e rede social?', a: 'Serve. Você pode colocar 1080×1080 para Instagram, 1200×630 para Facebook, imagem de produto para marketplace ou qualquer medida exata que o site pedir.' },
-        { q: 'Meus arquivos são enviados pra algum lugar?', a: 'Não. Tudo roda no seu navegador. Pode até desligar a internet depois de abrir a página que a ferramenta continua funcionando.' },
+        {
+          q: 'Como redimensionar imagem online grátis?',
+          a: 'Arraste a imagem pra ferramenta, escolha um preset ou o modo Personalizado e baixe. Tudo roda no navegador, sem cadastro e sem upload.',
+        },
+        {
+          q: 'Como mudar o tamanho de uma imagem em pixels?',
+          a: 'No modo Personalizado, digite a largura e a altura desejadas em pixels (ou use uma porcentagem). PicShift recalcula a imagem com reamostragem de alta qualidade, sem deformar.',
+        },
+        {
+          q: 'Como colocar largura e altura exatas?',
+          a: 'Use o modo Personalizado e digite largura e altura em pixels. Se você só quer reduzir sem meta exata, os presets (Máx 1920px, 50% etc.) resolvem mais rápido.',
+        },
+        {
+          q: 'Serve para Instagram, loja, formulário e rede social?',
+          a: 'Serve. Você pode colocar 1080×1080 para Instagram, 1200×630 para Facebook, imagem de produto para marketplace ou qualquer medida exata que o site pedir.',
+        },
+        {
+          q: 'Redimensionar perde qualidade?',
+          a: 'Diminuir dimensões em si não estraga a imagem — a reamostragem é de alta qualidade. A perda visível normalmente vem da compressão, e isso você controla separado no slider de qualidade.',
+        },
+        {
+          q: 'Dá pra redimensionar e mudar o formato junto?',
+          a: 'Sim. Você pode mudar as dimensões e o formato (JPG, PNG, WebP, AVIF) de uma vez, no mesmo passo.',
+        },
+        {
+          q: 'Meus arquivos são enviados pra algum lugar?',
+          a: 'Não. Tudo roda no seu navegador. Pode até desligar a internet depois de abrir a página que a ferramenta continua funcionando.',
+        },
       ],
     },
     'image-compressor': {

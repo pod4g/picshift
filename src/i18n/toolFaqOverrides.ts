@@ -6,29 +6,29 @@ const TOOL_FAQ_OVERRIDES: Partial<Record<Locale, Partial<Record<string, ToolFaqI
   es: {
     'webp-to-jpg': [
       {
-        q: 'Por qué convertir WebP a JPG?',
+        q: '¿Por qué convertir WebP a JPG?',
         a: 'WebP funciona bien en navegadores, pero algunas apps antiguas, formularios de subida y herramientas de oficina siguen esperando JPG. Convertir a JPG suele ser la forma más rápida de resolver ese problema de compatibilidad.',
       },
       {
-        q: 'Cómo convertir WebP a JPG online?',
+        q: '¿Cómo convertir WebP a JPG online?',
         a: 'Sube la imagen WebP, deja JPG como formato de salida y descarga el archivo convertido. Es útil cuando necesitas una imagen que abra o suba con menos fricción.',
       },
       {
-        q: 'WebP a JPG puede aumentar el tamaño del archivo?',
+        q: '¿WebP a JPG puede aumentar el tamaño del archivo?',
         a: 'Sí. WebP suele ser más eficiente que JPG, así que al convertir por compatibilidad el archivo final puede quedar más grande según la imagen y la calidad elegida.',
       },
     ],
     'webp-to-png': [
       {
-        q: 'La conversión de WebP a PNG pierde calidad?',
+        q: '¿La conversión de WebP a PNG pierde calidad?',
         a: 'No. PNG es un formato sin pérdida, así que conserva todos los píxeles decodificados del WebP. El cambio busca un archivo más estable para trabajo o edición, no un archivo más pequeño.',
       },
       {
-        q: 'Cuándo conviene convertir WebP a PNG?',
+        q: '¿Cuándo conviene convertir WebP a PNG?',
         a: 'Conviene cuando necesitas seguir editando, anotar, revisar o mover la imagen por herramientas que esperan PNG. También tiene sentido cuando la transparencia o la estabilidad del flujo importan más que el tamaño final.',
       },
       {
-        q: 'Por qué el PNG convertido pesa más?',
+        q: '¿Por qué el PNG convertido pesa más?',
         a: 'Porque PNG prioriza salida sin pérdida y estabilidad, mientras WebP suele estar más optimizado para reducir peso. En esta conversión es normal ganar compatibilidad de flujo a costa de un archivo mayor.',
       },
     ],

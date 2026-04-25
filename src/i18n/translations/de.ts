@@ -131,7 +131,7 @@ const de: PageTranslations = {
         },
         {
           q: 'Sind PNG-Dateien größer als JPG?',
-          a: 'Ja, in standardisierten Foto-Workflows sind PNG-Dateien 2- bis 5-mal größer als JPG, da PNG verlustfrei ist. Wenn die Dateigroesse wichtiger ist als perfekte Qualität, konvertieren Sie stattdessen in JPG.',
+          a: 'Ja, in standardisierten Foto-Workflows sind PNG-Dateien 2- bis 5-mal größer als JPG, da PNG verlustfrei ist. Wenn die Dateigröße wichtiger ist als perfekte Qualität, konvertieren Sie stattdessen in JPG.',
         },
       ],
     },
@@ -238,10 +238,10 @@ const de: PageTranslations = {
     'png-to-jpg': {
       title: 'PNG in JPG Konverter - Kostenlos, Privat, Ohne Upload | PicShift',
       description:
-        'Konvertieren Sie PNG-Bilder in Ihrem Browser in das JPG-Format. Reduzieren Sie die Dateigroesse bei hervorragender Qualität.',
+        'Konvertieren Sie PNG-Bilder in Ihrem Browser in das JPG-Format. Reduzieren Sie die Dateigröße bei hervorragender Qualität.',
       h1: 'PNG in JPG konvertieren',
       introText:
-        'Konvertieren Sie PNG-Bilder in JPG, um die Dateigroesse zu reduzieren. Ideal für Fotos, die als PNG gespeichert wurden und keine Transparenz benoetigen.',
+        'Konvertieren Sie PNG-Bilder in JPG, um die Dateigröße zu reduzieren. Ideal für Fotos, die als PNG gespeichert wurden und keine Transparenz benoetigen.',
       howToSteps: [
         'Ziehen Sie Ihre PNG-Dateien in den Bereich oben oder klicken Sie zum Durchsuchen.',
         'Dateien werden sofort in Ihrem Browser in JPG konvertiert.',
@@ -250,7 +250,7 @@ const de: PageTranslations = {
       faqs: [
         {
           q: 'Geht die Transparenz verloren?',
-          a: 'Ja. JPG unterstützt keine Transparenz. Transparente Bereiche in Ihrem PNG werden weiss dargestellt. Wenn Sie Transparenz benoetigen, behalten Sie Ihr Bild als PNG oder konvertieren Sie es in WebP.',
+          a: 'Ja. JPG unterstützt keine Transparenz. Transparente Bereiche in Ihrem PNG werden weiß dargestellt. Wenn Sie Transparenz benoetigen, behalten Sie Ihr Bild als PNG oder konvertieren Sie es in WebP.',
         },
       ],
     },
@@ -278,7 +278,7 @@ const de: PageTranslations = {
         },
         {
           q: 'Wird die PNG-Datei größer als das JPG?',
-          a: 'Ja, in den meisten Faellen deutlich größer. PNG speichert mehr Bilddaten und komprimiert weniger aggressiv. Das ist normal, wenn Ihnen Bearbeitungsstabilitaet wichtiger ist als Dateigroesse.',
+          a: 'Ja, in den meisten Faellen deutlich größer. PNG speichert mehr Bilddaten und komprimiert weniger aggressiv. Das ist normal, wenn Ihnen Bearbeitungsstabilitaet wichtiger ist als Dateigröße.',
         },
         {
           q: 'Wann ist JPG die bessere Wahl?',
@@ -302,7 +302,7 @@ const de: PageTranslations = {
       faqs: [
         {
           q: 'Wie viel kleiner ist WebP im Vergleich zu JPG?',
-          a: 'WebP ist bei gleicher visueller Qualität in Benchmark-Vergleichen 25-34% kleiner als JPG. Ein 1 MB grosses JPG wird als WebP zu 650-750 KB, ohne sichtbaren Unterschied.',
+          a: 'WebP ist bei gleicher visueller Qualität in Benchmark-Vergleichen 25-34% kleiner als JPG. Ein 1 MB großes JPG wird als WebP zu 650-750 KB, ohne sichtbaren Unterschied.',
         },
       ],
     },
@@ -348,12 +348,12 @@ const de: PageTranslations = {
     },
     'image-resizer': {
       title:
-        'Bildgroesse online ändern – skalieren, ohne Upload | PicShift',
+        'Bildgröße ändern online — Bilder skalieren ohne Upload | PicShift',
       description:
-        'Bildauflösung oder Kantenlänge im Browser anpassen: Presets oder eigene Pixelmaße. Auch für WebP und Screenshots geeignet. Bis zu 200 Dateien pro Durchlauf, kein Upload.',
-      h1: 'Bilder Skalieren',
+        'Bildgröße ändern im Browser: für Instagram (1080×1080), Online-Shop, Bewerbungsformulare oder E-Mail. Presets oder exakte Pixelmaße. Bis zu 200 Dateien pro Durchlauf, kein Upload.',
+      h1: 'Bildgröße ändern',
       introText:
-        'Auflösung und Abmessungen ändern, wenn ein Portal feste Pixel vorgibt oder ein Screenshot zu gross ist. Wählen Sie eine Voreinstellung oder exakte Werte — die Verarbeitung bleibt lokal im Browser.',
+        'Bildgröße oder Auflösung ändern, wenn ein Portal feste Pixel vorgibt, ein soziales Netzwerk ein 1080×1080-Quadrat verlangt oder ein Screenshot einfach zu groß für ein Formular ist. Wählen Sie eine Voreinstellung oder exakte Werte — die Verarbeitung bleibt lokal im Browser, ohne Upload.',
       howToSteps: [
         'Ziehen Sie Ihre Bilder in den Bereich oben, oder klicken Sie zum Durchsuchen.',
         'Wählen Sie eine Größenvoreinstellung oder geben Sie benutzerdefinierte Abmessungen ein.',
@@ -361,16 +361,37 @@ const de: PageTranslations = {
       ],
       faqs: [
         {
-          q: 'Kann ich auch WebP-Bilder verkleinern oder die Größe ändern?',
-          a: 'Ja. WebP-Dateien können Sie wie JPG oder PNG einfuegen und dann Preset oder eigene Pixelwerte wählen. Bei Bedarf ändern Sie im selben Schritt noch das Ausgabeformat.',
+          q: 'Wie kann ich die Bildgröße ändern, ohne ein Programm zu installieren?',
+          a: 'Ziehen Sie das Bild in PicShift, wählen Sie eine Voreinstellung oder geben Sie im Modus „Benutzerdefiniert" Breite und Höhe ein, dann laden Sie das Ergebnis herunter. Alles passiert im Browser, ohne dass die Datei an einen Server geht.',
+        },
+        {
+          q: 'Welche Pixelmaße brauche ich für Instagram, Facebook oder soziale Netzwerke?',
+          a: 'Für quadratische Instagram-Posts 1080×1080. Für Facebook-Titelbilder 1200×630. Für Stories oder Reels im Hochformat 1080×1920. Im Modus „Benutzerdefiniert" geben Sie die exakten Pixel ein und laden das Bild sofort herunter.',
         },
         {
           q: 'Was ist der Unterschied zwischen Skalieren und Auflösung ändern?',
-          a: 'Hier meinen wir dasselbe: Sie setzen neue Breite und Hoehe in Pixeln (oder einen Prozentwert), damit die Datei weniger Pixel enthaelt. Das senkt meist staerker das Dateigewicht als reine Kompression.',
+          a: 'Hier meinen wir dasselbe: Sie setzen neue Breite und Höhe in Pixeln (oder einen Prozentwert), damit die Datei weniger Pixel enthält. Das senkt meist stärker das Dateigewicht als reine Kompression.',
         },
-        { q: 'Welche Größenvoreinstellungen sind verfügbar?', a: 'PicShift bietet Max 1920px (lange Seite), Max 1080px, 50% Skalierung und einen benutzerdefinierten Modus für exakte Pixel-Abmessungen oder Prozentangaben.' },
-        { q: 'Verringert das Skalieren die Bildqualität?', a: 'Die Verkleinerung verwendet hochwertige Neuabtastung. Sie können auch den Qualitätsregler anpassen, um die Komprimierung zu steuern.' },
-        { q: 'Kann ich gleichzeitig skalieren und das Format konvertieren?', a: 'Ja. Sie können sowohl das Ausgabeformat (JPG, PNG, WebP, AVIF) als auch die Abmessungen in einem Schritt ändern. Wenn Sie primär Dateigröße sparen möchten, nutzen Sie zusätzlich /de/image-compressor.' },
+        {
+          q: 'Kann ich auch WebP-Bilder verkleinern oder die Größe ändern?',
+          a: 'Ja. WebP-Dateien können Sie wie JPG oder PNG einfügen und dann Preset oder eigene Pixelwerte wählen. Bei Bedarf ändern Sie im selben Schritt noch das Ausgabeformat.',
+        },
+        {
+          q: 'Welche Größenvoreinstellungen sind verfügbar?',
+          a: 'PicShift bietet Max 1920px (lange Seite), Max 1080px, 50% Skalierung und einen benutzerdefinierten Modus für exakte Pixel-Abmessungen oder Prozentangaben.',
+        },
+        {
+          q: 'Verringert das Skalieren die Bildqualität?',
+          a: 'Die Verkleinerung verwendet hochwertige Neuabtastung. Sie können auch den Qualitätsregler anpassen, um die Komprimierung zu steuern.',
+        },
+        {
+          q: 'Kann ich gleichzeitig skalieren und das Format konvertieren?',
+          a: 'Ja. Sie können sowohl das Ausgabeformat (JPG, PNG, WebP, AVIF) als auch die Abmessungen in einem Schritt ändern. Wenn Sie primär Dateigröße sparen möchten, nutzen Sie zusätzlich /de/image-compressor.',
+        },
+        {
+          q: 'Werden meine Bilder auf einen Server hochgeladen?',
+          a: 'Nein. Alles läuft direkt in Ihrem Browser mit WebAssembly. Sie können sogar offline gehen, nachdem die Seite geladen ist — die Skalierung funktioniert weiter.',
+        },
       ],
     },
     'image-compressor': {
@@ -380,7 +401,7 @@ const de: PageTranslations = {
         'Komprimieren Sie Bilder in Ihrem Browser. Reduzieren Sie die Größe von JPG-, PNG-, WebP-, HEIC- und AVIF-Dateien bei hoher Qualität. 100% privat, ohne Upload.',
       h1: 'Bilder komprimieren',
       introText:
-        'Reduzieren Sie die Dateigroesse Ihrer Bilder bei gleichbleibender visueller Qualität. Passen Sie den Qualitätsregler an, um die perfekte Balance zu finden.',
+        'Reduzieren Sie die Dateigröße Ihrer Bilder bei gleichbleibender visueller Qualität. Passen Sie den Qualitätsregler an, um die perfekte Balance zu finden.',
       howToSteps: [
         'Ziehen Sie Ihre Bilder in den Bereich oben oder klicken Sie zum Durchsuchen.',
         'Passen Sie den Qualitätsregler an, um den Komprimierungsgrad zu steuern.',
@@ -443,10 +464,10 @@ const de: PageTranslations = {
         },
         {
           title: 'So entfernen Sie Metadaten aus Bildern',
-          body: 'Der Ablauf ist einfach: erst pruefen, dann bereinigen und anschliessend bei Bedarf die bereinigte Version verwenden.',
+          body: 'Der Ablauf ist einfach: erst pruefen, dann bereinigen und anschließend bei Bedarf die bereinigte Version verwenden.',
           items: [
-            'Legen Sie das Bild im Tool ab und schauen Sie sich zuerst an, welche Informationen die Datei tatsaechlich enthaelt.',
-            'Wenn nur Breite, Hoehe oder Farbraum angezeigt werden, sehen Sie 0 sensible Daten. Falls GPS, Geraetedetails oder Zeitstempel enthalten sind, werden diese als sensibel markiert.',
+            'Legen Sie das Bild im Tool ab und schauen Sie sich zuerst an, welche Informationen die Datei tatsaechlich enthält.',
+            'Wenn nur Breite, Höhe oder Farbraum angezeigt werden, sehen Sie 0 sensible Daten. Falls GPS, Geraetedetails oder Zeitstempel enthalten sind, werden diese als sensibel markiert.',
             'Laden Sie die bereinigte Datei herunter und verwenden Sie diese Version, wenn Sie sie speichern, versenden, hochladen oder einfach behalten moechten.',
           ],
         },

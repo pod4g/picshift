@@ -337,12 +337,12 @@ const it: PageTranslations = {
     },
     'image-resizer': {
       title:
-        'Ridimensionare immagini online — pixel e preset | PicShift',
+        'Ridimensionare immagini online — pixel, risoluzione e preset | PicShift',
       description:
-        'Cambia larghezza, altezza o risoluzione in pixel nel browser. Anche WebP e screenshot: fino a 200 file per batch, senza upload.',
+        'Ridimensiona foto online per Instagram (1080×1080), e-commerce, moduli o social. Imposta pixel esatti o usa un preset. Fino a 200 file per batch nel browser, senza upload.',
       h1: 'Ridimensiona Immagini',
       introText:
-        'Ridimensionare foto o cambiare risoluzione serve per siti, moduli e social. Scegli un preset o dimensioni personalizzate: tutto resta nel browser sul tuo dispositivo.',
+        'Ridimensiona foto o cambia risoluzione quando un sito chiede pixel esatti, un social impone un quadrato 1080×1080 o un modulo rifiuta file troppo grandi. Scegli un preset rapido o inserisci larghezza e altezza su misura — tutto resta nel browser sul tuo dispositivo, senza upload.',
       howToSteps: [
         'Trascina le tue immagini nell\'area sopra, o clicca per sfogliare.',
         'Scegli una dimensione predefinita o inserisci dimensioni personalizzate.',
@@ -350,16 +350,37 @@ const it: PageTranslations = {
       ],
       faqs: [
         {
+          q: 'Come ridimensionare un\u2019immagine senza installare programmi?',
+          a: 'Trascina l\u2019immagine in PicShift, scegli un preset o inserisci larghezza e altezza nella modalità Personalizzata, poi scarica. Tutto avviene nel browser e i file non vanno su nessun server.',
+        },
+        {
+          q: 'Quali pixel servono per Instagram, Facebook o i social?',
+          a: 'Per i post quadrati di Instagram usa 1080×1080. Per le copertine Facebook 1200×630. Per Storie e Reels verticali 1080×1920. Inserisci i pixel esatti in modalità Personalizzata e scarica subito.',
+        },
+        {
           q: 'Come cambiare la risoluzione di un\u2019immagine in pixel?',
           a: 'In modalità Personalizzata inserisci larghezza e altezza desiderate (o una percentuale). PicShift ricalcola l\u2019immagine con ricampionamento di alta qualità.',
         },
         {
-          q: 'Posso ridimensionare anche file WebP?',
-          a: 'Sì: trascina il WebP come qualsiasi altro formato, scegli preset o pixel, e se serve cambia anche il formato di output nello stesso passaggio.',
+          q: 'Posso ridimensionare anche file WebP o screenshot?',
+          a: 'Sì: trascina il WebP o lo screenshot come qualsiasi altro formato, scegli preset o pixel, e se serve cambia anche il formato di output nello stesso passaggio.',
         },
-        { q: 'Quali preset di dimensione sono disponibili?', a: 'PicShift offre Max 1920px (lato lungo), Max 1080px, scala 50% e una modalità Personalizzata per dimensioni esatte in pixel o percentuale.' },
-        { q: 'Il ridimensionamento riduce la qualità dell\'immagine?', a: 'La riduzione usa un ricampionamento di alta qualità. Puoi anche regolare il cursore della qualità per controllare la compressione.' },
-        { q: 'Posso ridimensionare e convertire il formato contemporaneamente?', a: 'Sì. Puoi cambiare sia il formato di output (JPG, PNG, WebP, AVIF) che le dimensioni in un solo passaggio.' },
+        {
+          q: 'Quali preset di dimensione sono disponibili?',
+          a: 'PicShift offre Max 1920px (lato lungo), Max 1080px, scala 50% e una modalità Personalizzata per dimensioni esatte in pixel o percentuale.',
+        },
+        {
+          q: 'Il ridimensionamento riduce la qualità dell\'immagine?',
+          a: 'La riduzione usa un ricampionamento di alta qualità. Puoi anche regolare il cursore della qualità per controllare la compressione.',
+        },
+        {
+          q: 'Posso ridimensionare e convertire il formato contemporaneamente?',
+          a: 'Sì. Puoi cambiare sia il formato di output (JPG, PNG, WebP, AVIF) che le dimensioni in un solo passaggio. Se ti interessa solo alleggerire il file, abbinalo a /it/image-compressor.',
+        },
+        {
+          q: 'Le mie immagini vengono caricate su un server?',
+          a: 'No. Tutto gira nel tuo browser con WebAssembly. Puoi anche disattivare la connessione dopo aver aperto la pagina e lo strumento continua a funzionare.',
+        },
       ],
     },
     'image-compressor': {

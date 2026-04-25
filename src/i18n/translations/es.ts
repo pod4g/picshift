@@ -92,19 +92,19 @@ const es: PageTranslations = {
       ],
       faqs: [
         {
-          q: 'Qué es el formato HEIC?',
+          q: '¿Qué es el formato HEIC?',
           a: 'HEIC (High Efficiency Image Container) es el formato de foto predeterminado en iPhones desde iOS 11. Produce archivos más pequeños que JPG manteniendo la misma calidad. Sin embargo, muchas aplicaciones de Windows y sitios web no soportan HEIC.',
         },
         {
-          q: 'Es seguro convertir mis fotos aquí?',
+          q: '¿Es seguro convertir mis fotos aquí?',
           a: 'Sí. PicShift procesa todo en tu navegador usando WebAssembly. Tus fotos nunca salen de tu dispositivo; no se sube ningún archivo a ningún servidor. Puedes verificarlo desconectándote de internet e intentando usar el convertidor.',
         },
         {
-          q: 'Cuántos archivos puedo convertir a la vez?',
+          q: '¿Cuántos archivos puedo convertir a la vez?',
           a: 'Puedes convertir hasta 200 archivos a la vez. Para un mejor rendimiento con lotes grandes, recomendamos 100 o menos.',
         },
         {
-          q: 'Perderé calidad de imagen?',
+          q: '¿Perderé calidad de imagen?',
           a: 'La configuración de calidad predeterminada (85%) produce archivos visualmente idénticos al original. Puedes ajustar el control de calidad: valores más altos significan mejor calidad pero archivos más grandes.',
         },
       ],
@@ -124,23 +124,23 @@ const es: PageTranslations = {
       ],
       faqs: [
         {
-          q: 'Por qué convertir HEIC a PNG en lugar de JPG?',
+          q: '¿Por qué convertir HEIC a PNG en lugar de JPG?',
           a: 'Porque PNG no añade otra capa de compresión con pérdida. Es mejor para edición, anotaciones, revisión de diseño o cuando necesitas un archivo estable que se pueda reexportar sin degradarse.',
         },
         {
-          q: 'Los archivos PNG son más grandes que los HEIC o JPG?',
+          q: '¿Los archivos PNG son más grandes que los HEIC o JPG?',
           a: 'Sí, bastante más grandes en la mayoría de fotos. HEIC comprime muy bien y PNG guarda mucha más información por píxel. El aumento de tamaño es normal cuando priorizas la calidad sin pérdida.',
         },
         {
-          q: 'Cuándo es mejor convertir a JPG que a PNG?',
+          q: '¿Cuándo es mejor convertir a JPG que a PNG?',
           a: 'Cuando tu objetivo es un archivo más ligero para compartir, subir o enviar y no necesitas transparencia ni edición posterior. JPG es más práctico para el uso diario; PNG es mejor para flujos de trabajo más exigentes.',
         },
         {
-          q: 'Cómo paso HEIC a PNG?',
+          q: '¿Cómo paso HEIC a PNG?',
           a: 'Anade tu archivo HEIC, deja PNG como formato de salida y descarga la imagen convertida. PicShift lo hace todo en tu navegador, sin enviar nada a ningún servidor.',
         },
         {
-          q: 'Es lo mismo HEIC a PNG que HEIC a JPG?',
+          q: '¿Es lo mismo HEIC a PNG que HEIC a JPG?',
           a: 'No. PNG es sin pérdida y suele pesar más, pero es mejor cuando vas a retocar, recortar o reexportar varias veces. JPG es más ligero y práctico si solo quieres compartir o subir la foto con menos peso.',
         },
       ],
@@ -160,11 +160,11 @@ const es: PageTranslations = {
       ],
       faqs: [
         {
-          q: 'Qué es WebP?',
+          q: '¿Qué es WebP?',
           a: 'WebP es un formato de imagen moderno desarrollado por Google. Ofrece archivos un 25-34% más pequeños que JPG con calidad equivalente. WebP es compatible con todos los navegadores principales (96,5% de soporte global).',
         },
         {
-          q: 'Cuándo deberia usar WebP?',
+          q: '¿Cuándo deberia usar WebP?',
           a: 'WebP es ideal para uso web: archivos más pequeños significan cargas de página más rapidas. Para compartir por correo electrónico o mensajería, JPG es más universalmente compatible.',
         },
       ],
@@ -220,23 +220,23 @@ const es: PageTranslations = {
       ],
       faqs: [
         {
-          q: 'Por qué convertir WebP a JPG?',
+          q: '¿Por qué convertir WebP a JPG?',
           a: 'WebP funciona muy bien en navegadores, pero fuera de la web todavía falla en algunas aplicaciones antiguas, clientes de correo, herramientas de oficina y formularios de subida. JPG sigue siendo el formato más fácil de usar en casi cualquier sitio.',
         },
         {
-          q: 'Cómo convertir WebP a JPG?',
+          q: '¿Cómo convertir WebP a JPG?',
           a: 'Arrastra tu archivo WebP, deja JPG como formato de salida y descarga la imagen convertida. Es una solución rápida cuando una plataforma no acepta WebP o cuando necesitas una imagen más compatible.',
         },
         {
-          q: 'Por qué algunas apps no aceptan WebP?',
+          q: '¿Por qué algunas apps no aceptan WebP?',
           a: 'Muchas herramientas antiguas solo fueron pensadas para JPG y PNG. Cuando un sistema válida formatos contra listas viejas, WebP puede quedar fuera y convertir a JPG suele resolver el problema.',
         },
         {
-          q: 'WebP a JPG puede hacer el archivo más grande?',
+          q: '¿WebP a JPG puede hacer el archivo más grande?',
           a: 'Sí, puede pasar. WebP suele ser más eficiente que JPG, así que al convertir para ganar compatibilidad el archivo final puede pesar más dependiendo de la imagen y de la calidad elegida.',
         },
         {
-          q: 'Cuándo conviene usar PNG en lugar de JPG?',
+          q: '¿Cuándo conviene usar PNG en lugar de JPG?',
           a: 'Conviene usar PNG si la imagen necesita transparencia o si prefieres una salida más estable para edición. JPG tiene más sentido cuando tu prioridad es abrir, compartir o subir el archivo con menos problemas.',
         },
       ],
@@ -256,19 +256,19 @@ const es: PageTranslations = {
       ],
       faqs: [
         {
-          q: 'La conversión de WebP a PNG pierde calidad?',
+          q: '¿La conversión de WebP a PNG pierde calidad?',
           a: 'No. PNG es un formato sin pérdida, por lo que la conversión preserva cada píxel de la fuente WebP. El archivo PNG resultante será más grande pero idéntico en calidad.',
         },
         {
-          q: 'Cuándo conviene convertir WebP a PNG?',
+          q: '¿Cuándo conviene convertir WebP a PNG?',
           a: 'Conviene cuando necesitas transparencia, una imagen más estable para edición o un archivo que no vuelva a pasar por compresión con pérdida. También es una buena opción para revisión, diseño o reutilización del recurso.',
         },
         {
-          q: 'Por qué el PNG pesa más que el WebP?',
+          q: '¿Por qué el PNG pesa más que el WebP?',
           a: 'Porque PNG guarda mucha más información de imagen y no busca la misma eficiencia de compresión que WebP. El aumento de tamaño es normal cuando priorizas transparencia o una salida sin pérdida.',
         },
         {
-          q: 'Cuándo es mejor JPG que PNG?',
+          q: '¿Cuándo es mejor JPG que PNG?',
           a: 'JPG suele ser mejor si no necesitas transparencia y tu prioridad es un archivo más ligero para compartir, subir o enviar. PNG tiene más sentido cuando prefieres estabilidad y calidad sin pérdida.',
         },
       ],
@@ -287,19 +287,19 @@ const es: PageTranslations = {
       ],
       faqs: [
         {
-          q: 'Perderé la transparencia?',
+          q: '¿Perderé la transparencia?',
           a: 'Sí. JPG no soporta transparencia. Las áreas transparentes de tu PNG se convertiran en blanco. Si necesitas transparencia, mantén tu imagen como PNG o convierte a WebP.',
         },
         {
-          q: 'Por qué convertir PNG a JPG?',
+          q: '¿Por qué convertir PNG a JPG?',
           a: 'La razón más común es bajar el peso del archivo. JPG suele ser mucho más ligero que PNG en imágenes fotográficas, por eso es una opción práctica para compartir, enviar o subir a una web.',
         },
         {
-          q: 'JPG pesa menos que PNG?',
+          q: '¿JPG pesa menos que PNG?',
           a: 'Normalmente si. PNG guarda mucha más información y se vuelve pesado con facilidad, mientras que JPG está pensado para fotos y suele ocupar menos espacio.',
         },
         {
-          q: 'Cuándo es mejor mantener PNG?',
+          q: '¿Cuándo es mejor mantener PNG?',
           a: 'Mantén PNG si tu imagen necesita transparencia, contiene texto fino o si quieres evitar una compresión con pérdida. Para logos, interfaces o capturas detalladas, PNG suele seguir siendo mejor.',
         },
       ],
@@ -318,7 +318,7 @@ const es: PageTranslations = {
       ],
       faqs: [
         {
-          q: 'Convertir JPG a PNG mejora la calidad?',
+          q: '¿Convertir JPG a PNG mejora la calidad?',
           a: 'No. Convertir de JPG a PNG no restaura la calidad perdida durante la compresión JPG. Sin embargo, convertir a PNG evita cualquier pérdida de calidad adicional si necesitas editar y volver a guardar la imagen.',
         },
       ],
@@ -338,19 +338,19 @@ const es: PageTranslations = {
       ],
       faqs: [
         {
-          q: 'Cuánto más pequeño es WebP comparado con JPG?',
+          q: '¿Cuánto más pequeño es WebP comparado con JPG?',
           a: 'WebP es 25-34% más pequeño que JPG con la misma calidad visual en comparaciones de referencia. Un JPG de 1 MB se convierte en 650-750 KB como WebP sin diferencia visible.',
         },
         {
-          q: 'Por qué convertir JPG a WebP?',
+          q: '¿Por qué convertir JPG a WebP?',
           a: 'Porque WebP suele pesar menos que JPG con una calidad visual muy parecida. Eso ayuda a cargar más rápido una web y a reducir el tamaño total de imágenes que se transfieren al navegador.',
         },
         {
-          q: 'Cuándo conviene usar WebP en lugar de JPG?',
+          q: '¿Cuándo conviene usar WebP en lugar de JPG?',
           a: 'Conviene cuando la imagen está pensada para una página web y tu prioridad es bajar el peso sin empeorar demasiado el resultado visual. En navegadores modernos, WebP suele ser una opción muy práctica.',
         },
         {
-          q: 'Cuándo es mejor mantener JPG?',
+          q: '¿Cuándo es mejor mantener JPG?',
           a: 'Mantener JPG tiene sentido si la imagen va a pasar por herramientas antiguas, adjuntos de correo o sistemas que todavía no trabajan bien con WebP. JPG sigue siendo más fácil de abrir en casi cualquier entorno.',
         },
       ],
@@ -370,7 +370,7 @@ const es: PageTranslations = {
       ],
       faqs: [
         {
-          q: 'Qué es AVIF?',
+          q: '¿Qué es AVIF?',
           a: 'AVIF es un formato de imagen de nueva generación basado en el codec de video AV1. Ofrece mejor compresión que JPG y WebP, pero su soporte aun esta en crecimiento.',
         },
       ],
@@ -390,19 +390,19 @@ const es: PageTranslations = {
       ],
       faqs: [
         {
-          q: 'Por qué convertir AVIF a PNG?',
+          q: '¿Por qué convertir AVIF a PNG?',
           a: 'AVIF tiene soporte limitado en algunas aplicaciones. Convertir a PNG te da un formato sin pérdida y universalmente compatible que funciona en todas partes.',
         },
       ],
     },
     'image-resizer': {
       title:
-        'Redimensionar imagen online: tamaño y resolución | PicShift',
+        'Redimensionar imagen — cambiar tamaño y resolución online | PicShift',
       description:
-        'Cambia el tamaño o la resolución de imágenes (ancho, alto o presets) en el navegador. Hasta 200 archivos por lote, sin subir nada al servidor.',
+        'Cambia el tamaño o la resolución de imagen para Instagram, redes sociales, formularios o e-commerce. Presets o píxeles exactos, hasta 200 archivos por lote, sin subir nada.',
       h1: 'Redimensionar Imágenes',
       introText:
-        'Redimensionar imagen o cambiar la resolución en píxeles sirve para webs, formularios, redes sociales o correo. Puedes usar un preset o medidas exactas; todo ocurre en tu navegador y los archivos no salen de tu dispositivo.',
+        'Cambia el tamaño o la resolución de una imagen cuando un sitio pide píxeles exactos, una red social impone un cuadrado de 1080×1080 o un formulario rechaza archivos muy grandes. Usa un preset rápido o introduce ancho y alto a medida — todo ocurre en tu navegador y los archivos no salen de tu dispositivo.',
       howToSteps: [
         'Arrastra tus imágenes al área de arriba o haz clic para explorar.',
         'Elige un tamaño predefinido o introduce dimensiones personalizadas.',
@@ -417,10 +417,30 @@ const es: PageTranslations = {
           q: '¿Cómo cambiar la resolución de una imagen (en píxeles)?',
           a: 'La resolución en pantalla suele medirse en píxeles de ancho y alto. En el modo Personalizado introduces el ancho y el alto deseados (o un porcentaje) y PicShift recalcula la imagen con muestreo de alta calidad.',
         },
-        { q: 'Cómo redimensionar una imagen sin deformarla?', a: 'Elige una anchura y altura adecuadas para tu uso, o selecciona un preset. PicShift mantiene las proporciones cuando corresponde y aplica un redimensionado de alta calidad para evitar que el resultado se vea degradado.' },
-        { q: 'Que presets de tamaño hay disponibles?', a: 'PicShift ofrece Max 1920px (lado largo), Max 1080px, escala al 50%, y un modo Personalizado para introducir dimensiones exactas en píxeles o un porcentaje.' },
-        { q: 'Que tamaño elegir para subir una foto a un sitio o enviarla?', a: 'Para un envío rápido o un formulario web, una imagen de 1080px o 1920px en el lado largo suele ser suficiente. Si el sitio pide un tamaño exacto, usa el modo Personalizado.' },
-        { q: 'Puedo redimensionar y cambiar el formato a la vez?', a: 'Sí. Puedes cambiar el formato de salida (JPG, PNG, WebP, AVIF) y las dimensiones en un solo paso. Si lo que necesitas es sobre todo bajar el peso, combínalo con /es/image-compressor.' },
+        {
+          q: '¿Cómo redimensionar una imagen sin deformarla?',
+          a: 'Elige una anchura y altura adecuadas para tu uso, o selecciona un preset. PicShift mantiene las proporciones cuando corresponde y aplica un redimensionado de alta calidad para evitar que el resultado se vea degradado.',
+        },
+        {
+          q: '¿Qué tamaño usar para Instagram, Facebook o redes sociales?',
+          a: 'Para Instagram en formato cuadrado usa 1080×1080. Para portada de Facebook, 1200×630. Para historias o reels verticales, 1080×1920. Introduce el tamaño exacto en el modo Personalizado y descarga al instante.',
+        },
+        {
+          q: '¿Qué presets de tamaño hay disponibles?',
+          a: 'PicShift ofrece Máx. 1920 px (lado largo), Máx. 1080 px, escala al 50 %, y un modo Personalizado para introducir dimensiones exactas en píxeles o un porcentaje.',
+        },
+        {
+          q: '¿Qué tamaño elegir para subir una foto a un sitio o enviarla?',
+          a: 'Para un envío rápido o un formulario web, una imagen de 1080 px o 1920 px en el lado largo suele ser suficiente. Si el sitio pide un tamaño exacto, usa el modo Personalizado con esos píxeles.',
+        },
+        {
+          q: '¿Puedo redimensionar y cambiar el formato a la vez?',
+          a: 'Sí. Puedes cambiar el formato de salida (JPG, PNG, WebP, AVIF) y las dimensiones en un solo paso. Si lo que necesitas es sobre todo bajar el peso, combínalo con /es/image-compressor.',
+        },
+        {
+          q: '¿Mis imágenes se suben a algún servidor?',
+          a: 'No. Todo se procesa en tu navegador con WebAssembly. Puedes incluso desconectarte de internet después de cargar la página y la herramienta sigue funcionando.',
+        },
       ],
     },
     'image-compressor': {
@@ -438,23 +458,23 @@ const es: PageTranslations = {
       ],
       faqs: [
         {
-          q: 'Puedo comprimir muchas imágenes a la vez?',
+          q: '¿Puedo comprimir muchas imágenes a la vez?',
           a: 'Sí. Puedes arrastrar hasta 200 archivos en un solo lote. Para lotes muy grandes, si el navegador va lento, conviene procesar en grupos más pequeños y descargar entre tandas.',
         },
         {
-          q: 'Cuánto puedo comprimir mis imágenes?',
+          q: '¿Cuánto puedo comprimir mis imágenes?',
           a: 'Depende de la imagen original. Con calidad al 80%, los archivos JPG suelen reducirse entre un 40% y un 60% sin que la diferencia sea visible a simple vista. Puedes usar la vista de comparación para verificar antes de descargar.',
         },
         {
-          q: 'Que formatos puedo comprimir?',
+          q: '¿Qué formatos puedo comprimir?',
           a: 'JPG, PNG, WebP, HEIC y AVIF. El formato de salida puede ser JPG, PNG, WebP o AVIF.',
         },
         {
-          q: 'Comprimir una imagen baja mucho la calidad?',
+          q: '¿Comprimir una imagen baja mucho la calidad?',
           a: 'Con una compresión moderada, la diferencia suele ser imperceptible en pantalla. Si la imagen tiene mucho detalle fino o texto, conviene no bajar demasiado el control de calidad para que el resultado se vea bien.',
         },
         {
-          q: 'Comprimir o redimensionar, cual es mejor?',
+          q: '¿Comprimir o redimensionar, cual es mejor?',
           a: 'Si la imagen es demasiado grande en píxeles, redimensionar suele bajar más el peso que solo comprimir. Para fotos que ya tienen un tamaño razonable, comprimir es el paso más directo.',
         },
       ],

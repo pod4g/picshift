@@ -363,6 +363,20 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     ],
   },
   ru: {
+    'image-resizer': [
+      {
+        title: 'Когда изменение размера — самое прямое решение',
+        body: 'Если изображение значительно больше, чем пространство, в котором оно будет показано, уменьшение размеров — обычно самый быстрый способ снизить вес файла и ускорить загрузку. Типичные ситуации: формы загрузки, маркетплейсы, соцсети и вложения в почте.',
+      },
+      {
+        title: 'Когда нужны точные пиксели',
+        body: 'Некоторые сайты и соцсети требуют конкретные размеры (например, 1080×1080 для Instagram, 1200×630 для обложек Facebook, точные пиксели для карточек товара). В этих случаях режим «Свой размер» позволяет ввести точные ширину и высоту без искажений.',
+      },
+      {
+        title: 'Когда одного изменения размера недостаточно',
+        body: 'Если файл остаётся слишком тяжёлым даже после уменьшения размеров, лучше комбинировать ресайз с конверсией формата или сжатием. Часто наибольший выигрыш по весу даёт именно сочетание двух действий.',
+      },
+    ],
     'image-compressor': [
       {
         title: 'Как сжать фото онлайн, если файл слишком большой',
@@ -393,6 +407,20 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     ],
   },
   de: {
+    'image-resizer': [
+      {
+        title: 'Wann Bildgröße ändern die direkte Lösung ist',
+        body: 'Wenn das Bild deutlich größer ist als der Bereich, in dem es später angezeigt wird, ist das Verkleinern der Abmessungen meistens der schnellste Weg, das Dateigewicht zu senken und die Ladezeit zu verbessern. Typische Anwendungen: Bewerbungsformulare, Online-Shops, soziale Netzwerke und E-Mail-Anhänge.',
+      },
+      {
+        title: 'Wann Sie exakte Pixel brauchen',
+        body: 'Manche Plattformen verlangen feste Maße (zum Beispiel 1080×1080 für Instagram, 1200×630 für Facebook-Titelbilder, definierte Pixel für Marketplace-Produktbilder). In diesen Fällen erlaubt der Modus „Benutzerdefiniert" die Eingabe exakter Werte, ohne das Bild zu verzerren.',
+      },
+      {
+        title: 'Wann Skalieren allein nicht reicht',
+        body: 'Wenn die Datei nach dem Verkleinern immer noch zu schwer ist, hilft die Kombination aus Skalieren und Komprimieren oder Formatwechsel. Oft kommt der größte Gewinn aus beiden Schritten zusammen.',
+      },
+    ],
     'jpg-to-png': [
       {
         title: 'Wann JPG in PNG umwandeln sinnvoll ist',
@@ -423,6 +451,20 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     ],
   },
   it: {
+    'image-resizer': [
+      {
+        title: 'Quando ridimensionare è la soluzione più diretta',
+        body: 'Se l\u2019immagine è molto più grande dello spazio in cui verrà mostrata, ridurre le dimensioni è di solito il modo più rapido per alleggerire il file e migliorare il caricamento. Tipicamente serve per moduli, e-commerce, social e allegati email.',
+      },
+      {
+        title: 'Quando servono pixel esatti',
+        body: 'Alcuni siti, marketplace e social impongono dimensioni precise (per esempio 1080×1080 per Instagram, 1200×630 per Facebook). In questi casi la modalità Personalizzata permette di inserire larghezza e altezza esatte senza deformare l\u2019immagine.',
+      },
+      {
+        title: 'Quando ridimensionare da solo non basta',
+        body: 'Se il file resta troppo pesante anche dopo aver ridotto le dimensioni, conviene combinare il ridimensionamento con la conversione di formato o la compressione. Spesso il risparmio maggiore arriva dalle due azioni messe insieme.',
+      },
+    ],
     'heif-to-jpg': [
       {
         title: 'Perché convertire HEIF in JPG risolve ancora molti blocchi',
