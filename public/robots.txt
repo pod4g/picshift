@@ -66,6 +66,66 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
+# === Chinese AI assistants and search ecosystems ===
+# PicShift ships in Simplified Chinese and Traditional Chinese, so we want
+# to be discoverable inside Chinese LLM/search stacks too. Bot strings below
+# are the names most commonly observed in access logs (some of these vendors
+# do not publish official robots.txt docs; we still allow them as a positive
+# discoverability signal — the listed names appear in real-world UA strings).
+
+# ByteDance — Doubao (豆包) and the wider ByteDance crawler stack
+User-agent: Bytespider
+Allow: /
+
+User-agent: Doubaobot
+Allow: /
+
+# Alibaba — Qwen / Tongyi Qianwen (通义千问)
+User-agent: QwenBot
+Allow: /
+
+User-agent: TongyiBot
+Allow: /
+
+User-agent: AlibabaBot
+Allow: /
+
+User-agent: AliyunBot
+Allow: /
+
+# Baidu — ERNIE Bot (文心一言); Baiduspider feeds the ERNIE answer index
+User-agent: Baiduspider
+Allow: /
+
+User-agent: ERNIEBot
+Allow: /
+
+User-agent: YiyanBot
+Allow: /
+
+# Tencent — Hunyuan (混元) and Yuanbao
+User-agent: Hunyuan
+Allow: /
+
+# Zhipu AI / Z.ai — GLM / ChatGLM family (智谱)
+User-agent: ChatGLM-Spider
+Allow: /
+
+# Moonshot AI — Kimi (月之暗面)
+User-agent: Kimibot
+Allow: /
+
+User-agent: MoonshotBot
+Allow: /
+
+# DeepSeek
+User-agent: DeepSeekBot
+Allow: /
+
+# MiniMax (稀宇) — Hailuo / MiniMax assistant
+User-agent: MiniMaxBot
+Allow: /
+
 # Default — search engines and any other well-behaved crawler
 User-agent: *
 Allow: /
