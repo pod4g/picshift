@@ -193,6 +193,49 @@
 | P3 | hero 副标题就是格式列表 | CTR 偏弱、与 tinypng/cloudconvert 同质 | 11 语言重写 + `OfflineBadge` |
 | GEO | LLM 引用基础信号 | 仅靠隐式允许 + 旧版 `llms.txt` | 33 个 UA 显式 allow + facts 扩到 12-14 + schema 增 featureList/mentions |
 
+## GEO 流量基线（2026-04-25 当日 Umami 来源域名快照）
+
+> **重要**：本轮第一次拿到可量化的 GEO 流量信号。此基线是后续判定 GEO 优化是否起效的基准，**5-02 复盘必须 diff 这张表**。
+
+### 当日来源域名分布（25 个访客快照）
+
+| 来源域名 | 访客 | 占比 | 渠道归类 |
+|---|---:|---:|---|
+| google.com | 7 | 28% | 传统搜索 |
+| **chatgpt.com** | **5** | **20%** | **GEO（OpenAI）** |
+| bing.com | 4 | 16% | 传统搜索 |
+| duckduckgo.com | 3 | 12% | 传统搜索 |
+| **doubao.com** | **2** | **8%** | **GEO（字节豆包）** |
+| reddit.com | 2 | 8% | 社交 |
+| com.reddit.frontpage | 1 | 4% | 社交 |
+| in.search.yahoo.com | 1 | 4% | 传统搜索 |
+
+### 关键观察
+
+- **GEO 渠道合计 = 7 / 25 = 28%**，与 Google 持平、显著高于 Bing（16%）
+- **`chatgpt.com` 排第 2**：OpenAI 已经在 ChatGPT 的回答里把 PicShift 当成可点击的来源链接外露给用户，且用户在主动点过来——这是**真实"引用 + 转化"**信号，不只是"被爬"
+- **`doubao.com` 出现**：国际盘（OpenAI）+ 中文盘（字节）双线在跑，这也是 4-25 把 15 个中文 AI bot 加进 robots.txt 的判断依据
+- **本轮 GEO 强化（G1/G2/G4）方向被验证**：4-25 之前已经有 GEO 流量回流，说明基础设施就位；本轮做的事是放大已有信号，不是从零开始
+
+### 5-02 应同时观察的（当前 0 流量）GEO 渠道
+
+国际：
+- `claude.ai` / `anthropic.com`
+- `perplexity.ai`
+- `you.com`
+- `phind.com`
+
+中文：
+- `yuanbao.tencent.com`（腾讯元宝）
+- `tongyi.aliyun.com` / `qwen.aliyun.com`（通义千问）
+- `kimi.com` / `kimi.moonshot.cn`（月之暗面）
+- `chat.deepseek.com`
+- `chatglm.cn` / `bigmodel.cn`（智谱）
+- `hailuoai.com`（MiniMax）
+- `yiyan.baidu.com`（百度文心一言）
+
+> 这些此次在 referrer 里 0 出现。如果 4-25 的 robots.txt 显式 allow 起效、`llms.txt` 的 fact 被吃进去，5-02 至少应有 1-2 个新增渠道首次出现。
+
 ## 7 天后下次重点关注什么
 
 建议在 **2026-05-02 左右** 打开 GSC，优先看下面这些点。
@@ -254,10 +297,28 @@
 - 6 个被 `RelatedToolsBlock` 链向的工具页（image-compressor / image-resizer / heic-to-jpg / png-to-jpg / jpg-to-png / metadata-remover）的总展示是否较 4-18 上升
 - 4 篇 blog 反链 docs 后，docs 页的展示与点击是否上升（次级 KPI）
 
-### GEO：定性观察
+### GEO：可量化指标（首次有 baseline）
 
-- **AI 爬虫流量**：Cloudflare Web Analytics → Bot 维度，看 GPTBot / ClaudeBot / PerplexityBot / Bytespider / Doubaobot 的访问频次是否上升
-- **LLM 引用**：手工抽样测试，在 ChatGPT / Claude / Perplexity / 豆包 / 通义 / Kimi 中问"how to convert HEIC to JPG without uploading"等查询，看是否提到 PicShift
+> **核心 KPI**：与 4-25 的 28% GEO 流量占比对比。
+
+**P0 指标 — Umami referrer diff vs 4-25 baseline**：
+
+- `chatgpt.com` 占比是否保持 ≥20%（守住）
+- `chatgpt.com` 绝对访客是否增长（4-25 baseline = 5）
+- `doubao.com` 占比是否守住 ≥8%
+- **GEO 渠道总占比是否 ≥28%**（与 Google 持平为基线，目标超过 Google）
+
+**P1 指标 — 是否新增 GEO referrer**：
+
+国际：`claude.ai` / `perplexity.ai` / `you.com` / `phind.com`
+中文：`yuanbao.tencent.com` / `tongyi.aliyun.com` / `kimi.com` / `chat.deepseek.com` / `chatglm.cn` / `hailuoai.com` / `yiyan.baidu.com`
+
+每多 1 个新渠道首次出现 → 4-25 G1/G2/G4 起效的强证据。
+
+**P2 指标 — 定性观察**：
+
+- **AI 爬虫流量**：Cloudflare Web Analytics → Bot 维度，看 `GPTBot` / `ClaudeBot` / `PerplexityBot` / `Bytespider` / `Doubaobot` 的访问频次是否上升
+- **LLM 引用抽样**：手工在 ChatGPT / Claude / Perplexity / 豆包 / 通义 / Kimi / DeepSeek 中各问 1 次"how to convert HEIC to JPG without uploading"，看是否提到 PicShift
 - **schema 校验**：`https://search.google.com/test/rich-results` 抽查 1 个工具页，确认 `SoftwareApplication` 的 `featureList` / `mentions` 被识别
 
 ## 如果 7 天后看到这些结果，下一步怎么做
@@ -271,8 +332,12 @@
 | `image-compressor` / `webp-to-jpg` 排名前移但 CTR 仍低 | description 重写为更结果导向（"reduce 50% size in 10 seconds, no upload"） |
 | `heif-to-jpg` 6 语言开始有展示 | 把 `RelatedToolsBlock` 的语言锚文本进一步本地化校对 |
 | hero 改写后 CTR 没变化 | 考虑把 `OfflineBadge` 与 `PrivacyBadge` 移到更靠近 CTA 的位置；做一次 1:1 文案 A/B（短期） |
-| AI 爬虫流量明显上升 | 跟进给 `llms.txt` 加更多 quantitative claim；扩展 `## Verification workflow` 到 metadata 与 batch 场景 |
-| LLM 抽样仍不提 PicShift | 重新评估 `llms.txt` 的 fact 是否够"声明性"；考虑在 docs 加更多 GitHub-不依赖 的可信外部信号（IndieWeb / 行业报告引用） |
+| `chatgpt.com` referrer 占比保持 ≥20% 且绝对访客增长 | 4-25 G1/G2/G4 方向正确，下轮把同模式扩展到首页与 docs（更多 quantitative claim、扩 `## Verification workflow` 到 metadata / batch / privacy 场景） |
+| `chatgpt.com` referrer 绝对访客回落或占比掉到 <10% | 优先排查 `llms.txt` 抓取频次（用 Cloudflare bot 报表交叉看 `GPTBot` 是否还在拿 `llms.txt`）；考虑给 `llms.txt` 添加 `Last-Modified` 头与更频繁的版本号轮转 |
+| `doubao.com` referrer 守住 + 新增 ≥1 个中文 GEO 渠道（kimi/yuanbao/tongyi/deepseek/chatglm 任一） | 中文 AI bot 白名单起效，下轮在 `llms.txt` / `llms-full.txt` 增加中文版本（或在英文版加注释式中文 quote-ready facts） |
+| 中文 GEO 渠道完全没有新增 | 重新评估中文 bot 的 UA 是否真实存在（其中部分是社区推断）；考虑在 docs 站直接加 `<link rel="alternate" type="application/llmsxt" hreflang="zh">` 或单独发 `llms.zh.txt` |
+| 国际新增 ≥1 个 GEO 渠道（claude/perplexity/you/phind 任一） | 把同样的"显式 allow + quantitative fact"模式继续做厚 |
+| LLM 抽样仍不提 PicShift | 重新评估 `llms.txt` 的 fact 是否够"声明性"；考虑加更多可信外部信号（IndieWeb / 行业报告引用 / 第三方评测背书）；不依赖任何 GitHub repo |
 | schema 校验有 warning | 优先修 `featureList` 重复或 `mentions` 类型不一致的问题 |
 | GSC 体验报告仍报 multiple H1 | 检查是否还有 `<h1>` 出现在 polyfill 之外的 fallback 入口 |
 
@@ -280,6 +345,7 @@
 
 - [ ] 拉取 4-25 → 5-02 这一周新的 GSC 7 天数据
 - [ ] 与 `docs/gsc-export-2026-04-25/` 做 diff，先看趋势再做改动
+- [ ] **打开 Umami 来源域名报表，截图当日快照**，与本文件"GEO 流量基线"那一节做 diff（这是首次有量化 GEO baseline，必须留对照）
 - [ ] 打开 `docs/SEO-PLAYBOOK.md` 复习历轮经验
 - [ ] 复查本文件「下次重点关注什么」中**还没确认的项**
 - [ ] 优先做仍在退化或停滞的项；做完之后再做新增项
