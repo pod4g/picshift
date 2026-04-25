@@ -2,6 +2,118 @@
 
 本文件记录 blog 建设的策略原则和 SEO 经验教训，后续写文章、搭建 blog 系统、做内容决策时参考。
 
+---
+
+## 事实核查硬性约束（写 blog 前必读）
+
+> **这是写 blog 的红线，违反任何一条都视为不合格稿件，必须返工。**
+> 引发该约束的真实事故：见本节末"事故记录"。
+
+### 红线（无例外）
+
+文章中**每一个陈述、每一个数据、每一个版本号、每一个日期、每一个行为、每一个观点、每一个论点论据**，都必须有可验证的事实依据。
+
+具体含义：
+
+- **不允许**把大模型记忆里的"常识"当作唯一依据
+- **不允许**凭主观印象、以前写过的文章、"业内大家都这么说"作为依据
+- **不允许**把"看起来合理"等同于"事实"
+- **不允许**直接用 LLM 输出作为来源（LLM 不是来源，是初稿）
+
+### 必须联网检索的场景（命中任一即必须 WebSearch / WebFetch 验证）
+
+1. 任何**软件版本号**或**版本对应的发布日期**（浏览器、OS、应用、库）
+2. 任何**特性是否被某软件支持**的断言（"Photoshop 支持 AVIF"、"Outlook 不支持 WebP"、"Quick Look 能预览 X"）
+3. 任何**百分比、比例、性能数字**（"WebP 比 JPEG 小 25–35%"、"Q95 比 Q100 小 55%"）
+4. 任何**行业政策、专利、license 状态**（"AV1 royalty-free"、"H.265 收费"）
+5. 任何**用户行为 / 默认行为**断言（"Chrome 默认把 JPG 保存为 .webp"）—— **这次事故的根本类型**
+6. 任何**API、CDN、服务商当前默认行为**（Cloudflare Polish 是否默认开 WebP、Vercel Image Optimization 默认输出格式）
+7. 引用一段**条文、原话、官方文档原文**前
+8. 任何被广泛重复但来历不明的"常识"（"JPEG 是 8-bit"、"PNG 总是无损"等等）
+
+不确定要不要查，就查。查的成本远低于一篇错误文章的代价。
+
+### 来源等级（按可信度从高到低）
+
+**S 级（首选）**
+
+- 官方文档 / 官方 changelog / 官方 spec
+- 标准组织文档（W3C、ITU、IETF、AOMedia spec、ISO）
+- 厂商技术文档（Cloudflare Docs、Adobe HelpX、Microsoft Learn、Google Developers、Apple Developer）
+
+**A 级（可作为主依据）**
+
+- 一手实验 / benchmark（须标明环境、样本、版本，例如 libjpeg-turbo 官方 benchmark）
+- 大型科技媒体的事实性原始报道（Ars Technica、The Verge、ZDNet、The Register 等的首发，不是聚合稿）
+- 厂商技术博客（Netflix Tech Blog、Cloudflare Blog 等，作者署名 + 数据可复现）
+
+**B 级（仅做交叉印证，不作为唯一来源）**
+
+- caniuse、Wikipedia 这类聚合数据 —— 必须点进它的 reference 验证一手源
+- StackOverflow / SuperUser 高赞回答 —— 用来定位现象，不直接作为结论
+
+**不可作为来源**
+
+- LLM 自己的"记忆"
+- 没有出处的二次转载
+- 自媒体未经官方确认的爆料
+- "我以前写过的文章"（除非那篇文章本身有 S/A 级 source）
+
+### 写 blog 必做执行清单
+
+**写之前**
+
+- [ ] 列出文章里**所有**具体事实声明（数据 / 版本 / 日期 / 行为 / 断言）作为核查清单
+- [ ] 对每一项标记：是否需要联网核查；预期来源等级
+- [ ] 涉及"软件支持 / 默认行为 / 版本号"的，提前 WebSearch / WebFetch 至少一次
+
+**写之中**
+
+- [ ] 对每一个具体数字 / 版本 / 日期 / 原话引用，**就近**挂上 markdown 链接到来源（不是文末统一参考）
+- [ ] 对争议性陈述（如"royalty-free"），同时给出**两方说法**，不写单方断言
+- [ ] 出现绝对句（"总是"、"从不"、"所有"、"默认"），先问一遍"真的吗？有反例吗？"再决定是否保留
+- [ ] 引用日期精确到月（"Feb 2026"、"March 2023"），不写"近期"、"前段时间"、"最近"
+- [ ] 引用百分比要给样本与环境（"on a 1233×1233 photo, libjpeg IJG scale"），不裸写"省 30%"
+
+**写之后（发布前必跑）**
+
+- [ ] 自己 review：每一段抽 1–2 个事实声明，问"我能立刻指出来源吗"。回答不上来的 → 立刻补查或删除
+- [ ] **任何"在某软件 / 某浏览器 / 某 OS 里如何如何"的描述，能本地实测的至少跑一遍**
+- [ ] 对照 [PR-GEO-CHECKLIST.md](./PR-GEO-CHECKLIST.md) §7 事实核查关卡
+
+### 不可使用的写法（违反即返工）
+
+- "据说"、"业内普遍认为"、"很多人觉得"、"通常"（除非紧跟具体数据 + 来源）
+- "最新的"、"最近"、"现在"、"前段时间"（请改成具体年月）
+- "总是"、"从不"、"任何 X 都"（除非有强证据；多半要改成"在 X 条件下会"）
+- 没有出处的百分比、版本号、日期、license 声明
+
+### 事故记录（反面教材，新事故必须追加）
+
+| 日期 | 文件 | 事实错误 | 实际情况 | 权威来源 |
+| --- | --- | --- | --- | --- |
+| 2026-04-25 | `webp-explained.md` | 原文称 Chrome 右键 JPG **总是**保存为 `.webp`。 | 用户本地实测保存仍为 `.jpg`。真实情况：是否保存为 `.webp` 取决于站点是否启用了 CDN 的 WebP delivery（Cloudflare Polish 等，opt-in），与浏览器默认行为无关。本质是凭印象写"用户行为断言"，未实测、未查 CDN docs。 | [Cloudflare Polish docs](https://developers.cloudflare.com/images/polish/compression/) |
+| 2026-04-25 | `what-is-avif.md` | 原文称 AV1 是 royalty-free。 | 这是 AOMedia 的单方框架。Sisvel 运营 AV1 patent pool 已签下约一半 finished-product 市场；Dolby vs Snap、InterDigital vs Amazon 都是 2026 年活跃诉讼。需同时给出两方说法。 | [Ars Technica](https://arstechnica.com/gadgets/2026/03/av1s-open-royalty-free-promise-in-question-as-dolby-sues-snapchat-over-codec/) / [Sisvel](https://www.sisvel.com/insights/sisvel-has-licensed-half-the-av1-market-while-bringing-much-needed/) |
+| 2026-04-25 | `what-is-avif.md` | 原文称 Photoshop 24.0（Sept 2022）起原生支持 AVIF。 | 实际是 v26.x（June 2025 release）。早了将近三年。 | [Adobe HelpX](https://helpx.adobe.com/photoshop/using/whats-new/2025-6.html) |
+| 2026-04-25 | `what-is-avif.md` | 原文称 macOS Quick Look 原生预览 AVIF。 | 截至 macOS Sequoia 仍**不**原生预览，需第三方插件。WebKit 能解码 ≠ Finder Quick Look 能预览。 | [AVIFQuickLook (GitHub)](https://github.com/dreampiggy/AVIFQuickLook) |
+| 2026-04-25 | `what-is-avif.md` | 原文 JPEG XL 状态停留在 2023 年（Chrome 已移除）。 | 实际：Safari 17（Sept 2023）原生支持；Chrome 145（Feb 2026）已 ship `jxl-rs` Rust 解码器，flag 后默认关闭。 | [Chromium Git M110 removal](https://chromium.googlesource.com/chromium/src/+/166a9f3c512fb7806324af7b4fdd85bee0cde149) / [Core Web Vitals](https://www.corewebvitals.io/pagespeed/jpeg-xl-core-web-vitals-support) |
+| 2026-04-25 | `compress-without-losing-quality.md` | JPEG 质量表的文件大小百分比（Q75、Q85、Q95 等）为估算。 | 与真实 benchmark 偏差较大（Q95 实际约 45%、Q85 约 24%、Q75 约 16%）。需用真实样本数据。 | [Windows FYICenter benchmark](https://windows.fyicenter.com/2592_Quality_Parameter_of_Picture_JPG_JPEG_Files.html) |
+| 2026-04-25 | `compress-without-losing-quality.md` | 原文称 MozJPEG 节省 20–30%。 | libjpeg-turbo 官方 benchmark 平均 ~8%；真实 web 测试中位数 ~10%。原文夸大了 2–3 倍。 | [libjpeg-turbo MozJPEG benchmark](https://libjpeg-turbo.org/About/Mozjpeg) / [peterbe.com](https://www.peterbe.com/plog/examples-of-mozjpeg-savings) |
+| 2026-04-25 | `webp-explained.md` / `compress-without-losing-quality.md` | title 超过 65 字符上限（实际 75 / 82）。 | SEO `<title>` 在 SERP 通常被截断在 ~600 像素（约 60–65 字符）。超长 title 在搜索结果里直接被吃掉。本质：写 frontmatter 时凭感觉，没回头数字符。 | [Moz: Title Tag](https://moz.com/learn/seo/title-tag) |
+| 2026-04-25 | `what-is-avif.md` / `webp-explained.md` / `compress-without-losing-quality.md` | description 超过 165 字符上限（实际 173 / 226 / 219）。 | Google 在 SERP 通常截断 description 在 155–160 字符。超出部分被 `...` 吃掉，最关键的 hook（"how to convert"、"sweet spot"）反而看不到。 | [Moz: Meta Description](https://moz.com/learn/seo/meta-description) |
+| 2026-04-25 | `scripts/seo-audit.mjs` | 审计脚本只扫 `src/data/tools.ts`，未覆盖 `src/content/blog/*.md` 的 frontmatter。 | 上面那两类长度违规（title>65、description>165）就是因为没有自动 gate 才滑到 PR 阶段才被人肉发现。修复：脚本同时扫 blog frontmatter，并校验 cover 文件名与 slug 模式匹配。 | 本仓库 commit |
+| 2026-04-25 | `public/blog/compress-quality-{cover,cliff}.webp` | 图片文件名为 `compress-quality-*`，与文章 slug `compress-without-losing-quality` 不一致。 | PLAYBOOK §配图 Workflow 明确要求 `{slug}-{purpose}.webp`。命名不一致会让批量替换、CDN 缓存清理、审计脚本全部失效。修复：按完整 slug 重命名 + 同步 markdown 引用。 | 本仓库 PLAYBOOK §配图 Workflow |
+| 2026-04-25 | `public/blog/compress-quality-cover.webp` | 文件 50 KB，明显小于 PLAYBOOK 要求的 q95（约 70 KB）。 | dwebp 出来再 cwebp -q 95 重新编码得到 86 KB，证明原文件不是 q95 输出（更接近默认 q75）。本质：生图后直接 mv，没有显式跑 cwebp -q 95，跳过了配图 Workflow §Cover 图双用途规范的 quality 要求。社交分享卡片会模糊。 | PLAYBOOK §配图 Workflow §Cover 图双用途规范 |
+| 2026-04-25 | `heic-heif-on-windows.md`（既存） | title 68 字符（旧文章遗留）。 | 同上述 title 长度规则，被新增的 blog audit 规则一并扫出。修复缩短到 62。 | 本仓库 audit log |
+| 2026-04-25 | `social-media-exif-stripping.md`（既存） | cover 文件名 `social-media-exif-cover.webp` 与 slug `social-media-exif-stripping` 不一致。 | 同图片命名规则，旧文章遗留，被新 audit 一并扫出。修复重命名 + 同步引用。 | PLAYBOOK §配图 Workflow |
+| 2026-04-25 | 6 篇 blog 中 5 篇 | 收尾 H2 都叫 `## The bottom line`。 | 这就是典型 AI 模板化收尾。读者一篇还行，连读两篇就明显看出"是同一个模型写的"。属于 PLAYBOOK §去 AI 化 §"不要每段结构都一模一样"的延伸。修复：每篇收尾 H2 必须不一样，比如 `## When to use it`、`## What I'd actually do`、`## The honest answer`。 | PLAYBOOK §Blog 文章去 AI 化规则 |
+
+> 写新文章前请**先扫一眼这张表**。每一行都是一次"看起来合理但其实是错的"教训。
+>
+> 工具脚本（`pnpm seo:audit`）会自动拦截**长度违规、文件名不匹配、cover 缺失**这几类问题，但**事实错误、AI 模板化、收尾雷同**仍然只能靠人工 review，必须按本表自查。
+
+---
+
 ## 核心策略：先合后拆
 
 ### 原则
@@ -557,6 +669,19 @@ blog 不是个人博客也不是聊天，是技术工具站的解释型内容。
 - 删掉 "It is worth noting that" / "It should be mentioned" 式的填充语
 - 不要每段结构都一模一样
 - 不要太"客观中立"，要有判断
+
+#### 收尾 H2 不可重复（横跨多篇）
+
+写完之后扫一眼 `src/content/blog/*.md` 现有结尾的 H2 标题，**新文章的最后一个 H2 不能和任何既有文章重复**。
+
+- ❌ 反例：仓库里 6 篇文章中 5 篇都用 `## The bottom line` 收尾。读者连读两篇就明显感觉"模板化"，是典型 AI 痕迹（事故记录 #2026-04-25）。
+- ✅ 正解：每篇用一个跟主题相关的、口语但带立场的收尾 H2，比如：
+  - `## When to use it` / `## When not to use it`（讲格式/工具的对比型文章）
+  - `## What I'd actually do`（操作建议型）
+  - `## The honest answer`（澄清误解型）
+  - `## What this means for you`（影响分析型）
+  - `## The trade-off`（取舍型）
+- 写完后用 `rg "^## " src/content/blog/*.md` 扫一遍，检查最后一个 H2 是否撞车。
 
 #### 不应该做的
 

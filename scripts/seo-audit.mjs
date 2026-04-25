@@ -1,5 +1,5 @@
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { resolve, basename } from 'node:path';
 
 const toolsPath = resolve(process.cwd(), 'src/data/tools.ts');
 const source = readFileSync(toolsPath, 'utf8');
@@ -182,5 +182,165 @@ if (
   duplicateDescriptions.length > 0 ||
   highSimilarityPairs.length > 0
 ) {
+  process.exitCode = 1;
+}
+
+// ---------------------------------------------------------------------------
+// Blog frontmatter audit
+//
+// Hard gate for all blog posts under src/content/blog/. Catches the same class
+// of issue that PLAYBOOK §事故记录 #2026-04-25 documented (75/82-char titles
+// and 219/226-char descriptions slipping past the tool-page-only audit).
+// ---------------------------------------------------------------------------
+
+const blogDir = resolve(process.cwd(), 'src/content/blog');
+const publicBlogDir = resolve(process.cwd(), 'public/blog');
+
+const TITLE_MAX = 65;
+const DESC_MAX = 165;
+const TITLE_MIN = 30;
+const DESC_MIN = 120;
+
+function parseFrontmatter(raw) {
+  const match = raw.match(/^---\n([\s\S]+?)\n---/);
+  if (!match) return null;
+  const body = match[1];
+  const result = {};
+  const lines = body.split('\n');
+  for (const line of lines) {
+    const m = line.match(/^([a-zA-Z]+):\s*(.+)$/);
+    if (!m) continue;
+    const key = m[1];
+    let value = m[2].trim();
+    if (value.startsWith('"') && value.endsWith('"')) {
+      value = value.slice(1, -1);
+    } else if (value.startsWith("'") && value.endsWith("'")) {
+      value = value.slice(1, -1);
+    }
+    result[key] = value;
+  }
+  return result;
+}
+
+const blogFiles = existsSync(blogDir)
+  ? readdirSync(blogDir).filter((name) => name.endsWith('.md'))
+  : [];
+
+const blogPosts = [];
+for (const file of blogFiles) {
+  const slug = basename(file, '.md');
+  const raw = readFileSync(resolve(blogDir, file), 'utf8');
+  const fm = parseFrontmatter(raw);
+  if (!fm) continue;
+  blogPosts.push({ slug, file, ...fm });
+}
+
+console.log('');
+console.log('=== SEO Audit: Blog Frontmatter ===');
+console.log(`Blog posts parsed: ${blogPosts.length}`);
+console.log('');
+
+const blogWarnings = [];
+const blogErrors = [];
+
+const blogTitleMap = new Map();
+const blogDescMap = new Map();
+
+for (const post of blogPosts) {
+  if (!post.title) {
+    blogErrors.push(`${post.slug}: missing title`);
+  } else {
+    const len = post.title.length;
+    if (len > TITLE_MAX) {
+      blogErrors.push(`${post.slug}: title length ${len} (>${TITLE_MAX}) — "${post.title}"`);
+    } else if (len < TITLE_MIN) {
+      blogWarnings.push(`${post.slug}: title length ${len} (<${TITLE_MIN}) — "${post.title}"`);
+    }
+    const key = normalizeText(post.title);
+    blogTitleMap.set(key, [...(blogTitleMap.get(key) ?? []), post.slug]);
+  }
+
+  if (!post.description) {
+    blogErrors.push(`${post.slug}: missing description`);
+  } else {
+    const len = post.description.length;
+    if (len > DESC_MAX) {
+      blogErrors.push(`${post.slug}: description length ${len} (>${DESC_MAX})`);
+    } else if (len < DESC_MIN) {
+      blogWarnings.push(`${post.slug}: description length ${len} (<${DESC_MIN})`);
+    }
+    const key = normalizeText(post.description);
+    blogDescMap.set(key, [...(blogDescMap.get(key) ?? []), post.slug]);
+  }
+
+  if (post.cover) {
+    const coverFilename = post.cover.replace(/^\/blog\//, '');
+    const coverPath = resolve(publicBlogDir, coverFilename);
+    if (!existsSync(coverPath)) {
+      blogErrors.push(`${post.slug}: cover file missing — ${post.cover}`);
+    } else if (!coverFilename.startsWith(`${post.slug}-`)) {
+      blogErrors.push(
+        `${post.slug}: cover filename does not match {slug}-{purpose}.webp pattern — got "${coverFilename}"`,
+      );
+    } else if (!coverFilename.endsWith('.webp')) {
+      blogErrors.push(
+        `${post.slug}: cover must be .webp per PLAYBOOK §配图 Workflow — got "${coverFilename}"`,
+      );
+    }
+  } else {
+    blogErrors.push(`${post.slug}: missing cover`);
+  }
+}
+
+const dupBlogTitles = [...blogTitleMap.values()].filter((slugs) => slugs.length > 1);
+const dupBlogDescs = [...blogDescMap.values()].filter((slugs) => slugs.length > 1);
+for (const group of dupBlogTitles) {
+  blogErrors.push(`duplicate blog title across: ${group.join(', ')}`);
+}
+for (const group of dupBlogDescs) {
+  blogErrors.push(`duplicate blog description across: ${group.join(', ')}`);
+}
+
+const inlineImagePattern = /<img[^>]+src=["']\/blog\/([^"']+)["']/g;
+for (const post of blogPosts) {
+  const raw = readFileSync(resolve(blogDir, post.file), 'utf8');
+  const hits = [...raw.matchAll(inlineImagePattern)];
+  for (const hit of hits) {
+    const filename = hit[1];
+    const path = resolve(publicBlogDir, filename);
+    if (!existsSync(path)) {
+      blogErrors.push(`${post.slug}: inline image missing — /blog/${filename}`);
+    } else if (!filename.startsWith(`${post.slug}-`) && !filename.startsWith('og-')) {
+      blogWarnings.push(
+        `${post.slug}: inline image "${filename}" does not match {slug}-{purpose}.webp pattern (PLAYBOOK §配图 Workflow)`,
+      );
+    }
+  }
+}
+
+console.log('Blog title / description summary:');
+for (const post of blogPosts) {
+  const titleLen = post.title?.length ?? 0;
+  const descLen = post.description?.length ?? 0;
+  console.log(`- ${post.slug}: title=${titleLen}, description=${descLen}`);
+}
+console.log('');
+
+if (blogWarnings.length === 0) {
+  console.log('Blog warnings: none');
+} else {
+  console.log('Blog warnings:');
+  for (const warning of blogWarnings) {
+    console.log(`- ${warning}`);
+  }
+}
+
+if (blogErrors.length === 0) {
+  console.log('Blog errors: none');
+} else {
+  console.log('Blog errors:');
+  for (const error of blogErrors) {
+    console.log(`- ${error}`);
+  }
   process.exitCode = 1;
 }
