@@ -6,30 +6,30 @@ const TOOL_FAQ_OVERRIDES: Partial<Record<Locale, Partial<Record<string, ToolFaqI
   es: {
     'webp-to-jpg': [
       {
-        q: 'Por que convertir WebP a JPG?',
-        a: 'WebP funciona bien en navegadores, pero algunas apps antiguas, formularios de subida y herramientas de oficina siguen esperando JPG. Convertir a JPG suele ser la forma mas rapida de resolver ese problema de compatibilidad.',
+        q: 'Por qué convertir WebP a JPG?',
+        a: 'WebP funciona bien en navegadores, pero algunas apps antiguas, formularios de subida y herramientas de oficina siguen esperando JPG. Convertir a JPG suele ser la forma más rápida de resolver ese problema de compatibilidad.',
       },
       {
-        q: 'Como convertir WebP a JPG online?',
-        a: 'Sube la imagen WebP, deja JPG como formato de salida y descarga el archivo convertido. Es util cuando necesitas una imagen que abra o suba con menos friccion.',
+        q: 'Cómo convertir WebP a JPG online?',
+        a: 'Sube la imagen WebP, deja JPG como formato de salida y descarga el archivo convertido. Es útil cuando necesitas una imagen que abra o suba con menos fricción.',
       },
       {
-        q: 'WebP a JPG puede aumentar el tamano del archivo?',
-        a: 'Si. WebP suele ser mas eficiente que JPG, asi que al convertir por compatibilidad el archivo final puede quedar mas grande segun la imagen y la calidad elegida.',
+        q: 'WebP a JPG puede aumentar el tamaño del archivo?',
+        a: 'Sí. WebP suele ser más eficiente que JPG, así que al convertir por compatibilidad el archivo final puede quedar más grande según la imagen y la calidad elegida.',
       },
     ],
     'webp-to-png': [
       {
-        q: 'La conversion de WebP a PNG pierde calidad?',
-        a: 'No. PNG es un formato sin perdida, asi que conserva todos los pixeles decodificados del WebP. El cambio busca un archivo mas estable para trabajo o edicion, no un archivo mas pequeno.',
+        q: 'La conversión de WebP a PNG pierde calidad?',
+        a: 'No. PNG es un formato sin pérdida, así que conserva todos los píxeles decodificados del WebP. El cambio busca un archivo más estable para trabajo o edición, no un archivo más pequeño.',
       },
       {
-        q: 'Cuando conviene convertir WebP a PNG?',
-        a: 'Conviene cuando necesitas seguir editando, anotar, revisar o mover la imagen por herramientas que esperan PNG. Tambien tiene sentido cuando la transparencia o la estabilidad del flujo importan mas que el tamano final.',
+        q: 'Cuándo conviene convertir WebP a PNG?',
+        a: 'Conviene cuando necesitas seguir editando, anotar, revisar o mover la imagen por herramientas que esperan PNG. También tiene sentido cuando la transparencia o la estabilidad del flujo importan más que el tamaño final.',
       },
       {
-        q: 'Por que el PNG convertido pesa mas?',
-        a: 'Porque PNG prioriza salida sin perdida y estabilidad, mientras WebP suele estar mas optimizado para reducir peso. En esta conversion es normal ganar compatibilidad de flujo a costa de un archivo mayor.',
+        q: 'Por qué el PNG convertido pesa más?',
+        a: 'Porque PNG prioriza salida sin pérdida y estabilidad, mientras WebP suele estar más optimizado para reducir peso. En esta conversión es normal ganar compatibilidad de flujo a costa de un archivo mayor.',
       },
     ],
   },
@@ -37,15 +37,15 @@ const TOOL_FAQ_OVERRIDES: Partial<Record<Locale, Partial<Record<string, ToolFaqI
     'webp-to-jpg': [
       {
         q: 'Pourquoi convertir WebP en JPG ?',
-        a: 'WebP fonctionne bien dans les navigateurs, mais certains logiciels plus anciens, formulaires de televersement et outils bureautiques attendent encore du JPG. Le JPG reste la solution la plus simple quand la compatibilite passe avant tout.',
+        a: "WebP fonctionne bien dans les navigateurs, mais certains logiciels plus anciens, formulaires de téléversement et outils bureautiques attendent encore du JPG. Le JPG reste la solution la plus simple quand la compatibilité passe avant tout.",
       },
       {
         q: 'Comment convertir WebP en JPG en ligne ?',
-        a: 'Ajoutez le fichier WebP, laissez JPG comme format de sortie, puis telechargez le resultat. C est utile quand vous avez besoin d un fichier qui passe plus facilement dans des outils non web.',
+        a: "Ajoutez le fichier WebP, laissez JPG comme format de sortie, puis téléchargez le résultat. C'est utile quand vous avez besoin d'un fichier qui passe plus facilement dans des outils non web.",
       },
       {
         q: 'Le fichier peut-il devenir plus lourd ?',
-        a: 'Oui. WebP est souvent plus efficace que JPG, donc une conversion vers JPG pour compatibilite peut produire un fichier plus lourd selon l image et la qualite choisie.',
+        a: "Oui. WebP est souvent plus efficace que JPG, donc une conversion vers JPG pour compatibilité peut produire un fichier plus lourd selon l'image et la qualité choisie.",
       },
     ],
   },
@@ -85,11 +85,11 @@ const TOOL_FAQ_OVERRIDES: Partial<Record<Locale, Partial<Record<string, ToolFaqI
     'heic-to-jpg': [
       {
         q: 'Por que converter HEIC para JPG?',
-        a: 'HEIC funciona bem no iPhone, mas ainda falha em alguns apps de Windows, uploads e fluxos mais antigos. JPG continua sendo a escolha mais segura quando voce quer abrir e compartilhar sem surpresas.',
+        a: 'HEIC funciona bem no iPhone, mas ainda falha em alguns apps de Windows, uploads e fluxos mais antigos. JPG continua sendo a escolha mais segura quando você quer abrir e compartilhar sem surpresas.',
       },
       {
-        q: 'Converter HEIC para JPG aqui e seguro?',
-        a: 'Sim. O processamento acontece localmente no navegador, sem upload do arquivo para o servidor. Isso ajuda bastante quando a imagem tem conteudo pessoal ou sensivel.',
+        q: 'Converter HEIC para JPG aqui é seguro?',
+        a: 'Sim. O processamento acontece localmente no navegador, sem upload do arquivo para o servidor. Isso ajuda bastante quando a imagem tem conteúdo pessoal ou sensível.',
       },
       {
         q: 'A qualidade muda ao converter HEIC para JPG?',
@@ -99,15 +99,15 @@ const TOOL_FAQ_OVERRIDES: Partial<Record<Locale, Partial<Record<string, ToolFaqI
     'avif-to-jpg': [
       {
         q: 'Por que converter AVIF para JPG?',
-        a: 'AVIF e eficiente, mas ainda encontra bloqueios em apps antigos, editores, sites e formulários de upload. JPG continua sendo o fallback mais previsivel quando a prioridade e compatibilidade.',
+        a: 'AVIF é eficiente, mas ainda encontra bloqueios em apps antigos, editores, sites e formulários de upload. JPG continua sendo o fallback mais previsível quando a prioridade é compatibilidade.',
       },
       {
-        q: 'Por que alguns apps ainda nao aceitam AVIF?',
-        a: 'A adocao do AVIF ainda nao e uniforme fora de navegadores modernos e software mais recente. Muitas ferramentas ainda esperam JPG ou PNG, por isso a conversao para JPG resolve o problema com menos atrito.',
+        q: 'Por que alguns apps ainda não aceitam AVIF?',
+        a: 'A adoção do AVIF ainda não é uniforme fora de navegadores modernos e software mais recente. Muitas ferramentas ainda esperam JPG ou PNG, por isso a conversão para JPG resolve o problema com menos atrito.',
       },
       {
         q: 'AVIF para JPG pode aumentar o tamanho do arquivo?',
-        a: 'Pode. AVIF geralmente comprime melhor que JPG, entao a troca para um formato mais compativel pode gerar um arquivo maior dependendo da imagem e da qualidade selecionada.',
+        a: 'Pode. AVIF geralmente comprime melhor que JPG, então a troca para um formato mais compatível pode gerar um arquivo maior dependendo da imagem e da qualidade selecionada.',
       },
     ],
   },

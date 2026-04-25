@@ -159,6 +159,42 @@ const it: PageTranslations = {
         },
       ],
     },
+    'heif-to-jpg': {
+      title:
+        'Convertitore HEIF in JPG — Windows, upload, senza invio | PicShift',
+      description:
+        "Converti HEIF in JPG per Windows, moduli di upload, email e programmi che non aprono bene il formato HEIF. Tutto resta locale nel tuo browser, senza caricare file.",
+      h1: 'Convertire HEIF in JPG',
+      introText:
+        "Converti un file HEIF in JPG quando ti serve una versione che si apre senza attriti in Windows, passa in un modulo di upload o arriva ai colleghi senza problemi. L'elaborazione avviene localmente nel tuo browser, senza inviare il file a un server.",
+      howToSteps: [
+        'Trascina i tuoi file HEIF nel riquadro sopra, oppure clicca per sceglierli.',
+        'I file vengono convertiti in JPG istantaneamente nel tuo browser.',
+        'Regola la qualità se serve e scarica ogni file o tutto il lotto in un colpo solo.',
+      ],
+      faqs: [
+        {
+          q: 'Perché convertire HEIF in JPG?',
+          a: "Perché JPG si apre molto più facilmente in Windows, si allega alle email, passa nei moduli di upload e si condivide con persone che non hanno un ambiente compatibile con HEIF.",
+        },
+        {
+          q: 'HEIF e HEIC sono la stessa cosa?',
+          a: 'HEIF è la famiglia di formati, mentre HEIC è la variante di foto HEIF più conosciuta sui dispositivi Apple. In pratica gli stessi problemi di compatibilità si ripresentano su entrambi, e la conversione in JPG li risolve allo stesso modo.',
+        },
+        {
+          q: 'Quando JPG è la scelta più sicura?',
+          a: "Quando il file va verso un PC Windows, un modulo di upload, un servizio clienti, uno strumento office o un collega di cui non controlli l'ambiente. JPG resta il formato con meno sorprese in questi contesti.",
+        },
+        {
+          q: 'La conversione HEIF → JPG fa perdere qualità?',
+          a: 'Sì, JPG è un formato con compressione a perdita. Spesso però è il compromesso giusto quando la compatibilità conta più della conservazione perfetta di ogni dato del file originale.',
+        },
+        {
+          q: 'Quando conviene tenere HEIF invece di convertirlo?',
+          a: 'Tieni HEIF se tutti i tuoi dispositivi e le tue applicazioni lo gestiscono già bene e vuoi approfittare di un file più leggero. Converti in JPG non appena un upload, una condivisione o un programma iniziano a creare problemi.',
+        },
+      ],
+    },
     'webp-to-jpg': {
       title:
         'Convertitore da WebP a JPG - Gratuito, Privato, Nessun Upload | PicShift',
@@ -391,11 +427,11 @@ const it: PageTranslations = {
       detailSections: [
         {
           title: 'Ambito e limiti',
-          body: 'Questo strumento rimuove i metadati incorporati nel file stesso. Non modifica i pixel visibili dell’immagine. Serve quindi a evitare fughe di informazioni nascoste, non a cancellare cio che si vede gia nello scatto.',
+          body: 'Questo strumento rimuove i metadati incorporati nel file stesso. Non modifica i pixel visibili dell’immagine. Serve quindi a evitare fughe di informazioni nascoste, non a cancellare ciò che si vede già nello scatto.',
           items: [
-            'Puo rimuovere GPS, modello del dispositivo, ora di scatto e tag software, ma non elimina volti, targhe, filigrane o testo che e gia visibile nell’immagine.',
-            'JPG, PNG, WebP e AVIF vengono scaricati nello stesso formato. HEIC e HEIF ripuliti vengono scaricati come JPG, perche il browser non puo ancora riscriverli in modo affidabile come HEIC o HEIF.',
-            'Alcune app e piattaforme social rimuovono parte dei metadati dopo l’upload, ma questo comportamento non e costante e puo cambiare. La scelta piu sicura e pulire il file da soli prima di usarlo.',
+            'Può rimuovere GPS, modello del dispositivo, ora di scatto e tag software, ma non elimina volti, targhe, filigrane o testo che è già visibile nell’immagine.',
+            'JPG, PNG, WebP e AVIF vengono scaricati nello stesso formato. HEIC e HEIF ripuliti vengono scaricati come JPG, perché il browser non può ancora riscriverli in modo affidabile come HEIC o HEIF.',
+            'Alcune app e piattaforme social rimuovono parte dei metadati dopo l’upload, ma questo comportamento non è costante e può cambiare. La scelta più sicura è pulire il file da soli prima di usarlo.',
           ],
         },
         {

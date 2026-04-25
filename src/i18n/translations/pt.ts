@@ -175,6 +175,42 @@ const pt: PageTranslations = {
         },
       ],
     },
+    'heif-to-jpg': {
+      title:
+        'Conversor HEIF para JPG — Windows, upload, sem envio | PicShift',
+      description:
+        'Converta HEIF para JPG quando o arquivo precisa abrir no Windows, passar em um formulário de upload, seguir por e-mail ou rodar em programas que não entendem bem HEIF. Tudo acontece no seu navegador, sem subir nada.',
+      h1: 'Converter HEIF para JPG',
+      introText:
+        'Converta um arquivo HEIF para JPG quando você precisa de uma versão que abre sem travar no Windows, passa em um formulário de upload e chega até o outro lado sem dor de cabeça. O processamento acontece localmente no seu navegador, sem enviar o arquivo para um servidor.',
+      howToSteps: [
+        'Arraste e solte seus arquivos HEIF na área acima ou clique para escolher.',
+        'Os arquivos são convertidos para JPG na hora, direto no seu navegador.',
+        'Ajuste a qualidade se precisar e baixe um arquivo por vez ou tudo de uma vez.',
+      ],
+      faqs: [
+        {
+          q: 'Por que converter HEIF para JPG?',
+          a: 'Porque JPG abre com muito menos dor de cabeça no Windows, anexa bem em e-mail, passa em formulários de upload e funciona com gente que não tem um ambiente compatível com HEIF.',
+        },
+        {
+          q: 'HEIF e HEIC são a mesma coisa?',
+          a: 'HEIF é a família de formatos; HEIC é a variante de foto HEIF mais conhecida nos dispositivos Apple. Na prática, os dois batem nos mesmos problemas de compatibilidade, e a conversão para JPG resolve nos dois casos.',
+        },
+        {
+          q: 'Quando JPG é a saída mais segura?',
+          a: 'Quando o arquivo vai para um PC com Windows, um formulário de upload, um atendimento, uma ferramenta de escritório ou alguém cujo ambiente você não controla. JPG continua sendo o formato que menos dá surpresa nesses cenários.',
+        },
+        {
+          q: 'Converter HEIF para JPG perde qualidade?',
+          a: 'Sim, JPG usa compressão com perda. Mas costuma ser o compromisso certo quando a compatibilidade importa mais do que preservar cada detalhe do arquivo original.',
+        },
+        {
+          q: 'Quando vale a pena manter o HEIF em vez de converter?',
+          a: 'Mantenha HEIF se todos os seus dispositivos e aplicativos já lidam bem com o formato e você quer aproveitar um arquivo mais leve. Converta para JPG assim que um upload, um envio ou um programa começar a travar.',
+        },
+      ],
+    },
     'webp-to-jpg': {
       title:
         'Conversor de WebP para JPG - Mais compatível para abrir e enviar | PicShift',

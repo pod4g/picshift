@@ -73,6 +73,20 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
         body: '編集を続ける画像、印刷用データ、ピクセル単位の正確さが必要な素材はPNGのままが安全です。AVIFは配信用フォーマットであり、作業用ファイルには向きません。',
       },
     ],
+    'heif-to-jpg': [
+      {
+        title: 'HEIFをJPGに変換する理由',
+        body: 'HEIFは軽量ですが、Windows・古いアプリ・アップロードフォーム・オフィス系ツールでは対応が不安定な場面が残っています。「確実に開けて、どこでも通る」を優先するならJPGが最も確実な出力です。',
+      },
+      {
+        title: 'JPGを選ぶのが安全な場面',
+        body: '送付先がWindows PC、アップロードフォーム、カスタマーサポート、オフィス系ツール、相手の環境が分からない共有の時。こうした状況ではJPGが最も事故の少ない形式です。',
+      },
+      {
+        title: 'HEIFのままで問題ない場面',
+        body: 'すべての端末とアプリがHEIFを問題なく扱えていて、ファイルサイズの小ささを活かしたい時は変換は不要です。共有・アップロード・特定のアプリで支障が出始めた時にJPG化を検討すれば十分です。',
+      },
+    ],
   },
   ko: {
     'heic-to-jpg': [
@@ -87,6 +101,20 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
       {
         title: 'JPG로 바꾸지 않는 편이 나은 경우',
         body: '무손실 편집, 투명도, 또는 최신 웹 최적화가 더 중요하다면 PNG, WebP, AVIF가 더 맞을 수 있습니다. JPG 변환은 주로 호환성을 위한 선택입니다.',
+      },
+    ],
+    'heif-to-jpg': [
+      {
+        title: 'HEIF를 JPG로 바꾸는 이유',
+        body: 'HEIF는 효율적이지만 Windows 앱, 업로드 폼, 사내 도구, 오래된 프로그램에서는 지원이 불안정한 경우가 많습니다. 확실하게 열리고 어디서든 통용되는 파일이 필요하면 JPG가 가장 안전한 출력입니다.',
+      },
+      {
+        title: 'JPG가 더 안전한 상황',
+        body: '파일이 Windows PC, 업로드 폼, 고객센터, 오피스 도구 또는 상대 환경을 알 수 없는 공유로 갈 때. 이런 상황에서는 JPG가 가장 사고가 적은 포맷입니다.',
+      },
+      {
+        title: 'HEIF를 유지하는 편이 나은 경우',
+        body: '모든 기기와 앱이 이미 HEIF를 잘 다루고 파일 크기의 장점을 쓰고 싶다면 변환이 꼭 필요한 건 아닙니다. 업로드나 공유, 특정 앱에서 문제가 생길 때 JPG로 옮기면 됩니다.',
       },
     ],
   },
@@ -173,6 +201,20 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
       {
         title: 'Quando vale a pena ficar com PNG',
         body: 'Se você vai editar a imagem de novo, se precisa de transparência, ou se é um arquivo de referência que não pode perder nada. Pra prints com texto nítido e poucas cores, PNG às vezes nem é tão maior assim.',
+      },
+    ],
+    'heif-to-jpg': [
+      {
+        title: 'Por que converter HEIF para JPG ainda resolve muita dor',
+        body: 'HEIF é eficiente, mas ainda causa atrito em Windows, formulários de upload, e-mail e programas antigos que não entendem o formato. JPG continua sendo a saída mais segura quando o objetivo é simplesmente abrir, anexar e compartilhar sem surpresa.',
+      },
+      {
+        title: 'Quando JPG é a escolha mais prática',
+        body: 'Se o arquivo vai para um PC com Windows, um formulário de upload, um atendimento, uma ferramenta de escritório ou alguém cujo ambiente você não controla, JPG é o formato que dá menos trabalho no final. Compatibilidade vem antes da economia de tamanho.',
+      },
+      {
+        title: 'Quando mantém o HEIF vale a pena',
+        body: 'Se todos os seus dispositivos e aplicativos já lidam bem com HEIF e o arquivo mais leve importa, não há pressa para converter. A conversão para JPG entra em cena quando um upload, um envio ou um programa começa a travar.',
       },
     ],
   },
@@ -293,7 +335,7 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     ],
     'webp-to-png': [
       {
-        title: 'Por que convertir WebP a PNG',
+        title: 'Por qué convertir WebP a PNG',
         body: 'PNG sigue siendo útil cuando necesitas un archivo más estable para edición, revisión o flujos donde WebP todavía no encaja bien. La conversión suele buscar compatibilidad de trabajo, no menor tamaño.',
       },
       {
@@ -303,6 +345,20 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
       {
         title: 'Cuándo no conviene pasar de WebP a PNG',
         body: 'Si tu prioridad es mantener un archivo pequeño para web, PNG normalmente no es la mejor opción. En ese caso conviene quedarse en WebP u otra salida moderna más eficiente.',
+      },
+    ],
+    'heif-to-jpg': [
+      {
+        title: 'Por qué convertir HEIF a JPG sigue resolviendo problemas',
+        body: 'HEIF es eficiente, pero todavía genera fricción en Windows, formularios de subida, correo y programas antiguos que no abren bien el formato. JPG sigue siendo la salida más segura cuando el objetivo es simplemente abrir, adjuntar y compartir sin sorpresas.',
+      },
+      {
+        title: 'Cuándo JPG es la opción más práctica',
+        body: 'Si el archivo va a un PC con Windows, un formulario de subida, un servicio de atención, una herramienta de oficina o alguien cuyo entorno no controlas, JPG es el formato que menos problemas da. La compatibilidad pesa más que el ahorro de tamaño en estos casos.',
+      },
+      {
+        title: 'Cuándo conviene mantener el HEIF',
+        body: 'Si todos tus dispositivos y aplicaciones ya lo abren bien y quieres aprovechar un archivo más ligero, no hay prisa por convertirlo. La conversión a JPG tiene sentido cuando una subida, un envío o un programa empiezan a dar error.',
       },
     ],
   },
@@ -349,6 +405,36 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
       {
         title: 'Wann JPG die bessere Wahl bleibt',
         body: 'Wenn Sie das Bild nur teilen, hochladen oder verschicken wollen und weder Transparenz noch verlustfreie Bearbeitung brauchen, ist JPG meistens die praktischere Option.',
+      },
+    ],
+    'heif-to-jpg': [
+      {
+        title: 'Warum sich HEIF in JPG umwandeln weiter lohnt',
+        body: 'HEIF ist effizient, sorgt aber immer noch für Reibung unter Windows, in Upload-Formularen, im E-Mail-Alltag und in älteren Programmen, die das Format nicht zuverlässig öffnen. JPG bleibt die sicherste Ausgabe, wenn eine Datei einfach nur „funktionieren" soll.',
+      },
+      {
+        title: 'Wann JPG die praktischere Wahl ist',
+        body: 'Wenn die Datei an einen Windows-PC, ein Upload-Formular, einen Kundenservice, ein Office-Tool oder eine Person geht, deren Umgebung Sie nicht kontrollieren, macht JPG am wenigsten Probleme. Kompatibilität wiegt in diesen Fällen schwerer als die Dateigröße.',
+      },
+      {
+        title: 'Wann HEIF behalten sinnvoll bleibt',
+        body: 'Wenn alle Ihre Geräte und Programme HEIF bereits problemlos öffnen und Ihnen die kleinere Dateigröße wichtig ist, müssen Sie nicht umwandeln. Die Umwandlung in JPG wird dann relevant, wenn ein Upload, ein Versand oder ein Programm anfängt zu haken.',
+      },
+    ],
+  },
+  it: {
+    'heif-to-jpg': [
+      {
+        title: 'Perché convertire HEIF in JPG risolve ancora molti blocchi',
+        body: "HEIF è efficiente, ma continua a creare attriti in Windows, nei moduli di upload, nelle email e nei programmi più vecchi che non aprono bene il formato. JPG resta l'uscita più sicura quando l'obiettivo è aprire, allegare e condividere senza sorprese.",
+      },
+      {
+        title: 'Quando JPG è la scelta più pratica',
+        body: "Se il file va verso un PC Windows, un modulo di upload, un servizio clienti, uno strumento office o una persona il cui ambiente non controlli, JPG è il formato che crea meno problemi. La compatibilità pesa più del risparmio di dimensione in questi contesti.",
+      },
+      {
+        title: 'Quando conviene tenere HEIF',
+        body: "Se tutti i tuoi dispositivi e applicazioni lo aprono già bene e vuoi sfruttare file più leggeri, non c'è fretta di convertire. La conversione in JPG ha senso quando un upload, un invio o un programma iniziano a creare problemi.",
       },
     ],
   },
