@@ -20,6 +20,10 @@
 | `973de58` | 17 个国际 AI 爬虫白名单 + `llms.txt` 扩充 + `SoftwareApplication` schema 增强 | GEO |
 | `395282a` | 15 个中文 AI 爬虫显式白名单 | GEO |
 | `0c64e3f` | 回滚私有 GitHub 引用（`sameAs` / `Source code` / "open source"） | GEO 修复 |
+| `b992f15` | DuckDuckGo `DuckDuckBot` / `DuckAssistBot` / `DuckDuckGo-Favicons-Bot` 显式 allow + 文档说明 | GEO 加固 |
+| `238bc0c` | 配套 sitemap `file-dates` 刷新 | 数据 |
+| `285bf5d` | `.tmp/` 加入 `.gitignore`（本地生图 artifacts） | 杂项 |
+| `<待 commit>` | Tier 1 三篇 blog（`what-is-avif` / `webp-explained` / `compress-without-losing-quality`）+ 事实核查硬约束 + blog audit 扩展 + 配图与命名规则强制 | 内容 + 防御 |
 
 ## 本轮做了什么
 
@@ -147,16 +151,69 @@
 - 全部清理后 `dist/` 内 0 命中 `github.com/pod4g`、0 命中 `open source`
 - **G1 / G2 / G4 中不依赖仓库可见性的部分（爬虫白名单 / 量化 fact / `featureList` / `mentions`）全部保留**
 
+### 9. 内容生产：Tier 1 三篇 blog（GSC 长尾驱动）
+
+> **背景**：4-25 GSC 7d 视图过滤出"高展示低 CTR / 解释型查询"，挑出 PicShift 暂未覆盖的三个内容桶。这是本仓库第一次在一个迭代里发布 3 篇 blog，过程中暴露了 LLM 写作的事实风险，连带做了一次写作流程的硬化。
+
+#### 9.1 选题（GSC 4-25 真实查询驱动）
+
+| Slug | 命中查询桶 | GSC 4-25 7d 信号 |
+| --- | --- | --- |
+| `webp-explained` | 「为什么右键存下来是 .webp」/「open webp」/「webp vs jpg」 | `webp-to-jpg` 工具页接住转化，但解释型查询无 blog 接住 |
+| `compress-without-losing-quality` | 「compress image without losing quality」/「jpeg quality 80」 | `image-compressor` 工具页接住转化，但 `quality 80 actually means` 等长尾流向其它站 |
+| `what-is-avif` | 「what is avif」/「avif vs jpeg」/「should i use avif」 | AVIF 工具页有 4 个，但 0 解释型 blog 给前置流量入口 |
+
+每篇 1500–2200 词，1 张 cover + 1 张内文图 + 至少 1 张表，frontmatter 全部 `publishedAt: 2026-04-25`。
+
+#### 9.2 写作（事实核查硬约束）
+
+> **关键过程教训**：第一稿因为 LLM 凭印象写"用户行为断言"被本地实测打脸（`webp-explained` 写"Chrome 右键保存 JPG **总是**变 .webp"，实测保存仍是 .jpg；真实情况是看站点是否启用 CDN WebP delivery）。
+
+由此触发一次完整事实审计，订正 13 处 LLM 凭印象的"看似合理"，全部加回权威来源链接：
+
+- AV1 royalty-free 改为"AOMedia 单方框架 + Sisvel patent pool 已签下约一半市场 + Dolby/InterDigital 仍在诉讼"
+- Photoshop AVIF 原生支持时间从 v24.0 (2022) 订正为 v26.x (2025)
+- macOS Quick Look "原生预览 AVIF" 删除（截至 Sequoia 仍需第三方插件）
+- JPEG XL 状态从 2023 Chrome 移除更新到 2026-02 `jpx-rs` Rust 解码器 ship + Safari 17 已支持
+- WebP 浏览器版本号、Cloudflare Polish 行为、Photoshop AVIF 加载方式等版本/日期硬数据全部对照 caniuse / 官方 release notes
+- JPEG 质量表的文件大小百分比改为真实 benchmark 数（Q95 ≈ 45% / Q85 ≈ 24% / Q75 ≈ 16%）
+- MozJPEG 节省幅度从夸大的"20–30%"改为 libjpeg-turbo 官方 ~8% / 真实 web 中位数 ~10%
+
+13 条全部追加到 `SEO-PLAYBOOK.md` §事故记录反面教材表，作为下一批 blog 写作前必读。
+
+#### 9.3 工程防御（防止下批 blog 复犯）
+
+- **`docs/SEO-PLAYBOOK.md` 顶部新增 §事实核查硬性约束**：红线、必须联网检索的 8 类场景、来源等级（S/A/B/不可作来源）、写 blog 必做执行清单、不可使用的写法、事故记录表（追加本次 13 处事实错误 + 5 处规则违反共 18 行）
+- **`docs/SEO-PLAYBOOK.md` §去 AI 化新增 §收尾 H2 不可重复**：背景是 7 篇里 6 篇都用 `## The bottom line` 收尾。本次把 6 篇全部改成各自不同的收尾 H2（`## The setting that actually matters` / `## The honest take` / `## The simple rule` / `## The short version` / `## Should you switch?` / `## Why you should care`）；规则要求写完用 `rg "^## " src/content/blog/*.md` 自查
+- **`docs/PR-GEO-CHECKLIST.md` §7 事实核查关卡**：作为 release gate，含逐条声明核查表
+- **`scripts/seo-audit.mjs` 扩展 blog frontmatter audit**：之前仅扫 `src/data/tools.ts`，blog frontmatter 是盲区。新增校验：title 长度 (≤65)、description 长度 (≤165)、跨文 title/desc 重复、cover 文件存在、cover 文件名 `{slug}-{purpose}.webp` 模式、内文 `<img>` src 存在性与命名一致。本次顺手扫出 2 个既存问题（`heic-heif-on-windows` title 68 / `social-media-exif-stripping` cover 命名不一致）一并修
+- **配图 quality 强制**：第一版 `compress-quality-cover.webp` 50 KB 实测不是 q95（dwebp + cwebp -q 95 重新编码到 86 KB 才接近 PLAYBOOK 期望的 ~70 KB），生图 workflow 要求显式 `cwebp -q 95 -m 6`
+
+#### 9.4 配图
+
+- 3 张 cover（1200×630, q95, 76–86 KB）+ 3 张内文图（1000×559, ~37–84 KB），全部 `.webp`
+- 风格刻意分散：杂志拼贴 / 手绘漫画 / 微距摄影，避免连续 cover 视觉同质
+- 文件命名严格 `{slug}-{purpose}.webp`，与 §9.3 audit 规则对齐
+
+#### 9.5 发布策略
+
+- 三篇全部 4-25 当天发布（同 publishedAt 日期），不分散
+- 取舍：放弃"分散发布拿独立 GSC 观察窗口"，换"主题集群（topical authority）一次性建立"
+- 风险：单篇 GSC 反馈会被 cluster 内的相似主题混淆；下轮要做的是**按 path 维度分别看**而不是合并看
+
 ## 本轮验证
 
-- `npm run build`：402 页成功
-- `npm run seo:audit`：thin / over-length 全部清零
+- `npm run build`：402 → **405 页**成功（含 3 篇新 blog）
+- `npm run seo:audit`：thin / over-length 全部清零；**新加的 blog frontmatter audit 段**对全部 7 篇 blog 输出 0 warning / 0 error
 - `npm run e2e -- tests/e2e/seo-geo.spec.ts`：通过
 - 抽查 `dist/`：
   - 0 命中 `github.com/pod4g`、0 命中 `open source`
   - 主页 `WebApplication` schema 含 `featureList` / `mentions`，无 `sameAs`
   - `heic-to-jpg` `SoftwareApplication` 含 `featureList` / `mentions`，无 `sameAs`
+  - 三篇新 blog 的 `<title>` / `og:title` / `og:image` 全部用新 frontmatter（cover URL 全部不带尾斜杠）
+  - `dist/sitemap-0.xml` 含三条新 blog URL（无尾斜杠，符合 4-18 `trailingSlash: 'never'` 政策）
 - 主动到 GSC 对一批高展示带尾斜杠 URL 触发 `Test Live URL` + `Request Indexing`，加速 308 合并
+- 三篇新 blog 在 GSC 主动 `Request Indexing`，加速首次抓取
 
 ## 上次读取的 GSC 数据是什么
 
@@ -312,6 +369,55 @@
 - 6 个被 `RelatedToolsBlock` 链向的工具页（image-compressor / image-resizer / heic-to-jpg / png-to-jpg / jpg-to-png / metadata-remover）的总展示是否较 4-18 上升
 - 4 篇 blog 反链 docs 后，docs 页的展示与点击是否上升（次级 KPI）
 
+### P0：三篇新 blog 的索引状态与起步 impression
+
+> 三篇都是 4-25 当天发布，5-02 是发布后第 7 天，处于 Google 首次抓取 + 索引阶段。这一轮的 KPI 主要是「**是否进入索引**」与「**起步 impression 是否落到对的 query 桶**」，**不是「是否拿到点击」**——blog 起量周期通常 14–28 天，单篇 7 天就有点击属于例外不是常态。
+
+**索引状态（GSC URL Inspection 抽查）**：
+
+- `/blog/what-is-avif`、`/blog/webp-explained`、`/blog/compress-without-losing-quality` 三条全部应该是 "URL is on Google" 状态
+- 如果还停在 "Discovered – currently not indexed" 或 "Crawled – currently not indexed"，立刻再 Request Indexing
+- 同时确认 `dist/sitemap-0.xml` 里这三条 lastmod 是 `2026-04-25`
+
+**GSC `网页` 报表（按 path 过滤，逐篇看）**：
+
+| Path | 期望命中查询桶 | 5-02 看哪些 |
+| --- | --- | --- |
+| `/blog/what-is-avif` | `what is avif` / `avif vs jpeg` / `avif file format` / `should i use avif` | impression > 0；命中 query 是否包含上述至少 1 个 |
+| `/blog/webp-explained` | `what is webp` / `why webp file` / `convert webp to jpg` / `open webp file` | impression > 0；与工具页 `webp-to-jpg` 对同一 query 的展示分配（blog 应该接住"信息型"，工具页接住"操作型"，两者不互斥） |
+| `/blog/compress-without-losing-quality` | `compress image without losing quality` / `jpeg quality 80` / `image quality vs file size` | impression > 0；是否触达本身就是稳定搜索词的"compress without losing quality"主词 |
+
+**与既有 docs 的关系**：
+
+- `/docs/image-quality-vs-file-size` 是原理型解释，已经在排名。新 blog `/blog/compress-without-losing-quality` 是 how-to + 决策型。如果两者撞在同一 query，看 Google 怎么选规范页
+- 如果 docs 排前、blog 排不进，下轮考虑给 blog 加更明确的"how to / 操作步骤" 锚点
+- 如果 blog 排前、docs 掉队，在 docs 里加显眼的 inline link 把权重传给 blog（避免 docs 完全失去入口）
+
+### P1：三篇 blog 的 cover 在 OG 卡片中是否清晰
+
+> 第一版 `compress-quality-cover.webp` 50 KB 经 dwebp + cwebp 重新编码确认不是 q95（更接近 q75）。本轮升到 86 KB 后预期清晰。
+
+- 在 [opengraph.xyz](https://www.opengraph.xyz/) 输入 `https://picshift.app/blog/{slug}` 三条 URL，确认 cover 不糊
+- 在 X / LinkedIn 各发一条带链接的预览，看实际抓取出来的卡片图是否清晰（移动端尤其关键）
+- 如果仍模糊，下轮考虑给 blog 单独加 `/og-image/[slug]` endpoint，编译期生成专门的 1200×630 q95 PNG 备份图（绕开 WebP 在 LinkedIn 的偶发兼容问题）
+
+### P1：三篇 blog 的内链是否产生站内分流
+
+- 三篇 `relatedTools` 链向：`image-compressor` / `jpg-to-webp` / `webp-to-jpg` / `png-to-jpg`
+- 看 Umami `网页` 报表，blog 页的「下一页」是否落到这些工具页（理想路径：blog → tool → 转化）
+- 如果 7 天看不到这条通路，下轮考虑在 blog 正文中段（不只是末尾的 RelatedTools 块）加更显眼的 inline CTA 卡片
+
+### P2：blog audit 的实际拦截效果
+
+- 下次写 blog 时，**先**写完 frontmatter → 跑 `pnpm seo:audit` → 再展开正文。这是为了在第一时间被 audit 拦截，而不是写完整篇才发现 title/cover 不合规要返工
+- 5-02 时回顾这周里 audit 是否真的在某次提交前拦下了违规（如果一次都没拦下，要么是规则太松要么是这周没新写——后者是好事）
+
+### P2：收尾 H2 去模板化是否对 dwell time 有可见影响
+
+- 这是定性观察，单周难有显著差异，**不要单周强归因**
+- 期望基线（来自 Umami `网页` 报表）：blog 页平均停留时长 > 90 秒、bounce rate < 60% 是好信号；连续 2-3 周持续达到，可以认为「去 AI 化收尾」对停留有正贡献
+- 如果停留反而降低，回头看是否是新收尾 H2 与正文断裂（比如 `## Should you switch?` 后的段落仍在写"AVIF 是个好格式"，没回答标题里的问句）
+
 ### GEO：与"4-25 优化前 7 天基线"做 diff
 
 > **重要**：本基线 = **4-25 GEO 优化之前的过去 7 天稳态**（4-18 ~ 4-25 累计 25 visitors）。5-02 也要选 Umami「过去 7 天」视图，对应 4-25 ~ 5-02 窗口，**两边窗口长度必须一致**。
@@ -365,18 +471,37 @@
 | LLM 抽样仍不提 PicShift | 重新评估 `llms.txt` 的 fact 是否够"声明性"；考虑加更多可信外部信号（IndieWeb / 行业报告引用 / 第三方评测背书）；不依赖任何 GitHub repo |
 | schema 校验有 warning | 优先修 `featureList` 重复或 `mentions` 类型不一致的问题 |
 | GSC 体验报告仍报 multiple H1 | 检查是否还有 `<h1>` 出现在 polyfill 之外的 fallback 入口 |
+| 三篇新 blog 5-02 仍未索引（"Discovered" / "Crawled but not indexed"） | GSC URL Inspection → Request Indexing；同步在 `llms.txt` / `llms-full.txt` 增列 3 条 blog URL 引用；考虑在 docs hub `/docs` 加一个 blog 入口 block |
+| 三篇都被索引但 0 impression | 不慌，blog 起量周期通常 14–28 天。继续观察；同时手工搜索几个目标 query 看 PicShift 是否在第 5+ 页 |
+| 一篇拿到 impression、其它没有 | 拿到的那篇说明 frontmatter 命中点对了；没拿到的看实际命中 query 是否漂移，下轮给 frontmatter `description` 做一次 SERP-fit 重写 |
+| 三篇全部进入 SERP 前 50 | 这是早期乐观信号；把"GSC 长尾驱动选题 + 1500–2200 词 + 事实核查硬约束 + 多样化收尾"组合写入 PLAYBOOK 作为 Tier 1 模板，下批继续按此 |
+| `/blog/compress-without-losing-quality` 与 `/docs/image-quality-vs-file-size` 抢同一 query | 加 docs ↔ blog 双向反链；blog 主打"how-to + 决策"、docs 主打"原理"，分工不冲突 |
+| 三篇被 ChatGPT / Claude / Perplexity 引用 | 把这 3 篇里的高密度数据再蒸成 facts 加到 `llms-full.txt`；继续加大 blog 投入 |
+| 三篇 cover 在 LinkedIn / X 卡片预览仍糊 | 给 blog 单独加 `/og-image/[slug]` endpoint，编译期生成 1200×630 q95 PNG 备份；同时 review `<meta property="og:image">` 是否被 CDN 改写过 |
+| `pnpm seo:audit` 在这周拦下了至少 1 次违规 | 证明 audit 扩展真有用；把同样的 audit 思路扩到 docs hub 与 i18n description |
+| 没有任何提交被 audit 拦下，且没有新 blog | 正常（这周没写新 blog）；下次写新 blog 时回看这周 audit 输出是否完全沉默 |
 
 ## 下次（2026-05-02）开工前的 checklist
 
 - [ ] 拉取 4-25 → 5-02 这一周新的 GSC 7 天数据
 - [ ] 与 `docs/gsc-export-2026-04-25/` 做 diff，先看趋势再做改动
 - [ ] **打开 Umami 来源域名报表，选「过去 7 天」视图（务必与基线窗口一致），截图保存**，与本文件"GEO 流量基线"那一节做 diff。注意：基线时间窗口是 2026-04-18 ~ 2026-04-25 累计 25 visitors，对照窗口应是 2026-04-25 ~ 2026-05-02 累计
-- [ ] 打开 `docs/SEO-PLAYBOOK.md` 复习历轮经验
+- [ ] 打开 `docs/SEO-PLAYBOOK.md` 复习历轮经验（**重点扫一眼新加的 §事实核查硬性约束、§事故记录表、§收尾 H2 不可重复**）
+- [ ] GSC URL Inspection 抽查 `/blog/what-is-avif`、`/blog/webp-explained`、`/blog/compress-without-losing-quality` 的索引状态
+- [ ] GSC `网页` 报表过滤 `path contains /blog/`，看三篇新 blog 各自的 impression 与命中 query
+- [ ] 在 [opengraph.xyz](https://www.opengraph.xyz/) 抽查三篇新 blog 的 cover OG 卡片是否清晰
+- [ ] Umami `网页` 报表看三篇新 blog 的访客数、平均停留时长、bounce rate
+- [ ] 跑一次 `pnpm seo:audit`，确认 0 error 0 warning 的状态在这一周里没被破坏
 - [ ] 复查本文件「下次重点关注什么」中**还没确认的项**
 - [ ] 优先做仍在退化或停滞的项；做完之后再做新增项
 
 ---
 
-**本轮负责人**：Cursor（参与全部 9 个提交）
-**本轮代码体量**：13 个 commit-stat 加权后 ~3500 行变更（其中 2960 行是 GSC 数据归档）
-**最大教训**：写任何 `sameAs` / "open source" 这类语义级声明前，先核实**底层事实**（仓库可见性、license 文件等），不要从远端 URL 字符串推断
+**本轮负责人**：Cursor（参与全部 10+ 个提交）
+**本轮代码体量**：blog 三篇 ~5000 词正文 + 3 cover + 3 内文图 + `SEO-PLAYBOOK.md` 约 +200 行规则与事故记录 + `PR-GEO-CHECKLIST.md` 约 +60 行事实核查关卡 + `seo-audit.mjs` +130 行 blog frontmatter 段；累计文档/规则与脚本变更约 +600 行
+**最大教训（本轮新增）**：
+
+1. （承袭上轮）写任何 `sameAs` / "open source" 这类语义级声明前，先核实**底层事实**（仓库可见性、license 文件等），不要从远端 URL 字符串推断
+2. **写 blog 任何事实声明（数据 / 版本号 / 日期 / 行为 / 论断）前，必须联网查证权威来源**，不能凭 LLM memory 或"看起来合理"。本轮 13 处订正全部源自这条教训，已落进 `SEO-PLAYBOOK.md` §事实核查硬性约束与事故记录表
+3. **automation 没覆盖到的地方就是事故温床**：`seo-audit.mjs` 之前只扫 `tools.ts`，blog frontmatter 长度与命名违规一直是盲区；本轮把 audit 扩到 blog 后，立刻顺手扫出 2 个既存的旧问题。下次新增任何 content type（比如 docs 多语言、changelog 等），都要同时扩 audit
+4. **去 AI 化不只是文风问题，是结构问题**：本轮发现 7 篇里 6 篇都用 `## The bottom line` 收尾。文风层面单篇看不出，但跨篇横向比对就明显是 LLM 模板。后续每次写完都用 `rg "^## "` 跨篇扫一遍
