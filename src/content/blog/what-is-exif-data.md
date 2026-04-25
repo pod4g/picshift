@@ -113,7 +113,7 @@ The image looks identical. File size may change slightly (a few KB smaller, sinc
 
 One thing to be clear about: removing EXIF does not anonymize the image content itself. If the photo shows a recognizable building or street sign, that information is still visible. EXIF removal protects against hidden metadata, not visible content.
 
-## The bottom line
+## Why you should care
 
 EXIF metadata is useful for photographers who want to track their settings. It is a privacy risk for everyone else sharing photos online.
 

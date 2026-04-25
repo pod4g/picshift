@@ -1,14 +1,14 @@
 ---
 title: "Does Instagram, WhatsApp, or Discord Remove EXIF Data? (2026)"
 description: "Which social platforms strip GPS, camera, and EXIF metadata from your photos — and which ones don't? Tested and verified platform-by-platform."
-cover: "/blog/social-media-exif-cover.webp"
+cover: "/blog/social-media-exif-stripping-cover.webp"
 publishedAt: 2026-04-06
 author: "PicShift"
 tags: ["exif", "metadata", "privacy", "social-media"]
 relatedTools: ["metadata-remover", "heic-to-jpg", "image-compressor"]
 ---
 
-<img src="/blog/social-media-exif-cover.webp" alt="Which social platforms remove EXIF data from your photos" width="1200" height="630" loading="eager" decoding="async" />
+<img src="/blog/social-media-exif-stripping-cover.webp" alt="Which social platforms remove EXIF data from your photos" width="1200" height="630" loading="eager" decoding="async" />
 
 You upload a photo to Instagram. Does the person who downloads it know where you took it? What about Discord? Telegram? Email?
 

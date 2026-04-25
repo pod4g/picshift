@@ -80,7 +80,7 @@ If you are weighing format trade-offs across the full set, our [format compatibi
 | Archive or backup | PNG |
 | Social media upload | JPG (platforms re-compress anyway) |
 
-## The bottom line
+## The simple rule
 
 PNG and JPG are not competing. PNG wins when you need lossless quality, transparency, or editing stability. JPG wins when you need smaller files and broad compatibility. And for web delivery in 2026, WebP is increasingly the answer to both.
 

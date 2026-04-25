@@ -1,5 +1,5 @@
 ---
-title: "HEIC/HEIF on Windows: Why iPhone Photos Won't Open and How to Fix It"
+title: "HEIC/HEIF on Windows: Why iPhone Photos Won't Open (and Fixes)"
 description: "Windows can't open HEIC or HEIF photos from your iPhone? Here's why Apple uses this format, what the difference is between HEIC and HEIF, and how to convert them."
 cover: "/blog/heic-heif-on-windows-cover.webp"
 publishedAt: 2026-04-06
@@ -120,7 +120,7 @@ One-at-a-time conversion is not practical. You need batch processing:
 
 [Batch convert HEIC/HEIF photos →](/heic-to-jpg)
 
-## The bottom line
+## The honest take
 
 HEIC is a better format than JPG — smaller files, better quality, modern compression. Apple made the right technical choice. The problem is that Windows still has not caught up, and the ecosystem around HEIC remains fragmented.
 
