@@ -564,4 +564,4 @@ PicShift's core technical bet is bringing **professional C/C++/Rust encoders int
 
 ---
 
-*PicShift is free and open source. Try it at [picshift.app](https://picshift.app).*
+*PicShift is free to use, with no account or sign-in required. Try it at [picshift.app](https://picshift.app).*

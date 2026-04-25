@@ -1,7 +1,5 @@
 import type { InputFormat, OutputFormatKey, ToolPageConfig } from '../types';
 
-const REPO_URL = 'https://github.com/pod4g/picshift';
-
 /**
  * Map every supported format to the WebAssembly library / codec that performs
  * the in-browser encode/decode. These names are surfaced via schema.org
@@ -87,8 +85,8 @@ export interface BuildToolSoftwareApplicationSchemaInput {
 
 /**
  * Build a schema.org SoftwareApplication payload for a tool landing page.
- * Includes featureList, mentions, and sameAs to give generative engines a
- * richer capability + provenance graph than the minimal default schema.
+ * Includes featureList and mentions to give generative engines a richer
+ * capability graph than the minimal default schema.
  */
 export function buildToolSoftwareApplicationSchema({
   tool,
@@ -115,12 +113,10 @@ export function buildToolSoftwareApplicationSchema({
     url: canonical,
     featureList: buildFeatureList(tool),
     mentions: buildMentions(tool.defaultInputFormat, tool.defaultOutputFormat),
-    sameAs: [REPO_URL],
     publisher: {
       '@type': 'Organization',
       name: 'PicShift',
       url: 'https://picshift.app',
-      sameAs: [REPO_URL],
     },
   };
 }
@@ -170,12 +166,10 @@ export function buildHomeWebApplicationSchema({
     mentions: BASE_TECH_ENTITIES.concat(['libheif', 'MozJPEG', 'OxiPNG', 'JSquash']).map(
       (name) => ({ '@type': 'Thing' as const, name })
     ),
-    sameAs: [REPO_URL],
     publisher: {
       '@type': 'Organization',
       name: 'PicShift',
       url: 'https://picshift.app',
-      sameAs: [REPO_URL],
     },
   };
 }
