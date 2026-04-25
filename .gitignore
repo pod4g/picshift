@@ -29,3 +29,7 @@ benchmarks/
 # e2e artifacts
 playwright-report/
 test-results/
+
+# local ad-hoc image generation tests (kept out of git)
+.tmp/
+
