@@ -19,6 +19,7 @@ import { getLocalizedToolSearchIntentSections } from '../../i18n/toolSearchInten
 import type { Locale } from '../../i18n/config';
 import type { ToolPageConfig } from '../../types';
 import { htmlCanonicalUrl } from '../../lib/htmlCanonicalUrl';
+import { buildToolSoftwareApplicationSchema } from '../../lib/softwareApplicationSchema';
 
 export function getStaticPaths() {
   const paths: Array<{ params: { lang: string; slug: string }; props: { lang: Locale; tool: ToolPageConfig } }> = [];
@@ -146,28 +147,13 @@ const relatedGuides = [
 ];
 
 const localizedHomeUrl = htmlCanonicalUrl(`https://picshift.app/${lang}`);
-const softwareApplicationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: h1,
-  applicationCategory: 'MultimediaApplication',
-  applicationSubCategory: 'Image Converter',
-  operatingSystem: 'Web Browser',
-  isAccessibleForFree: true,
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'USD',
-  },
+const softwareApplicationSchema = buildToolSoftwareApplicationSchema({
+  tool,
+  h1,
   description,
-  inLanguage: lang,
-  url: canonical,
-  publisher: {
-    '@type': 'Organization',
-    name: 'PicShift',
-    url: 'https://picshift.app',
-  },
-};
+  canonical,
+  lang,
+});
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',

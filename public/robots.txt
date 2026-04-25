@@ -1,3 +1,72 @@
+# PicShift robots.txt
+# Generative engines and AI crawlers are explicitly allowed; we benefit from
+# being cited in AI-generated answers and have nothing to hide from training.
+# Source images are processed locally in the browser, so crawler access only
+# touches public marketing/documentation HTML and static assets.
+
+# OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic / Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google generative search (separate opt-in from Googlebot)
+User-agent: Google-Extended
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+
+# DuckDuckGo AI assist
+User-agent: DuckAssistBot
+Allow: /
+
+# Amazon / Alexa
+User-agent: Amazonbot
+Allow: /
+
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# Common Crawl (training data for many open models)
+User-agent: CCBot
+Allow: /
+
+# Default — search engines and any other well-behaved crawler
 User-agent: *
 Allow: /
 Allow: /llms.txt

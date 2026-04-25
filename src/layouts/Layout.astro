@@ -2,6 +2,7 @@
 import { SUPPORTED_LOCALES, LOCALE_CONFIG } from '../i18n/config';
 import type { Locale } from '../i18n/config';
 import { htmlCanonicalUrl } from '../lib/htmlCanonicalUrl';
+import { buildHomeWebApplicationSchema } from '../lib/softwareApplicationSchema';
 
 interface Props {
   title: string;
@@ -50,20 +51,17 @@ function buildHrefLangUrl(locale: Locale): string {
   return htmlCanonicalUrl(buildPageUrl(locale, pagePath));
 }
 
-// Organization schema for home page
 const isHome = pagePath === '/';
-const orgSchema = isHome ? JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'WebApplication',
-  name: 'PicShift',
-  url: siteBase,
-  applicationCategory: 'MultimediaApplication',
-  operatingSystem: 'Any',
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-  description: description,
-  image: ogImageUrl,
-  inLanguage: SUPPORTED_LOCALES.map((l) => LOCALE_CONFIG[l].hrefLang),
-}) : null;
+const orgSchema = isHome
+  ? JSON.stringify(
+      buildHomeWebApplicationSchema({
+        description,
+        imageUrl: ogImageUrl,
+        url: siteBase,
+        inLanguage: SUPPORTED_LOCALES.map((l) => LOCALE_CONFIG[l].hrefLang),
+      })
+    )
+  : null;
 const websiteSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
