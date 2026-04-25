@@ -1,0 +1,31 @@
+---
+import { getUI } from '../../i18n';
+import type { Locale } from '../../i18n/config';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const ui = getUI(lang);
+---
+
+<div
+  class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold border border-sky-700 bg-sky-700 text-white dark:border-sky-400 dark:bg-sky-400 dark:text-white"
+>
+  <svg
+    class="w-4 h-4 flex-shrink-0"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M13 10V3L4 14h7v7l9-11h-7z"
+    />
+  </svg>
+  <span>{ui.offlineBadge}</span>
+</div>

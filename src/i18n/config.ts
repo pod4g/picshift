@@ -55,6 +55,8 @@ export interface UIStrings {
   privacyPolicy: string;
   // Privacy badge
   privacyBadge: string;
+  // Offline / installable PWA badge (shown next to PrivacyBadge in hero)
+  offlineBadge: string;
   // Hero
   heroTitle1: string;
   heroTitle2: string;

@@ -23,9 +23,10 @@ const ui: Record<Locale, UIStrings> = {
     privacyMessage: 'Your images never leave your device.',
     privacyPolicy: 'Privacy Policy',
     privacyBadge: '100% Private \u2014 No Upload',
+    offlineBadge: 'Works Offline',
     heroTitle1: 'Convert Images Instantly',
     heroTitle2: 'Files Never Leave Your Device',
-    heroSubtitle: 'Support HEIC, WebP, PNG, JPG, AVIF \u2014 instant convert, no upload',
+    heroSubtitle: 'Convert and compress images locally in your browser \u2014 works offline, no uploads, no signup. Supports HEIC, WebP, PNG, JPG, AVIF.',
     allConverters: 'All Tools',
     instantTitle: 'Instant Conversion',
     instantDesc:
@@ -128,9 +129,10 @@ const ui: Record<Locale, UIStrings> = {
     privacyMessage: '\u60a8\u7684\u56fe\u7247\u59cb\u7ec8\u4fdd\u7559\u5728\u60a8\u7684\u8bbe\u5907\u4e0a\u3002',
     privacyPolicy: '\u9690\u79c1\u653f\u7b56',
     privacyBadge: '100% \u79c1\u5bc6 \u2014 \u65e0\u9700\u4e0a\u4f20',
+    offlineBadge: '离线可用',
     heroTitle1: '\u5373\u65f6\u8f6c\u6362\u56fe\u7247',
     heroTitle2: '文件始终留在你的设备上',
-    heroSubtitle: '支持 HEIC, WebP, PNG, JPG, AVIF \u2014 即时转换并优化体积，无需上传',
+    heroSubtitle: '在浏览器内本地转换与压缩图片 \u2014 离线可用，无需上传，无需注册。支持 HEIC, WebP, PNG, JPG, AVIF。',
     allConverters: '\u6240\u6709\u5de5\u5177',
     instantTitle: '\u5373\u65f6\u8f6c\u6362',
     instantDesc:
@@ -234,9 +236,10 @@ const ui: Record<Locale, UIStrings> = {
     privacyMessage: '\u60a8\u7684\u5716\u7247\u59cb\u7d42\u4fdd\u7559\u5728\u60a8\u7684\u88dd\u7f6e\u4e0a\u3002',
     privacyPolicy: '\u96b1\u79c1\u653f\u7b56',
     privacyBadge: '100% \u79c1\u5bc6 \u2014 \u7121\u9700\u4e0a\u50b3',
+    offlineBadge: '離線可用',
     heroTitle1: '\u5373\u6642\u8f49\u63db\u5716\u7247',
     heroTitle2: '檔案始終留在你的裝置上',
-    heroSubtitle: '支援 HEIC, WebP, PNG, JPG, AVIF \u2014 即時轉換並優化體積，無需上傳',
+    heroSubtitle: '在瀏覽器內本地轉換與壓縮圖片 \u2014 離線可用，無需上傳，無需註冊。支援 HEIC, WebP, PNG, JPG, AVIF。',
     allConverters: '\u6240\u6709\u5de5\u5177',
     instantTitle: '\u5373\u6642\u8f49\u63db',
     instantDesc:
@@ -340,9 +343,10 @@ const ui: Record<Locale, UIStrings> = {
     privacyMessage: 'Tus im\u00e1genes nunca salen de tu dispositivo.',
     privacyPolicy: 'Pol\u00edtica de privacidad',
     privacyBadge: '100% Privado \u2014 Sin subidas',
+    offlineBadge: 'Funciona sin conexi\u00f3n',
     heroTitle1: 'Convierte im\u00e1genes al instante',
     heroTitle2: 'Tus archivos nunca salen de tu dispositivo',
-    heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 conversi\u00f3n instant\u00e1nea, sin subir nada',
+    heroSubtitle: 'Convierte y comprime im\u00e1genes en local desde tu navegador \u2014 funciona sin conexi\u00f3n, sin subidas y sin registro. Compatible con HEIC, WebP, PNG, JPG, AVIF.',
     allConverters: 'Todas las herramientas',
     instantTitle: 'Conversi\u00f3n instant\u00e1nea',
     instantDesc:
@@ -446,9 +450,10 @@ const ui: Record<Locale, UIStrings> = {
     privacyMessage: 'Vos images ne quittent jamais votre appareil.',
     privacyPolicy: 'Politique de confidentialit\u00e9',
     privacyBadge: '100% Priv\u00e9 \u2014 Aucun t\u00e9l\u00e9versement',
+    offlineBadge: 'Fonctionne hors ligne',
     heroTitle1: 'Convertissez vos images instantan\u00e9ment',
     heroTitle2: 'Vos fichiers ne quittent jamais votre appareil',
-    heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 conversion instantan\u00e9e, rien n\u2019est envoy\u00e9',
+    heroSubtitle: 'Convertissez et compressez vos images en local dans votre navigateur \u2014 fonctionne hors ligne, sans t\u00e9l\u00e9versement et sans inscription. Compatible HEIC, WebP, PNG, JPG, AVIF.',
     allConverters: 'Tous les outils',
     instantTitle: 'Conversion instantan\u00e9e',
     instantDesc:
@@ -552,9 +557,10 @@ const ui: Record<Locale, UIStrings> = {
     privacyMessage: 'Ihre Bilder verlassen nie Ihr Ger\u00e4t.',
     privacyPolicy: 'Datenschutzerkl\u00e4rung',
     privacyBadge: '100% Privat \u2014 Kein Upload',
+    offlineBadge: 'Funktioniert offline',
     heroTitle1: 'Bilder sofort konvertieren',
     heroTitle2: 'Dateien verlassen nie Ihr Ger\u00e4t',
-    heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 sofort konvertieren, ohne Upload',
+    heroSubtitle: 'Bilder lokal im Browser konvertieren und komprimieren \u2014 funktioniert offline, ohne Upload und ohne Anmeldung. Unterst\u00fctzt HEIC, WebP, PNG, JPG, AVIF.',
     allConverters: 'Alle Werkzeuge',
     instantTitle: 'Sofortige Konvertierung',
     instantDesc:
@@ -666,9 +672,10 @@ const ui: Record<Locale, UIStrings> = {
       '\u30d7\u30e9\u30a4\u30d0\u30b7\u30fc\u30dd\u30ea\u30b7\u30fc',
     privacyBadge:
       '100% \u30d7\u30e9\u30a4\u30d9\u30fc\u30c8 \u2014 \u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u4e0d\u8981',
+    offlineBadge: 'オフラインで動作',
     heroTitle1: '\u753b\u50cf\u3092\u77ac\u6642\u306b\u5909\u63db',
     heroTitle2: 'ファイルはデバイスから出ません',
-    heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 \u77ac\u6642\u306b\u5909\u63db\u3001\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u4e0d\u8981',
+    heroSubtitle: 'ブラウザ内でローカルに画像を変換・圧縮 \u2014 オフラインで動作、アップロード不要、登録不要。HEIC, WebP, PNG, JPG, AVIF に対応。',
     allConverters:
       '\u3059\u3079\u3066\u306e\u30c4\u30fc\u30eb',
     instantTitle: '\u5373\u6642\u5909\u63db',
@@ -781,10 +788,11 @@ const ui: Record<Locale, UIStrings> = {
       '\uac1c\uc778\uc815\ubcf4 \ubcf4\ud638\uc815\ucc45',
     privacyBadge:
       '100% \ube44\uacf5\uac1c \u2014 \uc5c5\ub85c\ub4dc \uc5c6\uc74c',
+    offlineBadge: '오프라인 작동',
     heroTitle1:
       '\uc774\ubbf8\uc9c0\ub97c \uc989\uc2dc \ubcc0\ud658',
     heroTitle2: '\ud30c\uc77c\uc774 \uae30\uae30\ub97c \ub5a0\ub098\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4',
-    heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 \uc989\uc2dc \ubcc0\ud658, \uc5c5\ub85c\ub4dc \uc5c6\uc74c',
+    heroSubtitle: '브라우저에서 로컬로 이미지 변환·압축 \u2014 오프라인 작동, 업로드와 가입 불필요. HEIC, WebP, PNG, JPG, AVIF 지원.',
     allConverters: '\ubaa8\ub4e0 \ub3c4\uad6c',
     instantTitle: '\uc989\uc2dc \ubcc0\ud658',
     instantDesc:
@@ -888,9 +896,10 @@ const ui: Record<Locale, UIStrings> = {
     privacyMessage: 'Suas imagens nunca saem do seu dispositivo.',
     privacyPolicy: 'Pol\u00edtica de Privacidade',
     privacyBadge: '100% Privado \u2014 Sem upload',
+    offlineBadge: 'Funciona offline',
     heroTitle1: 'Converta imagens instantaneamente',
     heroTitle2: 'Seus arquivos nunca saem do seu dispositivo',
-    heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 convers\u00e3o instant\u00e2nea, sem envio',
+    heroSubtitle: 'Converta e comprima imagens localmente no seu navegador \u2014 funciona offline, sem upload, sem cadastro. Compat\u00edvel com HEIC, WebP, PNG, JPG, AVIF.',
     allConverters: 'Todas as ferramentas',
     instantTitle: 'Convers\u00e3o instant\u00e2nea',
     instantDesc:
@@ -1012,10 +1021,11 @@ const ui: Record<Locale, UIStrings> = {
       '\u041f\u043e\u043b\u0438\u0442\u0438\u043a\u0430 \u043a\u043e\u043d\u0444\u0438\u0434\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0441\u0442\u0438',
     privacyBadge:
       '100% \u041f\u0440\u0438\u0432\u0430\u0442\u043d\u043e \u2014 \u0411\u0435\u0437 \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0438',
+    offlineBadge: 'Работает офлайн',
     heroTitle1:
       '\u041c\u0433\u043d\u043e\u0432\u0435\u043d\u043d\u0430\u044f \u043a\u043e\u043d\u0432\u0435\u0440\u0442\u0430\u0446\u0438\u044f \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0439',
     heroTitle2: 'Файлы никогда не покидают ваше устройство',
-    heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 \u043c\u0433\u043d\u043e\u0432\u0435\u043d\u043d\u0430\u044f \u043a\u043e\u043d\u0432\u0435\u0440\u0442\u0430\u0446\u0438\u044f, \u0431\u0435\u0437 \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0438',
+    heroSubtitle: 'Конвертируйте и сжимайте изображения локально в браузере \u2014 работает офлайн, без загрузки и регистрации. Поддержка HEIC, WebP, PNG, JPG, AVIF.',
     allConverters:
       '\u0412\u0441\u0435 \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u044b',
     instantTitle:
@@ -1143,10 +1153,11 @@ const ui: Record<Locale, UIStrings> = {
       '\u0633\u064a\u0627\u0633\u0629 \u0627\u0644\u062e\u0635\u0648\u0635\u064a\u0629',
     privacyBadge:
       '100% \u062e\u0627\u0635 \u2014 \u0628\u062f\u0648\u0646 \u0631\u0641\u0639',
+    offlineBadge: 'يعمل دون إنترنت',
     heroTitle1:
       '\u062d\u0648\u0651\u0644 \u0627\u0644\u0635\u0648\u0631 \u0641\u0648\u0631\u064b\u0627',
     heroTitle2: 'ملفاتك لا تغادر جهازك أبدًا',
-    heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 \u062a\u062d\u0648\u064a\u0644 \u0641\u0648\u0631\u064a\u060c \u0628\u062f\u0648\u0646 \u0631\u0641\u0639',
+    heroSubtitle: 'حوّل واضغط الصور محليًا في متصفحك \u2014 يعمل دون إنترنت، بدون رفع أو تسجيل. يدعم HEIC و WebP و PNG و JPG و AVIF.',
     allConverters:
       '\u062c\u0645\u064a\u0639 \u0627\u0644\u0623\u062f\u0648\u0627\u062a',
     instantTitle:
@@ -1256,9 +1267,10 @@ const ui: Record<Locale, UIStrings> = {
     privacyMessage: 'Le tue immagini non lasciano mai il tuo dispositivo.',
     privacyPolicy: 'Informativa sulla privacy',
     privacyBadge: '100% Privato \u2014 Nessun caricamento',
+    offlineBadge: 'Funziona offline',
     heroTitle1: 'Converti le immagini istantaneamente',
     heroTitle2: 'I file non lasciano mai il tuo dispositivo',
-    heroSubtitle: 'HEIC, WebP, PNG, JPG, AVIF \u2014 conversione istantanea, senza caricare nulla',
+    heroSubtitle: 'Converti e comprimi le immagini in locale dal tuo browser \u2014 funziona offline, senza upload e senza registrazione. Supporta HEIC, WebP, PNG, JPG, AVIF.',
     allConverters: 'Tutti gli strumenti',
     instantTitle: 'Conversione istantanea',
     instantDesc:

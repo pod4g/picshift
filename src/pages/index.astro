@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import PrivacyBadge from '../components/seo/PrivacyBadge.astro';
+import OfflineBadge from '../components/seo/OfflineBadge.astro';
 import ToolCard from '../components/tool/ToolCard.astro';
 import Converter from '../components/converter/Converter';
 import { TOOL_PAGES } from '../data/tools';
@@ -67,8 +68,9 @@ const guides = [
           <svg class="hidden md:block absolute -right-1 -bottom-[10px] w-3.5 h-3.5 text-primary-500/70" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16l-6.4 5.2L8 14 2 9.2h7.6L12 2z"/></svg>
           <svg class="hidden md:block absolute right-2 -bottom-0.5 w-2.5 h-2.5 text-secondary-500/60" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16l-6.4 5.2L8 14 2 9.2h7.6L12 2z"/></svg>
         </p>
-        <div class="flex justify-center">
+        <div class="flex flex-wrap justify-center gap-2">
           <PrivacyBadge lang={lang} />
+          <OfflineBadge lang={lang} />
         </div>
       </div>
 
