@@ -1,6 +1,6 @@
 ---
-title: "WebP Explained: When Sites Serve .webp and How to Convert"
-description: "Why Chrome saves a JPG as .webp on big sites but not small ones — what WebP is, where it works in 2026, and how to get a JPG back when you need to."
+title: "What Is WebP? Why Your JPG Saves as .webp and How to Convert"
+description: "Why Chrome saves some images as .webp but not others — what WebP actually is, where it works in 2026, and how to convert it back to JPG when you need to."
 cover: "/blog/webp-explained-cover.webp"
 publishedAt: 2026-04-25
 author: "PicShift"

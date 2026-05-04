@@ -1,6 +1,6 @@
 ---
-title: "PNG vs JPG: When to Use Which Format"
-description: "A practical guide to choosing between PNG and JPG based on your actual use case — file size, transparency, editing, and web delivery."
+title: "PNG or JPG: Which Format to Pick and Why (Full Comparison)"
+description: "Photos: JPG, almost always. Logos, screenshots, transparency: PNG. Why PNG files are 5-10x bigger, when that matters, and when you should convert between them."
 cover: "/blog/png-vs-jpg-cover.webp"
 publishedAt: 2026-03-28
 author: "PicShift"

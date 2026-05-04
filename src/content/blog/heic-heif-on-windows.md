@@ -1,6 +1,6 @@
 ---
-title: "HEIC/HEIF on Windows: Why iPhone Photos Won't Open (and Fixes)"
-description: "Windows can't open HEIC or HEIF photos from your iPhone? Here's why Apple uses this format, what the difference is between HEIC and HEIF, and how to convert them."
+title: "HEIC on Windows: Why iPhone Photos Won't Open and 3 Fixes"
+description: "Windows 11 still can't open HEIC or HEIF photos from iPhone by default. Why Apple uses this format, what HEIC vs HEIF actually means, and three ways to fix it."
 cover: "/blog/heic-heif-on-windows-cover.webp"
 publishedAt: 2026-04-06
 author: "PicShift"

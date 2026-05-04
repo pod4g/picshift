@@ -1,6 +1,6 @@
 ---
-title: "What Is EXIF Data and Why You Should Remove It Before Sharing"
-description: "EXIF metadata in your photos reveals GPS location, device model, and timestamps. Learn what it is, why it matters, and how to strip it before sharing."
+title: "What Is EXIF Data? GPS, Camera Info, and How to Strip It"
+description: "EXIF is the hidden metadata in every photo — GPS coordinates, camera model, timestamps, even software used. What it reveals, real-world leaks, and how to remove it."
 cover: "/blog/what-is-exif-data-cover.webp"
 publishedAt: 2026-04-06
 author: "PicShift"

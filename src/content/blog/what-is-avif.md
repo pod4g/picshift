@@ -1,6 +1,6 @@
 ---
-title: "What Is AVIF, and Should You Be Using It in 2026?"
-description: "AVIF beats JPEG and WebP on file size — but support outside the browser is still patchy. Here's what it is, where it works, and where to use JPG instead."
+title: "What Is AVIF? Browser Support, File Size, and Use in 2026"
+description: "AVIF is the AV1 image format — 20-30% smaller than WebP, supported in every major browser since 2024. What it is, where it works, and when to stick with JPG."
 cover: "/blog/what-is-avif-cover.webp"
 publishedAt: 2026-04-25
 author: "PicShift"

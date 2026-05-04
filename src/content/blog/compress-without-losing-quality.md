@@ -1,6 +1,6 @@
 ---
-title: "How to Compress Images Without Losing Quality (What Q80 Means)"
-description: "JPEG quality 80 isn't 'keep 80% of the data' — Q80 vs Q95 is almost invisible while the file is 3–5x smaller. What the slider really does, and the sweet spot."
+title: "Compress Images Without Losing Quality: JPG 100 vs 80 Explained"
+description: "Is JPG 100 vs 80 visibly different? Almost never — Q80 is 3-5x smaller with no perceptible loss. What the quality slider really does, and the safe sweet spot."
 cover: "/blog/compress-without-losing-quality-cover.webp"
 publishedAt: 2026-04-25
 author: "PicShift"
