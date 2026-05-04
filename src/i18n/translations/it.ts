@@ -339,6 +339,14 @@ const it: PageTranslations = {
         },
       ],
     },
+    // Near-win refinement for query "da jpg a avif" (rank 10.8, 5 imp/7d).
+    // Only title + description overridden; everything else falls back to
+    // the localized tool meta/content so this stays a minimal SEO patch.
+    'jpg-to-avif': {
+      title: 'Da JPG a AVIF — Convertitore Gratuito nel Browser | PicShift',
+      description:
+        'S\u00ec, converti file JPG in AVIF direttamente nel browser per ottenere immagini pi\u00f9 piccole con la stessa qualit\u00e0. Senza caricamento, senza registrazione.',
+    },
     'avif-to-jpg': {
       title:
         'Convertitore da AVIF a JPG - Gratuito, Privato, Nessun Upload | PicShift',

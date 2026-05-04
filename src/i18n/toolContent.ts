@@ -212,38 +212,54 @@ function getFormatPair(tool: ToolPageConfig): { input: string; output: string } 
   return { input, output };
 }
 
-export function getLocalizedToolContent(lang: Locale, tool: ToolPageConfig): Pick<ToolTranslation, 'h1' | 'introText' | 'howToSteps' | 'faqs'> {
+export function getLocalizedToolContent(
+  lang: Locale,
+  tool: ToolPageConfig
+): Required<Pick<ToolTranslation, 'h1' | 'introText' | 'howToSteps' | 'faqs'>> {
   const template = CONVERTER_CONTENT_MAP[lang] ?? CONVERTER_CONTENT_MAP.en;
+
+  // Build the template-derived fallback once; every caller path below
+  // needs it because ToolTranslation now permits partial overrides (e.g.
+  // SEO refinements that only set title + description).
+  const { input, output } = getFormatPair(tool);
+  const isCustomConverter =
+    tool.slug === 'image-resizer' || tool.slug === 'image-compressor';
+  const templateH1 = isCustomConverter ? tool.h1 : template.h1(input, output);
+  const templateIntro = isCustomConverter
+    ? tool.introText
+    : template.intro(input, output);
+  const templateSteps: string[] = isCustomConverter
+    ? tool.howToSteps
+    : template.howToSteps(input, output);
+  const templateFaqs: Array<{ q: string; a: string }> = isCustomConverter
+    ? tool.faqs
+    : [
+        { q: template.faqQualityQ, a: template.faqQualityA },
+        { q: template.faqPrivacyQ, a: template.faqPrivacyA },
+      ];
 
   if (lang !== 'en') {
     const translatedTool = getPageTranslations(lang).tools[tool.slug];
     if (translatedTool) {
+      // Field-level fallback so a partial override (e.g. { title, description }
+      // only) keeps every downstream consumer safe from undefined values.
       return {
-        h1: translatedTool.h1,
-        introText: translatedTool.introText,
-        howToSteps: translatedTool.howToSteps,
-        faqs: getLocalizedToolFaqs(lang, tool.slug, translatedTool.faqs),
+        h1: translatedTool.h1 ?? templateH1,
+        introText: translatedTool.introText ?? templateIntro,
+        howToSteps: translatedTool.howToSteps ?? templateSteps,
+        faqs: getLocalizedToolFaqs(
+          lang,
+          tool.slug,
+          translatedTool.faqs ?? templateFaqs
+        ),
       };
     }
   }
 
-  if (tool.slug === 'image-resizer' || tool.slug === 'image-compressor') {
-    return {
-      h1: tool.h1,
-      introText: tool.introText,
-      howToSteps: tool.howToSteps,
-      faqs: getLocalizedToolFaqs(lang, tool.slug, tool.faqs),
-    };
-  }
-
-  const { input, output } = getFormatPair(tool);
   return {
-    h1: template.h1(input, output),
-    introText: template.intro(input, output),
-    howToSteps: template.howToSteps(input, output),
-    faqs: getLocalizedToolFaqs(lang, tool.slug, [
-      { q: template.faqQualityQ, a: template.faqQualityA },
-      { q: template.faqPrivacyQ, a: template.faqPrivacyA },
-    ]),
+    h1: templateH1,
+    introText: templateIntro,
+    howToSteps: templateSteps,
+    faqs: getLocalizedToolFaqs(lang, tool.slug, templateFaqs),
   };
 }

@@ -2,10 +2,13 @@ import type { PageTranslations } from '../config'
 
 const en: PageTranslations = {
   home: {
-    title:
-      'PicShift - Free Image Converter | HEIC, WebP, PNG, JPG, AVIF | No Upload',
+    // Near-win refinement for query "local image converter" (rank 11,
+    // 3 imp/7d, stable). Title front-loads "Local Image Converter" to
+    // match user intent verbatim; description opens with the same phrase
+    // as an affirmative answer.
+    title: 'Local Image Converter - HEIC, WebP, JPG, PNG, AVIF | PicShift',
     description:
-      'Convert images instantly in your browser — without uploading. HEIC to JPG, WebP to PNG, AVIF and more. 100% private, works offline. Free, no limits, no sign-up.',
+      'Local image converter running 100% in your browser — no upload, no sign-up. HEIC to JPG, WebP to PNG, AVIF and more. Private, offline-ready, unlimited batches.',
   },
   privacy: {
     title: 'Privacy Policy — Local Image Processing, No Uploads | PicShift',
@@ -153,6 +156,15 @@ const en: PageTranslations = {
           a: 'WebP is ideal for web use — smaller files mean faster page loads. For sharing via email or messaging, JPG is more universally compatible.',
         },
       ],
+    },
+    // Near-win refinement for query "heif to avif" (rank 8.25, 4 imp/7d).
+    // data/tools.ts default description ("AV1-based compression gains in
+    // modern delivery pipelines") is too technical; override with a
+    // concrete, affirmative answer.
+    'heif-to-avif': {
+      title: 'Convert HEIF to AVIF in Your Browser — No Upload | PicShift',
+      description:
+        'Yes, convert HEIF files to AVIF for smaller size with equal quality. iPhone HEIF photos become AVIF for modern web delivery. Runs locally, no upload.',
     },
     'webp-to-jpg': {
       title: 'WebP to JPG Converter - Open Anywhere | PicShift',

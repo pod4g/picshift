@@ -150,14 +150,21 @@ export interface UIStrings {
   compRowZeroTrace: string;
 }
 
-/** Tool page translation */
+/** Tool page translation
+ *
+ * All fields are optional: a translation may override only a subset (e.g.
+ * just `title` and `description` for a near-win SEO refinement) and every
+ * unfilled field falls back to the canonical content resolved through
+ * getLocalizedToolMeta / getLocalizedToolContent. Consumers must always
+ * read via `toolTranslation?.field ?? fallback`.
+ */
 export interface ToolTranslation {
-  title: string;
-  description: string;
-  h1: string;
-  introText: string;
-  howToSteps: string[];
-  faqs: Array<{ q: string; a: string }>;
+  title?: string;
+  description?: string;
+  h1?: string;
+  introText?: string;
+  howToSteps?: string[];
+  faqs?: Array<{ q: string; a: string }>;
   detailSections?: Array<{
     title: string;
     body: string;

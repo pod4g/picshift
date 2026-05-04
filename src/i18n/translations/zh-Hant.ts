@@ -288,8 +288,13 @@ const zhTW: PageTranslations = {
       ],
     },
     'image-resizer': {
+      // Near-win refinement for query "圖片縮放" (rank 9.33, 3 imp/7d).
+      // Title already matches the query verbatim; description expanded to
+      // surface concrete preset dimensions so Google can resolve size-
+      // specific long-tail queries like "1080×1080 圖片縮放".
       title: '圖片縮放 - 免費線上調整圖片尺寸 | PicShift',
-      description: '在瀏覽器中調整圖片尺寸。預設尺寸或自訂寬高。100% 隱私保護，無需上傳。',
+      description:
+        '在瀏覽器中將圖片縮放到任何尺寸——1080×1080、1200×630、1920×1080 預設或自訂寬高皆可。100% 本地處理，無需上傳。',
       h1: '調整圖片尺寸',
       introText: '將圖片調整到精確尺寸或常用預設。所有處理都在瀏覽器本地完成——你的圖片絕不會離開裝置。',
       howToSteps: [

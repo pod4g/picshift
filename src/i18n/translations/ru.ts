@@ -195,6 +195,15 @@ const ru: PageTranslations = {
         },
       ],
     },
+    // Near-win refinement for query "heif в png" (rank 5.25, 9 imp/3m).
+    // Only title + description overridden; h1/introText/steps/faqs fall
+    // back to localized tool content so this stays a minimal SEO patch.
+    'heif-to-png': {
+      title:
+        'Конвертер HEIF в PNG — прозрачность, без загрузки | PicShift',
+      description:
+        'Да, конвертируйте файлы HEIF в PNG в браузере с сохранением прозрачности. Подходит для Windows, Photoshop и программ, которые не открывают HEIF.',
+    },
     'webp-to-jpg': {
       title:
         'Конвертер WebP в JPG — бесплатно, конфиденциально, без загрузки | PicShift',

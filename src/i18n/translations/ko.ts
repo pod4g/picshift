@@ -190,9 +190,12 @@ const ko: PageTranslations = {
       ],
     },
     'webp-to-jpg': {
-      title: 'WebP→JPG 변환 - 무료, 개인정보 보호, 업로드 불필요 | PicShift',
+      // Near-win refinement for query "webp 파일 jpg로 저장" (rank 10.88,
+      // 8 imp/7d). Title surfaces "파일" + "저장" verbatim to better match
+      // user intent; description opens with the affirmative answer.
+      title: 'WebP 파일 JPG로 변환·저장 — 브라우저에서 바로 | PicShift',
       description:
-        'WebP 이미지를 브라우저에서 JPG 형식으로 변환하세요. 무료, 개인정보 보호, 업로드 불필요.',
+        'WebP 파일을 JPG로 변환하고 저장하세요. 이메일 첨부, 양식 업로드, 구버전 앱에서 WebP가 안 열릴 때. 업로드 없이 브라우저에서 처리됩니다.',
       h1: 'WebP를 JPG로 변환',
       introText:
         'WebP 이미지를 범용적인 JPG 형식으로 변환하세요. 모든 처리는 브라우저에서 로컬로 이루어져요.',
