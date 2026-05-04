@@ -13,7 +13,10 @@ import { getUI } from '../i18n/ui';
 import { getToolPageUi } from '../i18n/toolPageUi';
 import type { ToolPageConfig } from '../types';
 import { htmlCanonicalUrl } from '../lib/htmlCanonicalUrl';
-import { buildToolSoftwareApplicationSchema } from '../lib/softwareApplicationSchema';
+import {
+  buildToolSoftwareApplicationSchema,
+  buildImageResizerPresetsSchema,
+} from '../lib/softwareApplicationSchema';
 
 const lang = 'en' as const;
 
@@ -185,6 +188,10 @@ const relatedToolsItemListSchema = {
     url: htmlCanonicalUrl(`https://picshift.app${relatedTool.href}`),
   })),
 };
+const imageResizerPresetsSchema =
+  tool.slug === 'image-resizer'
+    ? buildImageResizerPresetsSchema({ canonical, h1 })
+    : null;
 ---
 
 <Layout title={title} description={description} canonical={canonical} lang={lang} pagePath={pagePath}>
@@ -314,6 +321,9 @@ const relatedToolsItemListSchema = {
       <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
       <script type="application/ld+json" set:html={JSON.stringify(relatedToolsItemListSchema)} />
       <script type="application/ld+json" set:html={JSON.stringify(relatedGuidesItemListSchema)} />
+      {imageResizerPresetsSchema && (
+        <script type="application/ld+json" set:html={JSON.stringify(imageResizerPresetsSchema)} />
+      )}
 
       <!-- FAQ section -->
       <FAQ faqs={faqs} lang={lang} />

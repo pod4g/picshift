@@ -19,7 +19,10 @@ import { getLocalizedToolSearchIntentSections } from '../../i18n/toolSearchInten
 import type { Locale } from '../../i18n/config';
 import type { ToolPageConfig } from '../../types';
 import { htmlCanonicalUrl } from '../../lib/htmlCanonicalUrl';
-import { buildToolSoftwareApplicationSchema } from '../../lib/softwareApplicationSchema';
+import {
+  buildToolSoftwareApplicationSchema,
+  buildImageResizerPresetsSchema,
+} from '../../lib/softwareApplicationSchema';
 
 export function getStaticPaths() {
   const paths: Array<{ params: { lang: string; slug: string }; props: { lang: Locale; tool: ToolPageConfig } }> = [];
@@ -131,7 +134,49 @@ function pickHeicSuiteTools(currentSlug: string): ToolPageConfig[] {
     .filter((candidate): candidate is ToolPageConfig => Boolean(candidate));
 }
 
-const relatedToolCandidates = isHeicSuitePage ? pickHeicSuiteTools(tool.slug) : pickRelatedTools(tool);
+// Authority-pin: Spanish tool pages rank the image resizer at 60-80, with
+// 550+ impressions on high-intent queries like "redimensionar imagen" and
+// "cambiar tamaño de imagen" stuck on the same plateau. To concentrate
+// internal PageRank onto /es/image-resizer, every non-HEIC-suite /es/ tool
+// page surfaces image-resizer as the first related tool. HEIC-suite pages
+// keep their theme-specific cluster links because those already concentrate
+// authority onto /es/heic-to-jpg.
+const AUTHORITY_PINS_BY_LANG: Partial<Record<Locale, readonly string[]>> = {
+  es: ['image-resizer'],
+};
+const AUTHORITY_EXEMPT_SLUGS = new Set<string>([
+  'image-resizer',
+  'image-compressor',
+  'metadata-remover',
+]);
+
+function applyAuthorityPin(
+  candidates: ToolPageConfig[],
+  pinSlugs: readonly string[],
+  targetSize: number
+): ToolPageConfig[] {
+  const pinned: ToolPageConfig[] = [];
+  for (const slug of pinSlugs) {
+    const tool = TOOL_PAGES.find((candidate) => candidate.slug === slug);
+    if (tool && !pinned.some((p) => p.slug === tool.slug)) pinned.push(tool);
+  }
+  const withoutPinned = candidates.filter(
+    (candidate) => !pinned.some((p) => p.slug === candidate.slug)
+  );
+  return [...pinned, ...withoutPinned].slice(0, targetSize);
+}
+
+const baseRelatedCandidates = isHeicSuitePage
+  ? pickHeicSuiteTools(tool.slug)
+  : pickRelatedTools(tool);
+const authorityPinsForLang = AUTHORITY_PINS_BY_LANG[lang] ?? [];
+const shouldApplyAuthorityPin =
+  !isHeicSuitePage &&
+  authorityPinsForLang.length > 0 &&
+  !AUTHORITY_EXEMPT_SLUGS.has(tool.slug);
+const relatedToolCandidates = shouldApplyAuthorityPin
+  ? applyAuthorityPin(baseRelatedCandidates, authorityPinsForLang, 4)
+  : baseRelatedCandidates;
 const relatedTools = relatedToolCandidates.map((relatedTool) => {
   const relatedTranslation = pageTranslations.tools[relatedTool.slug];
   const relatedContent = getLocalizedToolContent(lang, relatedTool);
@@ -217,6 +262,10 @@ const relatedToolsItemListSchema = {
     url: htmlCanonicalUrl(`https://picshift.app${relatedTool.href}`),
   })),
 };
+const imageResizerPresetsSchema =
+  tool.slug === 'image-resizer'
+    ? buildImageResizerPresetsSchema({ canonical, h1 })
+    : null;
 ---
 
 <Layout title={title} description={description} canonical={canonical} lang={lang} pagePath={pagePath}>
@@ -346,6 +395,9 @@ const relatedToolsItemListSchema = {
       <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
       <script type="application/ld+json" set:html={JSON.stringify(relatedToolsItemListSchema)} />
       <script type="application/ld+json" set:html={JSON.stringify(relatedGuidesItemListSchema)} />
+      {imageResizerPresetsSchema && (
+        <script type="application/ld+json" set:html={JSON.stringify(imageResizerPresetsSchema)} />
+      )}
 
       <!-- FAQ section -->
       <FAQ faqs={faqs} lang={lang} />

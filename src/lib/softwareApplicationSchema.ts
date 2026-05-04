@@ -45,8 +45,16 @@ function buildFeatureList(tool: ToolPageConfig): string[] {
       'Compress JPG, PNG, WebP, HEIC, and AVIF photos with adjustable quality settings'
     );
   } else if (tool.slug === 'image-resizer') {
+    // Enumerate high-intent preset dimensions so AI crawlers and search engines
+    // see concrete capability signals for queries like "resize image to 1080x1080".
     features.push(
-      'Resize images by pixel dimensions or percentage with preset and custom sizes'
+      'Resize images by pixel dimensions or percentage with preset and custom sizes',
+      'Resize to 1080x1080 square preset for Instagram posts and profile pictures',
+      'Resize to 1200x630 landscape preset for Facebook, Twitter, and LinkedIn share cards',
+      'Resize to 1080x1920 vertical preset for Instagram Stories, Reels, and TikTok',
+      'Resize to 1920x1080 HD preset for desktop wallpapers and YouTube thumbnails',
+      'Lock aspect ratio to prevent stretching or cropping source photos',
+      'Resize JPG, PNG, WebP, HEIC, and AVIF source files to any pixel dimension'
     );
   } else if (tool.defaultInputFormat && tool.defaultOutputFormat) {
     const input = formatLabel(tool.defaultInputFormat);
@@ -118,6 +126,70 @@ export function buildToolSoftwareApplicationSchema({
       name: 'PicShift',
       url: 'https://picshift.app',
     },
+  };
+}
+
+/**
+ * Build a schema.org ItemList payload that enumerates the preset dimensions
+ * offered by the image resizer tool. Separate schema (rather than inline in
+ * SoftwareApplication) lets search engines resolve each preset as an entity
+ * with its own name/description, which is how rich result parsers look up
+ * "resize to 1080x1080" style queries.
+ *
+ * Preset names use raw numeric dimensions because digits are language-neutral,
+ * so the same schema block is safe to emit on every localized variant of the
+ * image-resizer page.
+ */
+export interface BuildImageResizerPresetsSchemaInput {
+  canonical: string;
+  h1: string;
+}
+
+export function buildImageResizerPresetsSchema({
+  canonical,
+  h1,
+}: BuildImageResizerPresetsSchemaInput) {
+  const presets: Array<{ name: string; description: string }> = [
+    {
+      name: '1080x1080',
+      description:
+        'Square crop preset at 1080 pixels by 1080 pixels for Instagram feed posts and profile pictures',
+    },
+    {
+      name: '1200x630',
+      description:
+        'Landscape preset at 1200 pixels by 630 pixels for Facebook, Twitter, and LinkedIn social share cards (Open Graph)',
+    },
+    {
+      name: '1080x1920',
+      description:
+        'Vertical 9:16 preset at 1080 pixels by 1920 pixels for Instagram Stories, Instagram Reels, and TikTok',
+    },
+    {
+      name: '1920x1080',
+      description:
+        'HD 16:9 preset at 1920 pixels by 1080 pixels for desktop wallpapers and YouTube thumbnails',
+    },
+  ];
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `${h1} — size presets`,
+    description:
+      'Built-in pixel dimension presets available in the PicShift image resizer for social media and display use cases.',
+    url: canonical,
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    numberOfItems: presets.length,
+    itemListElement: presets.map((preset, index) => ({
+      '@type': 'ListItem' as const,
+      position: index + 1,
+      item: {
+        '@type': 'Thing' as const,
+        name: preset.name,
+        description: preset.description,
+      },
+    })),
   };
 }
 
