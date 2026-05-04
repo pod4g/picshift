@@ -54,6 +54,17 @@ const faqs = [
       ]),
 ];
 const fallbackRelatedToolSlugs = ['image-compressor', 'image-resizer', 'png-to-jpg', 'jpg-to-png'];
+const HEIC_SUITE_SLUGS = [
+  'heic-to-jpg',
+  'heic-to-png',
+  'heic-to-webp',
+  'heic-to-avif',
+  'heif-to-jpg',
+  'heif-to-png',
+  'heif-to-webp',
+  'heif-to-avif',
+] as const;
+const isHeicSuitePage = (HEIC_SUITE_SLUGS as readonly string[]).includes(tool.slug);
 
 function pickRelatedTools(currentTool: ToolPageConfig): ToolPageConfig[] {
   const reverse = TOOL_PAGES.find(
@@ -85,13 +96,21 @@ function pickRelatedTools(currentTool: ToolPageConfig): ToolPageConfig[] {
   return [...uniqueBySlug.values()];
 }
 
-const relatedTools = pickRelatedTools(tool).map((relatedTool) => {
+function pickHeicSuiteTools(currentSlug: string): ToolPageConfig[] {
+  return HEIC_SUITE_SLUGS.filter((slug) => slug !== currentSlug)
+    .map((slug) => TOOL_PAGES.find((candidate) => candidate.slug === slug))
+    .filter((candidate): candidate is ToolPageConfig => Boolean(candidate));
+}
+
+const relatedToolCandidates = isHeicSuitePage ? pickHeicSuiteTools(tool.slug) : pickRelatedTools(tool);
+const relatedTools = relatedToolCandidates.map((relatedTool) => {
   const relatedTranslation = pageTranslations.tools[relatedTool.slug];
   return {
     href: `/${relatedTool.slug}`,
     title: relatedTranslation?.h1 || relatedTool.h1,
   };
 });
+const relatedToolsHeading = isHeicSuitePage ? toolPageUi.heicSuiteTitle : toolPageUi.relatedTools;
 const limitationItems = [toolPageUi.limitationFormat, toolPageUi.limitationSize, toolPageUi.limitationCompatibility];
 const detailSections = toolTranslation?.detailSections || tool.detailSections || [];
 const searchIntentSections = tool.searchIntentSections ?? [];
@@ -156,7 +175,7 @@ const relatedGuidesItemListSchema = {
 const relatedToolsItemListSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  name: `${h1} related tools`,
+  name: `${h1} ${relatedToolsHeading}`,
   itemListOrder: 'https://schema.org/ItemListOrderAscending',
   numberOfItems: relatedTools.length,
   itemListElement: relatedTools.map((relatedTool, index) => ({
@@ -261,7 +280,7 @@ const relatedToolsItemListSchema = {
 
       <section class="mb-8">
         <div class="rounded-xl border border-border bg-card-bg p-4 sm:p-5">
-          <h2 class="text-lg sm:text-xl font-semibold text-text-primary mb-3">{toolPageUi.relatedTools}</h2>
+          <h2 class="text-lg sm:text-xl font-semibold text-text-primary mb-3">{relatedToolsHeading}</h2>
           <div class="flex flex-wrap gap-2">
             {relatedTools.map((relatedTool) => (
               <a

@@ -2,6 +2,7 @@ import type { Locale } from './config';
 
 interface ToolPageUiStrings {
   relatedTools: string;
+  heicSuiteTitle: string;
   limitations: string;
   limitationsIntro: string;
   limitationFormat: string;
@@ -12,6 +13,7 @@ interface ToolPageUiStrings {
 const TOOL_PAGE_UI_MAP: Record<Locale, ToolPageUiStrings> = {
   en: {
     relatedTools: 'Related tools',
+    heicSuiteTitle: 'HEIC & HEIF tool suite',
     limitations: 'Known limitations',
     limitationsIntro: 'Before converting, note these constraints:',
     limitationFormat: 'Output behavior follows format capabilities (for example transparency support and lossy/lossless rules).',
@@ -20,6 +22,7 @@ const TOOL_PAGE_UI_MAP: Record<Locale, ToolPageUiStrings> = {
   },
   zh: {
     relatedTools: '相关工具',
+    heicSuiteTitle: 'HEIC / HEIF 工具套件',
     limitations: '边界说明',
     limitationsIntro: '转换前请注意以下约束：',
     limitationFormat: '输出行为受目标格式能力影响（例如是否支持透明、是否为有损/无损）。',
@@ -28,6 +31,7 @@ const TOOL_PAGE_UI_MAP: Record<Locale, ToolPageUiStrings> = {
   },
   'zh-Hant': {
     relatedTools: '相關工具',
+    heicSuiteTitle: 'HEIC / HEIF 工具套件',
     limitations: '邊界說明',
     limitationsIntro: '轉換前請注意以下限制：',
     limitationFormat: '輸出行為會受目標格式能力影響（例如透明支援、有損/無損規則）。',
@@ -36,6 +40,7 @@ const TOOL_PAGE_UI_MAP: Record<Locale, ToolPageUiStrings> = {
   },
   es: {
     relatedTools: 'Herramientas relacionadas',
+    heicSuiteTitle: 'Conjunto de herramientas HEIC y HEIF',
     limitations: 'Limitaciones conocidas',
     limitationsIntro: 'Antes de convertir, ten en cuenta estas restricciones:',
     limitationFormat: 'El resultado depende de las capacidades del formato de salida (por ejemplo, transparencia y reglas con/sin pérdida).',
@@ -44,6 +49,7 @@ const TOOL_PAGE_UI_MAP: Record<Locale, ToolPageUiStrings> = {
   },
   fr: {
     relatedTools: 'Outils associés',
+    heicSuiteTitle: 'Suite d’outils HEIC et HEIF',
     limitations: 'Limites connues',
     limitationsIntro: 'Avant conversion, notez ces contraintes :',
     limitationFormat: 'Le résultat dépend des capacités du format de sortie (par exemple transparence et règles avec/sans perte).',
@@ -52,6 +58,7 @@ const TOOL_PAGE_UI_MAP: Record<Locale, ToolPageUiStrings> = {
   },
   de: {
     relatedTools: 'Verwandte Tools',
+    heicSuiteTitle: 'HEIC- und HEIF-Tools',
     limitations: 'Bekannte Grenzen',
     limitationsIntro: 'Bitte vor der Konvertierung beachten:',
     limitationFormat: 'Das Ausgabeverhalten richtet sich nach den Formatfähigkeiten (z. B. Transparenz und Verlustfrei/Verlustbehaftet).',
@@ -60,6 +67,7 @@ const TOOL_PAGE_UI_MAP: Record<Locale, ToolPageUiStrings> = {
   },
   ja: {
     relatedTools: '関連ツール',
+    heicSuiteTitle: 'HEIC / HEIF ツール一覧',
     limitations: '制約事項',
     limitationsIntro: '変換前に次の制約を確認してください：',
     limitationFormat: '出力結果は形式の仕様に従います（例：透過対応、可逆/非可逆の違い）。',
@@ -68,6 +76,7 @@ const TOOL_PAGE_UI_MAP: Record<Locale, ToolPageUiStrings> = {
   },
   ko: {
     relatedTools: '관련 도구',
+    heicSuiteTitle: 'HEIC / HEIF 도구 모음',
     limitations: '알아둘 제한 사항',
     limitationsIntro: '변환 전에 아래 제한을 확인하세요:',
     limitationFormat: '출력 결과는 대상 포맷의 기능에 따라 달라집니다(예: 투명도 지원, 손실/무손실 규칙).',
@@ -76,6 +85,7 @@ const TOOL_PAGE_UI_MAP: Record<Locale, ToolPageUiStrings> = {
   },
   pt: {
     relatedTools: 'Ferramentas relacionadas',
+    heicSuiteTitle: 'Pacote de ferramentas HEIC e HEIF',
     limitations: 'Limitações conhecidas',
     limitationsIntro: 'Antes de converter, considere estas restrições:',
     limitationFormat: 'O comportamento de saída depende das capacidades do formato (ex.: transparência e regras com/sem perda).',
@@ -84,6 +94,7 @@ const TOOL_PAGE_UI_MAP: Record<Locale, ToolPageUiStrings> = {
   },
   ru: {
     relatedTools: 'Похожие инструменты',
+    heicSuiteTitle: 'Набор инструментов HEIC и HEIF',
     limitations: 'Известные ограничения',
     limitationsIntro: 'Перед конвертацией учитывайте следующие ограничения:',
     limitationFormat: 'Поведение результата зависит от возможностей выходного формата (например, прозрачность и режим с потерями/без потерь).',
@@ -92,6 +103,7 @@ const TOOL_PAGE_UI_MAP: Record<Locale, ToolPageUiStrings> = {
   },
   ar: {
     relatedTools: 'أدوات مرتبطة',
+    heicSuiteTitle: 'مجموعة أدوات HEIC وHEIF',
     limitations: 'قيود معروفة',
     limitationsIntro: 'قبل التحويل، راجع هذه القيود:',
     limitationFormat: 'سلوك الإخراج يعتمد على قدرات الصيغة المستهدفة (مثل دعم الشفافية وقواعد الفقد/عدم الفقد).',
@@ -100,6 +112,7 @@ const TOOL_PAGE_UI_MAP: Record<Locale, ToolPageUiStrings> = {
   },
   it: {
     relatedTools: 'Strumenti correlati',
+    heicSuiteTitle: 'Suite strumenti HEIC e HEIF',
     limitations: 'Limiti noti',
     limitationsIntro: 'Prima di convertire, considera questi vincoli:',
     limitationFormat: 'Il comportamento in uscita dipende dalle capacità del formato di destinazione (es. trasparenza e regole lossy/lossless).',
