@@ -316,10 +316,17 @@ const pt: PageTranslations = {
       ],
     },
     'jpg-to-png': {
+      // Cluster-wide refinement for 800+ imp of Portuguese queries stuck at
+      // rank 55-60: "converter jpg em png" (120), "conversor de jpg para
+      // png" (103), "transformar jpg em png" (90), "jpg png converter"
+      // (84), "jpg para png" (59) etc. Title front-loads the noun form
+      // "Conversor" (missing before, ~186 imp on conversor* variants);
+      // description covers both "em PNG" and "para PNG" preposition
+      // variants so every phrasing matches.
       title:
-        'Converter JPG para PNG online — editar, anotar, sem upload | PicShift',
+        'Conversor JPG para PNG — converter imagem grátis | PicShift',
       description:
-        'Converta JPG para PNG online quando você precisa editar, anotar ou reenviar sem adicionar mais perda. Em lote, no navegador e sem upload.',
+        'Converta JPG em PNG ou JPG para PNG online — conversor em lote, sem upload. Ideal para editar, anotar, reenviar sem adicionar mais perda.',
       h1: 'Converter JPG para PNG',
       introText:
         'Use o conversor de JPG para PNG online quando você quer transformar JPG em PNG para edição, marcação, assinatura ou vários reexports sem nova compressão com perda. Isso não recupera o que já se perdeu no JPG original, mas evita degradar mais a cada salvamento.',

@@ -134,15 +134,22 @@ function pickHeicSuiteTools(currentSlug: string): ToolPageConfig[] {
     .filter((candidate): candidate is ToolPageConfig => Boolean(candidate));
 }
 
-// Authority-pin: Spanish tool pages rank the image resizer at 60-80, with
-// 550+ impressions on high-intent queries like "redimensionar imagen" and
-// "cambiar tamaño de imagen" stuck on the same plateau. To concentrate
-// internal PageRank onto /es/image-resizer, every non-HEIC-suite /es/ tool
-// page surfaces image-resizer as the first related tool. HEIC-suite pages
-// keep their theme-specific cluster links because those already concentrate
-// authority onto /es/heic-to-jpg.
+// Authority-pin: every entry concentrates internal PageRank onto the
+// single page in that locale that most needs a ranking push. HEIC-suite
+// pages keep their theme-specific cluster links because those already
+// concentrate authority onto the HEIC family.
+//
+// es → image-resizer : 550+ imp stuck at rank 60-80 on
+//   "redimensionar imagen", "cambiar tamaño de imagen"
+// pt → jpg-to-png : 800+ imp stuck at rank 55-60 on 10 Portuguese
+//   variants of "converter/conversor/transformar jpg em/para png"
+// fr → image-resizer : 108 imp at rank 28 on
+//   "redimensionner image en ligne" — near-win that a pin can push into
+//   the top 20
 const AUTHORITY_PINS_BY_LANG: Partial<Record<Locale, readonly string[]>> = {
   es: ['image-resizer'],
+  pt: ['jpg-to-png'],
+  fr: ['image-resizer'],
 };
 const AUTHORITY_EXEMPT_SLUGS = new Set<string>([
   'image-resizer',
@@ -170,10 +177,16 @@ const baseRelatedCandidates = isHeicSuitePage
   ? pickHeicSuiteTools(tool.slug)
   : pickRelatedTools(tool);
 const authorityPinsForLang = AUTHORITY_PINS_BY_LANG[lang] ?? [];
+// A pinned page cannot self-link (that would fill the first related-tool
+// slot with its own href). Also skip pinning on the tool-type authority
+// pages (image-resizer/compressor/metadata-remover) because they already
+// sit above converters in the IA.
+const isCurrentPagePinned = authorityPinsForLang.includes(tool.slug);
 const shouldApplyAuthorityPin =
   !isHeicSuitePage &&
   authorityPinsForLang.length > 0 &&
-  !AUTHORITY_EXEMPT_SLUGS.has(tool.slug);
+  !AUTHORITY_EXEMPT_SLUGS.has(tool.slug) &&
+  !isCurrentPagePinned;
 const relatedToolCandidates = shouldApplyAuthorityPin
   ? applyAuthorityPin(baseRelatedCandidates, authorityPinsForLang, 4)
   : baseRelatedCandidates;
