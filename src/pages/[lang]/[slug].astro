@@ -19,10 +19,7 @@ import { getLocalizedToolSearchIntentSections } from '../../i18n/toolSearchInten
 import type { Locale } from '../../i18n/config';
 import type { ToolPageConfig } from '../../types';
 import { htmlCanonicalUrl } from '../../lib/htmlCanonicalUrl';
-import {
-  buildToolSoftwareApplicationSchema,
-  buildImageResizerPresetsSchema,
-} from '../../lib/softwareApplicationSchema';
+import { buildToolSoftwareApplicationSchema } from '../../lib/softwareApplicationSchema';
 
 export function getStaticPaths() {
   const paths: Array<{ params: { lang: string; slug: string }; props: { lang: Locale; tool: ToolPageConfig } }> = [];
@@ -275,10 +272,6 @@ const relatedToolsItemListSchema = {
     url: htmlCanonicalUrl(`https://picshift.app${relatedTool.href}`),
   })),
 };
-const imageResizerPresetsSchema =
-  tool.slug === 'image-resizer'
-    ? buildImageResizerPresetsSchema({ canonical, h1 })
-    : null;
 ---
 
 <Layout title={title} description={description} canonical={canonical} lang={lang} pagePath={pagePath}>
@@ -408,9 +401,6 @@ const imageResizerPresetsSchema =
       <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
       <script type="application/ld+json" set:html={JSON.stringify(relatedToolsItemListSchema)} />
       <script type="application/ld+json" set:html={JSON.stringify(relatedGuidesItemListSchema)} />
-      {imageResizerPresetsSchema && (
-        <script type="application/ld+json" set:html={JSON.stringify(imageResizerPresetsSchema)} />
-      )}
 
       <!-- FAQ section -->
       <FAQ faqs={faqs} lang={lang} />
