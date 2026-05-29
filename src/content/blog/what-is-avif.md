@@ -1,6 +1,6 @@
 ---
 title: "What Is AVIF? Browser Support, File Size, and Use in 2026"
-description: "AVIF is the AV1 image format — 20-30% smaller than WebP, supported in every major browser since 2024. What it is, where it works, and when to stick with JPG."
+description: "AVIF is the AV1 image format — 15-25% smaller than WebP and now supported in every major browser. What it is, where it works in 2026, and when to stick with JPG."
 cover: "/blog/what-is-avif-cover.webp"
 publishedAt: 2026-04-25
 author: "PicShift"
@@ -46,23 +46,25 @@ A 500 KB JPEG photograph compresses down to roughly 250–350 KB as AVIF with no
 
 The trade-off is encoding speed. AV1 is slower to encode than JPEG; for large batches it shows. Decoding (the part that matters when a user loads your site) is fast enough that browsers don't flag AVIF as a performance problem.
 
-## Where AVIF works in 2026
+## AVIF browser support in 2026
 
-Browser support has reached the same bar as WebP did a few years ago ([versions per caniuse](https://caniuse.com/avif)):
+Short answer: **yes, you can use AVIF in 2026.** Every major browser renders it by default — Chrome, Edge, Firefox, Safari, Opera, and Samsung Internet. [caniuse puts global coverage at roughly 94%](https://caniuse.com/avif) as of early 2026, so the format is safe to ship as long as you keep a fallback for the last few percent.
 
-| Browser | AVIF support since |
+Support reached the same bar WebP cleared a few years ago. Here is the version where each browser turned AVIF on by default ([versions per caniuse](https://caniuse.com/avif)):
+
+| Browser | AVIF supported by default since |
 | --- | --- |
 | Chrome | 85 (August 2020) |
 | Edge | 121 (January 2024) — earlier builds had AVIF disabled by default |
 | Firefox | 93 (October 2021) |
 | Opera | 71 (August 2020) |
 | Samsung Internet | 14 (2021) |
-| Safari (iOS / iPadOS) | 16.0 (Sept 2022, partial — no animation), 16.4 for full support |
-| Safari (macOS) | 16.4 (March 2023, requires macOS Ventura) |
+| Safari (iOS / iPadOS) | 16.0 (Sept 2022, partial — no animation), 16.4 for full support including animation |
+| Safari (macOS) | 16.4 (March 2023, requires macOS Ventura or later) |
 
-Global coverage is around 95% in 2026. The remaining few percent are users on iOS 15 and older, plus a long tail of in-app browsers and locked-down corporate Windows builds.
+Every Safari release since 16.4 — up to the current Safari 26 — handles both still and animated AVIF, so on Apple devices the only holdouts are iPhones and Macs that never updated past 2022. That puts practical coverage at about 94% of users in 2026; the remaining few percent are people on iOS 15 and older, plus a long tail of in-app browsers and locked-down corporate Windows builds.
 
-For a production website in 2026 that's good enough to ship — the same support story as WebP, with a JPEG fallback for the long tail.
+For a production website in 2026 that is good enough to ship — the same support story as WebP, with a JPEG fallback for the long tail via the `<picture>` element shown below.
 
 ## Where AVIF still does not work
 

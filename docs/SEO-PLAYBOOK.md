@@ -456,7 +456,87 @@ PicShift 的内链结构应该是：
 - 纯信息型内容越来越多被 AI 直接回答，用户不需要点进来
 - 但如果你的信息型内容同时带有"你可以直接用 PicShift 做这件事"的行动引导，价值就不一样了
 
+### 外部 SEO 专家方法论 + AI 内容规模化风险（2026-05-29 沉淀）
+
+> 来源：① 一位外部 SEO 专家（Irving Weiss）给同类产品 Solvely 做的页面优化方案（5 篇工具页 + 3 篇对比文）；② 专家推荐的 Lily Ray 文章《[It Works Until It Doesn't: AI Content Strategies That Backfire](https://lilyraynyc.substack.com/p/it-works-until-it-doesnt-ai-content-risks)》（2026-05-13）。
+>
+> 这两份材料一正一反：专家讲"应该怎么写才会赢"，Lily Ray 讲"规模化 AI 内容怎么把站玩死"。**PicShift 恰好是它们都在说的那类站**（配置驱动工具页 + 12 语言 + 重 FAQ schema），所以必须两份一起看。
+
+#### 一、底层逻辑（专家方法论一句话）
+
+> **别再"自卖自夸"和"硬刚排不上的大词"，改为"在页面上真正帮用户把活干完（task completion）+ 给出竞品没有的、可验证的具体内容（information gain）"。**
+
+专家反复引用 Google 质量评估指南（Quality Rater Guidelines）的奖惩两面：
+
+| Google 奖励 | Google 打压 |
+|---|---|
+| E-E-A-T（经验/专业/权威/可信） | 自我推销内容（self-promotional） |
+| Task completion（页面上能把事做完） | 规模化灌水内容（scaled content） |
+| People-first / Information gain | 同质化商品内容（commodity content） |
+
+同样这三个特质也让页面**更容易被 AI 答案引擎引用**（它们偏好清晰、可验证、结构化的来源）。这与本仓库已有的「ChatGPT 占行业外链流量 28.55%」「GEO 是最大杠杆」的结论一致。
+
+#### 二、工具页打法（对应 PicShift 的转换/压缩/调整页）
+
+PicShift 的工具页**已经做对了大部分**（本地免费把活干完、searchIntentSections、HowTo、related tools 互链、canonical 自引用、JSON-LD）。专家方法论里 PicShift 仍可加强的增量：
+
+1. **打可赢的长尾，不硬刚头部大词**：专家不打被 Symbolab/Mathway 占死的 `algebra calculator`，而打 `algebra calculator with steps`。对应到 PicShift = 不硬刚 `image compressor`，先吃 `compress png without losing quality online` 这类带意图修饰词的长尾（与本仓库「农村包围城市」「关键词难度决定优先级」完全一致）。
+2. **把"任务完成"明明白白写在页面上**：专家强调免费、不用注册、步骤不藏在登录墙后。PicShift 同理——"本地处理、不上传、批量、无需注册"要写实写清，这是 task completion 的核心证据。
+3. **用"具体内容/worked example"替换空洞宣传**：删掉 "the ultimate / 最受信赖 / trusted by millions" 这类话，换成竞品页面上没有的真实数据。对 PicShift = 真实的压缩/转换前后对比数字（**且必须带样本与环境**，遵守本文件开头的事实核查红线）。这就是 information gain。
+4. **可被爬取至关重要**：worked example / 解释文本必须在**初始 HTML 静态文本**里，不能只在点击后由 JS 渲染（Google 读不到点击后才出现的内容）。PicShift 的 introText + searchIntentSections + FAQ 是静态渲染，符合；新增内容时守住这一点。
+5. **信任数字只用一个、且可核实**：专家批评 Solvely 同时摆 "16.5K reviews/4.7星" 和 "98% 满意度" 两个对不上的数。PicShift 任何评分/份额/百分比同理——一个数字、一个来源、跨字段一致（呼应事故记录 2026-05-04 ar.ts iOS 版本号自相矛盾那条）。
+6. **描述性锚文本 + 主题集群**：内链锚文本用 "compress a PNG without quality loss" 而不是 "click here"。PicShift 的 HEIC 套件互链、related tools 已是这个思路，继续保持。
+
+#### 三、对比/Alternatives 文章打法（专家版，安全写法）
+
+专家那篇 StudyFetch 对比文是**正面范本**，要点：
+
+- **绝不把自己排第一**（self-ranking 是被 Google 打压、AI 几乎不引用的模式）。
+- **按"用户要解决的 job"组织，不按排名**：StudyFetch 那篇按"解题/录课/记忆/读文档"四类需求分组，让用户对号入座。对应 PicShift = 按"压缩/格式转换/隐私去元数据/批量"分组。
+- **先泼冷水（包括对自己）**：开头就承认所有工具的局限，连自己都一起说——这种诚实/披露是 Trust 信号。
+- **数据可验证 + 标核查日期**：评分、价格、规模都标 "Verified May 2026" 并列真实来源。
+- **真实可核实的作者（E-E-A-T 核心）**：真人署名 + 带照片/履历/LinkedIn 的作者页。这是工具站最容易缺、专家最强调的一项。
+- **客观给竞品优缺点 + "什么场景选它"**：自己只在擅长的那个 job 里出现，并诚实说明不足。
+
+#### 四、Lily Ray 的反面警告：8 种高危内容模板
+
+⚠️ **核心机制**：这些模板单独看都"有效"（所以大家才用），危险在于 **规模化 + 同质化 + 无人工审核** → 索引被同款页灌满 → 形成可被算法识别的 spam footprint → 被降权。她监控 220+ 个站：**54% 丢失峰值流量 ≥30%，39% ≥50%，22% ≥75%**，轨迹叫 "Mount AI"（暴涨后暴跌，常跌破起点）。本质和 2023 HCU、2024 March Core Update、Scaled Content Abuse 政策同源——打击"为搜索引擎而非为人写的规模化内容"。
+
+| # | 高危模板 | PicShift 的暴露面 |
+|---|---|---|
+| 1 | 规模化对比页 `/[A]-vs-[B]`（铺满所有两两组合） | 若批量生成 `picshift-vs-X` 全家桶 → 命中 |
+| 2 | "What is X" 词条页（尤其程序化多语言翻译、无人工审核） | docs/blog 若机翻套模板铺多语言 → 命中 |
+| 3 | "Best X for Y" 榜单文 | — |
+| 4 | 自我推销榜单（把自己排第一）— 2026-01 底未确认更新专打，40+ 站掉 40–95% | 写对比文时把 PicShift 排第一 → 命中 |
+| 5 | 竞品 alternatives 页（每个竞品一个落地页） | **已有「Alternatives 页面矩阵」章节，正中此条，见下方修正** |
+| 6 | 程序化地域/语言扩张（每页独特内容极少） | **PicShift 最大雷区：12 语言 × N 工具，若各语言只是机翻套壳** |
+| 7 | FAQ farm（一问一 URL + schema，为 AI 抽取设计） | FAQ schema 用得重；且 **Google 已宣布弃用 FAQ Rich Results** |
+| 8 | 规模化跑题内容（与主业无关的高产文章） | 别为蹭量写图片处理无关的话题 |
+
+**PicShift 的护城河**恰恰是 Lily Ray 认可的安全侧：工具页**真的能在页面上免费、本地把活干完**——这让它与"薄程序化页"有本质区别。把这个优势做实、做出 information gain，就站在安全的一边；前提是别把"12 语言 + FAQ schema"玩成"程序化薄页 + FAQ farm"。
+
+#### 五、发布前 5 个灵魂拷问（任何新页/新文发布前必过）
+
+1. 这页是因为**真有用户/读者需要**才存在，还是只因为搜索引擎/LLM 可能引用它？
+2. 竞争对手明天能不能用**同一个 prompt** 复制出几乎一样的页？
+3. 把这个子目录下的**完整 URL 列表**摊给 Google/记者/客户看，我会不会脸红？
+4. 这页有没有偏见？如果有，是否对用户透明？
+5. 这页有没有**一手数据/专业经验/原创观点**，是当前排前 10 的页面没有的？
+
+#### 六、两份材料的共识（写进决策默认值）
+
+> 质量、原创性、主题聚焦 > 规模。AI 用来加速**研究、大纲、注入一手数据**，但**人要在环、要有信息增量、要诚实透明**。能在页面上真正帮用户把事做完的工具站（PicShift 正是）是这轮周期里相对安全的一侧——别把多语言和 FAQ schema 玩成程序化薄页。
+
+---
+
 ### Alternatives 页面矩阵：决策型内容的规模化打法
+
+> ⚠️ **2026-05-29 修正（必读，优先级高于本节原文）**：本节原文受 SEMRush "14,453 页模板化批量生成" 案例影响，倾向于"规模化批量生成 alternatives 页"。**这正是 Lily Ray 文章点名的第 5 类高危模板**（详见上一节「外部 SEO 专家方法论 + AI 内容规模化风险」）。
+>
+> 修正后的执行原则：
+> - ✅ **可以做**：少量（个位数）、人工深度审核、**按 job 组织、诚实客观、带一手测试数据、真实作者署名、绝不把自己排第一**的对比文。
+> - ❌ **不要做**：给每个竞品都批量铺一个 `{品牌}-alternatives` / `picshift-vs-{品牌}` 落地页、用同一模板程序化量产、把 PicShift 自封第一。
+> - 下方"统一页面结构""可以做的 alternatives 列表"仅作**单篇结构参考**，不要理解为"把列表里每个都铺成一页"。SEMRush 那个 14,453 页案例**不要照抄规模**。
 
 #### 模式说明
 
@@ -1531,3 +1611,71 @@ PicShift 的差异化优势：
 3. **法语近赢页**：`redimensionner image en ligne`、`convertisseur png jpg en ligne` 是否把 `fr/image-resizer`、`fr/png-to-jpg` 推进到更高点击区。
 4. **俄语压缩页**：`сжать фото`、`уменьшить размер фото` 一类 query 是否更集中到 `ru/image-compressor`。
 5. **葡语规模页**：`pt/jpg-to-png`、`pt/image-resizer` 是否先出现排名改善，再出现点击改善。
+
+### 2026-05-29 迭代记录
+
+> 本轮结合新沉淀的「外部 SEO 专家方法论 + Lily Ray 风险清单」复盘三段 GSC 导出（7天/28天/3个月），并启动 P1 优化。
+
+#### GSC 数据复盘（三窗口对比）
+
+| 窗口 | 点击 | 展示 | CTR | 加权平均排名 |
+|---|---|---|---|---|
+| 近 3 月 | 112 | 31,926 | 0.35% | 前14天 64.6 → 后14天 **34.4** |
+| 近 28 天 | 73 | 12,726 | 0.57% | — |
+| 近 7 天 | 24 | 3,079 | **0.78%** | — |
+
+核心结论：**排名快速前移（64→34）、展示翻 2.6 倍、点击与 CTR 同步加速**，处于「快到第一页、尚未破门」的临界期。验证了「站内 SEO 天花板 ~30-60，破门需外链/权重」的判断。
+
+关键发现：
+
+- **产生点击的是亚洲语种，不是高展示的拉美**：日本（2292 展示→16 点击，pos 38）、俄罗斯（14 点击）、韩国（12 点击）转化得出来；巴西（**4500 展示→2 点击**，pos 62）、西语、法语展示巨大但近乎 0 点击。**根因是排名（50-65 名=第 5-7 页），不是文案**。→ 不要在第 6 页的拉美页抠 title CTR，先推排名。
+- **头号机会页 `/ja/image-compressor`**：展示 1375（全站最高之一），排名 37 → 近 7 天 **29.5**，是全站最大点击来源（`画像圧縮` 28 天 pos 16.6）。
+- **临门一脚清单（pos<12）**：`/ru/heic-to-webp`(9.6)、`/ar/heic-to-jpg`(11.6)、`/ko/heif-to-jpg`(10.4，`heif jpg 변환` 28天 pos **4.3**)、`/blog/compress-without-losing-quality`(6.8)、`avif browser support 2026`(8.6)、`local image converter`(9.2)。
+- **品牌在成形**：`picshift` 3 月 pos 6.6 → 28 天 **4.4**，出现 `picshifter`/`imageshift` 变体。
+
+#### 跳转归一实测（更正上一版"P0"误判）
+
+curl 实测确认三种归一**早已生效**（非"未生效"）：
+
+- `http://` → `https://`（301）、`www.` → apex（301）、尾斜杠 → 无斜杠（308），最终都干净落到 `https://picshift.app/...`（200），最终页 canonical 自引用一致。
+- GSC「网页」报表里的 `http://`/`www.`/尾斜杠重复 URL 是 **4/18 修复前的历史数据**，Google 仍在按节奏重抓合并，会自然收敛，**无需处理**。
+- 唯一可选优化（低优先级，非必须）：最坏组合 `http://www.../slash/` 走 3 跳（301→301→308→200），可在边缘层一次性归一到终点省抓取预算。当前可不管。
+
+#### 本轮改动摘要
+
+| 类别 | 内容 | 涉及文件 |
+|---|---|---|
+| **方法论沉淀** | 新增「外部 SEO 专家方法论 + AI 内容规模化风险」整节；修正「Alternatives 页面矩阵」节（加高优先级提示框，明确不要程序化批量铺 alternatives 页、不自封第一） | `docs/SEO-PLAYBOOK.md` |
+| **P1 内容深耕** | `/ja/image-compressor` 新增手写 `detailSections`（「写真圧縮の品質設定の選び方」用途别品质目安 + 「圧縮した後に確認すること」确认手顺）。竞品压缩页普遍不写的决策走查 = information gain；**不引入任何未核实新数字**，与页面已有"品質80"一致；已验证进静态 HTML | `src/i18n/translations/ja.ts` |
+| **P2 近赢精修（俄语）** | 给两页偏薄又近赢的俄语页各加 3 张手写决策卡 searchIntent：`/ru/heic-to-webp`（pos 9.6，WebP vs JPG 取舍 + WebP 的兼容坑 + 比较视图验质）、`/ru/heic-to-png`（pos 13.5，承接 `из heic в png` 12 / `хейк в пнг` 9.8；何时选 PNG + 为何更大 + 何时该用 JPG/WebP）。地道俄语、口语化专业语气，复用页面已有数字（2–5 倍、25–34%），未引入新数字；已验证进静态 HTML | `src/i18n/toolSearchIntent.ts` |
+| **P2 AVIF GEO 线** | `/blog/what-is-avif`（查询簇 `avif browser support 2026` / `can i use avif` / `caniuse avif`，pos 8.6–11）。H2 由「Where AVIF works in 2026」改为「**AVIF browser support in 2026**」直接对齐查询词；段首加一句可被 AI 直接抽取的直答（"yes, you can use AVIF in 2026"+全主流浏览器+~94%）；全局支持率 ~95% → **~94%**（核实）；补"当前 Safari 26 起含动画"佐证新鲜度；并对齐 frontmatter description 与正文的 WebP 数字（20-30% → 15-25%，正文有 Netflix/Cloudflare/Google 引用）。**改前逐条联网核实，未改任何已核实的版本号/百分比** | `src/content/blog/what-is-avif.md` |
+
+**刻意不动**：`/ko/heif-to-jpg`（pos 4.3，已 5 FAQ + 3 searchIntent）和 `/ar/heic-to-jpg`（已 7 FAQ + 3 searchIntent）内容已足够丰富，再加属于 §执行原则禁止的"跨页套模板堆砌"，故本轮不碰——它们需要的是权重/时间，不是更多文案。
+
+自动化校验：`npm run build`（405 页通过，两轮）、`npm run seo:audit`（无 warning/error）、`ja.ts` / `toolSearchIntent.ts` 无 lint 问题。
+
+#### 执行原则（本轮确立，重要）
+
+- **巩固赢家 > 再加页**：几百个拉美页卡在 60-90 名 0 点击，已是 Lily Ray 警告的「程序化语言扩张」薄页足迹。资源投到已验证赢家做深，**不再批量加语言×工具页**。
+- **深耕必须手写、逐页差异化**：detailSections 这类内容不可跨页套同一模板批量复制（否则正是 scaled content 风险）。每页只在能提供真实增量时才加。
+- **事实红线优先于 SEO**：涉及 AVIF/压缩比/版本等数字的页（尤其 blog），改前必须按 §事实核查 联网核实，不沿用 LLM 记忆。
+
+#### 下次复盘（建议 2026-06-05）重点观察
+
+1. **`/ja/image-compressor`**：`画像圧縮`/`写真 圧縮`/`圧縮 画像` 排名是否从 16-29 继续前移；是否出现更多日本点击。
+2. **临门一脚页**：`/ru/heic-to-webp`、`/ko/heif-to-jpg`、`/ar/heic-to-jpg` 是否破入前 10、产生点击。
+3. **AVIF GEO 线**：`avif browser support 2026`、`/blog/what-is-avif` 是否守住/前移；是否出现 AI 引用。
+4. **历史重复 URL 收敛**：GSC 中 `http://`/`www.`/尾斜杠 URL 的展示是否继续下降。
+5. **整体**：日均点击是否站上 4+、CTR 是否继续抬升、加权排名是否进入 20-30 区间。
+
+#### 待办（按优先级，逐个手写、勿批量）
+
+- P2：~~RU heic-to-webp / heic-to-png 已做~~；~~AVIF GEO 线已做（what-is-avif 浏览器支持节，已逐条联网核实）~~；KO/AR 近赢页已足够丰富，刻意不加。P2 收口。
+
+  **本轮 AVIF 事实核查来源（2026-05）**：
+  - 全局支持 ~94%：[ImgCruncher 94.3%](https://imgcruncher.com/blog/avif-vs-webp-2026)、[theimagecdn "~94% / 2026-03 caniuse"](https://theimagecdn.com/docs/image-formats-explained)、avif2anything 93–95%；[caniuse/avif](https://caniuse.com/avif) 当前 Safari 16.4–26.x 全绿。
+  - Safari 自 16.4（2023-03）起完整支持含动画，当前已到 Safari 26.x：[TestMu/LambdaTest AVIF](https://www.testmuai.com/learning-hub/avif-browser-support/)、[WebKit Safari 18.0](https://webkit.org/blog/15865/webkit-features-in-safari-18-0/)、caniuse。
+  - 版本号（Chrome 85/Firefox 93/Edge 121/iOS 16.0 部分·16.4 完整）经多源复核**无误，未改动**。
+- P3：暂不动拉美高展示页文案，等权重把排名推进前 20。
+- P4：继续自然外链（AS=2 仍是天花板）。
+- 小语种地道性：RU 文案已尽量贴近母语者自然用法，建议有俄语资源时过一眼复核（用户不具备多语言核验能力）。
