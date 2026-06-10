@@ -109,6 +109,8 @@
 | 2026-04-25 | 6 篇 blog 中 5 篇 | 收尾 H2 都叫 `## The bottom line`。 | 这就是典型 AI 模板化收尾。读者一篇还行，连读两篇就明显看出"是同一个模型写的"。属于 PLAYBOOK §去 AI 化 §"不要每段结构都一模一样"的延伸。修复：每篇收尾 H2 必须不一样，比如 `## When to use it`、`## What I'd actually do`、`## The honest answer`。 | PLAYBOOK §Blog 文章去 AI 化规则 |
 | 2026-05-04 | `src/lib/softwareApplicationSchema.ts` + 两个 `[slug].astro` | 为推 `/es/image-resizer` 排名，新增 `buildImageResizerPresetsSchema` 生成 ItemList JSON-LD，里面声明了 4 个"固定尺寸 preset"（`1080x1080` / `1200x630` / `1080x1920` / `1920x1080`）；并在 `SoftwareApplication.featureList` 里重复"Resize to 1080x1080 square **preset** for Instagram..."等 4 条。 | `ResizeSelector.tsx` 的 `PRESETS` 只包含 `Max 2560/1920/1080/800 px`（最长边约束）+ `75%` / `50%`（缩放）+ `Custom...`（用户输入）。**工具里根本没有任何固定尺寸一键 preset 按钮**。这是把"希望用户能找到的尺寸"当成"工具声明支持的 preset"来写 schema，与 2026-03-29 移除 `SearchAction`（声明不存在的站内搜索）是**同一类错误**。修复：`d62c918` 删除整个 `buildImageResizerPresetsSchema` + 两处 injection，重写 `featureList` 5 条只描述真实 UI preset（Max 2560/1920/1080/800 / 50% / 75% / 锁比例 / 格式支持），将 1080x1080 等社媒尺寸改为 "Enter custom width and height ... **including** 1080x1080 for Instagram posts..."（明确框定为 custom 输入可达到的 examples，不是 preset）。教训：**写任何 featureList / ItemList schema 之前，必须先打开对应 UI 组件对照一遍，schema 里每一项都要能在 UI 里指到具体按钮、下拉项或输入框**。SEO 价值不能凌驾于 factual accuracy 之上。 | `src/components/converter/ResizeSelector.tsx` L41-50 `PRESETS` + PLAYBOOK §不要做的事 §JSON-LD 声明不存在功能 |
 | 2026-05-04 | `src/i18n/translations/ar.ts` `heic-to-jpg` | description 写 "دعم iOS 15/16/17"（只列 3 个 iOS 版本），同页 FAQ 又写 "تعمل الأداة على iOS 15 وiOS 16 وiOS 17 وiOS 18"（列到 iOS 18）。**同一页面版本号自相矛盾**，且凭 LLM memory 列版本而非查证。 | PicShift 用 WebAssembly + libheif-js 在浏览器端解码 HEIC，**与拍摄照片的 iOS 版本完全无关**。HEIC 从 iOS 11（2017-09）起成为 iPhone 默认相机格式，所以 iOS 11 到 iOS 任何后续版本拍的 HEIC 都能处理。列具体版本号既是虚构的"支持范围"断言（红线 §5 用户行为/默认行为），又是凭印象的版本号声明（红线 §1）。修复：`d62c918` 两处改为版本无关的表达（description "متوافق مع جميع صور HEIC التي يلتقطها iPhone"；FAQ "تعمل الأداة مع أي ملف HEIC مهما كان طراز iPhone أو إصدار iOS الذي التقطه"）。教训：**工具支持的是文件格式本身，不是"某几个 OS/App 版本"**，文案里列 `iOS X / Android Y / Windows Z` 版本号之前先问"我们的代码里有任何对这个版本号的依赖吗"；同时**同一页面跨字段的事实陈述写完后必须自己扫一遍**（description vs FAQ、title vs H1、featureList vs UI），很多虚构与不一致只有跨字段比对才能看出来。 | `src/components/converter/Converter.tsx` 用 libheif-js 解码；Apple HEIC 引入为 iOS 11（2017-09）官方文档 |
+| 2026-06-10 | `src/i18n/translations/ru.ts` `heic-to-png` | CTR 精修时新写的 title 66 字符，超 65 上限（与 2026-04-25 blog title 超长同款错误）。发布前对照本表自查时抓出。 | **`seo:audit` 没拦住**：脚本只扫 `tools.ts` + blog frontmatter，**不扫 `i18n/translations/*.ts` 的逐页 title/description**——审计盲区。且存量 RU 模板 title 本就 ~74 字符（全站性遗留，未列入本次范围）。修复：改为 "Конвертер HEIC в PNG онлайн — без потерь, без загрузки"（65）。教训：**改 i18n 逐页 meta 后必须手动数长度**（`python3 -c "print(len(...))"`），直到审计脚本补上 i18n 覆盖。 | 本仓库 `scripts/seo-audit.mjs` 覆盖范围 |
+| 2026-06-10 | `src/content/blog/social-media-exif-stripping.md` | 新 description 写 "WhatsApp: strips everything"——绝对句。正文自己就写了反例：**以文档附件（paperclip → Document）发送时元数据原样保留**。 | 违反红线 §"总是/所有先找反例"，而且反例就在同一篇正文里（跨字段自相矛盾的变体）。发布前自查抓出，改为 "WhatsApp: yes in chats"（限定到聊天界面发送）。教训：**description 是对正文的压缩，压缩时最容易把正文里的限定条件压没**——写完 description 回头对照正文的例外段落扫一遍。 | 本篇正文 §WhatsApp（document attachment 例外） |
 
 > 写新文章前请**先扫一眼这张表**。每一行都是一次"看起来合理但其实是错的"教训。
 >
@@ -1691,3 +1693,47 @@ curl 实测确认三种归一**早已生效**（非"未生效"）：
 - P3：暂不动拉美高展示页文案，等权重把排名推进前 20。
 - P4：继续自然外链（AS=2 仍是天花板）。
 - 小语种地道性：RU 文案已尽量贴近母语者自然用法，建议有俄语资源时过一眼复核（用户不具备多语言核验能力）。
+
+### 2026-06-10 迭代记录（主复盘 + CTR 转化轮）
+
+> 对照 05-29 轮定下的 5 项观察指标复盘三段 GSC 导出（7天/28天/3个月，至 06-07/06-10），改动生效满 12 天，信号干净。
+
+#### 主复盘：5 项指标全部达标
+
+| 观察项 | 基线（05-29） | 本次（06-10） | 判定 |
+|---|---|---|---|
+| 整体 | 日点击 ~3、加权排名 27-44 | 日点击 4-8（周均 ~5.7）、**加权排名 18-22**、日展示 530-689 | ✅ 超目标（点击 4+、排名 20-30） |
+| `/ja/image-compressor`（P1 深耕） | pos 30→26 | 7d pos 20.6、591 imp、5 clk；`画像圧縮` 16-29 → **10.63** | ✅ |
+| 临门一脚页（P2） | ru/heic-to-webp 9.6 | ru/heic-to-webp **6.78 + CTR 8.7%**；ko/heif-to-jpg 28d **6.86 + 4 clk**；ar/heic-to-jpg pos 10 + 2 clk | ✅ 全破前 10 且有点击 |
+| AVIF GEO 线 | `avif browser support 2026` 8.6 | 7d **pos 5**（28d 6.67 / 78 imp） | ✅ 排名达成；但整簇 0 点击（见下） |
+| 历史重复 URL | 残留中 | 7d/28d 已干净 | ✅ 收敛完成 |
+
+**结论：上轮「巩固赢家」打法被数据验证。瓶颈从「排名」转移到「点击转化（CTR）」。**
+
+#### 关键新发现：排名赢了、点击漏掉
+
+- `/ru/webp-to-jpg`：7d 277 imp、pos 10.92、**0 点击**——最大泄漏点。查询簇全在前 10（`конвертировать webp в jpg` 9.56、`из webp в jpg` 10.43 等，合计 ~200 imp/7d），但 title/description 是全站统一模板，SERP 摘要无差异化卖点。
+- `/ru/heic-to-png`：237 imp、pos 10.21、CTR 仅 0.84%，同症状。
+- `/blog/social-media-exif-stripping`（9.82 / 72 imp / 0 clk）：近赢查询几乎全是 **Discord 系**（`does discord remove/strip exif data`，~70 imp/28d，pos 9-12），但旧标题把 Discord 排最后。
+- **AVIF 簇 0 点击 = 接受现状**：`avif browser support` 类查询答案被 SERP/AI 摘要直接吸收，本就是零点击型查询；这条线的价值是 GEO 被引用，不再投入。
+
+#### 本轮改动摘要
+
+| 类别 | 内容 | 涉及文件 |
+|---|---|---|
+| **P1 CTR 精修（俄语）** | `/ru/webp-to-jpg`、`/ru/heic-to-png` 的 title/description 由模板改为手写差异化版本：title 加 `онлайн` + 核心卖点（无上传/无损）；description 用痛点开场（"Скачали картинку в WebP, а она не открывается?" / "Фото с айфона не открывается?"）+ 即时/批量/无上传/免注册。地道俄语，不引入新事实 | `src/i18n/translations/ru.ts` |
+| **P2 JA authority pin** | `AUTHORITY_PINS_BY_LANG` 加 `ja: ['image-compressor']`——18 个日语工具/文档页的相关工具区首位现链向 `/ja/image-compressor`，锚文本「画像圧縮（無料）」精确匹配卡在 10.63 的目标查询（HEIC 套件页按既有规则豁免） | `src/pages/[lang]/[slug].astro` |
+| **P3 blog 近赢 CTR** | `social-media-exif-stripping`：标题 Discord 提到首位（"Does Discord Strip EXIF? Instagram, WhatsApp Tested in 2026"），description 直答 Discord 的 JPEG/PNG 分格式行为（与正文一致）。`heic-heif-on-windows`：description 改为「缺 HEVC 编解码器」成因 + 三个修复直答（浏览器转 JPG / $0.99 编解码器 / iPhone 设置，均有正文支撑） | `src/content/blog/*.md` |
+
+**刻意不做**：AVIF 线不再投入；不写新 blog（06-10 数据复核后结论不变）；拉美/ES 高展示页继续等权重。
+
+自动化校验：`npm run build` 405 页通过、`npm run seo:audit` 无 warning/error（blog title 57-59、description 152-155 全部限内）、产物抽查三项改动均已渲染。
+
+**发布前按事故表自查，抓出并修复 3 处**（已追加进 §事故记录）：① RU heic-to-png 新 title 66 字符超限（audit 不扫 i18n 逐页 meta 的盲区）；② exif 篇 description "strips everything" 绝对句与正文 document-attachment 例外矛盾；③ 两条新 RU description 结尾雷同（模板化苗头，已差异化）。
+
+#### 下次复盘（建议 2026-06-24，两周节奏）重点观察
+
+1. **CTR 是否兑现**：`/ru/webp-to-jpg`（基线 277 imp/7d、CTR 0%）、`/ru/heic-to-png`（CTR 0.84%）改后 CTR 是否 ≥2%；`/blog/social-media-exif-stripping` Discord 簇是否开始产生点击。
+2. **JA pin 效果**：`画像圧縮`（10.63）是否破前 10；`/ja/image-compressor` 整页 pos（20.6）是否进 15 内。
+3. **title 改动副作用**：exif 篇改标题后 Instagram/WhatsApp 相关展示是否受损（基线上几乎没有该类查询展示，预期无损）。
+4. **整体**：日点击是否站上 8+、加权排名是否进 15-20。

@@ -1,6 +1,6 @@
 ---
 title: "HEIC on Windows: Why iPhone Photos Won't Open and 3 Fixes"
-description: "Windows 11 still can't open HEIC or HEIF photos from iPhone by default. Why Apple uses this format, what HEIC vs HEIF actually means, and three ways to fix it."
+description: "iPhone photos won't open on Windows because the HEVC codec isn't bundled. Three fixes: convert to JPG in your browser, the $0.99 codec, or iPhone settings."
 cover: "/blog/heic-heif-on-windows-cover.webp"
 publishedAt: 2026-04-06
 author: "PicShift"

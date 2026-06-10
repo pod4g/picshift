@@ -143,10 +143,14 @@ function pickHeicSuiteTools(currentSlug: string): ToolPageConfig[] {
 // fr → image-resizer : 108 imp at rank 28 on
 //   "redimensionner image en ligne" — near-win that a pin can push into
 //   the top 20
+// ja → image-compressor : 591 imp/7d at rank ~20 (2026-06-10);
+//   "画像圧縮" sits at 10.6 — one nudge from the top 10. Anchor text is
+//   the JA h1 「画像圧縮（無料）」 which exactly matches the query.
 const AUTHORITY_PINS_BY_LANG: Partial<Record<Locale, readonly string[]>> = {
   es: ['image-resizer'],
   pt: ['jpg-to-png'],
   fr: ['image-resizer'],
+  ja: ['image-compressor'],
 };
 const AUTHORITY_EXEMPT_SLUGS = new Set<string>([
   'image-resizer',

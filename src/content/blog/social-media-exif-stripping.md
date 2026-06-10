@@ -1,6 +1,6 @@
 ---
-title: "Does Instagram, WhatsApp, Discord Strip EXIF? Tested in 2026"
-description: "Which apps actually strip GPS and camera data from photos you send? WhatsApp: yes. Instagram: mostly. Discord: split by format. Tested platform-by-platform, 2026."
+title: "Does Discord Strip EXIF? Instagram, WhatsApp Tested in 2026"
+description: "Discord now strips EXIF from JPEGs but can leave PNG metadata intact. WhatsApp: yes in chats. Instagram: mostly. Every major platform tested, 2026."
 cover: "/blog/social-media-exif-stripping-cover.webp"
 publishedAt: 2026-04-06
 author: "PicShift"
