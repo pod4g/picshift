@@ -223,9 +223,9 @@ const es: PageTranslations = {
     },
     'webp-to-jpg': {
       title:
-        'Convertir WebP a JPG online — pasar archivo en el navegador | PicShift',
+        'WebP a JPG online — convertir gratis sin subir archivos',
       description:
-        'Pasa archivos WebP a JPG cuando una app, un correo o un formulario no aceptan WebP. Conversión por lotes directamente en el navegador, sin subir nada a un servidor y sin registrarse.',
+        'Convierte archivos WebP a JPG cuando una app o formulario no acepta WebP. Funciona por lotes en tu navegador, sin subir imágenes y sin registrarte.',
       h1: 'Convertir WebP a JPG',
       introText:
         'Convierte imágenes WebP a JPG cuando necesitas un archivo que se abra, se envíe o se suba sin problemas. JPG sigue siendo la opción más compatible para correo, programas de oficina, formularios web y plataformas que aún no soportan bien WebP. Puedes pasar varios archivos a la vez, todo dentro del navegador.',
