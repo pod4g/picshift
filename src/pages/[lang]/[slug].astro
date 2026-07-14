@@ -136,9 +136,8 @@ function pickHeicSuiteTools(currentSlug: string): ToolPageConfig[] {
 // pages keep their theme-specific cluster links because those already
 // concentrate authority onto the HEIC family.
 //
-// es → webp-to-jpg：2026-06-27 近 7 天 2614 展示，平均排名约 10.6，
-//   但 CTR 只有 0.04%；西语内链权重先集中给已经卡在首页边缘的
-//   "webp a jpg" / "convertir webp a jpg" 页面。
+// es → image-resizer：2026-07-14 恢复旧基线。webp-to-jpg 实验期内，
+//   排名从约 10.6 降至 7 天 32.15；回滚后观察 14 天，期间不再改动。
 // pt → jpg-to-png : 800+ imp stuck at rank 55-60 on 10 Portuguese
 //   variants of "converter/conversor/transformar jpg em/para png"
 // fr → image-resizer : 108 imp at rank 28 on
@@ -148,7 +147,7 @@ function pickHeicSuiteTools(currentSlug: string): ToolPageConfig[] {
 //   "画像圧縮" sits at 10.6 — one nudge from the top 10. Anchor text is
 //   the JA h1 「画像圧縮（無料）」 which exactly matches the query.
 const AUTHORITY_PINS_BY_LANG: Partial<Record<Locale, readonly string[]>> = {
-  es: ['webp-to-jpg'],
+  es: ['image-resizer'],
   pt: ['jpg-to-png'],
   fr: ['image-resizer'],
   ja: ['image-compressor'],
