@@ -7,6 +7,10 @@ import {
   trackMetadataClear,
 } from '../../lib/analytics'
 import { createClientId } from '../../lib/clientId'
+import {
+  applyFileLimits,
+  formatSize,
+} from '../../lib/format-utils'
 
 const UI: Record<string, Record<string, string>> = {
   en: {
@@ -19,16 +23,29 @@ const UI: Record<string, Record<string, string>> = {
     clearAll: 'Clear all',
     fieldsFound: 'fields found',
     sensitive: 'sensitive',
-    noMetadata: 'No metadata found in this file.',
+    noMetadata:
+      'No supported metadata fields were detected. The image will still be decoded and re-encoded before download.',
+    scanFailed: 'Metadata scan could not be completed',
+    scanFailedHint:
+      'You can still try to re-encode this image. If image decoding fails, no download will be offered.',
     fieldsTravel: 'fields will travel with this file unless removed',
-    fieldsRemoved: 'fields removed',
-    metadataRemoved: 'metadata fields removed',
-    removeBtn: 'Remove all metadata & download',
+    fieldsRemoved: 'detected fields not copied',
+    metadataRemoved: 'detected metadata fields not copied',
+    reencoded: 're-encoded; no supported metadata was detected',
+    reencodedAfterScanFailure: 're-encoded after the metadata scan failed',
+    cleanedFiles: 'files re-encoded',
+    cleanFailed: 'failed',
+    cleanError: 'Image could not be decoded and re-encoded',
+    removeBtn: 'Re-encode images & download',
     removing: 'Removing metadata...',
-    downloadBtn: 'Download cleaned',
-    downloadZip: 'Download cleaned images (ZIP)',
+    downloadBtn: 'Download re-encoded image',
+    downloadZip: 'Download re-encoded images (ZIP)',
     footerNote:
-      'All metadata fields travel with the file when shared. Removing them keeps only pixel data.',
+      'Re-encoding creates a new image without intentionally copying detected metadata. Browser-added encoder or color-profile data may remain.',
+    limitHint: 'Limits: 50 MB per file · 200 files · 1 GB total',
+    limitFileSize: 'file(s) exceeded 50 MB',
+    limitFileCount: 'file(s) exceeded the 200-file limit',
+    limitTotalSize: 'file(s) exceeded the 1 GB total limit',
     file: 'file',
     files: 'files',
     metadataFields: 'metadata fields',
@@ -43,15 +60,27 @@ const UI: Record<string, Record<string, string>> = {
     clearAll: '全部清除',
     fieldsFound: '项元数据',
     sensitive: '项敏感数据',
-    noMetadata: '此文件未发现元数据。',
+    noMetadata: '未检测到支持识别的元数据字段。下载前仍会解码并重新编码图片。',
+    scanFailed: '无法完成元数据扫描',
+    scanFailedHint: '仍可尝试重新编码；如果图片解码失败，将不会提供下载。',
     fieldsTravel: '项信息将随文件传播',
-    fieldsRemoved: '项已清除',
-    metadataRemoved: '项元数据已清除',
-    removeBtn: '一键清除元数据并下载',
+    fieldsRemoved: '项检测到的字段未被复制',
+    metadataRemoved: '项检测到的元数据字段未被复制',
+    reencoded: '已重新编码；未检测到支持识别的元数据',
+    reencodedAfterScanFailure: '扫描失败后已重新编码',
+    cleanedFiles: '个文件已重新编码',
+    cleanFailed: '个失败',
+    cleanError: '图片无法解码并重新编码',
+    removeBtn: '重新编码图片并下载',
     removing: '正在清除元数据...',
-    downloadBtn: '下载清理后的图片',
-    downloadZip: '下载清理后的图片 (ZIP)',
-    footerNote: '元数据会嵌入在文件中随分享传播。清除后文件只保留像素内容。',
+    downloadBtn: '下载重新编码的图片',
+    downloadZip: '下载重新编码的图片 (ZIP)',
+    footerNote:
+      '重新编码会创建新图片，并且不会主动复制检测到的元数据；浏览器编码器或色彩配置仍可能写入数据。',
+    limitHint: '限制：每个文件 50 MB · 200 个文件 · 总计 1 GB',
+    limitFileSize: '个文件超过 50 MB',
+    limitFileCount: '个文件超过 200 个文件的限制',
+    limitTotalSize: '个文件超过总计 1 GB 的限制',
     file: '个文件',
     files: '个文件',
     metadataFields: '项元数据',
@@ -67,16 +96,29 @@ const UI: Record<string, Record<string, string>> = {
     clearAll: 'すべてクリア',
     fieldsFound: '項目検出',
     sensitive: '項目が機密',
-    noMetadata: 'メタデータは見つかりませんでした。',
+    noMetadata:
+      '対応するメタデータ項目は検出されませんでした。ダウンロード前に画像をデコードして再エンコードします。',
+    scanFailed: 'メタデータのスキャンを完了できませんでした',
+    scanFailedHint:
+      '再エンコードは試行できます。画像のデコードに失敗した場合、ダウンロードは提供されません。',
     fieldsTravel: '項目がファイルと共に送信されます',
-    fieldsRemoved: '項目を削除済み',
-    metadataRemoved: '項目のメタデータを削除',
-    removeBtn: 'メタデータを削除してダウンロード',
+    fieldsRemoved: '件の検出項目をコピーせずに処理',
+    metadataRemoved: '件の検出メタデータをコピーせずに処理',
+    reencoded: '再エンコード済み（対応メタデータは未検出）',
+    reencodedAfterScanFailure: 'スキャン失敗後に再エンコード済み',
+    cleanedFiles: '件を再エンコード',
+    cleanFailed: '件失敗',
+    cleanError: '画像をデコードして再エンコードできませんでした',
+    removeBtn: '画像を再エンコードしてダウンロード',
     removing: 'メタデータを削除中...',
-    downloadBtn: 'クリーン済み画像をダウンロード',
-    downloadZip: 'クリーン済み画像をダウンロード (ZIP)',
+    downloadBtn: '再エンコードした画像をダウンロード',
+    downloadZip: '再エンコードした画像をダウンロード (ZIP)',
     footerNote:
-      'メタデータはファイル共有時に一緒に送信されます。削除するとピクセルデータのみが残ります。',
+      '再エンコードでは、検出したメタデータを意図的にコピーせず新しい画像を作成します。ブラウザーのエンコーダーやカラープロファイルのデータが残る場合があります。',
+    limitHint: '上限：1ファイル 50 MB · 200ファイル · 合計 1 GB',
+    limitFileSize: '件が 50 MB を超えています',
+    limitFileCount: '件が 200ファイルの上限を超えています',
+    limitTotalSize: '件が合計 1 GB の上限を超えています',
     file: 'ファイル',
     files: 'ファイル',
     metadataFields: '項目',
@@ -92,16 +134,29 @@ const UI: Record<string, Record<string, string>> = {
     clearAll: 'Limpiar todo',
     fieldsFound: 'campos encontrados',
     sensitive: 'sensibles',
-    noMetadata: 'No se encontraron metadatos en este archivo.',
+    noMetadata:
+      'No se detectaron campos de metadatos compatibles. La imagen se decodificará y volverá a codificar antes de descargarla.',
+    scanFailed: 'No se pudo completar el análisis de metadatos',
+    scanFailedHint:
+      'Aún puedes intentar recodificar la imagen. Si falla la decodificación, no se ofrecerá una descarga.',
     fieldsTravel: 'campos viajan con este archivo',
-    fieldsRemoved: 'campos eliminados',
-    metadataRemoved: 'campos eliminados',
-    removeBtn: 'Eliminar metadatos y descargar',
+    fieldsRemoved: 'campos detectados no copiados',
+    metadataRemoved: 'campos de metadatos detectados no copiados',
+    reencoded: 'recodificada; no se detectaron metadatos compatibles',
+    reencodedAfterScanFailure: 'recodificada tras fallar el análisis',
+    cleanedFiles: 'archivos recodificados',
+    cleanFailed: 'fallidos',
+    cleanError: 'No se pudo decodificar y recodificar la imagen',
+    removeBtn: 'Recodificar imágenes y descargar',
     removing: 'Eliminando metadatos...',
-    downloadBtn: 'Descargar imagen limpia',
-    downloadZip: 'Descargar imágenes limpias (ZIP)',
+    downloadBtn: 'Descargar imagen recodificada',
+    downloadZip: 'Descargar imágenes recodificadas (ZIP)',
     footerNote:
-      'Los metadatos viajan con el archivo al compartirlo. Eliminarlos deja solo los píxeles.',
+      'La recodificación crea una imagen nueva sin copiar intencionadamente los metadatos detectados. Pueden quedar datos del codificador o del perfil de color añadidos por el navegador.',
+    limitHint: 'Límites: 50 MB por archivo · 200 archivos · 1 GB en total',
+    limitFileSize: 'archivo(s) superaron 50 MB',
+    limitFileCount: 'archivo(s) superaron el límite de 200 archivos',
+    limitTotalSize: 'archivo(s) superaron el límite total de 1 GB',
     file: 'archivo',
     files: 'archivos',
     metadataFields: 'campos',
@@ -117,16 +172,29 @@ const UI: Record<string, Record<string, string>> = {
     clearAll: 'Tout effacer',
     fieldsFound: 'champs trouvés',
     sensitive: 'sensibles',
-    noMetadata: 'Aucune métadonnée trouvée dans ce fichier.',
+    noMetadata:
+      'Aucun champ de métadonnées pris en charge n’a été détecté. L’image sera tout de même décodée et réencodée avant le téléchargement.',
+    scanFailed: 'L’analyse des métadonnées n’a pas pu aboutir',
+    scanFailedHint:
+      'Vous pouvez toujours tenter de réencoder l’image. Si le décodage échoue, aucun téléchargement ne sera proposé.',
     fieldsTravel: 'champs accompagnent ce fichier',
-    fieldsRemoved: 'champs supprimés',
-    metadataRemoved: 'champs supprimés',
-    removeBtn: 'Supprimer les métadonnées et télécharger',
+    fieldsRemoved: 'champs détectés non copiés',
+    metadataRemoved: 'champs de métadonnées détectés non copiés',
+    reencoded: 'réencodée ; aucune métadonnée prise en charge détectée',
+    reencodedAfterScanFailure: 'réencodée après l’échec de l’analyse',
+    cleanedFiles: 'fichiers réencodés',
+    cleanFailed: 'en échec',
+    cleanError: 'L’image n’a pas pu être décodée et réencodée',
+    removeBtn: 'Réencoder les images et télécharger',
     removing: 'Suppression en cours...',
-    downloadBtn: "Télécharger l'image nettoyée",
-    downloadZip: 'Télécharger les images nettoyées (ZIP)',
+    downloadBtn: "Télécharger l'image réencodée",
+    downloadZip: 'Télécharger les images réencodées (ZIP)',
     footerNote:
-      'Les métadonnées voyagent avec le fichier lors du partage. Les supprimer ne laisse que les pixels.',
+      'Le réencodage crée une nouvelle image sans copier volontairement les métadonnées détectées. Des données ajoutées par l’encodeur du navigateur ou le profil colorimétrique peuvent subsister.',
+    limitHint: 'Limites : 50 Mo par fichier · 200 fichiers · 1 Go au total',
+    limitFileSize: 'fichier(s) dépassaient 50 Mo',
+    limitFileCount: 'fichier(s) dépassaient la limite de 200 fichiers',
+    limitTotalSize: 'fichier(s) dépassaient la limite totale de 1 Go',
     file: 'fichier',
     files: 'fichiers',
     metadataFields: 'champs',
@@ -142,16 +210,29 @@ const UI: Record<string, Record<string, string>> = {
     clearAll: 'Limpar tudo',
     fieldsFound: 'campos encontrados',
     sensitive: 'sensíveis',
-    noMetadata: 'Nenhum metadado encontrado neste arquivo.',
+    noMetadata:
+      'Nenhum campo de metadados compatível foi detectado. A imagem ainda será decodificada e recodificada antes do download.',
+    scanFailed: 'Não foi possível concluir a verificação de metadados',
+    scanFailedHint:
+      'Você ainda pode tentar recodificar a imagem. Se a decodificação falhar, nenhum download será oferecido.',
     fieldsTravel: 'campos viajam com este arquivo',
-    fieldsRemoved: 'campos removidos',
-    metadataRemoved: 'campos removidos',
-    removeBtn: 'Remover metadados e baixar',
+    fieldsRemoved: 'campos detectados não copiados',
+    metadataRemoved: 'campos de metadados detectados não copiados',
+    reencoded: 'recodificada; nenhum metadado compatível foi detectado',
+    reencodedAfterScanFailure: 'recodificada após falha na verificação',
+    cleanedFiles: 'arquivos recodificados',
+    cleanFailed: 'com falha',
+    cleanError: 'Não foi possível decodificar e recodificar a imagem',
+    removeBtn: 'Recodificar imagens e baixar',
     removing: 'Removendo metadados...',
-    downloadBtn: 'Baixar imagem limpa',
-    downloadZip: 'Baixar imagens limpas (ZIP)',
+    downloadBtn: 'Baixar imagem recodificada',
+    downloadZip: 'Baixar imagens recodificadas (ZIP)',
     footerNote:
-      'Metadados viajam com o arquivo quando compartilhado. Removê-los deixa apenas os pixels.',
+      'A recodificação cria uma nova imagem sem copiar intencionalmente os metadados detectados. Dados do codificador do navegador ou do perfil de cores ainda podem permanecer.',
+    limitHint: 'Limites: 50 MB por arquivo · 200 arquivos · 1 GB no total',
+    limitFileSize: 'arquivo(s) excederam 50 MB',
+    limitFileCount: 'arquivo(s) excederam o limite de 200 arquivos',
+    limitTotalSize: 'arquivo(s) excederam o limite total de 1 GB',
     file: 'arquivo',
     files: 'arquivos',
     metadataFields: 'campos',
@@ -167,16 +248,29 @@ const UI: Record<string, Record<string, string>> = {
     clearAll: 'Alle entfernen',
     fieldsFound: 'Felder gefunden',
     sensitive: 'sensibel',
-    noMetadata: 'Keine Metadaten in dieser Datei gefunden.',
+    noMetadata:
+      'Keine unterstützten Metadatenfelder erkannt. Das Bild wird vor dem Download trotzdem dekodiert und neu kodiert.',
+    scanFailed: 'Der Metadaten-Scan konnte nicht abgeschlossen werden',
+    scanFailedHint:
+      'Sie können die Neukodierung weiterhin versuchen. Schlägt die Bilddekodierung fehl, wird kein Download angeboten.',
     fieldsTravel: 'Felder werden mit der Datei weitergegeben',
-    fieldsRemoved: 'Felder entfernt',
-    metadataRemoved: 'Felder entfernt',
-    removeBtn: 'Metadaten entfernen & herunterladen',
+    fieldsRemoved: 'erkannte Felder nicht kopiert',
+    metadataRemoved: 'erkannte Metadatenfelder nicht kopiert',
+    reencoded: 'neu kodiert; keine unterstützten Metadaten erkannt',
+    reencodedAfterScanFailure: 'nach fehlgeschlagenem Scan neu kodiert',
+    cleanedFiles: 'Dateien neu kodiert',
+    cleanFailed: 'fehlgeschlagen',
+    cleanError: 'Das Bild konnte nicht dekodiert und neu kodiert werden',
+    removeBtn: 'Bilder neu kodieren & herunterladen',
     removing: 'Metadaten werden entfernt...',
-    downloadBtn: 'Bereinigte Datei herunterladen',
-    downloadZip: 'Bereinigte Dateien herunterladen (ZIP)',
+    downloadBtn: 'Neu kodiertes Bild herunterladen',
+    downloadZip: 'Neu kodierte Bilder herunterladen (ZIP)',
     footerNote:
-      'Metadaten werden beim Teilen mit der Datei übertragen. Nach dem Entfernen bleiben nur die Pixel.',
+      'Die Neukodierung erstellt ein neues Bild, ohne erkannte Metadaten absichtlich zu kopieren. Vom Browser-Encoder oder Farbprofil hinzugefügte Daten können verbleiben.',
+    limitHint: 'Limits: 50 MB pro Datei · 200 Dateien · 1 GB gesamt',
+    limitFileSize: 'Datei(en) überschritten 50 MB',
+    limitFileCount: 'Datei(en) überschritten das Limit von 200 Dateien',
+    limitTotalSize: 'Datei(en) überschritten das Gesamtlimit von 1 GB',
     file: 'Datei',
     files: 'Dateien',
     metadataFields: 'Felder',
@@ -191,15 +285,27 @@ const UI: Record<string, Record<string, string>> = {
     clearAll: '全部清除',
     fieldsFound: '項元資料',
     sensitive: '項敏感資料',
-    noMetadata: '此檔案未發現元資料。',
+    noMetadata: '未偵測到支援識別的元資料欄位。下載前仍會解碼並重新編碼圖片。',
+    scanFailed: '無法完成元資料掃描',
+    scanFailedHint: '仍可嘗試重新編碼；如果圖片解碼失敗，將不會提供下載。',
     fieldsTravel: '項資訊將隨檔案傳播',
-    fieldsRemoved: '項已清除',
-    metadataRemoved: '項元資料已清除',
-    removeBtn: '一鍵清除元資料並下載',
+    fieldsRemoved: '項偵測到的欄位未被複製',
+    metadataRemoved: '項偵測到的元資料欄位未被複製',
+    reencoded: '已重新編碼；未偵測到支援識別的元資料',
+    reencodedAfterScanFailure: '掃描失敗後已重新編碼',
+    cleanedFiles: '個檔案已重新編碼',
+    cleanFailed: '個失敗',
+    cleanError: '圖片無法解碼並重新編碼',
+    removeBtn: '重新編碼圖片並下載',
     removing: '正在清除元資料...',
-    downloadBtn: '下載清理後的圖片',
-    downloadZip: '下載清理後的圖片 (ZIP)',
-    footerNote: '元資料會嵌入在檔案中隨分享傳播。清除後檔案只保留像素內容。',
+    downloadBtn: '下載重新編碼的圖片',
+    downloadZip: '下載重新編碼的圖片 (ZIP)',
+    footerNote:
+      '重新編碼會建立新圖片，並且不會主動複製偵測到的元資料；瀏覽器編碼器或色彩描述檔仍可能寫入資料。',
+    limitHint: '限制：每個檔案 50 MB · 200 個檔案 · 總計 1 GB',
+    limitFileSize: '個檔案超過 50 MB',
+    limitFileCount: '個檔案超過 200 個檔案的限制',
+    limitTotalSize: '個檔案超過總計 1 GB 的限制',
     file: '個檔案',
     files: '個檔案',
     metadataFields: '項元資料',
@@ -215,16 +321,29 @@ const UI: Record<string, Record<string, string>> = {
     clearAll: '모두 지우기',
     fieldsFound: '항목 발견',
     sensitive: '항목 민감',
-    noMetadata: '이 파일에서 메타데이터를 찾을 수 없어요.',
+    noMetadata:
+      '지원되는 메타데이터 필드가 감지되지 않았어요. 다운로드 전에 이미지를 디코딩하고 다시 인코딩해요.',
+    scanFailed: '메타데이터 스캔을 완료하지 못했어요',
+    scanFailedHint:
+      '이미지 재인코딩은 계속 시도할 수 있어요. 디코딩에 실패하면 다운로드를 제공하지 않아요.',
     fieldsTravel: '항목이 파일과 함께 전송돼요',
-    fieldsRemoved: '항목 삭제됨',
-    metadataRemoved: '항목 메타데이터 삭제됨',
-    removeBtn: '메타데이터 삭제 후 다운로드',
+    fieldsRemoved: '개의 감지된 필드를 복사하지 않음',
+    metadataRemoved: '개의 감지된 메타데이터 필드를 복사하지 않음',
+    reencoded: '재인코딩됨; 지원되는 메타데이터가 감지되지 않음',
+    reencodedAfterScanFailure: '스캔 실패 후 재인코딩됨',
+    cleanedFiles: '개 파일 재인코딩됨',
+    cleanFailed: '개 실패',
+    cleanError: '이미지를 디코딩하고 다시 인코딩하지 못했어요',
+    removeBtn: '이미지를 재인코딩하고 다운로드',
     removing: '메타데이터 삭제 중...',
-    downloadBtn: '정리된 이미지 다운로드',
-    downloadZip: '정리된 이미지 다운로드 (ZIP)',
+    downloadBtn: '재인코딩된 이미지 다운로드',
+    downloadZip: '재인코딩된 이미지 다운로드 (ZIP)',
     footerNote:
-      '메타데이터는 파일 공유 시 함께 전송돼요. 삭제하면 픽셀 데이터만 남아요.',
+      '재인코딩은 감지된 메타데이터를 의도적으로 복사하지 않고 새 이미지를 만들어요. 브라우저 인코더나 색상 프로필 데이터는 남을 수 있어요.',
+    limitHint: '제한: 파일당 50 MB · 200개 파일 · 총 1 GB',
+    limitFileSize: '개 파일이 50 MB를 초과했어요',
+    limitFileCount: '개 파일이 200개 제한을 초과했어요',
+    limitTotalSize: '개 파일이 총 1 GB 제한을 초과했어요',
     file: '파일',
     files: '파일',
     metadataFields: '항목',
@@ -240,16 +359,29 @@ const UI: Record<string, Record<string, string>> = {
     clearAll: 'Очистить всё',
     fieldsFound: 'полей найдено',
     sensitive: 'конфиденц.',
-    noMetadata: 'Метаданные в этом файле не найдены.',
+    noMetadata:
+      'Поддерживаемые поля метаданных не обнаружены. Перед скачиванием изображение всё равно будет декодировано и перекодировано.',
+    scanFailed: 'Не удалось завершить проверку метаданных',
+    scanFailedHint:
+      'Можно всё равно попробовать перекодировать изображение. Если декодирование не удастся, скачивание не будет предложено.',
     fieldsTravel: 'полей передаются вместе с файлом',
-    fieldsRemoved: 'полей удалено',
-    metadataRemoved: 'полей удалено',
-    removeBtn: 'Удалить метаданные и скачать',
+    fieldsRemoved: 'обнаруженных полей не скопировано',
+    metadataRemoved: 'обнаруженных полей метаданных не скопировано',
+    reencoded: 'перекодировано; поддерживаемые метаданные не обнаружены',
+    reencodedAfterScanFailure: 'перекодировано после ошибки проверки',
+    cleanedFiles: 'файлов перекодировано',
+    cleanFailed: 'с ошибкой',
+    cleanError: 'Не удалось декодировать и перекодировать изображение',
+    removeBtn: 'Перекодировать изображения и скачать',
     removing: 'Удаление метаданных...',
-    downloadBtn: 'Скачать очищенный файл',
-    downloadZip: 'Скачать очищенные файлы (ZIP)',
+    downloadBtn: 'Скачать перекодированное изображение',
+    downloadZip: 'Скачать перекодированные изображения (ZIP)',
     footerNote:
-      'Метаданные передаются вместе с файлом при его отправке. После удаления остаются только пиксели.',
+      'При перекодировании создаётся новое изображение без намеренного копирования обнаруженных метаданных. Данные кодировщика браузера или цветового профиля могут остаться.',
+    limitHint: 'Ограничения: 50 МБ на файл · 200 файлов · 1 ГБ всего',
+    limitFileSize: 'файл(а) превысили 50 МБ',
+    limitFileCount: 'файл(а) превысили лимит в 200 файлов',
+    limitTotalSize: 'файл(а) превысили общий лимит в 1 ГБ',
     file: 'файл',
     files: 'файлов',
     metadataFields: 'полей',
@@ -265,16 +397,29 @@ const UI: Record<string, Record<string, string>> = {
     clearAll: 'مسح الكل',
     fieldsFound: 'حقول موجودة',
     sensitive: 'حساسة',
-    noMetadata: 'لم يتم العثور على بيانات وصفية في هذا الملف.',
+    noMetadata:
+      'لم تُكتشف حقول بيانات وصفية مدعومة. ستُفك الصورة ويُعاد ترميزها قبل التنزيل على أي حال.',
+    scanFailed: 'تعذر إكمال فحص البيانات الوصفية',
+    scanFailedHint:
+      'لا يزال بإمكانك محاولة إعادة ترميز الصورة. إذا فشل فكها، فلن يتوفر تنزيل.',
     fieldsTravel: 'حقول تنتقل مع هذا الملف',
-    fieldsRemoved: 'حقول تمت إزالتها',
-    metadataRemoved: 'حقول تمت إزالتها',
-    removeBtn: 'إزالة البيانات الوصفية وتنزيل',
+    fieldsRemoved: 'حقول مكتشفة لم تُنسخ',
+    metadataRemoved: 'حقول بيانات وصفية مكتشفة لم تُنسخ',
+    reencoded: 'أُعيد الترميز؛ لم تُكتشف بيانات وصفية مدعومة',
+    reencodedAfterScanFailure: 'أُعيد الترميز بعد فشل الفحص',
+    cleanedFiles: 'ملفات أُعيد ترميزها',
+    cleanFailed: 'فشلت',
+    cleanError: 'تعذر فك الصورة وإعادة ترميزها',
+    removeBtn: 'إعادة ترميز الصور وتنزيلها',
     removing: 'جارٍ إزالة البيانات الوصفية...',
-    downloadBtn: 'تنزيل الصورة النظيفة',
-    downloadZip: 'تنزيل الصور النظيفة (ZIP)',
+    downloadBtn: 'تنزيل الصورة المعاد ترميزها',
+    downloadZip: 'تنزيل الصور المعاد ترميزها (ZIP)',
     footerNote:
-      'البيانات الوصفية تنتقل مع الملف عند المشاركة. إزالتها تُبقي فقط بيانات البكسل.',
+      'تنشئ إعادة الترميز صورة جديدة دون نسخ البيانات الوصفية المكتشفة عمدًا. قد تبقى بيانات أضافها مرمّز المتصفح أو ملف الألوان.',
+    limitHint: 'الحدود: 50 MB لكل ملف · 200 ملف · إجمالي 1 GB',
+    limitFileSize: 'ملف تجاوز 50 MB',
+    limitFileCount: 'ملف تجاوز حد 200 ملف',
+    limitTotalSize: 'ملف تجاوز الحد الإجمالي 1 GB',
     file: 'ملف',
     files: 'ملفات',
     metadataFields: 'حقول',
@@ -290,16 +435,29 @@ const UI: Record<string, Record<string, string>> = {
     clearAll: 'Cancella tutto',
     fieldsFound: 'campi trovati',
     sensitive: 'sensibili',
-    noMetadata: 'Nessun metadato trovato in questo file.',
+    noMetadata:
+      'Non sono stati rilevati campi di metadati supportati. L’immagine verrà comunque decodificata e ricodificata prima del download.',
+    scanFailed: 'Impossibile completare la scansione dei metadati',
+    scanFailedHint:
+      'Puoi comunque provare a ricodificare l’immagine. Se la decodifica non riesce, non sarà disponibile alcun download.',
     fieldsTravel: 'campi viaggiano con questo file',
-    fieldsRemoved: 'campi rimossi',
-    metadataRemoved: 'campi rimossi',
-    removeBtn: 'Rimuovi metadati e scarica',
+    fieldsRemoved: 'campi rilevati non copiati',
+    metadataRemoved: 'campi di metadati rilevati non copiati',
+    reencoded: 'ricodificata; nessun metadato supportato rilevato',
+    reencodedAfterScanFailure: 'ricodificata dopo l’errore di scansione',
+    cleanedFiles: 'file ricodificati',
+    cleanFailed: 'non riusciti',
+    cleanError: 'Non è stato possibile decodificare e ricodificare l’immagine',
+    removeBtn: 'Ricodifica le immagini e scarica',
     removing: 'Rimozione metadati in corso...',
-    downloadBtn: 'Scarica immagine pulita',
-    downloadZip: 'Scarica immagini pulite (ZIP)',
+    downloadBtn: 'Scarica immagine ricodificata',
+    downloadZip: 'Scarica immagini ricodificate (ZIP)',
     footerNote:
-      'I metadati viaggiano con il file quando lo condividi. Rimuoverli lascia solo i pixel.',
+      'La ricodifica crea una nuova immagine senza copiare intenzionalmente i metadati rilevati. Possono rimanere dati aggiunti dal codificatore del browser o dal profilo colore.',
+    limitHint: 'Limiti: 50 MB per file · 200 file · 1 GB totali',
+    limitFileSize: 'file hanno superato 50 MB',
+    limitFileCount: 'file hanno superato il limite di 200 file',
+    limitTotalSize: 'file hanno superato il limite totale di 1 GB',
     file: 'file',
     files: 'file',
     metadataFields: 'campi',
@@ -617,6 +775,7 @@ interface ScannedFile {
   totalCount: number
   highCount: number
   hasGps: boolean
+  metadataScanStatus: 'pending' | 'complete' | 'failed'
   cleanedBlob: Blob | null
   status: 'scanning' | 'scanned' | 'cleaning' | 'done' | 'error'
   batchId: number
@@ -677,9 +836,6 @@ const ORDERED_KEYS = [
   'FNumber',
   'ISO',
   'FocalLength',
-  'ImageWidth',
-  'ImageHeight',
-  'ColorSpace',
 ]
 
 function formatValue(key: string, value: unknown): string {
@@ -690,12 +846,6 @@ function formatValue(key: string, value: unknown): string {
   if (key === 'FocalLength' && typeof value === 'number') return `${value}mm`
   if (value instanceof Date) return value.toLocaleString()
   return String(value)
-}
-
-function formatSize(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
 function getOutputMime(filename: string): string {
@@ -802,7 +952,7 @@ async function parseWebpMetadata(
     textFromBytes(bytes.slice(0, 4)) !== 'RIFF' ||
     textFromBytes(bytes.slice(8, 12)) !== 'WEBP'
   ) {
-    return []
+    throw new Error('Invalid WebP container')
   }
 
   let exifChunk: Uint8Array | null = null
@@ -814,9 +964,10 @@ async function parseWebpMetadata(
     const chunkType = textFromBytes(bytes.slice(offset, offset + 4))
     const chunkSize = view.getUint32(offset + 4, true)
     const chunkStart = offset + 8
-    const chunkEnd = Math.min(chunkStart + chunkSize, bytes.length)
+    const chunkEnd = chunkStart + chunkSize
 
-    if (chunkEnd <= chunkStart) break
+    if (chunkEnd > bytes.length) throw new Error('Truncated WebP metadata chunk')
+    if (chunkEnd < chunkStart) throw new Error('Invalid WebP metadata chunk')
 
     if (chunkType === 'EXIF') exifChunk = bytes.slice(chunkStart, chunkEnd)
     if (chunkType === 'XMP ') hasXmp = true
@@ -881,7 +1032,34 @@ async function parseMetadata(
     iptc: true,
     xmp: true,
   })
+  if (
+    data &&
+    typeof data === 'object' &&
+    Array.isArray((data as Record<string, unknown>).errors) &&
+    ((data as Record<string, unknown>).errors as unknown[]).length > 0
+  ) {
+    throw new Error('Metadata parser reported errors')
+  }
   return buildMetadataEntries(data || {}, lang)
+}
+
+let avifEncoderInit: Promise<void> | null = null
+
+async function encodeAvif(imageData: ImageData): Promise<Blob> {
+  const { init, default: encode } = await import('@jsquash/avif/encode')
+  if (!avifEncoderInit) {
+    avifEncoderInit = (async () => {
+      const response = await fetch('/wasm/avif_enc.wasm')
+      if (!response.ok) throw new Error('Failed to load AVIF encoder')
+      const wasm = await WebAssembly.compile(await response.arrayBuffer())
+      await init(wasm)
+    })()
+  }
+  await avifEncoderInit
+  const encoded = await encode(imageData, { quality: 95, speed: 6 })
+  const blob = new Blob([encoded], { type: 'image/avif' })
+  if (blob.size === 0) throw new Error('AVIF encoder returned no data')
+  return blob
 }
 
 async function cleanImage(file: File): Promise<Blob> {
@@ -890,8 +1068,16 @@ async function cleanImage(file: File): Promise<Blob> {
   let imageBitmap: ImageBitmap
 
   if (needsHeicDecode) {
-    // `libheif-js` 没有官方类型定义，这里只在运行时按需加载。
-    const libheif = await import('libheif-js')
+    // Use the browser WASM bundle directly. The package root also exposes a
+    // Node-oriented build, which duplicates the payload and pulls in shims.
+    const module = await import('libheif-js/libheif-wasm/libheif-bundle.mjs')
+    const factory = module.default
+    const initialized = typeof factory === 'function' ? factory() : factory
+    const libheif =
+      initialized && typeof initialized.then === 'function'
+        ? await initialized
+        : initialized
+    if (!libheif) throw new Error('Failed to initialize HEIC decoder')
     const decoder = new libheif.HeifDecoder()
     const buf = await file.arrayBuffer()
     const images = decoder.decode(new Uint8Array(buf))
@@ -920,9 +1106,15 @@ async function cleanImage(file: File): Promise<Blob> {
   imageBitmap.close()
 
   const mime = needsHeicDecode ? 'image/jpeg' : getOutputMime(file.name)
+  if (mime === 'image/avif') {
+    return encodeAvif(ctx.getImageData(0, 0, canvas.width, canvas.height))
+  }
   const quality =
     mime === 'image/jpeg' || mime === 'image/webp' ? 0.95 : undefined
   const blob = await canvas.convertToBlob({ type: mime, quality })
+  if (blob.size === 0 || blob.type !== mime) {
+    throw new Error(`Browser could not encode ${mime}`)
+  }
   return blob
 }
 
@@ -957,6 +1149,7 @@ function FileCard({
 }) {
   const isDone = scanned.status === 'done' || scanned.cleanedBlob !== null
   const isError = scanned.status === 'error'
+  const scanFailed = scanned.metadataScanStatus === 'failed'
 
   return (
     <div className="border border-border rounded-lg overflow-hidden">
@@ -970,6 +1163,8 @@ function FileCard({
             ? '❌'
             : isDone
             ? '✅'
+            : scanFailed
+              ? '⚠️'
             : scanned.hasGps
               ? '🔴'
               : scanned.highCount > 0
@@ -984,10 +1179,20 @@ function FileCard({
             {formatSize(scanned.file.size)}
             {isError
               ? ` — ${scanned.error || 'Failed to clean'}`
+              : scanned.status === 'scanning'
+                ? ` — ${t(lang, 'scanning')}`
+              : scanned.status === 'cleaning'
+                ? ` — ${t(lang, 'removing')}`
               : isDone
-              ? ` — ${scanned.totalCount} ${t(lang, 'metadataRemoved')}`
+              ? scanFailed
+                ? ` — ${t(lang, 'reencodedAfterScanFailure')}`
+                : scanned.totalCount > 0
+                  ? ` — ${scanned.totalCount} ${t(lang, 'metadataRemoved')}`
+                  : ` — ${t(lang, 'reencoded')}`
+              : scanFailed
+                ? ` — ${t(lang, 'scanFailed')}`
               : ` — ${scanned.totalCount} ${t(lang, 'fieldsFound')}`}
-            {!isDone && !isError && (
+            {!isDone && !isError && !scanFailed && scanned.status !== 'scanning' && (
               <span className="text-red-400 ml-1">
                 ({scanned.highCount} {t(lang, 'sensitive')})
               </span>
@@ -1046,9 +1251,18 @@ function FileCard({
         </div>
       )}
 
+      {expanded && scanFailed && !isError && (
+        <div className="border-t border-border px-4 py-3 text-sm text-amber-200">
+          {isDone
+            ? t(lang, 'reencodedAfterScanFailure')
+            : t(lang, 'scanFailedHint')}
+        </div>
+      )}
+
       {expanded &&
         scanned.entries.length === 0 &&
-        scanned.status === 'scanned' && (
+        scanned.status === 'scanned' &&
+        scanned.metadataScanStatus === 'complete' && (
           <div className="border-t border-border px-4 py-3 text-sm text-text-secondary">
             {t(lang, 'noMetadata')}
           </div>
@@ -1070,22 +1284,46 @@ export default function MetadataRemoverTool({
     total: number
   } | null>(null)
   const [allDone, setAllDone] = useState(false)
+  const [uploadNotice, setUploadNotice] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const dropRef = useRef<HTMLDivElement>(null)
   const batchIdRef = useRef(0)
+  const filesRef = useRef<ScannedFile[]>([])
   const [dragOver, setDragOver] = useState(false)
+
+  useEffect(() => {
+    filesRef.current = files
+  }, [files])
 
   const processFiles = useCallback(
     async (incoming: File[]) => {
+      if (cleaning) return
+
+      const limited = applyFileLimits(
+        filesRef.current.map((item) => item.file),
+        incoming,
+      )
+      const limitMessages = [
+        [limited.rejected.fileSize.length, 'limitFileSize'],
+        [limited.rejected.fileCount.length, 'limitFileCount'],
+        [limited.rejected.totalSize.length, 'limitTotalSize'],
+      ]
+        .filter(([count]) => Number(count) > 0)
+        .map(([count, key]) => `${count} ${t(lang, String(key))}`)
+      setUploadNotice(limitMessages.length > 0 ? limitMessages.join(' · ') : null)
+
+      if (limited.accepted.length === 0) return
+
       batchIdRef.current += 1
       const batchId = batchIdRef.current
-      const newFiles: ScannedFile[] = incoming.map((f, batchIndex) => ({
+      const newFiles: ScannedFile[] = limited.accepted.map((f, batchIndex) => ({
         id: createClientId(),
         file: f,
         entries: [],
         totalCount: 0,
         highCount: 0,
         hasGps: false,
+        metadataScanStatus: 'pending',
         cleanedBlob: null,
         batchId,
         batchIndex,
@@ -1093,7 +1331,9 @@ export default function MetadataRemoverTool({
       }))
       const newFileIds = newFiles.map((f) => f.id)
 
-      setFiles((prev) => [...newFiles, ...prev])
+      const nextFiles = [...newFiles, ...filesRef.current]
+      filesRef.current = nextFiles
+      setFiles(nextFiles)
       setAllDone(false)
 
       for (let i = 0; i < newFiles.length; i++) {
@@ -1112,11 +1352,17 @@ export default function MetadataRemoverTool({
                     totalCount: entries.length,
                     highCount,
                     hasGps,
+                    metadataScanStatus: 'complete',
                     status: 'scanned',
                   }
                 : item,
             )
           })
+          if (entries.length === 0) {
+            setExpandedIds((current) =>
+              current.includes(fileId) ? current : [...current, fileId],
+            )
+          }
         } catch {
           setFiles((prev) => {
             return prev.map((item) =>
@@ -1127,12 +1373,16 @@ export default function MetadataRemoverTool({
                     totalCount: 0,
                     highCount: 0,
                     hasGps: false,
+                    metadataScanStatus: 'failed',
                     status: 'scanned',
                     error: undefined,
                   }
                 : item,
             )
           })
+          setExpandedIds((current) =>
+            current.includes(fileId) ? current : [...current, fileId],
+          )
         }
       }
 
@@ -1157,7 +1407,7 @@ export default function MetadataRemoverTool({
         return prev
       })
     },
-    [lang],
+    [cleaning, lang],
   )
 
   const handleDrop = useCallback(
@@ -1231,16 +1481,6 @@ export default function MetadataRemoverTool({
       await waitForNextPaint()
 
       try {
-        if (updatedFiles[i].totalCount === 0) {
-          updatedFiles[i] = {
-            ...updatedFiles[i],
-            cleanedBlob: updatedFiles[i].file,
-            status: 'done',
-          }
-          setFiles([...updatedFiles])
-          continue
-        }
-
         const blob = await cleanImage(updatedFiles[i].file)
         updatedFiles[i] = {
           ...updatedFiles[i],
@@ -1251,7 +1491,7 @@ export default function MetadataRemoverTool({
         updatedFiles[i] = {
           ...updatedFiles[i],
           status: 'error',
-          error: 'Failed to clean',
+          error: t(lang, 'cleanError'),
         }
       }
       setFiles([...updatedFiles])
@@ -1260,7 +1500,7 @@ export default function MetadataRemoverTool({
     setCleaning(false)
     setCleanProgress(null)
     setAllDone(true)
-  }, [files])
+  }, [files, lang])
 
   const handleDownloadAll = useCallback(async () => {
     const cleaned = files.filter((f) => f.cleanedBlob)
@@ -1283,7 +1523,7 @@ export default function MetadataRemoverTool({
       return
     }
 
-    const { zipSync, strToU8 } = await import('fflate')
+    const { zipSync } = await import('fflate')
     const zipData: Record<string, Uint8Array> = {}
     for (const f of cleaned) {
       const ext = getOutputExt(f.file.name)
@@ -1308,9 +1548,11 @@ export default function MetadataRemoverTool({
     if (cleaning) return
     trackMetadataClear(files.length)
     setFiles([])
+    filesRef.current = []
     setExpandedIds([])
     setCleanProgress(null)
     setAllDone(false)
+    setUploadNotice(null)
   }, [cleaning, files.length])
 
   const hasFiles = files.length > 0
@@ -1319,6 +1561,11 @@ export default function MetadataRemoverTool({
   ).length
   const totalMetadata = files.reduce((sum, f) => sum + f.totalCount, 0)
   const totalSensitive = files.reduce((sum, f) => sum + f.highCount, 0)
+  const scanFailedCount = files.filter(
+    (f) => f.metadataScanStatus === 'failed',
+  ).length
+  const cleanedCount = files.filter((f) => f.cleanedBlob !== null).length
+  const failedCount = files.filter((f) => f.status === 'error').length
   const isScanning = files.some((f) => f.status === 'scanning')
   const hasHeifFamily = files.some((f) => isHeifFamily(f.file.name))
   const displayFiles = [...new Map(
@@ -1348,9 +1595,18 @@ export default function MetadataRemoverTool({
             {isScanning ? (
               <span className="animate-pulse">{t(lang, 'scanning')}</span>
             ) : allDone ? (
-              <span className="text-green-400 font-medium">
-                ✓ {totalMetadata} {t(lang, 'removedFrom')} {files.length}{' '}
-                {files.length === 1 ? t(lang, 'file') : t(lang, 'files')}
+              <span className="font-medium">
+                {cleanedCount > 0 && (
+                  <span className="text-green-400">
+                    ✓ {cleanedCount} {t(lang, 'cleanedFiles')}
+                  </span>
+                )}
+                {cleanedCount > 0 && failedCount > 0 && ' · '}
+                {failedCount > 0 && (
+                  <span className="text-red-300">
+                    {failedCount} {t(lang, 'cleanFailed')}
+                  </span>
+                )}
               </span>
             ) : (
               <>
@@ -1358,14 +1614,24 @@ export default function MetadataRemoverTool({
                   {files.length}{' '}
                   {files.length === 1 ? t(lang, 'file') : t(lang, 'files')}
                 </span>
-                {' · '}
-                <span>
-                  {totalMetadata} {t(lang, 'fieldsFound')}
-                </span>
+                {scanFailedCount < files.length && (
+                  <>
+                    {' · '}
+                    <span>
+                      {totalMetadata} {t(lang, 'fieldsFound')}
+                    </span>
+                  </>
+                )}
                 {totalSensitive > 0 && (
                   <span className="text-red-400">
                     {' '}
                     · {totalSensitive} {t(lang, 'sensitive')}
+                  </span>
+                )}
+                {scanFailedCount > 0 && (
+                  <span className="text-amber-300">
+                    {' '}
+                    · {scanFailedCount} {t(lang, 'scanFailed')}
                   </span>
                 )}
               </>
@@ -1397,7 +1663,7 @@ export default function MetadataRemoverTool({
           setDragOver(true)
         }}
         onDragLeave={() => setDragOver(false)}
-        onClick={!hasFiles ? handleClick : undefined}
+        onClick={!hasFiles && !cleaning ? handleClick : undefined}
         className={`relative border-2 border-dashed rounded-xl transition-colors ${
           dragOver
             ? 'border-primary-400 bg-primary-500/5'
@@ -1409,6 +1675,7 @@ export default function MetadataRemoverTool({
           type="file"
           accept=".jpg,.jpeg,.png,.webp,.heic,.heif,.avif"
           multiple
+          disabled={cleaning}
           className="hidden"
           onChange={handleInput}
           aria-label="Select images"
@@ -1468,6 +1735,19 @@ export default function MetadataRemoverTool({
         )}
       </div>
 
+      <p className="text-xs text-text-secondary text-center">
+        {t(lang, 'limitHint')}
+      </p>
+
+      {uploadNotice && (
+        <div
+          role="alert"
+          className="rounded-lg border border-amber-500/30 bg-amber-500/5 px-4 py-3 text-sm text-amber-200"
+        >
+          {uploadNotice}
+        </div>
+      )}
+
       {/* File list */}
       {hasFiles && (
         <div className="flex flex-col gap-2">
@@ -1520,14 +1800,14 @@ export default function MetadataRemoverTool({
         </button>
       )}
 
-      {allDone && (
+      {allDone && cleanedCount > 0 && (
         <button
           type="button"
           onClick={handleDownloadAll}
           className="w-full py-3.5 rounded-xl bg-green-600 hover:bg-green-700 text-white font-medium text-sm transition-colors flex items-center justify-center gap-2"
         >
           ⬇{' '}
-          {files.length === 1 ? t(lang, 'downloadBtn') : t(lang, 'downloadZip')}
+          {cleanedCount === 1 ? t(lang, 'downloadBtn') : t(lang, 'downloadZip')}
         </button>
       )}
 

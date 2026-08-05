@@ -92,6 +92,7 @@ export interface WorkerResponse {
   sourceHeight?: number;
   outputWidth?: number;
   outputHeight?: number;
+  runtimeAssets?: string[];
 }
 
 export const OUTPUT_MIME: Record<OutputFormatKey, OutputFormat> = {

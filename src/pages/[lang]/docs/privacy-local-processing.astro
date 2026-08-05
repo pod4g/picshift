@@ -8,8 +8,9 @@ import { getDocsUi } from '../../../i18n/docsUi';
 import { SUPPORTED_LOCALES, localePath } from '../../../i18n';
 import { getPageTranslations } from '../../../i18n/translations';
 import { getVerificationUi } from '../../../i18n/verificationUi';
-import type { Locale } from '../../../i18n/config';
+import { LOCALE_CONFIG, type Locale } from '../../../i18n/config';
 import { htmlCanonicalUrl } from '../../../lib/htmlCanonicalUrl';
+import { PICSHIFT_ORGANIZATION } from '../../../lib/schemaEntities';
 
 export function getStaticPaths() {
   return SUPPORTED_LOCALES
@@ -55,7 +56,7 @@ const privacyDocContent = {
     analyticsItems: [
       'Like any public website, PicShift records ordinary visit and usage data (for example page URLs and coarse device or region signals). That traffic data does not include your image files.',
       'We use Cloudflare (hosting, CDN, Cloudflare Web Analytics) and Umami for privacy-oriented site analytics. They process typical web request and usage signals, not your image content.',
-      'With our current configuration, Umami and Cloudflare Web Analytics each retain analytics data for six months. Interface preferences such as theme, language, and default quality are stored in your browser’s localStorage.',
+      'Analytics reporting availability and retention follow each provider’s current policy and the active PicShift account configuration; this page does not promise a fixed deletion period. Interface preferences such as theme, language, and default quality are stored in your browser’s localStorage.',
     ],
     trustHeading: 'Security and trust model',
     trustText:
@@ -80,7 +81,7 @@ const privacyDocContent = {
     analyticsItems: [
       '与常见网站一样，PicShift 会留下常规的访问与使用记录（例如页面地址、大致设备或地区等信号），其中不包含您的图片文件。',
       '我们使用 Cloudflare（托管、CDN、Cloudflare Web Analytics）与 Umami 做面向隐私的站点分析；它们处理的是典型网页请求与使用数据，而非您的图片内容。',
-      '在当前配置下，Umami 与 Cloudflare Web Analytics 的分析数据均保留 6 个月。主题、语言、默认质量等界面偏好保存在您浏览器的 localStorage 中。',
+      '分析数据的可用范围与保留期限取决于服务商当前政策及 PicShift 账户配置；本页不承诺固定删除周期。主题、语言、默认质量等界面偏好保存在您浏览器的 localStorage 中。',
     ],
     trustHeading: '安全与信任模型',
     trustText:
@@ -105,7 +106,7 @@ const privacyDocContent = {
     analyticsItems: [
       '與一般網站相同，PicShift 會留下常見的造訪與使用紀錄（例如頁面網址、大致裝置或地區等訊號），其中不包含您的圖片檔案。',
       '我們使用 Cloudflare（代管、CDN、Cloudflare Web Analytics）與 Umami 做較在意隱私的網站分析；它們處理的是典型網頁請求與使用資料，而非您的圖片內容。',
-      '在目前設定下，Umami 與 Cloudflare Web Analytics 的分析資料皆保留 6 個月。主題、語言、預設品質等介面偏好儲存在您瀏覽器的 localStorage。',
+      '分析資料的可用範圍與保留期限取決於服務商目前政策及 PicShift 帳戶設定；本頁不承諾固定刪除週期。主題、語言、預設品質等介面偏好儲存在您瀏覽器的 localStorage。',
     ],
     trustHeading: '安全與信任模型',
     trustText:
@@ -130,7 +131,7 @@ const privacyDocContent = {
     analyticsItems: [
       'Como cualquier sitio público, PicShift genera registros habituales de visitas y uso (por ejemplo URL de página y señales generales de dispositivo o región). Esos datos no incluyen tus archivos de imagen.',
       'Usamos Cloudflare (alojamiento, CDN, Cloudflare Web Analytics) y Umami para analítica web orientada a la privacidad. Tratan solicitudes y señales de uso típicas de la web, no el contenido de tus imágenes.',
-      'Con la configuración actual, Umami y Cloudflare Web Analytics conservan los datos de analítica durante seis meses. Las preferencias de interfaz (tema, idioma, calidad por defecto) se guardan en el localStorage del navegador.',
+      'La disponibilidad y la conservación de los datos de analítica siguen las políticas vigentes de cada proveedor y la configuración activa de la cuenta de PicShift; esta página no promete un plazo fijo de eliminación. Las preferencias de interfaz (tema, idioma, calidad por defecto) se guardan en el localStorage del navegador.',
     ],
     trustHeading: 'Modelo de seguridad y confianza',
     trustText:
@@ -155,7 +156,7 @@ const privacyDocContent = {
     analyticsItems: [
       'Comme tout site public, PicShift produit des journaux de visites et d’usage courants (par exemple URL de page et indications générales d’appareil ou de région). Ces données n’incluent pas vos fichiers image.',
       'Nous utilisons Cloudflare (hébergement, CDN, Cloudflare Web Analytics) et Umami pour une analytique web soucieuse de la vie privée. Ils traitent des requêtes web et des signaux d’usage typiques, pas le contenu de vos images.',
-      'Dans notre configuration actuelle, Umami et Cloudflare Web Analytics conservent chacun les données d’analyse pendant six mois. Les préférences d’interface (thème, langue, qualité par défaut) sont enregistrées dans le localStorage du navigateur.',
+      'La disponibilité et la conservation des données d’analyse suivent les politiques actuelles de chaque fournisseur et la configuration active du compte PicShift ; cette page ne promet pas de délai fixe de suppression. Les préférences d’interface (thème, langue, qualité par défaut) sont enregistrées dans le localStorage du navigateur.',
     ],
     trustHeading: 'Modèle de sécurité et de confiance',
     trustText:
@@ -180,7 +181,7 @@ const privacyDocContent = {
     analyticsItems: [
       'Wie jede öffentliche Website erfasst PicShift übliche Besuchs- und Nutzungsdaten (z. B. Seiten-URLs und grobe Geräte- oder Regionshinweise). Darin enthalten sind keine Bilddateien.',
       'Wir nutzen Cloudflare (Hosting, CDN, Cloudflare Web Analytics) und Umami für eine datenschutzorientierte Webanalyse. Sie verarbeiten typische Webanfragen und Nutzungssignale, nicht den Inhalt deiner Bilder.',
-      'In unserer aktuellen Konfiguration bewahren Umami und Cloudflare Web Analytics Analysedaten jeweils sechs Monate. Oberflächeneinstellungen wie Theme, Sprache und Standardqualität liegen im localStorage deines Browsers.',
+      'Verfügbarkeit und Aufbewahrung der Analysedaten richten sich nach den aktuellen Richtlinien des jeweiligen Anbieters und der aktiven PicShift-Kontokonfiguration; diese Seite verspricht keine feste Löschfrist. Oberflächeneinstellungen wie Theme, Sprache und Standardqualität liegen im localStorage deines Browsers.',
     ],
     trustHeading: 'Sicherheits- und Vertrauensmodell',
     trustText:
@@ -205,7 +206,7 @@ const privacyDocContent = {
     analyticsItems: [
       '一般の公開サイトと同様、ページ URL や大まかな端末・地域の目安など、通常の訪問・利用に関する記録が残ります。これらに画像ファイルそのものは含まれません。',
       'ホスティング・CDN・Cloudflare Web Analytics 用の Cloudflare と、プライバシーに配慮したサイト解析の Umami を利用しています。扱うのは典型的な Web リクエストと利用状況のシグナルであり、画像の内容ではありません。',
-      '現行設定では、Umami と Cloudflare Web Analytics いずれもアクセス解析データを 6 か月間保持します。テーマ・言語・既定品質などの UI 設定はブラウザの localStorage に保存されます。',
+      '解析データの利用可能範囲と保持期間は、各提供元の現行ポリシーと PicShift アカウントの有効な設定に従います。このページでは固定の削除期限を約束しません。テーマ・言語・既定品質などの UI 設定はブラウザの localStorage に保存されます。',
     ],
     trustHeading: 'セキュリティと信頼モデル',
     trustText:
@@ -230,7 +231,7 @@ const privacyDocContent = {
     analyticsItems: [
       '공개 웹사이트와 마찬가지로 페이지 URL, 대략적인 기기·지역 신호 등 일반적인 방문·사용 기록이 남습니다. 여기에는 이미지 파일이 포함되지 않습니다.',
       '호스팅·CDN·Cloudflare Web Analytics를 위한 Cloudflare와 프라이버시를 고려한 사이트 분석용 Umami를 사용합니다. 전형적인 웹 요청과 사용 신호를 처리할 뿐, 이미지 내용은 다루지 않습니다.',
-      '현재 설정에서는 Umami와 Cloudflare Web Analytics 모두 분석 데이터를 6개월간 보관합니다. 테마·언어·기본 품질 등 UI 설정은 브라우저 localStorage에 저장됩니다.',
+      '분석 데이터의 조회 가능 범위와 보관 기간은 각 제공업체의 현행 정책 및 활성 PicShift 계정 설정을 따르며, 이 페이지에서는 고정 삭제 기한을 약속하지 않습니다. 테마·언어·기본 품질 등 UI 설정은 브라우저 localStorage에 저장됩니다.',
     ],
     trustHeading: '보안 및 신뢰 모델',
     trustText:
@@ -255,7 +256,7 @@ const privacyDocContent = {
     analyticsItems: [
       'Como qualquer site público, o PicShift regista dados habituais de visitas e uso (por exemplo URL da página e sinais gerais de dispositivo ou região). Esses dados não incluem seus ficheiros de imagem.',
       'Usamos Cloudflare (alojamento, CDN, Cloudflare Web Analytics) e Umami para analytics web com foco em privacidade. Eles processam pedidos e sinais de uso típicos da web, não o conteúdo das suas imagens.',
-      'Na configuração atual, o Umami e o Cloudflare Web Analytics conservam dados de analytics durante seis meses. Preferências de interface (tema, idioma, qualidade predefinida) ficam no localStorage do navegador.',
+      'A disponibilidade e a retenção dos dados de analytics seguem as políticas atuais de cada fornecedor e a configuração ativa da conta PicShift; esta página não promete um prazo fixo de eliminação. Preferências de interface (tema, idioma, qualidade predefinida) ficam no localStorage do navegador.',
     ],
     trustHeading: 'Modelo de segurança e confiança',
     trustText:
@@ -280,7 +281,7 @@ const privacyDocContent = {
     analyticsItems: [
       'Как и у любого публичного сайта, фиксируются обычные данные о посещениях и использовании (например URL страницы и обобщённые сведения об устройстве или регионе). В них не входят ваши файлы изображений.',
       'Мы используем Cloudflare (хостинг, CDN, Cloudflare Web Analytics) и Umami для веб-аналитики с упором на приватность. Они обрабатывают типичные веб-запросы и сигналы использования, а не содержимое изображений.',
-      'При текущей конфигурации и Umami, и Cloudflare Web Analytics хранят аналитические данные в течение шести месяцев. Настройки интерфейса (тема, язык, качество по умолчанию) сохраняются в localStorage браузера.',
+      'Доступность и срок хранения аналитических данных определяются текущими правилами каждого поставщика и активной конфигурацией аккаунта PicShift; эта страница не обещает фиксированный срок удаления. Настройки интерфейса (тема, язык, качество по умолчанию) сохраняются в localStorage браузера.',
     ],
     trustHeading: 'Модель безопасности и доверия',
     trustText:
@@ -305,7 +306,7 @@ const privacyDocContent = {
     analyticsItems: [
       'كأي موقع عام، يسجّل PicShift بيانات زيارة واستخدام اعتيادية (مثل عنوان الصفحة وإشارات عامة للجهاز أو المنطقة). لا تتضمن هذه البيانات ملفات صورك.',
       'نستخدم Cloudflare (الاستضافة وشبكة CDN وCloudflare Web Analytics) وUmami لتحليلات ويب تراعي الخصوصية. تعالج طلبات الويب وإشارات الاستخدام النموذجية، لا محتوى صورك.',
-      'مع الإعدادات الحالية، يحتفظ Umami وCloudflare Web Analytics ببيانات التحليلات ستة أشهر لكل منهما. تُخزَّن تفضيلات الواجهة مثل المظهر واللغة والجودة الافتراضية في localStorage للمتصفح.',
+      'تخضع إتاحة بيانات التحليلات ومدة الاحتفاظ بها للسياسات الحالية لكل مزود ولإعداد حساب PicShift النشط؛ ولا تعد هذه الصفحة بموعد حذف ثابت. تُخزَّن تفضيلات الواجهة مثل المظهر واللغة والجودة الافتراضية في localStorage للمتصفح.',
     ],
     trustHeading: 'نموذج الأمان والثقة',
     trustText:
@@ -330,7 +331,7 @@ const privacyDocContent = {
     analyticsItems: [
       'Come qualsiasi sito pubblico, PicShift registra dati abituali di visite e uso (ad esempio URL di pagina e segnali generici di dispositivo o regione). Questi dati non includono i tuoi file immagine.',
       'Usiamo Cloudflare (hosting, CDN, Cloudflare Web Analytics) e Umami per analytics web orientata alla privacy. Elaborano richieste web e segnali d’uso tipici, non il contenuto delle tue immagini.',
-      'Con la configurazione attuale, Umami e Cloudflare Web Analytics conservano i dati di analytics per sei mesi. Le preferenze di interfaccia (tema, lingua, qualità predefinita) sono nel localStorage del browser.',
+      'La disponibilità e la conservazione dei dati di analytics seguono le politiche correnti di ciascun fornitore e la configurazione attiva dell’account PicShift; questa pagina non promette un termine fisso di cancellazione. Le preferenze di interfaccia (tema, lingua, qualità predefinita) sono nel localStorage del browser.',
     ],
     trustHeading: 'Modello di sicurezza e fiducia',
     trustText:
@@ -355,7 +356,7 @@ const privacyDocContent = {
   analyticsItems: [
     'Like any public website, PicShift records ordinary visit and usage data (for example page URLs and coarse device or region signals). That traffic data does not include your image files.',
     'We use Cloudflare (hosting, CDN, Cloudflare Web Analytics) and Umami for privacy-oriented site analytics. They process typical web request and usage signals, not your image content.',
-    'With our current configuration, Umami and Cloudflare Web Analytics each retain analytics data for six months. Interface preferences such as theme, language, and default quality are stored in your browser’s localStorage.',
+    'Analytics reporting availability and retention follow each provider’s current policy and the active PicShift account configuration; this page does not promise a fixed deletion period. Interface preferences such as theme, language, and default quality are stored in your browser’s localStorage.',
   ],
   trustHeading: 'Security and trust model',
   trustText:
@@ -367,11 +368,11 @@ const articleSchema = {
   headline: title,
   description,
   url: canonical,
-  inLanguage: lang,
+  inLanguage: LOCALE_CONFIG[lang].hrefLang,
   datePublished,
   dateModified,
-  author: { '@type': 'Organization', name: 'PicShift' },
-  publisher: { '@type': 'Organization', name: 'PicShift', url: 'https://picshift.app' },
+  author: PICSHIFT_ORGANIZATION,
+  publisher: PICSHIFT_ORGANIZATION,
 };
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -535,7 +536,7 @@ const faqSchema = {
           <li><a href={`/${lang}/image-compressor`} class="text-primary-500 hover:underline">{pageTranslations.tools['image-compressor']?.h1 || 'Image Compressor'}</a></li>
         </ul>
       </section>
-      <p class="text-sm text-text-secondary pt-4 border-t border-border">{docsUi.lastUpdated}: {dateModified}</p>
+      <p class="text-sm text-text-secondary pt-4 border-t border-border">{docsUi.lastUpdated}: <time datetime={dateModified} data-date-modified>{dateModified}</time></p>
     </article>
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

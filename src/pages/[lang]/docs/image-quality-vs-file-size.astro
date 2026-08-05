@@ -7,8 +7,9 @@ import { getDocsFaqs } from '../../../i18n/docsFaqs';
 import { getDocsUi } from '../../../i18n/docsUi';
 import { SUPPORTED_LOCALES, localePath } from '../../../i18n';
 import { getPageTranslations } from '../../../i18n/translations';
-import type { Locale } from '../../../i18n/config';
+import { LOCALE_CONFIG, type Locale } from '../../../i18n/config';
 import { htmlCanonicalUrl } from '../../../lib/htmlCanonicalUrl';
+import { PICSHIFT_ORGANIZATION } from '../../../lib/schemaEntities';
 
 export function getStaticPaths() {
   return SUPPORTED_LOCALES
@@ -47,9 +48,9 @@ const qualityDocContent = {
     tipsHeading: 'Format-specific tips',
     tips: [
       'JPG works well for photos and gives predictable size reduction.',
-      'WebP keeps similar quality at smaller sizes than JPG for web delivery.',
-      'AVIF is highly efficient for large photos, and encoding overhead is higher for small images.',
-      'PNG is lossless and becomes larger when converted from lossy formats.',
+      'WebP can produce smaller files than JPG at a similar visual quality, depending on the source and encoder settings.',
+      'AVIF can be efficient for large photos, while its encoding overhead may matter more for small images.',
+      'In PicShift, PNG quality 95-100 preserves decoded pixels and applies lossless optimization; below 95 uses lossy palette quantization.',
     ],
     workflowHeading: 'A simple optimization workflow',
     workflow: [
@@ -74,7 +75,7 @@ const qualityDocContent = {
       'JPG 适合照片类内容，体积下降趋势更稳定。',
       '在网页交付中，WebP 往往以更小体积保持接近 JPG 的视觉质量。',
       'AVIF 在大图压缩上效率更高，小图编码开销相对更明显。',
-      'PNG 是无损格式，从有损格式转换到 PNG 后体积通常会增大。',
+      'PicShift 的 PNG 质量 95-100 会保留解码后的像素并做无损优化；低于 95 会使用有损调色板量化。',
     ],
     workflowHeading: '简化优化流程',
     workflow: [
@@ -99,7 +100,7 @@ const qualityDocContent = {
       'JPG 適合照片內容，體積下降趨勢更穩定。',
       '在網頁傳遞中，WebP 常以更小體積維持接近 JPG 的視覺品質。',
       'AVIF 在大圖壓縮上效率更高，小圖時編碼開銷相對更明顯。',
-      'PNG 是無損格式，從有損格式轉成 PNG 後體積通常會增加。',
+      'PicShift 的 PNG 品質 95-100 會保留解碼後的像素並做無損最佳化；低於 95 會使用有損調色盤量化。',
     ],
     workflowHeading: '簡化最佳化流程',
     workflow: [
@@ -124,7 +125,7 @@ const qualityDocContent = {
       'JPG funciona bien para fotos y ofrece reducción de tamaño predecible.',
       'WebP mantiene calidad similar con menor tamaño en entrega web.',
       'AVIF es muy eficiente en fotos grandes, y el costo de codificación es mayor en imágenes pequeñas.',
-      'PNG es sin pérdida y suele crecer al convertir desde formatos con pérdida.',
+      'En PicShift, PNG 95-100 conserva los píxeles decodificados y aplica optimización sin pérdida; por debajo de 95 usa cuantización de paleta con pérdida.',
     ],
     workflowHeading: 'Flujo simple de optimización',
     workflow: [
@@ -149,7 +150,7 @@ const qualityDocContent = {
       'JPG est adapté aux photos et donne une réduction de taille prévisible.',
       'WebP conserve une qualité proche avec une taille plus faible pour le web.',
       'AVIF est très efficace pour les grandes photos, et le surcoût d’encodage est plus élevé sur les petites images.',
-      'PNG est sans perte et devient souvent plus volumineux après conversion depuis un format avec perte.',
+      'Dans PicShift, PNG 95-100 préserve les pixels décodés et applique une optimisation sans perte ; en dessous de 95, la quantification de palette est avec perte.',
     ],
     workflowHeading: 'Workflow d’optimisation simple',
     workflow: [
@@ -174,7 +175,7 @@ const qualityDocContent = {
       'JPG eignet sich gut für Fotos und liefert eine gut vorhersehbare Größenreduktion.',
       'WebP erreicht bei ähnlicher Qualität oft kleinere Dateien für Web-Auslieferung.',
       'AVIF ist bei großen Fotos sehr effizient, und der Kodierungs-Overhead ist bei kleinen Bildern höher.',
-      'PNG ist verlustfrei und wird bei Konvertierung aus verlustbehafteten Formaten meist größer.',
+      'In PicShift bewahrt PNG bei Qualität 95-100 die dekodierten Pixel und wird verlustfrei optimiert; unter 95 wird eine verlustbehaftete Palettenquantisierung verwendet.',
     ],
     workflowHeading: 'Einfacher Optimierungsablauf',
     workflow: [
@@ -199,7 +200,7 @@ const qualityDocContent = {
       'JPG は写真向けで、容量削減の結果が予測しやすいです。',
       'WebP は Web 配信で、JPG に近い画質のまま容量を小さくしやすいです。',
       'AVIF は大きな写真で高効率ですが、小さい画像ではエンコード負荷が相対的に高くなります。',
-      'PNG は可逆形式のため、非可逆形式から変換すると容量が大きくなる傾向があります。',
+      'PicShift の PNG は品質 95-100 でデコード後の画素を保持して可逆最適化し、95 未満では非可逆のパレット量子化を行います。',
     ],
     workflowHeading: 'シンプルな最適化手順',
     workflow: [
@@ -224,7 +225,7 @@ const qualityDocContent = {
       'JPG는 사진에 적합하고 용량 감소 결과가 예측하기 쉽습니다.',
       'WebP는 웹 전달에서 비슷한 화질로 더 작은 파일을 만들기 쉽습니다.',
       'AVIF는 큰 사진에서 효율이 높고, 작은 이미지에서는 인코딩 오버헤드가 상대적으로 큽니다.',
-      'PNG는 무손실 포맷이므로 손실 포맷에서 변환하면 보통 파일이 커집니다.',
+      'PicShift의 PNG 품질 95-100은 디코딩된 픽셀을 유지하며 무손실 최적화하고, 95 미만은 손실 팔레트 양자화를 사용합니다.',
     ],
     workflowHeading: '간단한 최적화 워크플로',
     workflow: [
@@ -249,7 +250,7 @@ const qualityDocContent = {
       'JPG funciona bem para fotos e entrega redução de tamanho previsível.',
       'WebP mantém qualidade semelhante com menor tamanho para web.',
       'AVIF é muito eficiente em fotos grandes, e o overhead de codificação é maior em imagens pequenas.',
-      'PNG é sem perdas e costuma aumentar ao converter de formatos com perdas.',
+      'No PicShift, PNG 95-100 preserva os pixels decodificados e aplica otimização sem perdas; abaixo de 95 usa quantização de paleta com perdas.',
     ],
     workflowHeading: 'Fluxo simples de otimização',
     workflow: [
@@ -274,7 +275,7 @@ const qualityDocContent = {
       'JPG хорошо подходит для фотографий и дает предсказуемое снижение размера.',
       'WebP обычно сохраняет схожее качество при меньшем размере для веб-доставки.',
       'AVIF очень эффективен для больших фото, и накладные расходы кодирования выше на маленьких изображениях.',
-      'PNG — формат без потерь и обычно становится больше при конвертации из форматов с потерями.',
+      'В PicShift PNG при качестве 95-100 сохраняет декодированные пиксели и оптимизируется без потерь; ниже 95 используется квантование палитры с потерями.',
     ],
     workflowHeading: 'Простой процесс оптимизации',
     workflow: [
@@ -299,7 +300,7 @@ const qualityDocContent = {
       'JPG مناسب للصور ويعطي تقليل حجم متوقع.',
       'WebP يحافظ على جودة قريبة مع حجم أصغر لتسليم الويب.',
       'AVIF فعال جدًا للصور الكبيرة، وتكلفة الترميز أعلى نسبيًا في الصور الصغيرة.',
-      'PNG صيغة بدون فقدان وغالبًا يصبح حجمها أكبر عند التحويل من صيغ مع فقدان.',
+      'في PicShift، تحفظ جودة PNG من 95 إلى 100 البكسلات بعد فك الترميز مع تحسين بلا فقدان؛ وأقل من 95 يستخدم تكميم لوحة ألوان بفقدان.',
     ],
     workflowHeading: 'خطوات تحسين بسيطة',
     workflow: [
@@ -324,7 +325,7 @@ const qualityDocContent = {
       'JPG è adatto alle foto e offre una riduzione dimensionale prevedibile.',
       'WebP mantiene qualità simile con file più piccoli per il web.',
       'AVIF è molto efficiente sulle foto grandi, e l’overhead di codifica è più alto sulle immagini piccole.',
-      'PNG è lossless e tende ad aumentare quando si converte da formati lossy.',
+      'In PicShift, PNG 95-100 preserva i pixel decodificati e applica un’ottimizzazione lossless; sotto 95 usa una quantizzazione lossy della palette.',
     ],
     workflowHeading: 'Workflow semplice di ottimizzazione',
     workflow: [
@@ -347,9 +348,9 @@ const qualityDocContent = {
   tipsHeading: 'Format-specific tips',
   tips: [
     'JPG works well for photos and gives predictable size reduction.',
-    'WebP keeps similar quality at smaller sizes than JPG for web delivery.',
-    'AVIF is highly efficient for large photos, and encoding overhead is higher for small images.',
-    'PNG is lossless and becomes larger when converted from lossy formats.',
+    'WebP can produce smaller files than JPG at a similar visual quality, depending on the source and encoder settings.',
+    'AVIF can be efficient for large photos, while its encoding overhead may matter more for small images.',
+    'In PicShift, PNG quality 95-100 preserves decoded pixels and applies lossless optimization; below 95 uses lossy palette quantization.',
   ],
   workflowHeading: 'A simple optimization workflow',
   workflow: [
@@ -359,6 +360,20 @@ const qualityDocContent = {
     'Use lower quality for thumbnails and higher quality for hero images.',
   ],
 };
+const qualityScopeNote = {
+  zh: '下方数值只是起始建议，并非 PicShift 基准测试结果。不同编码器的质量刻度不能直接比较，结果也取决于源图；下载或发布前请检查实际输出。',
+  'zh-Hant': '下方數值只是起始建議，並非 PicShift 基準測試結果。不同編碼器的品質刻度不能直接比較，結果也取決於來源圖片；下載或發佈前請檢查實際輸出。',
+  es: 'Los valores son puntos de partida, no resultados de un benchmark de PicShift. Las escalas de calidad cambian entre codificadores y el resultado depende de la imagen; revisa la salida antes de publicarla.',
+  fr: 'Ces valeurs sont des points de départ, pas les résultats d’un benchmark PicShift. Les échelles diffèrent selon l’encodeur et le résultat dépend de l’image source ; vérifiez la sortie avant publication.',
+  de: 'Die Werte sind Startempfehlungen, keine PicShift-Benchmark-Ergebnisse. Qualitätsskalen unterscheiden sich je Encoder und das Ergebnis hängt vom Ausgangsbild ab; Ausgabe vor Veröffentlichung prüfen.',
+  ja: '数値は開始時の目安であり、PicShift のベンチマーク結果ではありません。品質尺度はエンコーダー間で直接比較できず、結果は元画像に依存します。公開前に出力を確認してください。',
+  ko: '아래 수치는 시작 권장값이며 PicShift 벤치마크 결과가 아닙니다. 품질 척도는 인코더마다 달라 직접 비교할 수 없고 결과는 원본에 따라 달라지므로 게시 전에 출력물을 확인하세요.',
+  pt: 'Os valores são sugestões iniciais, não resultados de benchmark do PicShift. As escalas variam entre codificadores e o resultado depende da imagem de origem; confira a saída antes de publicar.',
+  ru: 'Значения ниже — стартовые рекомендации, а не результаты тестов PicShift. Шкалы качества различаются между кодеками, а результат зависит от исходника; проверяйте файл перед публикацией.',
+  ar: 'القيم أدناه اقتراحات للبدء وليست نتائج اختبار معياري من PicShift. تختلف مقاييس الجودة بين برامج الترميز وتعتمد النتيجة على الصورة الأصلية؛ افحص الناتج قبل النشر.',
+  it: 'I valori sono suggerimenti iniziali, non risultati di benchmark PicShift. Le scale cambiano tra encoder e il risultato dipende dall’immagine sorgente; controlla l’output prima di pubblicarlo.',
+  en: 'The values below are starting suggestions, not PicShift benchmark results. Encoder quality scales are not directly comparable and results depend on the source image; inspect the output before publishing.',
+}[lang] ?? 'The values below are starting suggestions, not PicShift benchmark results. Encoder quality scales are not directly comparable and results depend on the source image; inspect the output before publishing.';
 const sizeIncreaseExplainMap = {
   zh: '如果转换后体积变大，可能来自格式机制、源图已深度压缩，或两者同时存在。可查看',
   'zh-Hant': '若轉換後體積變大，可能來自格式機制、來源已深度壓縮，或兩者同時存在。可查看',
@@ -379,11 +394,11 @@ const articleSchema = {
   headline: title,
   description,
   url: canonical,
-  inLanguage: lang,
+  inLanguage: LOCALE_CONFIG[lang].hrefLang,
   datePublished,
   dateModified,
-  author: { '@type': 'Organization', name: 'PicShift' },
-  publisher: { '@type': 'Organization', name: 'PicShift', url: 'https://picshift.app' },
+  author: PICSHIFT_ORGANIZATION,
+  publisher: PICSHIFT_ORGANIZATION,
 };
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -441,6 +456,9 @@ const faqSchema = {
       </h1>
       <p class="text-base sm:text-lg text-text-secondary mb-8">
         {qualityDocContent.intro}
+      </p>
+      <p class="text-sm text-text-secondary mb-8 rounded-xl border border-border bg-card-bg p-4">
+        {qualityScopeNote}
       </p>
 
       <section class="mb-8">
@@ -525,7 +543,7 @@ const faqSchema = {
           <li><a href={`/${lang}/png-to-jpg`} class="text-primary-500 hover:underline">{pageTranslations.tools['png-to-jpg']?.h1 || 'PNG to JPG Converter'}</a></li>
         </ul>
       </section>
-      <p class="text-sm text-text-secondary pt-4 border-t border-border">{docsUi.lastUpdated}: {dateModified}</p>
+      <p class="text-sm text-text-secondary pt-4 border-t border-border">{docsUi.lastUpdated}: <time datetime={dateModified} data-date-modified>{dateModified}</time></p>
     </article>
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

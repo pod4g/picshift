@@ -26,6 +26,9 @@ pnpm-debug.log*
 # local benchmark pages and tools
 benchmarks/
 
+# local Search Console exports (may contain page/query performance data)
+/.local-data/gsc-api-export/
+
 # e2e artifacts
 playwright-report/
 test-results/
@@ -35,4 +38,3 @@ test-results/
 
 # 第三方公司 SEO 参考资料（商务邮件/docx，仅本地参考，不入库）
 docs/Solvely SEO/
-

@@ -3,6 +3,7 @@ title: "What Is WebP? Why Your JPG Saves as .webp and How to Convert"
 description: "Why Chrome saves some images as .webp but not others — what WebP actually is, where it works in 2026, and how to convert it back to JPG when you need to."
 cover: "/blog/webp-explained-cover.webp"
 publishedAt: 2026-04-25
+updatedAt: 2026-08-04
 author: "PicShift"
 tags: ["webp", "format-comparison", "browser", "guide"]
 relatedTools: ["webp-to-jpg", "webp-to-png", "jpg-to-webp", "png-to-webp"]
@@ -24,7 +25,7 @@ The right-click "Save image as…" gives you a `.webp` only when the *server* ha
 
 So the answer comes down to who is in front of the image:
 
-- **Static sites and small blogs** (GitHub Pages, default Netlify, plain Nginx, most personal blogs, PicShift itself) — the server returns `image/jpeg` and you get a `.jpg` save dialog. Try it on this very page and that's what you'll see.
+- **Static sites and small blogs that serve an original JPEG unchanged** (for example, a plain static host or Nginx setup without image negotiation) — the response remains `image/jpeg`, so the browser offers a `.jpg` save. Hosting alone does not guarantee this; verify the response header.
 - **Sites behind an image CDN with WebP delivery enabled** (Cloudflare Polish with the WebP toggle on, Akamai Image Manager, Imgix, ImageKit, BunnyCDN Optimizer, Vercel Image Optimization, Next.js `<Image>` component, Shopify CDN, Pinterest, Amazon product images, many e-commerce platforms) — the CDN inspects the browser's `Accept` header (which lists `image/webp` for Chrome), sometimes also the `User-Agent`, and rewrites the response to `Content-Type: image/webp`. Same URL, different bytes. Your browser saves what it got — `.webp`. (Note: Cloudflare Polish is opt-in. Per [Cloudflare's docs](https://developers.cloudflare.com/images/polish/compression/), the WebP option must be enabled separately by the site owner and only kicks in when the WebP version is significantly smaller than the original.)
 
 The file extension in the URL was never the source of truth. HTTP doesn't care about extensions — it cares about the `Content-Type` header. If the response says `image/webp`, that's what got transmitted, regardless of whether the URL ends in `.jpg`, `.png`, or `.html`.
@@ -44,19 +45,19 @@ WebP is an image format developed by Google. It is based on the VP8 video codec 
 - Animation (competes with animated GIF)
 - Alpha transparency (competes with PNG)
 
-In one format. JPEG can't do transparency. PNG can't do animation. GIF can't do photographs. WebP can do all of it.
+In one format. JPEG has no alpha transparency or animation. PNG can animate through APNG, while a baseline PNG image is still. GIF can store photographs but is constrained by its indexed-color palette. WebP combines photo-oriented compression, alpha, and animation in one format.
 
-The compression numbers, in plain language:
+Published comparisons are corpus- and settings-specific, not guaranteed PicShift results:
 
-- WebP is about **25–35% smaller than JPEG** at matched perceptual quality
-- WebP is about **26% smaller than PNG** in lossless mode
-- For animations, WebP is dramatically smaller than animated GIF — often less than half the size
+- [Google's WebP study](https://developers.google.com/speed/webp/docs/webp_study) reported smaller files than JPEG on its test corpus at a matched quality metric; a different image or encoder can produce a different result
+- [Google's lossless WebP study](https://developers.google.com/speed/webp/docs/webp_lossless_alpha_study) reports an average reduction for its PNG corpus while preserving decoded pixels; it is not a promise for every PNG
+- Animation results vary with frame content, duration, encoder, and settings, so compare the generated files
 
 That is why CDNs like it. That is why Google pushes it. That is why you keep ending up with `.webp` files.
 
 ## Where WebP works in 2026
 
-Browser support is essentially universal ([versions per caniuse](https://caniuse.com/webp)):
+WebP support is broad in current browser families, but embedded webviews and managed devices can lag. Check the live [Can I Use table](https://caniuse.com/webp) for the audience you serve:
 
 | Browser | Native WebP support |
 | --- | --- |
@@ -67,26 +68,7 @@ Browser support is essentially universal ([versions per caniuse](https://caniuse
 | Safari (iOS) | iOS 14+ (partial); full support since iOS 16 |
 | Safari (macOS) | Safari 14 (September 2020) — partial; full support since Safari 16 |
 
-If a user is on a browser made in the last six years, WebP just works.
-
-Outside the browser, the picture is messier than people assume:
-
-| Software | WebP support |
-| --- | --- |
-| Windows 10/11 Photos | Yes (built-in since 2018) |
-| macOS Preview / Quick Look | Yes (since macOS 11 Big Sur) |
-| Microsoft Word, PowerPoint, Excel (desktop) | Yes, since Microsoft 365 v2402 (Feb 2024) |
-| Microsoft 365 web apps (PowerPoint Web etc.) | No — limited image support |
-| Photoshop | Native since version 23.2 (March 2022). Animations still need the WebPShop plugin. |
-| Older Photoshop (≤23.1) | Plugin required |
-| Gmail | Yes |
-| Outlook desktop (Microsoft 365 v2402+, Feb 2024) | Yes |
-| Outlook 2019 / LTSC / many corporate installs | Often shows WebP as broken or strips it |
-| Apple Mail | Yes |
-| Most older third-party photo apps | No — convert to JPG first |
-| Print labs | Almost never — they want JPG/TIFF |
-
-The pattern: modern desktop tools have caught up over the past two years, but corporate email, older software, and print pipelines still don't speak WebP fluently.
+Outside the browser, support is application- and version-specific. Test the exact office suite, editor, email path, CMS, or print provider that will receive the file. When that environment is unknown, keep a JPG fallback for photos or a PNG fallback for transparency and editing.
 
 ## When to convert WebP back to JPG or PNG
 
@@ -94,37 +76,37 @@ You usually want to convert WebP *out* in three situations:
 
 **The receiver's software doesn't support it.** A coworker on Outlook desktop, a relative running Office 2019, a print shop, a photo book service, an older content management system. Any of these is a reason to convert WebP → JPG before you send.
 
-**You need to edit the image and your editor is older.** If Photoshop is older than 23.2, or you're using a generation of Pixelmator / Affinity / Sketch that predates WebP support, convert to PNG (lossless) or JPG (lossy) first.
+**You need to edit the image and your editor is older.** If Photoshop is older than 23.2, or you use an editor version without WebP support, convert to PNG or JPG first. In PicShift, PNG quality 95–100 preserves decoded pixels; lower values may quantize the palette. JPG always re-encodes lossily.
 
-**You're printing.** Print pipelines almost universally expect JPG or TIFF. Convert before you upload to the print service.
+**You're printing.** Many print services publish a limited accepted-format list. Follow the provider's current specification and convert only if WebP is not accepted.
 
 The conversion in PicShift takes seconds and runs locally:
 
 - [Convert WebP to JPG](/webp-to-jpg) — best for sharing, email, print, older software
-- [Convert WebP to PNG](/webp-to-png) — best for editing, transparency, lossless workflows
+- [Convert WebP to PNG](/webp-to-png) — for editing and transparency; use quality 95–100 when decoded-pixel fidelity matters
 
-One thing to be honest about: if the WebP is already a *lossy* WebP, converting it to JPG won't restore detail that the WebP encoder threw away. You're just changing the wrapper. The image looks the same; it's now openable in more places.
+One thing to be honest about: if the WebP is already lossy, converting it to JPG will not restore discarded detail. PicShift decodes the WebP and then performs a new lossy JPG encode, so pixel values can change again; compare the result when fidelity matters.
 
 ## When to convert TO WebP
 
 The reverse direction matters when you're publishing.
 
-**Web pages.** Cutting image weight by 25–35% directly improves Largest Contentful Paint, which is a Google ranking signal. For e-commerce or blog sites with image-heavy pages, this is one of the cheapest performance wins available.
+**Web pages.** Reducing image transfer size can improve loading performance, including Largest Contentful Paint when the image is the LCP element. WebP may help, but measure the actual output and page rather than assuming a fixed saving.
 
-**CMS uploads with size limits.** WordPress's default upload cap, Shopify's product image limits, and similar guardrails are friendlier to WebP than to JPG.
+**CMS uploads with size limits.** A WebP candidate may help if it is smaller for the source and the CMS accepts it. Compare the output and confirm the platform's current limits.
 
-**Animated graphics.** If you have an animated GIF that's 8 MB, the WebP version is often under 2 MB with no visible quality difference.
+**Animated graphics.** Animated WebP may be smaller than GIF, but results depend on the frames and encoder settings. Compare motion, transparency, quality, and final size.
 
 If you're starting from scratch:
 
-- [Convert JPG to WebP](/jpg-to-webp) — typical 25–35% size reduction
-- [Convert PNG to WebP](/png-to-webp) — keeps transparency, often 50% smaller
+- [Convert JPG to WebP](/jpg-to-webp) — compare actual size and visual quality
+- [Convert PNG to WebP](/png-to-webp) — preserves transparency support; PicShift's current quality slider uses lossy WebP encoding, so inspect the output rather than treating it as a lossless-mode control
 
 ## What about AVIF?
 
-AVIF compresses about 15–25% harder than WebP. Browser support crossed ~90% globally by mid-2023 once Safari 16.4 shipped (March 2023), and is around 95% in 2026 ([caniuse](https://caniuse.com/avif)). For a website starting fresh in 2026, AVIF is now a strong primary format with WebP and JPG as fallbacks.
+AVIF can be smaller than WebP for some images and settings, but either format can win on a particular source. Current browser support should be checked for the audience you target ([caniuse compatibility table](https://caniuse.com/avif)); use WebP or JPG fallbacks where needed.
 
-But WebP is not going anywhere. Plenty of CDNs still default to WebP because it's the safe middle ground — every modern browser handles it, every modern desktop tool handles it, the encoder is fast. AVIF is *better* on file size, but WebP is *good enough and significantly faster to encode*. Newer CDN tiers (Vercel Image Optimization, ImageKit's auto-format, Cloudflare Image Resizing with `format=auto`) increasingly serve AVIF first and fall back to WebP — but the fallback chain still passes through WebP, not JPEG, for any browser without AVIF. (Cloudflare's classic Polish product still defaults to WebP rather than AVIF for now — AVIF requires Image Resizing.)
+WebP and AVIF can each win for a particular image and encoder setting. Some image CDNs negotiate formats from the request's `Accept` header, but their supported formats and fallback order are product settings that can change. Check the CDN configuration and measure generated variants rather than assuming AVIF is always smaller or WebP is always faster.
 
 If you want the longer take, see [What is AVIF](/blog/what-is-avif) for when AVIF is worth the extra encoding cost.
 
@@ -132,7 +114,7 @@ If you want the longer take, see [What is AVIF](/blog/what-is-avif) for when AVI
 
 Three options, ordered by reliability:
 
-1. **Save the WebP, then convert it.** Open the file in [PicShift's WebP to JPG converter](/webp-to-jpg) and you have a JPG you can drop into PowerPoint, email, or print upload. The image is identical to the WebP you saved (you're swapping the container, not recovering the original) — for almost every reason you needed JPG, that's exactly what you wanted. This works on every site because it doesn't depend on the CDN cooperating.
+1. **Save the WebP, then convert it.** Open the file in [PicShift's WebP to JPG converter](/webp-to-jpg) and you have a JPG you can use in workflows that reject WebP. This is a decode-and-re-encode operation, not a container swap, so inspect the output before print or archival use. The method does not depend on the original site's CDN cooperating.
 
 2. **Use a "Save Image As Type" extension.** Chrome Web Store has several. Once installed, you get an extra right-click menu item that exports JPG or PNG instead of WebP. Same caveat as option 1: you're getting a converted version, not the original JPG that lives on the site's origin server.
 
@@ -140,11 +122,11 @@ Three options, ordered by reliability:
 
 Three things people sometimes suggest that *don't* reliably work in 2026: appending `?` to the URL (modern CDNs normalize or ignore the query), spoofing your User-Agent to something old (the site often breaks in other ways), and "Open image in new tab, then save" (the CDN serves WebP to that tab too).
 
-For most people, option 1 — save and convert — is the easiest. It's two extra clicks and it works on every site.
+Where the browser lets you save the delivered WebP bytes, option 1 is usually the most direct because it does not depend on finding the origin asset.
 
 ## The short version
 
-WebP is a good format. Lossy mode beats JPG by ~30% on size. Lossless mode beats PNG. It does animation. It does transparency. Browsers and modern desktop apps support it.
+WebP supports lossy and lossless compression, animation, and transparency. Published test corpora often show size advantages over JPG or PNG, but the result depends on the source, mode, encoder, and comparison method. Check the actual output and the target software rather than assuming a fixed saving.
 
 The friction is real but localized: corporate Outlook, older software, print labs, web-only Office, and a handful of third-party tools. When your image needs to land in one of those, converting WebP back to JPG or PNG is the right answer.
 

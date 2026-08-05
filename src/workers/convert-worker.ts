@@ -22,6 +22,7 @@ interface WorkerResponse {
   sourceHeight?: number;
   outputWidth?: number;
   outputHeight?: number;
+  runtimeAssets?: string[];
 }
 
 // ---- Helpers ----
@@ -47,6 +48,27 @@ function getInputMime(file: File): string {
 function postProgress(id: string, progress: number): void {
   const msg: WorkerResponse = { id, status: 'progress', progress };
   self.postMessage(msg);
+}
+
+function collectRuntimeAssets(): string[] {
+  const assets = new Set<string>();
+  const add = (value: string) => {
+    try {
+      const url = new URL(value, self.location.href);
+      if (
+        url.origin === self.location.origin &&
+        (url.pathname.startsWith('/_astro/') || url.pathname.startsWith('/wasm/'))
+      ) {
+        assets.add(url.href);
+      }
+    } catch {
+      // Ignore malformed or browser-internal performance entries.
+    }
+  };
+
+  add(self.location.href);
+  for (const entry of performance.getEntriesByType('resource')) add(entry.name);
+  return [...assets];
 }
 
 // ---- libheif-js WASM HEIC decoder (lazy-init) ----
@@ -599,6 +621,10 @@ self.onmessage = async (e: MessageEvent<WorkerRequest>) => {
       sourceHeight,
       outputWidth: canvas.width,
       outputHeight: canvas.height,
+      // A conversion can finish before the page receives its first SW
+      // controller. Report worker-local imports and codec fetches so the page
+      // can replay exactly those resources through Workbox after control.
+      runtimeAssets: collectRuntimeAssets(),
     };
     self.postMessage(doneMsg);
   } catch (err: unknown) {

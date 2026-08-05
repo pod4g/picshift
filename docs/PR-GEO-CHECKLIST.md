@@ -1,5 +1,7 @@
 # GEO/SEO PR 检查清单
 
+> 官方边界（复核于 2026-08-04）：[Google Search 明确忽略 `llms.txt`，且不要求 GEO 专用 Schema](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)。`llms.txt` 是 PicShift 的辅助实验，不是 Google 排名条件；PR 不得仅因没有修改该文件而被阻断。
+
 ## 1) 本次事实变更
 - [ ] 本次是否修改产品事实（如本地处理、支持格式、账号要求）
 - [ ] 本次是否新增或修改 FAQ 结论
@@ -27,23 +29,25 @@
 ### 结构化数据层
 - [ ] `BreadcrumbList` 与可见面包屑一致
 - [ ] `ItemList` 与页面列表一致
-- [ ] `FAQPage` 与可见 FAQ 一致
+- [ ] 如使用 `FAQPage`，其内容与可见 FAQ 一致，且未把它当作 GEO 专用标记
 - [ ] `TechArticle/CollectionPage` 日期和字段已更新
 
-### AI 抽取层
-- [ ] `public/llms.txt`
-- [ ] `public/llms-full.txt`
-- [ ] `public/robots.txt`（如新增 llms 资源）
+### AI 抓取与辅助摘要层（仅在相关事实或策略变化时）
+- [ ] 如 ChatGPT 搜索可见性策略变化，已核对 `OAI-SearchBot`；它控制 ChatGPT 搜索摘要与片段
+- [ ] 如模型训练授权策略变化，已分别核对 `GPTBot` 与 `Google-Extended`；两者不等同于搜索收录开关
+- [ ] 如核心产品事实或证据 URL 变化，已评估是否同步可选的 `public/llms.txt` 与 `public/llms-full.txt`
+- [ ] 如 crawler policy 变化，已同步 `public/robots.txt` 注释和规则，并保留官方来源
+- [ ] `public/robots.txt` 不含全站 `Disallow: /`，且核心搜索、用户触发与 AI 爬虫对首页、docs 与 llms 资源的有效规则均为允许
 
 ---
 
 ## 3) 版本与日期
-- [ ] 页面 `Last updated` 已更新
-- [ ] `llms.txt` 已更新：
+- [ ] 发生实质内容变化的页面 `Last updated` 已更新；未变化页面没有被构建日期批量标新
+- [ ] 如本次选择更新 `llms.txt`，以下字段一致：
   - [ ] `Last updated`
   - [ ] `Version`
   - [ ] `Lifecycle (Supersedes/Deprecates)`
-- [ ] `llms-full.txt` 已更新：
+- [ ] 如本次选择更新 `llms-full.txt`，以下字段一致：
   - [ ] `Last updated`
   - [ ] `Version`
   - [ ] `Lifecycle (Supersedes/Deprecates)`
@@ -55,14 +59,16 @@
 ---
 
 ## 4) 引用与证据
-- [ ] `Preferred citations` 已覆盖本次新结论
+- [ ] 如维护辅助 llms 文件，`Preferred citations` 已覆盖本次新结论
 - [ ] 每条关键结论都有证据 URL（docs/privacy）
-- [ ] `Do not cite for` 已检查并按需补充
+- [ ] 定量结论已提供样本、codec / 参数、测试环境与日期；没有可复现实验时未给出固定百分比
+- [ ] 如维护辅助 llms 文件，`Do not cite for` 已检查并按需补充
 
 ---
 
 ## 5) 发布前验证
-- [ ] `npm run seo:audit` 通过（无重复 title/description、无高相似 title）
+- [ ] `pnpm seo:audit` 通过（硬错误为 0；title / description 长度提示按实际页面判断）
+- [ ] `pnpm geo:audit` 通过（包含 robots 有效规则、llms 事实与引用路由审计）
 - [ ] `pnpm run build` 通过
 - [ ] 结构化数据校验通过（至少抽查 docs index + 2 个 docs 详情 + 1 个工具页）
 - [ ] 多语言抽查通过（至少 2 个语言）

@@ -41,6 +41,29 @@ function inputToOutputKey(filename: string): OutputFormatKey {
 const MAX_WORKERS = Math.min(navigator.hardwareConcurrency || 2, 4);
 const MAX_COMPARE_CACHE = 10;
 
+function reportRuntimeAssets(assets: string[] | undefined): void {
+  if (!assets || assets.length === 0) return;
+  if (!('serviceWorker' in navigator)) return;
+  const runtimeWindow = window as Window & {
+    __picshiftRuntimeAssets?: string[];
+    __picshiftRuntimeAssetSinkReady?: boolean;
+  };
+  if (!runtimeWindow.__picshiftRuntimeAssetSinkReady) {
+    const pending = runtimeWindow.__picshiftRuntimeAssets ?? [];
+    const known = new Set(pending);
+    for (const asset of assets) {
+      if (!known.has(asset)) {
+        pending.push(asset);
+        known.add(asset);
+      }
+    }
+    // The async registration helper may arrive after a first conversion. Keep
+    // worker-only URLs durable until it installs its event listener.
+    runtimeWindow.__picshiftRuntimeAssets = pending;
+  }
+  window.dispatchEvent(new CustomEvent('picshift:runtime-assets', { detail: assets }));
+}
+
 function resolveResize(
   option: ResizeOption,
 ): { maxWidth?: number; maxHeight?: number; scale?: number; exact?: boolean } | undefined {
@@ -180,6 +203,11 @@ export function useConverter(options?: {
       }
 
       const worker = getWorker();
+      // A worker created before the first Service Worker controller can load
+      // lazy chunks/codecs outside Workbox. Snapshot that state at task start:
+      // checking only when the task finishes is too late if claim happened in
+      // the meantime, while replaying controlled requests duplicates WASM.
+      const needsRuntimeAssetReplay = !navigator.serviceWorker.controller;
 
       updateFile(file.id, { status: 'converting', progress: 0 });
       const fileStartTime = Date.now();
@@ -193,6 +221,7 @@ export function useConverter(options?: {
 
       worker.onmessage = async (e: MessageEvent<WorkerResponse>) => {
         const msg = e.data;
+        if (needsRuntimeAssetReplay) reportRuntimeAssets(msg.runtimeAssets);
 
         if (msg.status === 'progress') {
           const patch: Partial<ConvertFile> = { progress: msg.progress };
@@ -502,9 +531,11 @@ export function useConverter(options?: {
         new URL('../workers/convert-worker.ts', import.meta.url),
         { type: 'module' },
       );
+      const needsRuntimeAssetReplay = !navigator.serviceWorker.controller;
       compareWorkersRef.current.push(decodeWorker);
       const blob = await new Promise<Blob>((resolve, reject) => {
         decodeWorker.onmessage = (e: MessageEvent<WorkerResponse>) => {
+          if (needsRuntimeAssetReplay) reportRuntimeAssets(e.data.runtimeAssets);
           if (e.data.status === 'done') resolve(e.data.blob!);
           if (e.data.status === 'error') reject(new Error(e.data.error));
         };
@@ -571,10 +602,12 @@ export function useConverter(options?: {
           new URL('../workers/convert-worker.ts', import.meta.url),
           { type: 'module' },
         );
+        const needsRuntimeAssetReplay = !navigator.serviceWorker.controller;
         compareWorkersRef.current.push(worker);
 
         const convertedBlob = await new Promise<Blob>((resolve, reject) => {
           worker.onmessage = (e: MessageEvent<WorkerResponse>) => {
+            if (needsRuntimeAssetReplay) reportRuntimeAssets(e.data.runtimeAssets);
             if (e.data.status === 'done') resolve(e.data.blob!);
             if (e.data.status === 'error') reject(new Error(e.data.error));
           };

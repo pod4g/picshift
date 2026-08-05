@@ -1,24 +1,51 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import { readFileSync, existsSync } from 'node:fs';
-import { resolve, dirname } from 'node:path';
+import { readFileSync, readdirSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import AstroPWA from '@vite-pwa/astro';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const fileDatesPath = resolve(__dirname, 'src/.file-dates.json');
-const fileDates = existsSync(fileDatesPath)
-  ? JSON.parse(readFileSync(fileDatesPath, 'utf-8'))
-  : {};
+import { CONTENT_DATE_MODIFIED } from './src/lib/contentDates.ts';
 
 const NON_EN_LOCALES = ['zh', 'zh-Hant', 'es', 'fr', 'de', 'ja', 'ko', 'pt', 'ru', 'ar', 'it'];
+const configDirectory = dirname(fileURLToPath(import.meta.url));
+const blogDirectory = resolve(configDirectory, 'src/content/blog');
 
+/**
+ * @param {string} source
+ * @param {string} key
+ * @returns {string | null}
+ */
+function parseFrontmatterDate(source, key) {
+  const frontmatter = source.match(/^---\s*\n([\s\S]*?)\n---/)?.[1] ?? '';
+  return frontmatter.match(new RegExp(`^${key}:\\s*["']?(\\d{4}-\\d{2}-\\d{2})["']?\\s*$`, 'm'))?.[1] ?? null;
+}
+
+const blogDates = new Map(
+  readdirSync(blogDirectory)
+    .filter((file) => file.endsWith('.md'))
+    .map((file) => {
+      const source = readFileSync(resolve(blogDirectory, file), 'utf8');
+      const publishedAt = parseFrontmatterDate(source, 'publishedAt');
+      const updatedAt = parseFrontmatterDate(source, 'updatedAt');
+      if (!publishedAt) throw new Error(`Missing publishedAt in src/content/blog/${file}`);
+      return [file.replace(/\.md$/, ''), updatedAt ?? publishedAt];
+    }),
+);
+
+/** @param {string} value */
+function contentDate(value) {
+  return `${value}T00:00:00.000Z`;
+}
+
+/**
+ * @param {string} url
+ * @returns {string | undefined}
+ */
 function getLastmod(url) {
   const path = new URL(url).pathname;
-  const candidates = [];
 
   let lang = null;
   let rest = path;
@@ -30,65 +57,23 @@ function getLastmod(url) {
     }
   }
 
-  if (path === '/') {
-    candidates.push('src/pages/index.astro');
-  } else if (rest.startsWith('/blog/') && rest !== '/blog/') {
+  if (rest.startsWith('/blog/') && rest !== '/blog/') {
     const slug = rest.replace('/blog/', '').replace(/\/$/, '');
-    candidates.push(`src/content/blog/${slug}.md`);
-    candidates.push('src/pages/blog/[slug].astro');
+    const date = blogDates.get(slug);
+    return date ? contentDate(date) : undefined;
   } else if (rest === '/blog/' || rest === '/blog') {
-    candidates.push('src/pages/blog/index.astro');
-    for (const f of Object.keys(fileDates)) {
-      if (f.startsWith('src/content/blog/')) candidates.push(f);
-    }
-  } else if (rest.startsWith('/docs/') || rest === '/docs') {
-    const docSlug = rest === '/docs'
-      ? ''
-      : rest.replace('/docs/', '').replace(/\/$/, '');
-    const fileName = docSlug || 'index';
-    if (lang) {
-      candidates.push(`src/pages/[lang]/docs/${fileName}.astro`);
-      candidates.push(`src/i18n/translations/${lang}.ts`);
-      candidates.push('src/i18n/docsUi.ts');
-    } else {
-      candidates.push(`src/pages/docs/${fileName}.astro`);
-    }
-  } else if (lang && (rest === '/' || rest === '')) {
-    candidates.push('src/pages/[lang]/index.astro');
-    candidates.push(`src/i18n/translations/${lang}.ts`);
-  } else {
-    const slug = rest.replace(/^\//, '').replace(/\/$/, '');
-    if (lang) {
-      const specificPage = `src/pages/[lang]/${slug}.astro`;
-      if (fileDates[specificPage]) {
-        candidates.push(specificPage);
-        candidates.push(`src/i18n/translations/${lang}.ts`);
-      } else {
-        candidates.push('src/pages/[lang]/[slug].astro');
-        candidates.push('src/data/tools.ts');
-        candidates.push(`src/i18n/translations/${lang}.ts`);
-        candidates.push('src/i18n/toolSearchIntent.ts');
-        candidates.push('src/i18n/toolFaqOverrides.ts');
-      }
-    } else {
-      const specificPage = `src/pages/${slug}.astro`;
-      const specificIndex = `src/pages/${slug}/index.astro`;
-      if (fileDates[specificPage] || fileDates[specificIndex]) {
-        candidates.push(specificPage);
-        candidates.push(specificIndex);
-      } else {
-        candidates.push('src/pages/[slug].astro');
-        candidates.push('src/data/tools.ts');
-      }
-    }
+    const newestDate = [...blogDates.values()].sort().at(-1);
+    return newestDate ? contentDate(newestDate) : undefined;
   }
 
-  const dates = candidates
-    .map((f) => fileDates[f])
-    .filter(Boolean)
-    .map((d) => new Date(d).getTime());
+  if (rest === '/privacy' || rest.startsWith('/docs')) {
+    return contentDate(CONTENT_DATE_MODIFIED);
+  }
 
-  return dates.length > 0 ? new Date(Math.max(...dates)) : new Date();
+  // Tool and utility routes deliberately omit lastmod. Their content lives in
+  // shared source files, so a file-level Git date falsely marks hundreds of
+  // unchanged URLs as fresh. An absent lastmod is safer than an inaccurate one.
+  return undefined;
 }
 
 export default defineConfig({
@@ -105,17 +90,117 @@ export default defineConfig({
     react(),
     sitemap({
       serialize(item) {
-        item.lastmod = getLastmod(item.url);
+        const lastmod = getLastmod(item.url);
+        if (lastmod) item.lastmod = lastmod;
+        else delete item.lastmod;
         return item;
       },
     }),
     AstroPWA({
       registerType: 'autoUpdate',
+      // Layout loads the tiny registration script in <head> so registration
+      // starts during parsing instead of waiting for window.load.
+      injectRegister: null,
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg,webp,wasm,json,woff2}'],
+        clientsClaim: true,
+        skipWaiting: true,
+        // Keep install/update lightweight. Conversion workers and codecs are cached
+        // by the runtime routes below only after the browser actually uses them.
+        globPatterns: [
+          'index.html',
+          'registerSW.js',
+          '_astro/*.css',
+          'fonts/inter-{400,700}.woff2',
+          'favicon*.{ico,png}',
+          'apple-touch-icon.png',
+          'android-chrome-*.png',
+          'logo-mark-{28,56,dark}.png',
+        ],
         globIgnores: ['_routes.json', '_worker.js/**', '_headers', '_redirects', '**/*avif_enc*'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         navigateFallback: null,
+        runtimeCaching: [
+          {
+            // Vite fingerprints these files, so a URL is safe to keep until its
+            // cache entry expires. This also covers lazy workers/codec chunks:
+            // once used online they remain available offline.
+            urlPattern: ({ url }) =>
+              url.origin === self.location.origin && url.pathname.startsWith('/_astro/'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'picshift-assets-v1',
+              // Static preview/CDN responses can vary on Origin while a warm-up
+              // fetch and an ES module request use different request headers.
+              // Fingerprinted same-origin URLs are immutable, so URL matching is
+              // the correct cache key for reliable offline hydration.
+              matchOptions: { ignoreVary: true },
+              cacheableResponse: { statuses: [0, 200] },
+              expiration: {
+                maxEntries: 120,
+                maxAgeSeconds: 365 * 24 * 60 * 60,
+                purgeOnQuotaError: true,
+              },
+            },
+          },
+          {
+            // These public codec URLs are stable rather than fingerprinted.
+            // Prefer the current network version so a newly fingerprinted
+            // worker cannot keep using an older, ABI-incompatible WASM file.
+            // A previously successful response remains the offline fallback.
+            urlPattern: ({ url }) =>
+              url.origin === self.location.origin && url.pathname.startsWith('/wasm/'),
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'picshift-codecs-v2',
+              networkTimeoutSeconds: 5,
+              cacheableResponse: { statuses: [0, 200] },
+              expiration: {
+                maxEntries: 12,
+                maxAgeSeconds: 90 * 24 * 60 * 60,
+                purgeOnQuotaError: true,
+              },
+            },
+          },
+          {
+            // Editorial/share images are not part of the app shell. Cache only
+            // the images a visitor opens, and refresh fixed-name assets online.
+            urlPattern: ({ url, request }) =>
+              url.origin === self.location.origin &&
+              request.destination === 'image' &&
+              (url.pathname.startsWith('/blog/') || url.pathname === '/og-image.png'),
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'picshift-images-v1',
+              cacheableResponse: { statuses: [0, 200] },
+              expiration: {
+                maxEntries: 32,
+                maxAgeSeconds: 30 * 24 * 60 * 60,
+                purgeOnQuotaError: true,
+              },
+            },
+          },
+          {
+            // A marked same-origin fetch lets registerSW replay the current
+            // document if its first navigation raced ahead of SW control.
+            urlPattern: ({ url, request }) =>
+              url.origin === self.location.origin &&
+              (request.mode === 'navigate' || request.headers.get('X-PicShift-Cache-Warm') === 'page'),
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'picshift-pages',
+              networkTimeoutSeconds: 3,
+              // Static routes do not use query parameters for content. Ignore
+              // referral/campaign queries so an offline reload matches the
+              // canonical page warmed after first control.
+              matchOptions: { ignoreVary: true, ignoreSearch: true },
+              cacheableResponse: { statuses: [0, 200] },
+              expiration: {
+                maxEntries: 24,
+                maxAgeSeconds: 7 * 24 * 60 * 60,
+              },
+            },
+          },
+        ],
       },
       manifest: {
         name: 'PicShift',
@@ -150,7 +235,6 @@ export default defineConfig({
       rollupOptions: {
         output: {
           manualChunks: {
-            heic: ['libheif-js'],
             zip: ['fflate'],
           },
         },

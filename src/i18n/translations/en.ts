@@ -8,7 +8,7 @@ const en: PageTranslations = {
     // as an affirmative answer.
     title: 'Local Image Converter - HEIC, WebP, JPG, PNG, AVIF | PicShift',
     description:
-      'Local image converter running 100% in your browser — no upload, no sign-up. HEIC to JPG, WebP to PNG, AVIF and more. Private, offline-ready, unlimited batches.',
+      'Local image converter running in your browser — no upload or sign-up. HEIC to JPG, WebP to PNG, AVIF and more. Successfully loaded workflows are reusable offline.',
   },
   privacy: {
     title: 'Privacy Policy — Local Image Processing, No Uploads | PicShift',
@@ -44,7 +44,7 @@ const en: PageTranslations = {
           'Cloudflare for hosting, CDN delivery, and Cloudflare Web Analytics',
           'Umami for privacy-friendly website analytics',
           'Those services process ordinary website request data, but they do not receive your source images for conversion processing',
-          'With our current configuration, both Umami and Cloudflare Web Analytics retain analytics data for six months',
+          'Analytics availability and retention follow each provider’s current policy and the active PicShift account configuration; PicShift does not publish a fixed deletion period here',
         ],
       },
       {
@@ -77,7 +77,7 @@ const en: PageTranslations = {
         content: 'Questions, corrections, or privacy requests: privacy@picshift.app.',
       },
     ],
-    lastUpdated: 'Last updated: April 2026',
+    lastUpdated: 'Last updated: August 2026',
   },
   tools: {
     'heic-to-jpg': {
@@ -95,52 +95,52 @@ const en: PageTranslations = {
       faqs: [
         {
           q: 'What is HEIC format?',
-          a: "HEIC (High Efficiency Image Container) is the default photo format on iPhones since iOS 11. It produces smaller files than JPG while maintaining the same quality. However, many Windows apps and websites don't support HEIC.",
+          a: "HEIC (High Efficiency Image Container) has been a default iPhone photo format since iOS 11. It is designed for efficient storage, but size and visual quality depend on the image and encoding settings. Some Windows apps and upload workflows still do not accept HEIC.",
         },
         {
           q: 'Is it safe to convert my photos here?',
-          a: 'Yes. PicShift processes everything in your browser using WebAssembly. Your photos never leave your device — no files are uploaded to any server. You can verify this by disconnecting from the internet and trying the converter.',
+          a: 'Yes. PicShift processes everything in your browser using WebAssembly, so no image file is uploaded for conversion. To test offline reuse, first complete this exact workflow online so its code and codec load, then disconnect, reload the same page, and repeat with a non-sensitive test image.',
         },
         {
           q: 'How many files can I convert at once?',
-          a: "You can convert up to 200 files at a time. For best performance with large batches, we recommend 100 or fewer.",
+          a: 'Limits are 50 MB per file, 200 files per batch, and 1 GB total per batch. Device memory and browser performance also affect large jobs.',
         },
         {
           q: 'Will I lose image quality?',
-          a: 'The default quality setting (85%) produces files visually identical to the original. You can adjust the quality slider — higher values mean better quality but larger files.',
+          a: 'The default quality setting (85%) is a starting point, not a guarantee of identical appearance. Compare important details before downloading; higher values usually preserve more detail but can produce larger files.',
         },
       ],
     },
     'heic-to-png': {
-      title: 'HEIC to PNG Converter - Lossless PNG Export | PicShift',
+      title: 'HEIC to PNG Converter - Adjustable PNG Output | PicShift',
       description:
-        'Convert HEIC photos to lossless PNG for editing and design handoff. Runs in your browser with no upload.',
+        'Convert HEIC photos to PNG for editing and design handoff. Quality 95-100 preserves decoded pixels; lower values may reduce the color palette.',
       h1: 'Convert HEIC to PNG',
       introText:
-        'Convert your iPhone HEIC photos to lossless PNG format. All processing happens locally in your browser.',
+        'Convert your iPhone HEIC photos to PNG in your browser. This dedicated PNG page starts at quality 100.',
       howToSteps: [
         'Drag and drop your HEIC files into the box above, or click to browse.',
-        'Files are converted to lossless PNG instantly in your browser.',
+        'Keep quality at 95-100 for decoded-pixel-preserving PNG output, or lower it only after comparing the result.',
         'Click Download to save each file, or Download All to get a ZIP.',
       ],
       faqs: [
         {
           q: 'Why convert HEIC to PNG instead of JPG?',
-          a: 'PNG is a lossless format, meaning no quality is lost during conversion. Choose PNG when you need perfect quality or transparency support. Choose JPG for smaller file sizes.',
+          a: 'PNG supports lossless storage, but PicShift behavior depends on the quality setting. At 95-100 it preserves the decoded pixels and applies lossless OxiPNG optimization; below 95, palette quantization may reduce colors. Choose JPG when smaller files matter more than transparency.',
         },
         {
           q: 'Are PNG files larger than JPG?',
-          a: 'Yes, PNG files are 2-5x larger than JPG in standard photo workflows because PNG is lossless. If file size matters more than perfect quality, convert to JPG instead.',
+          a: 'PNG can be larger or smaller than JPG depending on the decoded image and encoder settings. Compare the generated files; use JPG when its lossy trade-off fits the workflow.',
         },
       ],
     },
     'heic-to-webp': {
       title: 'HEIC to WebP Converter - Smaller Web Images | PicShift',
       description:
-        'Convert HEIC photos to WebP for smaller image payloads and faster page delivery. Local-only browser conversion.',
+        'Convert HEIC photos to WebP and compare the actual size and visual result. Output depends on the source and encoder settings.',
       h1: 'Convert HEIC to WebP',
       introText:
-        'Convert your iPhone HEIC photos to the modern WebP format. WebP offers 25-34% smaller files than JPG at the same quality.',
+        'Convert iPhone HEIC photos to WebP. WebP may reduce size for web use, but the result depends on the source, encoder settings, and target support.',
       howToSteps: [
         'Drag and drop your HEIC files into the box above, or click to browse.',
         'Files are converted to WebP instantly in your browser.',
@@ -149,11 +149,11 @@ const en: PageTranslations = {
       faqs: [
         {
           q: 'What is WebP?',
-          a: 'WebP is a modern image format developed by Google. It provides 25-34% smaller file sizes compared to JPG at equivalent quality. WebP is supported by all major browsers (96.5% global support).',
+          a: 'WebP is an image format developed by Google that supports lossy and lossless compression. It can be smaller than JPG for some sources and settings. Check the actual output and verify support in the browsers or apps you target.',
         },
         {
           q: 'When should I use WebP?',
-          a: 'WebP is ideal for web use — smaller files mean faster page loads. For sharing via email or messaging, JPG is more universally compatible.',
+          a: 'WebP is useful for web delivery and may reduce payload size for some images and settings. Compare the output and verify target support; JPG can be more compatible with older sharing workflows.',
         },
       ],
     },
@@ -164,15 +164,15 @@ const en: PageTranslations = {
     'heif-to-avif': {
       title: 'Convert HEIF to AVIF in Your Browser — No Upload | PicShift',
       description:
-        'Yes, convert HEIF files to AVIF for smaller size with equal quality. iPhone HEIF photos become AVIF for modern web delivery. Runs locally, no upload.',
+        'Convert HEIF files to AVIF for modern web delivery. Size and visual quality vary with the source and settings, so compare the output before publishing.',
     },
     'webp-to-jpg': {
-      title: 'WebP to JPG Converter - Open Anywhere | PicShift',
+      title: 'WebP to JPG Converter - Broad App Support | PicShift',
       description:
         'Convert WebP to JPG for email, social uploads, and older software compatibility. No upload, runs locally.',
       h1: 'Convert WebP to JPG',
       introText:
-        'Convert WebP images to the universally compatible JPG format. All processing happens locally in your browser.',
+        'Convert WebP images to broadly supported JPG for workflows that do not accept WebP. Source images are processed in the browser.',
       howToSteps: [
         'Drag and drop your WebP files into the box above, or click to browse.',
         'Files are converted to JPG instantly in your browser.',
@@ -186,21 +186,21 @@ const en: PageTranslations = {
       ],
     },
     'webp-to-png': {
-      title: 'WebP to PNG Converter for Lossless Transparency | PicShift',
+      title: 'WebP to PNG Converter for Transparency and Editing | PicShift',
       description:
-        'Convert WebP images to lossless PNG when you need pixel-stable output and transparency workflows.',
+        'Convert WebP images to PNG for editing and transparency. Quality 95-100 preserves decoded pixels; lower values may reduce the color palette.',
       h1: 'Convert WebP to PNG',
       introText:
-        'Convert WebP images to lossless PNG format. Perfect for when you need transparency or lossless quality.',
+        'Convert WebP images to PNG for transparency or editing. This dedicated PNG page starts at quality 100.',
       howToSteps: [
         'Drag and drop your WebP files into the box above, or click to browse.',
-        'Files are converted to lossless PNG instantly in your browser.',
+        'Keep quality at 95-100 for decoded-pixel-preserving PNG output, or compare the result before choosing a lower value.',
         'Click Download to save each file, or Download All to get a ZIP.',
       ],
       faqs: [
         {
           q: 'Does WebP to PNG conversion lose quality?',
-          a: 'No. PNG is a lossless format, so the conversion preserves every pixel from the WebP source. The resulting PNG file will be larger but identical in quality.',
+          a: 'It depends on the setting. At quality 95-100, PicShift preserves the pixels decoded from the WebP source and applies lossless OxiPNG optimization. Below 95, palette quantization may reduce colors, so compare the result when exact pixel fidelity matters.',
         },
       ],
     },
@@ -211,10 +211,10 @@ const en: PageTranslations = {
         'Convert PNG to JPG online to shrink photos before email, web upload or e-commerce listings. Adjust quality, batch up to 200 files, fully in-browser — no upload.',
       h1: 'Convert PNG to JPG',
       introText:
-        'Convert PNG to JPG when a photo saved as PNG is too heavy for email, a contact form, or a website. JPG drops transparency but typically cuts file size by 60–80% on photographic images. Everything runs in your browser — files never leave your device.',
+        'Convert PNG to JPG when a photo saved as PNG is too heavy for email, a contact form, or a website. JPG drops transparency; the size and visible change depend on the source and quality setting, so compare the output.',
       howToSteps: [
         'Drag and drop your PNG files into the box above, or click to browse.',
-        'Adjust the quality slider — 80–85 is a safe default for photos.',
+        'Use quality 80–85 as a starting range, then compare size and fine details.',
         'Click Download to save each file, or Download All to get a ZIP.',
       ],
       faqs: [
@@ -224,7 +224,7 @@ const en: PageTranslations = {
         },
         {
           q: 'Why convert PNG to JPG?',
-          a: 'PNG stores every pixel losslessly, which makes photographic PNGs surprisingly heavy. Converting to JPG typically cuts file size by 60–80% with no visible difference at quality 80–85, so it is the standard fix when an email, form or website rejects your file for being too large.',
+          a: 'PNG stores decoded pixels losslessly, which can make photographic PNGs large. Converting to JPG may reduce size, but the result and visible loss depend on the image and quality setting. Compare the output before using it for an email, form, or website.',
         },
         {
           q: 'Will I lose transparency when converting PNG to JPG?',
@@ -232,11 +232,11 @@ const en: PageTranslations = {
         },
         {
           q: 'How much smaller is JPG compared to PNG?',
-          a: 'For photographic content, JPG is usually 60–80% smaller than PNG at quality 80–85. For flat graphics, screenshots or text, the gap is smaller and you may want to keep PNG to avoid blurry edges.',
+          a: 'There is no reliable fixed ratio. Photographs, flat graphics, screenshots, and text can behave very differently. Compare the generated size and fine details, and keep PNG when transparency or sharp edges matter.',
         },
         {
           q: 'What quality setting should I use?',
-          a: 'For most photos, quality 80–85 is the sweet spot — visually identical to the source on a typical screen but much smaller. Drop to 70 for the smallest file, or stay at 90 for portfolio-grade work.',
+          a: 'Quality 80–85 is a practical starting range, not a universal sweet spot. Compare fine details and file size, then move in small steps; the right value depends on the source and use case.',
         },
         {
           q: 'When should I keep PNG instead of converting?',
@@ -248,7 +248,7 @@ const en: PageTranslations = {
         },
         {
           q: 'Are my PNG files uploaded to a server?',
-          a: 'No. Conversion happens entirely in your browser via WebAssembly. You can even disconnect from the network after the page loads — the tool keeps working.',
+          a: 'No. Conversion happens in your browser via WebAssembly. After this exact workflow and its codec have completed successfully online, you can disconnect, reload the same page, and test the same workflow offline. A new or unused codec may still need a connection.',
         },
       ],
     },
@@ -256,10 +256,10 @@ const en: PageTranslations = {
       title:
         'JPG to PNG converter online — batch, no upload | PicShift',
       description:
-        'Turn JPG into PNG for safer editing, markup, and re-export without stacking more lossy saves. Up to 200 files in your browser — nothing is sent to servers.',
+        'Turn JPG into PNG for editing, markup, and re-export. Quality 95-100 preserves decoded pixels; lower values may reduce the color palette.',
       h1: 'Convert JPG to PNG',
       introText:
-        'Use this JPG-to-PNG converter when you need a lossless container for edits or annotations. It does not recover quality already lost in the source JPG, but it helps avoid extra degradation on every future save.',
+        'Use this JPG-to-PNG converter for edits or annotations. It does not recover detail already lost in the JPG; this dedicated PNG page starts at quality 100.',
       howToSteps: [
         'Drag and drop your JPG files into the box above, or click to browse.',
         'Files are converted to PNG instantly in your browser.',
@@ -272,11 +272,11 @@ const en: PageTranslations = {
         },
         {
           q: 'Does converting JPG to PNG improve quality?',
-          a: 'No. Converting from JPG to PNG does not restore quality lost during JPG compression. However, converting to PNG prevents any further quality loss if you need to edit and re-save the image.',
+          a: 'No. PNG cannot restore detail lost during JPG compression. At PicShift quality 95-100, the PNG preserves the pixels decoded from the JPG and applies lossless OxiPNG optimization; below 95, palette quantization may reduce colors.',
         },
         {
           q: 'When is PNG better than staying on JPG?',
-          a: 'Choose PNG when you need transparency, lossless intermediate files, or a workflow where you will save many times. Stay on JPG when you only need a small file to share or upload.',
+          a: 'Choose PNG for transparency or an editing-oriented workflow, keeping quality at 95-100 when decoded-pixel fidelity matters. Stay on JPG when a smaller sharing file is the priority.',
         },
         {
           q: 'Will the PNG file be larger than the JPG?',
@@ -285,12 +285,12 @@ const en: PageTranslations = {
       ],
     },
     'jpg-to-webp': {
-      title: 'JPG to WebP Converter - Faster Page Load | PicShift',
+      title: 'JPG to WebP Converter - Compare Web Output | PicShift',
       description:
-        'Convert JPG to WebP for smaller web images and faster load speed. Tune quality in-browser and download instantly.',
+        'Convert JPG to WebP and compare size and visual quality for web delivery. Results depend on the source and encoder settings.',
       h1: 'Convert JPG to WebP',
       introText:
-        'Convert JPG images to the modern WebP format for 25-34% smaller file sizes at the same visual quality.',
+        'Convert JPG images to WebP and compare the actual visual quality and size. Savings depend on the source and encoder settings.',
       howToSteps: [
         'Drag and drop your JPG files into the box above, or click to browse.',
         'Files are converted to WebP instantly in your browser.',
@@ -299,7 +299,7 @@ const en: PageTranslations = {
       faqs: [
         {
           q: 'How much smaller is WebP compared to JPG?',
-          a: 'WebP is 25-34% smaller than JPG at the same visual quality in benchmark comparisons. A 1 MB JPG converts to 650-750 KB as WebP in that range.',
+          a: 'WebP can be smaller than JPG at a similar visual quality, but no fixed reduction applies to every image. Compare the generated file with the source before publishing.',
         },
       ],
     },
@@ -318,26 +318,26 @@ const en: PageTranslations = {
       faqs: [
         {
           q: 'What is AVIF?',
-          a: 'AVIF is a next-generation image format based on the AV1 video codec. It offers better compression than both JPG and WebP, but support is still growing.',
+          a: 'AVIF is an image format based on the AV1 video codec. It can be smaller than JPG or WebP for some images and settings, but no fixed advantage is guaranteed and target support should be checked.',
         },
       ],
     },
     'avif-to-png': {
-      title: 'AVIF to PNG Converter for Lossless Workflow | PicShift',
+      title: 'AVIF to PNG Converter for Editing Workflows | PicShift',
       description:
-        'Convert AVIF images to PNG for lossless editing, transparency support, and stable asset pipelines. Batches stay in your browser, with no upload to a server.',
+        'Convert AVIF images to PNG for editing and transparency. Quality 95-100 preserves decoded pixels; lower values may reduce the color palette.',
       h1: 'Convert AVIF to PNG',
       introText:
-        'Convert AVIF images to lossless PNG format. Perfect for preserving maximum quality.',
+        'Convert AVIF images to PNG for editing workflows. This dedicated PNG page starts at quality 100.',
       howToSteps: [
         'Drag and drop your AVIF files into the box above, or click to browse.',
-        'Files are converted to lossless PNG instantly in your browser.',
+        'Keep quality at 95-100 for decoded-pixel-preserving PNG output, or compare the result before choosing a lower value.',
         'Click Download to save each file, or Download All to get a ZIP.',
       ],
       faqs: [
         {
           q: 'Why convert AVIF to PNG?',
-          a: 'AVIF has limited support in some applications. Converting to PNG gives you a universally compatible, lossless format that works everywhere.',
+          a: 'Some applications do not accept AVIF, while PNG is broadly supported. At quality 95-100 PicShift preserves decoded pixels with lossless OxiPNG optimization; lower values may quantize the palette.',
         },
       ],
     },
@@ -357,14 +357,14 @@ const en: PageTranslations = {
       faqs: [
         {
           q: 'How do I change image resolution (pixel width and height)?',
-          a: 'Use Custom mode and enter the target width and height in pixels (or a percentage). PicShift downscales with high-quality resampling so the result stays sharp for typical screen use.',
+          a: 'Use Custom mode and enter the target width and height in pixels (or a percentage). Resampling and re-encoding can change detail, so compare the result at its intended display size.',
         },
         {
           q: 'Can I resize images without installing software?',
           a: 'Yes. Add files in the browser, choose a preset or custom dimensions, then download. Nothing is uploaded to a server.',
         },
         { q: 'What resize presets are available?', a: 'PicShift offers Max 1920px (long edge), Max 1080px, 50% scale, and a Custom mode where you can enter exact pixel dimensions or a percentage.' },
-        { q: 'Does resizing reduce image quality?', a: 'Downscaling uses high-quality resampling. You can also adjust the quality slider to control compression. The combination of resize + compression gives you the best control over file size.' },
+        { q: 'Does resizing reduce image quality?', a: 'The result depends on the source, target dimensions, format, and quality setting. Compare visible detail and file size after resampling and re-encoding.' },
         { q: 'Can I resize and convert format at the same time?', a: 'Yes. You can change both the output format (JPG, PNG, WebP, AVIF) and the dimensions in a single step.' },
       ],
     },
@@ -372,7 +372,7 @@ const en: PageTranslations = {
       title:
         'Image compressor online — batch, no upload | PicShift',
       description:
-        'Shrink JPG, PNG, WebP, HEIC, and AVIF files before you upload or share them. Up to 200 images per batch in the browser — 100% local, no upload.',
+        'Shrink JPG, PNG, WebP, HEIC, and AVIF files in the browser. Source images are not sent to a conversion server; limits are 50 MB per file, 200 files, and 1 GB per batch.',
       h1: 'Compress Images',
       introText:
         'Shrink file sizes while keeping the picture usable for web or email. Move the quality slider and check the side-by-side preview before you download.',
@@ -388,7 +388,7 @@ const en: PageTranslations = {
         },
         {
           q: 'How much can I compress my images?',
-          a: 'Compression result is source-dependent. A quality setting of 80% reduces JPG file sizes by 40-60% in benchmark comparisons with minimal visible difference. Use the comparison view to verify before downloading.',
+          a: 'Compression results are source-dependent. Quality 80 is a starting suggestion, not a guaranteed saving or a PicShift benchmark result. Use the comparison view to check size and important details before downloading.',
         },
         {
           q: 'What formats can I compress?',
@@ -402,20 +402,20 @@ const en: PageTranslations = {
         'Remove EXIF, GPS, and camera metadata from JPG, PNG, WebP, HEIC, and AVIF in your browser. Free tool — your files never upload.',
       h1: 'Remove Image Metadata',
       introText:
-        'Strip hidden metadata from your photos before sharing. GPS coordinates, camera model, timestamps, and software tags are embedded in most images by default. This tool removes all of it locally in your browser — the image never leaves your device.',
+        'Inspect hidden metadata before sharing. PicShift re-encodes accepted images locally without intentionally copying the supported fields it detects, such as GPS, camera, timestamp, and software tags; source image content is not uploaded for this operation.',
       howToSteps: [
         'Drag and drop your images into the box above, or click to browse.',
-        'Metadata is stripped instantly in your browser — nothing is uploaded.',
-        'Click Download to save the clean images, or Download All for a ZIP.',
+        'Review the supported metadata fields the local scanner detected.',
+        'Click re-encode, then download the successful outputs individually or as a ZIP.',
       ],
       faqs: [
         {
           q: 'What metadata is removed?',
-          a: 'All EXIF data is removed, including GPS coordinates, camera make and model, lens info, timestamps, software tags, and thumbnail previews. The resulting image contains no embedded metadata.',
+          a: 'PicShift can detect fields such as GPS coordinates, camera and lens details, timestamps, software tags, and thumbnail metadata. It re-encodes the image without intentionally copying detected fields, but browser-added encoder or color-profile data may remain; independently inspect a security-critical output.',
         },
         {
           q: 'Does removing metadata change the image quality?',
-          a: 'No. Metadata removal strips only the non-visual data embedded in the file. The pixel content of your image remains identical.',
+          a: 'Metadata fields are removed, but some formats must be decoded and re-encoded, so do not assume byte-for-byte or pixel-identical output. Compare the result when visual fidelity is critical.',
         },
         {
           q: 'Why should I remove metadata before sharing?',
@@ -433,9 +433,9 @@ const en: PageTranslations = {
       detailSections: [
         {
           title: 'Scope and boundaries',
-          body: 'This tool removes metadata embedded in the file itself. It does not edit the visible pixels in the image, so it helps with privacy leaks in hidden data, not with content that is already visible on screen.',
+          body: 'This tool targets metadata embedded in the file itself. Re-encoding does not erase visible objects or text, but it can change pixel values in lossy formats, so it addresses hidden-data exposure rather than content already visible on screen.',
           items: [
-            'It removes hidden fields such as GPS coordinates, device details, timestamps, and software tags, but it does not erase faces, license plates, watermarks, or text that already appears in the image.',
+            'Detected fields can include GPS coordinates, device details, timestamps, and software tags; cleanup does not erase faces, license plates, watermarks, or visible text.',
             'JPG, PNG, WebP, and AVIF are downloaded in the same format. Cleaned HEIC and HEIF files are downloaded as JPG because the browser still cannot write them back as HEIC or HEIF.',
             'Some apps and social platforms strip part of the metadata after upload, but that behavior is inconsistent and can change. The safer move is to clean the file yourself before sharing it.',
           ],
@@ -445,7 +445,7 @@ const en: PageTranslations = {
           body: 'The practical workflow is simple: inspect first, then clean, then keep using the cleaned copy when needed.',
           items: [
             'Drop the image into the tool and check what the file actually contains.',
-            'If the file only shows width, height, or color space, you will see 0 sensitive fields. If it contains GPS, device details, or timestamps, those will be flagged as sensitive.',
+            'A result of 0 means no supported metadata field was detected; it is not proof that every possible metadata block is absent. Detected GPS, device, or timestamp fields are flagged as sensitive.',
             'Download the cleaned file and use that version whenever you save, send, upload, or keep a copy.',
           ],
         },

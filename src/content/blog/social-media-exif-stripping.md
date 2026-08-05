@@ -1,107 +1,93 @@
 ---
-title: "Does Discord Strip EXIF? Instagram, WhatsApp Tested in 2026"
-description: "Discord now strips EXIF from JPEGs but can leave PNG metadata intact. WhatsApp: yes in chats. Instagram: mostly. Every major platform tested, 2026."
+title: "Does Discord Strip EXIF? What Instagram and WhatsApp May Remove"
+description: "EXIF handling varies by app version, operating system, file type, and sharing mode. Learn what not to assume and how to verify a shared copy before relying on a platform."
 cover: "/blog/social-media-exif-stripping-cover.webp"
 publishedAt: 2026-04-06
+updatedAt: 2026-08-04
 author: "PicShift"
 tags: ["exif", "metadata", "privacy", "social-media"]
 relatedTools: ["metadata-remover", "heic-to-jpg", "image-compressor"]
 ---
 
-<img src="/blog/social-media-exif-stripping-cover.webp" alt="Which social platforms remove EXIF data from your photos" width="1200" height="630" loading="eager" decoding="async" />
+<img src="/blog/social-media-exif-stripping-cover.webp" alt="How to check whether social platforms remove EXIF data from photos" width="1200" height="630" loading="eager" decoding="async" />
 
-You upload a photo to Instagram. Does the person who downloads it know where you took it? What about Discord? Telegram? Email?
+You upload a photo to Instagram. Can another person recover where it was taken? What about Discord, WhatsApp, Telegram, email, or a cloud-storage link?
 
-The answer is different for every platform, and it changes more often than you would expect.
+There is no dependable platform-wide yes-or-no answer. Results can change with the app version, operating system, image format, and whether you choose a photo-sharing path or a file/document attachment. A platform may also process metadata internally even when the copy delivered to another user no longer contains it.
+
+## Evidence status
+
+**Last reviewed: August 4, 2026.** This page is a conservative decision guide, not a published lab test. PicShift has not published the sample files, app and OS versions, before-and-after metadata dumps, file hashes, and repeat runs required to support a claim that every row below was “tested in 2026.” The table therefore avoids verified-test language and absolute “safe” or “dangerous” verdicts.
+
+Platform behavior can change without notice. If the outcome matters, test the exact app, version, file format, and sharing path you intend to use—or remove the metadata before sharing.
 
 ## The short answer
 
-| Platform | Strips GPS? | Strips device info? | Strips timestamps? | Verdict |
-| --- | --- | --- | --- | --- |
-| **Instagram** | Yes | Mostly | Mostly | Safe |
-| **WhatsApp** | Yes | Yes | Yes | Safe |
-| **Facebook** | Yes | Mostly | Mostly | Safe |
-| **Discord** | Yes (JPEG) | Yes (JPEG) | Yes (JPEG) | Safe for JPEG, not for PNG |
-| **Telegram (photo)** | Yes | Yes | Yes | Safe |
-| **Telegram (file)** | **No** | **No** | **No** | Dangerous |
-| **Slack** | GPS only | **No** | **No** | Partial |
-| **Signal** | Yes | Yes | Yes | Safe |
-| **Email** | **No** | **No** | **No** | Dangerous |
-| **Google Drive** | **No** | **No** | **No** | Dangerous |
+| Platform or sharing path | What can be assumed without a current reproducible test? | Conservative action |
+| --- | --- | --- |
+| **Instagram or Facebook post** | The service may transform the media, but that does not prove every metadata field is removed in every path. | Remove metadata first. |
+| **WhatsApp photo** | A photo-sharing path may compress or re-encode the image; behavior can vary by client and settings. | Remove metadata first or test the received copy. |
+| **WhatsApp document** | A file-oriented path may preserve the selected file. | Assume metadata may remain. |
+| **Discord image upload** | Results may differ by image format and current server/client behavior. | Do not rely on a JPEG or PNG rule without retesting. |
+| **Telegram photo** | A photo path may transform the image. | Test the received copy; remove metadata for sensitive images. |
+| **Telegram file** | A file path may preserve the original file. | Assume metadata may remain. |
+| **Slack or Signal** | Behavior is version- and path-specific and is not verified by a reproducible test on this page. | Remove metadata first. |
+| **Email attachment or cloud-storage link** | These paths are generally intended to deliver the selected or stored file, unless an explicit resize or export step changes it. | Assume metadata remains. |
 
-Three platforms stand out as risks: **Telegram "send as file,"** **email attachments,** and **cloud storage links.** Everything else strips at least GPS.
+“May remove metadata” is not the same as “protects your privacy.” The platform can receive the original file before transforming the version other people see, and a different upload path may behave differently.
 
-## Instagram
+## Instagram and Facebook
 
-Instagram strips EXIF metadata on upload. GPS coordinates, camera model, and most other fields are removed from the version that other users can download or screenshot.
+Feed and story uploads commonly pass through a media-processing pipeline. That makes the downloadable or displayed copy different from the selected source file, but it is not evidence that every EXIF, XMP, or other metadata field is removed for every format and client version.
 
-Instagram does this primarily for its own reasons — smaller file sizes and faster delivery — but the privacy side effect is real.
+Treat platform-side processing as an implementation detail, not as your metadata-removal step. If location or device information is sensitive, clean the file before it reaches the upload screen.
 
-One catch: Instagram **reads** your EXIF data before stripping it. The GPS coordinates, device info, and timestamps are processed by Instagram's servers. They just do not pass them through to other users. Whether that matters to you depends on your threat model.
+## WhatsApp: photo versus document
 
-## WhatsApp
+WhatsApp exposes more than one sharing path. Sending through a photo picker and attaching a document are not equivalent operations: the former may optimize media, while the latter is intended to transfer a file.
 
-WhatsApp is the cleanest. Photos sent through WhatsApp are compressed and re-encoded, which strips all EXIF metadata — GPS, device, timestamps, everything.
-
-This applies to photos sent through the chat interface. If you send an image as a **document attachment** (the paperclip icon → Document), WhatsApp sends the original file untouched, metadata included. Same trap as Telegram.
+Because this page does not include a current cross-platform test matrix, it does not claim that every photo path removes every field. For a document attachment, use the stricter assumption that metadata may survive intact.
 
 ## Discord
 
-Discord used to be one of the worst platforms for EXIF privacy. For years, uploaded images kept all their metadata intact.
+Older and newer reports about Discord often conflict, and JPEG and PNG behavior may differ. Without a dated test artifact showing the exact client, source file, received file, and metadata comparison, statements such as “Discord strips all JPEG EXIF” or “Discord keeps PNG metadata” are too broad.
 
-Discord now strips EXIF data from JPEG images as part of its server-side processing. GPS, camera info, and timestamps are removed. However, **PNG files may still retain EXIF data** — the PNG EXIF spec is newer and Discord's stripping is less thorough for that format.
+For a sensitive image, remove metadata locally. For research, retest the exact upload and download path instead of relying on an undated article.
 
-If you see older articles saying "Discord does not strip EXIF," that is outdated for JPEGs. But if you share screenshots as PNG, do not assume the metadata is gone.
+## Telegram: photo versus file
 
-## Telegram — the tricky one
+Telegram also separates photo sharing from file sharing. A photo path may re-encode media, while a file path is intended to preserve the file more faithfully. Quality or HD options add another variable.
 
-Telegram has two ways to send images, and they handle EXIF completely differently:
+The conservative rule is simple: treat “send as file” as potentially preserving all metadata. Do not infer that a photo path removes every field unless you inspect the received copy from the exact client version you use.
 
-**Send as photo** (default): Telegram compresses the image and strips all metadata. GPS, device info, timestamps — all gone. This is the safe option.
+## Slack and Signal
 
-**Send as file** (paperclip → File): Telegram sends the original, untouched file. All EXIF metadata survives — GPS coordinates, serial numbers, everything. This is how photographers and designers share high-quality images, but many people use it without realizing the privacy implications.
+Privacy claims about these services are frequently repeated without a reproducible artifact. This article does not claim that either service removes all metadata or only a particular subset.
 
-The HD mode introduced in Telegram 10.5 sits somewhere in between — better quality than standard compression, but less thorough metadata stripping.
-
-If you share photos in public Telegram channels as files, anyone who joins the channel can download the full original with all metadata intact.
-
-## Slack
-
-Slack started stripping GPS coordinates in May 2020, following pressure from journalists and activists who pointed out that image metadata in Slack could compromise sources.
-
-However, Slack only strips location data. **Device make and model are still preserved.** If you upload a photo taken on an iPhone 17 Pro, the recipient can see that.
-
-For workplace use, this is usually fine. For sensitive communications, it is not enough.
+If another user can download a file, inspect that downloaded copy. If the image is sensitive, remove metadata before sending so the result does not depend on the service’s current transformation pipeline.
 
 ## Email and cloud storage
 
-Email attachments preserve all EXIF metadata. Always. There is no processing, no compression, no stripping. The file you attach is the file the recipient gets.
+An email attachment or cloud-storage download is usually expected to reproduce the file the sender selected or stored. Some clients offer an explicit resize or image-quality option, but that is a separate transformation and should not be assumed.
 
-The same applies to cloud storage links — Google Drive, Dropbox, OneDrive. Sharing a photo via link gives the recipient the original file with full metadata.
+Unless you have verified otherwise, treat email attachments and shared original-file links as retaining metadata.
 
-This is the biggest blind spot for most people. You would not post your home GPS coordinates in the email body, but attaching a photo taken at home does exactly that.
+## How to run a reproducible check
 
-## Signal
+Use a disposable image with non-sensitive marker values—never a real home location—then document the exact path:
 
-Signal strips all EXIF metadata from photos before sending. It is designed as a privacy-first messenger, and metadata stripping is part of that design. No GPS, no device info, no timestamps survive.
+1. Record the source format, dimensions, byte size, and the metadata fields present before sharing;
+2. Record the date, device OS, app or web-client version, platform, account type, and the exact action used, such as “send as photo” or “attach as document”;
+3. Have a second account or recipient download the delivered file itself, rather than taking a screenshot of the displayed preview;
+4. Compare the received file’s format, dimensions, byte size, hash, and metadata fields with the source;
+5. Repeat the same path at least once, and test each relevant format separately because JPEG, PNG, HEIC, and WebP may follow different pipelines.
 
-## The problem with relying on platforms
-
-Platform policies change without notice. Discord went from keeping everything to stripping everything in a single update. Telegram's behavior depends on which "send" button you press. Slack strips GPS but nothing else.
-
-If you rely on a platform to protect your metadata, you are betting that:
-1. The platform's current policy covers what you care about
-2. The policy has not changed since you last checked
-3. You used the right sharing method (photo vs. file)
-
-That is a lot of assumptions for something you can solve in 5 seconds yourself.
+This method distinguishes an observed result from a universal platform claim. Keep the source and received files if you publish the test so another person can inspect the evidence.
 
 ## The safer approach
 
-Strip metadata before the photo leaves your device. Then it does not matter which platform you use, which "send" button you press, or what the platform's current policy is. If you are not sure what EXIF data is or why it matters, start with [What Is EXIF Data and Why You Should Remove It](/blog/what-is-exif-data).
+Strip metadata before the photo leaves your device. Then your privacy does not depend on an undocumented platform behavior, a particular sharing button, or an article that may be out of date. If you are not sure what EXIF contains, start with [What Is EXIF Data and Why You Should Remove It](/blog/what-is-exif-data).
 
 [Remove EXIF data from your photos →](/metadata-remover)
 
-A removal in the browser also avoids the obvious irony of "EXIF removers" that upload your file to a server first. Our [privacy and local processing guide](/docs/privacy) covers exactly what stays in your browser and what — if anything — we ever see on our side.
-
-The fix takes seconds. Drop your images in, see what metadata is embedded, clean it, download. Done. No more guessing about platform behavior.
+Removing metadata in the browser also avoids sending the source image to a separate metadata-cleaning server. Our [privacy and local processing guide](/docs/privacy-local-processing) explains the processing boundary and provides a test you can run yourself.

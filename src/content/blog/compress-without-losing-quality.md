@@ -1,8 +1,9 @@
 ---
 title: "Compress Images Without Losing Quality: JPG 100 vs 80 Explained"
-description: "Is JPG 100 vs 80 visibly different? Almost never — Q80 is 3-5x smaller with no perceptible loss. What the quality slider really does, and the safe sweet spot."
+description: "JPG quality 100 and 80 can differ in both size and detail. Learn why the scale is encoder-specific and how to compare settings on your own image."
 cover: "/blog/compress-without-losing-quality-cover.webp"
 publishedAt: 2026-04-25
+updatedAt: 2026-08-04
 author: "PicShift"
 tags: ["compression", "quality", "jpg", "webp", "guide"]
 relatedTools: ["image-compressor", "png-to-jpg", "jpg-to-webp"]
@@ -12,7 +13,7 @@ relatedTools: ["image-compressor", "png-to-jpg", "jpg-to-webp"]
 
 You drag a 4 MB JPG into a compressor. You see a "Quality" slider from 0 to 100. You drag it to 95 because you don't want to *lose* anything.
 
-That is the exact mistake almost everyone makes. The slider is not a percentage of your image. Quality 80 is not "throw away 20% of the image." For most photographs, the difference between Quality 80 and Quality 95 is invisible to the human eye while the file is three to five times smaller.
+The slider is not a percentage of your image. Quality 80 does not mean “throw away 20%.” On some photographs, the difference between Quality 80 and Quality 95 is hard to see at normal viewing while the file becomes substantially smaller; on other images, fine text, gradients, or texture reveal the change. The ratio is source- and encoder-dependent.
 
 This is what the slider actually does, and where the real sweet spot lives.
 
@@ -26,30 +27,26 @@ Lowering the quality from 95 to 80 doesn't remove detail uniformly. It mostly th
 
 The places JPEG starts to look bad are predictable: text edges, sharp logos, and pure color gradients (sky, skin, fog). Those are the regions where the eye *does* notice when the encoder cuts corners.
 
-## The actual sweet spot, by the numbers
+## One benchmark example, not a universal sweet spot
 
-The numbers below come from a [direct file-size benchmark](https://windows.fyicenter.com/2592_Quality_Parameter_of_Picture_JPG_JPEG_Files.html) on a 1233×1233 photo using libjpeg's IJG quality scale. Different images compress differently — high-detail photographs spread out more across the low-Q range than smooth scenes do — but the *shape* of the curve (each step down saves less and less) holds across content:
+The linked third-party example uses one 1233×1233 photo and libjpeg's IJG quality scale. It is not a PicShift benchmark and cannot predict another source image or encoder. Use it only to understand that quality values are nonlinear, then test your own file:
 
-| Quality | Visual difference vs. PNG original | File size vs. Q100 | Use case |
-| --- | --- | --- | --- |
-| Q100 | Imperceptible | 100% (baseline) | "A mathematical limit, not a useful setting" — IJG FAQ |
-| Q95 | Imperceptible | ~45% | Pro photography, e-commerce hero shots |
-| Q90 | Imperceptible at normal viewing | ~30% | High-quality web, blogs |
-| Q85 | Barely noticeable at 200% zoom | ~24% | **Web sweet spot** — blog covers, galleries |
-| Q80 | Noticeable only when zoomed in | ~20% | General web, social media |
-| Q75 | Visible softening on close inspection | ~16% | IJG default; thumbnails, previews |
-| Q70 | Edge ringing on logos and text starts to show | ~14% | Below this is the quality cliff |
-| Q50 | Obvious blocking and color banding | ~12% | Don't, unless file size is critical |
+| Quality range | How to use it |
+| --- | --- |
+| Q90–Q100 | Compare whether the larger output preserves detail you actually need. Q100 is still lossy in common JPEG encoders. |
+| Q80–Q89 | A practical starting range for many web photos; inspect texture, faces, text, and gradients. |
+| Q70–Q79 | May save more space, but artifacts can become easier to notice depending on content. |
+| Below Q70 | Treat as an aggressive setting and inspect at the intended display size. |
 
-<img src="/blog/compress-without-losing-quality-cliff.webp" alt="Five physical photo prints of the same hibiscus flower at JPEG quality 100, 95, 85, 75 and 50 — visually identical until quality 50, where the image visibly degrades" width="1000" height="559" loading="lazy" decoding="async" />
+<img src="/blog/compress-without-losing-quality-cliff.webp" alt="Illustrative prints comparing one hibiscus photo at JPEG quality 100, 95, 85, 75, and 50" width="1000" height="559" loading="lazy" decoding="async" />
 
 Two practical rules fall out of this:
 
-1. **Q100 is a trap.** Going from Q95 to Q100 produces a file [two to three times larger](https://johnloomis.org/ece563/notes/compression/jpeg/part1/faq-doc-5.html) with zero visible improvement. The IJG (Independent JPEG Group) FAQ — the reference document for the libjpeg encoder — describes Q100 verbatim as "a mathematical limit rather than a useful setting" and adds: "If you see a file made with Q 100, it's a pretty sure sign that the maker didn't know what he/she was doing."
+1. **Treat Q100 as an edge setting.** The [IJG/libjpeg FAQ](https://johnloomis.org/ece563/notes/compression/jpeg/part1/faq-doc-5.html) explains why its Q100 setting disables quantization scaling and can increase size sharply. That is encoder-specific guidance, not a PicShift size ratio or a promise that two outputs will look identical.
 
-2. **Below Q75 is where the eye actually catches the encoder.** Each step down saves smaller and smaller amounts of file size while introducing more obvious artifacts. The "quality cliff" sits around Q70–75, not Q85. Notice the gap between Q70 (~14%) and Q50 (~12%) above — dropping the slider from 70 to 50 saves almost nothing, but the visible damage is dramatic.
+2. **There is no universal quality cliff.** Text, sharp graphics, smooth gradients, and highly detailed photographs fail at different points. Lower the value in small steps and judge the intended display size.
 
-The actionable target for most web work: **Q80 to Q90**. Below that you're saving pennies and risking visible damage; above that you're paying double for invisible refinement.
+A practical starting range for many web photographs is **Q80 to Q90**, but it is a recommendation to test, not a benchmark result or a promise of invisible loss.
 
 ## Where the savings come from (and where they don't)
 
@@ -66,7 +63,7 @@ It works poorly on:
 - **Sharp graphics with flat color regions** — UI mockups, cartoon illustrations, charts
 - **Smooth gradients** in a single hue — blue skies, fog, gradient backgrounds. Look closely and you'll often see "banding" — discrete steps where the encoder ran out of budget for in-between colors.
 
-If your image is a screenshot, a chart, or a logo, JPEG at *any* quality setting will look worse than a properly compressed PNG. Use the right format first; tune quality second.
+For screenshots, charts, and logos, JPEG can introduce edge or gradient artifacts that PNG avoids. Compare formats first, then tune quality for the chosen output.
 
 ## A quality cheat sheet by use case
 
@@ -80,13 +77,13 @@ If your image is a screenshot, a chart, or a logo, JPEG at *any* quality setting
 | Email attachment | Q80–Q85 | Balances quality with mailbox limits |
 | Photography portfolio | Q90–Q95 | Pixel-peepers are your audience |
 
-PicShift defaults to **Q85** in its converters because that's the value that lands well across most of these scenarios without making people think about it.
+PicShift uses **Q85** as an initial comparison value for JPG and WebP. It is an implementation default, not a benchmark result; adjust it after inspecting the actual output.
 
 ## When you should *not* compress
 
 Compressing an already-compressed JPG is a tax. JPEG is generational: every save introduces small new artifacts that the next save can't undo. If you save a JPG at Q90, then re-open and save at Q90 again, the second one is *not* the same as the first — it has an additional rounding pass on top of an already-rounded image.
 
-After three to five rounds you start to see "ghosts" along high-contrast edges. Photographers call it generation loss; the image gets a slightly mushy look.
+Generation loss accumulates with repeated lossy saves. How quickly it becomes visible depends on the source, encoder, settings, and edits between saves.
 
 Three rules that follow:
 
@@ -94,18 +91,18 @@ Three rules that follow:
 - If you must edit a JPG, save the working file as PNG and re-export.
 - Avoid round-tripping JPG → PNG → JPG to "preserve" quality. The PNG step preserves what the first JPG already discarded; it cannot recover it.
 
-For the underlying mechanics, [why output size can increase](/docs/size-increase-explainer) explains how PicShift detects when a re-encode would only make a file *bigger* than the input — and stops.
+For the underlying mechanics, [why output size can increase](/docs/size-increase-explainer) explains why re-encoding can make a file *bigger*. PicShift's image-compressor mode, and same-format conversions, keep the original when the candidate is not smaller; ordinary format-conversion routes still return the requested format even when it is larger.
 
 ## Lossless options that actually exist
 
 "Lossless compression" is not a marketing word. There are real techniques that shrink files without touching pixels:
 
-- **MozJPEG** re-encodes existing JPGs with smarter quantization (trellis quantization plus optimized progressive Huffman tables). [libjpeg-turbo's own benchmark](https://libjpeg-turbo.org/About/Mozjpeg) reports an average ~8% reduction over standard libjpeg-turbo at the same quality setting; [real-world tests on web JPEGs](https://www.peterbe.com/plog/examples-of-mozjpeg-savings) see a ~10% median (range roughly 1–30% depending on the image), at the cost of substantially slower encoding. Strictly speaking, trellis quantization is a *lossy* refinement — pixels can shift by one or two values — but it's visually identical at typical settings.
-- **OxiPNG / Zopflipng** re-encode PNG files using better compression strategies (smarter filtering choices, brute-forced zlib output). 10–30% reduction is typical, and the pixels are bit-identical.
-- **WebP lossless** beats PNG lossless on most images. [Google's official benchmark](https://developers.google.com/speed/webp/docs/webp_lossless_alpha_study) puts the average at ~26% smaller, same pixels.
-- **AVIF lossless** is similar territory but much slower to encode.
+- **MozJPEG** re-encodes existing JPGs with quantization and entropy-coding optimizations. [libjpeg-turbo's published comparison](https://libjpeg-turbo.org/About/Mozjpeg) reports results for its benchmark, not a guaranteed saving for every image. Trellis quantization is a *lossy* refinement, so compare the decoded output when fidelity matters.
+- **OxiPNG / Zopflipng** can re-encode PNG files with different filtering and zlib strategies while preserving decoded pixels. The size change depends on the source and prior optimization.
+- **WebP lossless** preserved decoded pixels and reduced average size in [Google's published PNG corpus study](https://developers.google.com/speed/webp/docs/webp_lossless_alpha_study). The reported corpus result is not a guarantee for another image or encoder.
+- **AVIF** supports a lossless mode in the format, but PicShift's quality slider should not be treated as a lossless AVIF control; compare decoded output for the workflow you use.
 
-These aren't "magic." They're just better encoders than the defaults from 1992 or 1996. PicShift's [image compressor](/image-compressor) runs the modern encoders by default — for PNG inputs, the savings are mostly metadata and entropy coding gains, with the pixels themselves unchanged.
+These are not magic; they are different encoding strategies. PicShift's [image compressor](/image-compressor) defaults to quality 85. For PNG inputs that means lossy palette quantization may reduce colors before OxiPNG optimization. Set PNG quality to 95–100 when preserving the decoded pixels matters.
 
 ## How to actually find the right quality for *your* image
 
@@ -116,22 +113,22 @@ Trust the slider only after you've checked. The "right" quality depends on the c
 3. View all three at 100% zoom on your actual display
 4. Find the lowest setting where you can't see a difference
 
-Whatever number that is, use it. It's almost always in the Q80–Q90 range; for highly-textured photographs it can drop into the high 70s with no visible cost.
+Whatever number passes your comparison is the useful one. Many workflows start in the Q80–Q90 range, but your image may require a different value.
 
-For batch work, this isn't worth doing image-by-image. Pick a single quality target for the batch — Q85 is the conventional default for a reason — and ship.
+For batch work, test representative images first, then apply one setting to sources with similar content. Review outliers instead of assuming one quality value fits every image.
 
 ## Compress in your browser
 
-PicShift's [image compressor](/image-compressor) runs locally — files never leave your device. It uses MozJPEG, OxiPNG, and modern WebP / AVIF encoders, picks sensible defaults (Q85 for JPG/WebP, lossless metadata stripping for PNG), and shows you the size savings before you download.
+PicShift's [image compressor](/image-compressor) runs locally — source image content is not uploaded for conversion. It uses MozJPEG, OxiPNG, and WebP / AVIF encoders, starts at Q85, and shows the result before download. For PNG, Q85 may reduce the palette; use Q95–100 for decoded-pixel preservation.
 
 For format-specific conversion with the same compression machinery:
 
 - [Convert PNG to JPG](/png-to-jpg) — drops file size for photographs that don't need transparency
-- [Convert JPG to WebP](/jpg-to-webp) — typical 25–35% additional reduction over JPG at matched quality
+- [Convert JPG to WebP](/jpg-to-webp) — compare actual size and visual quality; no fixed reduction applies to every source
 
 ## The setting that actually matters
 
-Don't max out the quality slider out of fear. Q95 is overkill for the web; Q100 is overkill everywhere. Q80 to Q85 is where most people should be living for web images, with the slider going up to Q90–Q95 only for print and pro photography.
+Do not max out the slider without comparing the result. Q80 to Q85 is a reasonable starting range for many web photos; move higher or lower based on the actual image, output size, and intended use.
 
 The savings come from JPEG being honest about what your eye can't see. The mistake is using JPEG for things your eye *can* see — text, logos, sharp gradients. For those, use PNG or WebP lossless instead.
 

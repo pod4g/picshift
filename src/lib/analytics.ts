@@ -157,7 +157,7 @@ export function trackMetadataScan(fileCount: number, totalFields: number, sensit
 }
 
 // ---------------------------------------------------------------------------
-// 14. metadata_clean — user clicks "Remove all metadata & download"
+// 14. metadata_clean — user starts metadata-safe image re-encoding
 // ---------------------------------------------------------------------------
 export function trackMetadataClean(fileCount: number, totalFields: number): void {
   track('metadata_clean', { files: fileCount, fields: totalFields });

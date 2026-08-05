@@ -53,7 +53,7 @@ export default function FileCard({ file, quality, onRemove, onDownload, onCompar
   const barRef = useRef<HTMLDivElement>(null);
   const currentRef = useRef(0);
   const targetRef = useRef(0);
-  const rafRef = useRef<number>();
+  const rafRef = useRef<number | undefined>(undefined);
   // Per-file creep variation based on file size so bars don't all look identical
   const creepFactorRef = useRef(0.6 + (file.size % 100) / 100 * 0.8); // 0.6–1.4
 

@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
-import confetti from 'canvas-confetti';
 import { useConverter } from '../../hooks/useConverter';
 import { loadPreferences, savePreferences } from '../../lib/preferences';
 import { formatSize } from '../../lib/format-utils';
@@ -44,10 +43,22 @@ function guessOutputFormat(filename: string): OutputFormatKey {
 }
 
 export default function Converter({ defaultInputFormat, defaultOutputFormat, fullPage = false, keepSmaller = false, resizeDefault = false, lang = 'en' }: ConverterProps) {
+  const defaultQuality = defaultOutputFormat === 'png' ? 100 : 85;
   // Compute initial format & quality eagerly (no useEffect) to avoid flicker
   const [initPrefs] = useState(() => {
-    if (defaultOutputFormat) return { outputFormat: defaultOutputFormat, quality: 85 } as ReturnType<typeof loadPreferences>;
-    return loadPreferences();
+    if (defaultOutputFormat) {
+      return {
+        outputFormat: defaultOutputFormat,
+        // PNG output is lossless only in the worker's 95-100 OxiPNG path.
+        // Dedicated PNG conversion pages must not silently start with palette
+        // quantization enabled by the global quality default.
+        quality: defaultQuality,
+      } as ReturnType<typeof loadPreferences>;
+    }
+    const preferences = loadPreferences();
+    return preferences.outputFormat === 'png' && preferences.quality < 95
+      ? { ...preferences, quality: 100 }
+      : preferences;
   });
 
   // Always use a stable default for initial render to match SSR output.
@@ -93,11 +104,6 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
   const prevFileCountRef = useRef(0);
   const dragCounter = useRef(0);
 
-  // Remove server-rendered skeleton once React has mounted
-  useEffect(() => {
-    document.getElementById('converter-skeleton')?.remove();
-  }, []);
-
   // Apply saved resize preference after hydration (avoids SSR mismatch)
   useEffect(() => {
     if (!resizeDefault && initPrefs.resize) {
@@ -125,10 +131,11 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
   const handleFormatChange = useCallback(
     (fmt: OutputFormatKey) => {
       userSelectedFormat.current = true;
+      if (!keepSmaller && fmt === 'png' && quality < 95) setQuality(100);
       setOutputFormat(fmt);
       trackFormatSelect(fmt);
     },
-    [setOutputFormat],
+    [keepSmaller, quality, setOutputFormat, setQuality],
   );
 
   // Smart default: when first files are added and user hasn't manually picked a format, guess from input
@@ -216,26 +223,32 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
         output_kb: totalOutput / 1024,
         saved_pct: totalInput > 0 ? (1 - totalOutput / totalInput) * 100 : 0,
       });
-      const duration = 1500;
-      const end = Date.now() + duration;
-      const frame = () => {
-        confetti({
-          particleCount: 3,
-          angle: 60,
-          spread: 55,
-          origin: { x: 0, y: 0.7 },
-          colors: ['#6366f1', '#8b5cf6', '#06b6d4', '#10b981'],
-        });
-        confetti({
-          particleCount: 3,
-          angle: 120,
-          spread: 55,
-          origin: { x: 1, y: 0.7 },
-          colors: ['#6366f1', '#8b5cf6', '#06b6d4', '#10b981'],
-        });
-        if (Date.now() < end) requestAnimationFrame(frame);
-      };
-      frame();
+      void import('canvas-confetti')
+        .then(({ default: confetti }) => {
+          const duration = 1500;
+          const end = Date.now() + duration;
+          const frame = () => {
+            confetti({
+              particleCount: 3,
+              angle: 60,
+              spread: 55,
+              origin: { x: 0, y: 0.7 },
+              colors: ['#6366f1', '#8b5cf6', '#06b6d4', '#10b981'],
+            });
+            confetti({
+              particleCount: 3,
+              angle: 120,
+              spread: 55,
+              origin: { x: 1, y: 0.7 },
+              colors: ['#6366f1', '#8b5cf6', '#06b6d4', '#10b981'],
+            });
+            if (Date.now() < end) requestAnimationFrame(frame);
+          };
+          frame();
+        })
+        // Celebration is optional; conversion must stay successful if this
+        // first-use chunk is unavailable while offline.
+        .catch(() => {});
     }
     if (totalCount === 0) {
       confettiFiredRef.current = false;
@@ -328,7 +341,7 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
 
   return (
     <LangProvider value={lang}>
-    <div className="flex flex-col gap-6">
+    <div data-converter-mounted className="flex flex-col gap-6">
       {/* Full-page drag overlay */}
       {fullPage && pageDragOver && (
         <div className="pointer-events-none fixed inset-0 z-40 flex items-center justify-center bg-primary-500/10 backdrop-blur-[2px]">
@@ -370,11 +383,11 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
                 visible
               />
             </div>
-            {(quality !== 85 || (!defaultOutputFormat && !keepSmaller && outputFormat !== 'jpg') || resizeOption.preset !== 'original') && !isConverting && (
+            {(quality !== defaultQuality || (!defaultOutputFormat && !keepSmaller && outputFormat !== 'jpg') || resizeOption.preset !== 'original') && !isConverting && (
               <button
                 type="button"
                 onClick={() => {
-                  setQuality(85);
+                  setQuality(defaultQuality);
                   setResizeOption({ preset: 'original' });
                   if (!defaultOutputFormat && !keepSmaller) {
                     setOutputFormat('jpg');

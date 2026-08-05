@@ -8,7 +8,7 @@ const lang = 'en' as const;
 const pagePath = '/webp-to-heif';
 const canonical = htmlCanonicalUrl('https://picshift.app/webp-to-heif');
 
-const title = 'WebP to HEIF Converter - Support Status & Best Alternatives | PicShift';
+const title = 'WebP to HEIF Support Status & Best Alternatives | PicShift';
 const description =
   "Need to convert WebP to HEIF/HEIC? PicShift currently doesn't export HEIF. See when WebP to HEIF is needed and use WebP to JPG/PNG/AVIF alternatives.";
 
@@ -23,7 +23,7 @@ const faq = [
   },
   {
     q: 'What should I use instead of WebP to HEIF?',
-    a: 'For maximum compatibility, convert WebP to JPG. If you need lossless output, convert to PNG. If you want modern compression, convert to AVIF.',
+    a: 'For maximum compatibility, convert WebP to JPG. For PNG editing workflows, convert to PNG and keep PicShift quality at 95-100 when decoded-pixel fidelity matters. For modern compression, convert to AVIF.',
   },
 ];
 
@@ -75,7 +75,7 @@ const faqSchema = {
         <h2 class="text-xl font-semibold text-text-primary mb-2">Best alternatives right now</h2>
         <ul class="list-disc list-inside text-text-secondary space-y-1">
           <li><a class="text-primary-500 hover:underline" href="/webp-to-jpg">WebP to JPG</a> for widest compatibility.</li>
-          <li><a class="text-primary-500 hover:underline" href="/webp-to-png">WebP to PNG</a> for lossless workflows.</li>
+          <li><a class="text-primary-500 hover:underline" href="/webp-to-png">WebP to PNG</a> for transparency and editing workflows; use quality 95-100 to preserve decoded pixels.</li>
           <li><a class="text-primary-500 hover:underline" href="/image-compressor">Image Compressor</a> for smaller file size before sharing.</li>
         </ul>
       </section>

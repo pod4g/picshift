@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { CONTENT_DATE_MODIFIED } from '../../src/lib/contentDates';
 
 const coreDocs = [
   '/docs/privacy-local-processing',
@@ -28,7 +29,7 @@ test.describe('回归 Smoke：路由与内链', () => {
       await page.goto(href);
       await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
       // 日期集中由 contentDates.ts 管理，这里做可见性回归校验
-      await expect(page.locator('text=/2026-03-\\d{2}/').first()).toBeVisible();
+      await expect(page.getByText(CONTENT_DATE_MODIFIED, { exact: false }).first()).toBeVisible();
     }
   });
 
@@ -67,7 +68,7 @@ test.describe('回归 Smoke：路由与内链', () => {
     await expect(page.getByText('画像圧縮と画像リサイズはどう使い分けますか？')).toBeVisible();
 
     await page.goto('/es/webp-to-jpg');
-    await expect(page.getByText('Como convertir WebP a JPG online?')).toBeVisible();
+    await expect(page.getByText('¿Cómo convertir WebP a JPG online?')).toBeVisible();
 
     await page.goto('/pt/avif-to-jpg');
     await expect(page.getByText('Por que converter AVIF para JPG?')).toBeVisible();

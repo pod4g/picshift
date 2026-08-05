@@ -1,8 +1,9 @@
 ---
 title: "What Is EXIF Data? GPS, Camera Info, and How to Strip It"
-description: "EXIF is the hidden metadata in every photo — GPS coordinates, camera model, timestamps, even software used. What it reveals, real-world leaks, and how to remove it."
+description: "EXIF metadata can include GPS coordinates, camera details, timestamps, and software fields. Learn what may be present, how to inspect it, and how to remove detected fields."
 cover: "/blog/what-is-exif-data-cover.webp"
 publishedAt: 2026-04-06
+updatedAt: 2026-08-04
 author: "PicShift"
 tags: ["exif", "metadata", "privacy", "guide"]
 relatedTools: ["metadata-remover", "heic-to-jpg", "jpg-to-webp"]
@@ -10,15 +11,13 @@ relatedTools: ["metadata-remover", "heic-to-jpg", "jpg-to-webp"]
 
 <img src="/blog/what-is-exif-data-cover.webp" alt="What is EXIF metadata and why remove it" width="1200" height="630" loading="eager" decoding="async" />
 
-Every photo you take on a phone carries more than pixels. Embedded inside the file is a block of data called EXIF — and it can tell a stranger exactly where you were, what device you used, and when the shot was taken.
-
-Most people never see it. Most people never remove it. That is the problem.
+Many camera and phone photos contain metadata in addition to pixels. EXIF fields can include capture time, camera settings, device details, and—when location tagging is enabled—GPS coordinates. Field presence and precision vary by device, setting, edit, and export path.
 
 ## What EXIF data actually contains
 
-EXIF stands for Exchangeable Image File Format. It is a standard that cameras and phones use to store technical and contextual information alongside the image itself.
+EXIF stands for Exchangeable Image File Format. The specification is published by [CIPA alongside its current standards and revisions](https://www.cipa.jp/e/std/std-sec.html). Cameras and phones can use its fields to store technical and contextual information alongside image data.
 
-Here is what a typical iPhone photo contains:
+Here are examples of fields a camera file may contain; this is not a promise that every iPhone photo has every field:
 
 | Field | Example value | Risk |
 | --- | --- | --- |
@@ -26,33 +25,26 @@ Here is what a typical iPhone photo contains:
 | GPS Longitude | 121.473701° | Down to a few meters |
 | Device Model | iPhone 15 Pro Max | Device fingerprint |
 | Lens | 6.86mm f/1.78 | Narrows device identity |
-| Serial Number | C39V... | Unique hardware ID |
+| Serial Number | C39V... | May identify hardware when present |
 | Date Taken | 2026-04-05 14:32:07 | Timestamps your activity |
 | Software | iOS 18.3.2 | OS version fingerprint |
 | Exposure | 1/120s, f/1.78, ISO 64 | Not sensitive, but included |
 
-Here is what that looks like in practice — a single iPhone photo scanned by PicShift's metadata remover, revealing 13 embedded fields including GPS coordinates:
+The interface example below shows one sample file with 13 detected fields, including GPS coordinates. It does not represent every iPhone image:
 
 <img src="/blog/what-is-exif-data-metadata-panel.webp" alt="EXIF metadata fields found in an iPhone photo — GPS location, camera model, lens, timestamps" width="1000" height="793" loading="lazy" decoding="async" />
 
-That GPS coordinate? Paste it into Google Maps and you get a pin on the building where the photo was taken. If that building is your home, your office, or your child's school — you have a problem.
+Coordinates can reveal a location with enough precision to be sensitive. Check the actual values rather than assuming location metadata is absent or exact.
 
 ## Why most people do not know about it
 
 People search "what is metadata in a photo" and expect something complicated. It is not. EXIF is just invisible. You open a photo, you see an image. The metadata sits in a separate block inside the file binary. No photo viewer shows it by default.
 
-Even tech-savvy people forget about it. You crop a photo, apply a filter, export it — and the EXIF data survives all of that unless you explicitly strip it.
+Cropping, filtering, or exporting may preserve, change, or remove metadata depending on the application and export path. Inspect the resulting file instead of assuming what happened.
 
-## Real cases where EXIF data caused harm
+## Why the risk is concrete
 
-This is not a theoretical risk. It has happened repeatedly:
-
-- **John McAfee located and arrested (2012).** The cybersecurity pioneer was hiding in Guatemala. He posted a photo to his blog, and the embedded GPS coordinates pinpointed his exact location. Authorities arrested him within hours.
-- **Anonymous hacker caught through girlfriend's photo (2012).** Higinio Ochoa of the hacktivist group CabinCr3w posted photos taken on an iPhone to taunt law enforcement. GPS coordinates in the EXIF data led investigators straight to his house in Galveston, Texas.
-- **McKayla Maroney's home address exposed (2014).** A hacker extracted GPS coordinates from leaked photos of the Olympic gymnast, used Google Maps to identify her home, and posted the address alongside realtor listings.
-- **Instagram influencer forced to relocate.** An influencer with 500K followers had her home address discovered when followers extracted GPS data from her workout photos. Stalkers showed up at her house.
-
-These are not edge cases. They are what happens when EXIF data meets someone motivated enough to look.
+The risk follows directly from the fields in the file: GPS can disclose a capture location, timestamps can reveal a routine, and device or software fields can add context. The impact depends on the image, recipient, and whether those fields are actually present. Inspect a file before sharing it when location or identity context is sensitive.
 
 ## When EXIF data becomes a problem for you
 
@@ -64,24 +56,11 @@ Not every photo needs cleaning. A landscape you shot in a public park? Probably 
 - **Images sent to strangers.** Freelance work, marketplace listings, dating apps — you do not want a stranger to know your GPS trail.
 - **Batch uploads to public platforms.** Not all platforms strip EXIF consistently. Relying on Instagram or WhatsApp to clean your metadata is a gamble.
 
-## What platforms actually strip and what they keep
+## What platforms strip and what they keep
 
-This is the part that surprises people. The answer is "it depends, and it changes."
+There is no stable platform-wide table that covers every app version, operating system, format, and sharing path. Photo and file/document attachments can take different pipelines, and a service may receive an original before transforming the recipient's copy.
 
-| Platform | Strips GPS? | Strips device info? | Notes |
-| --- | --- | --- | --- |
-| Instagram | Yes | Mostly | Strips on upload |
-| WhatsApp | Yes | Yes | Strips everything |
-| Facebook | Yes | Mostly | Strips on upload |
-| Discord | Yes (now) | Yes (now) | Changed in 2023 — used to keep everything |
-| Telegram (as photo) | Yes | Yes | Only when sent as compressed photo |
-| Telegram (as file) | **No** | **No** | "Send as file" preserves all EXIF — big catch |
-| Slack | GPS only | **No** | Strips GPS since 2020, keeps device model |
-| Email attachment | **No** | **No** | Full EXIF intact |
-
-The tricky one is Telegram. Most people use "Send as file" to preserve image quality without realizing it also preserves their GPS coordinates. Discord used to be a major risk but started stripping EXIF in 2023 — if you search older articles, you will find outdated advice saying Discord keeps everything.
-
-The safest approach: remove metadata yourself before sharing. Platform policies change, and the one time you assume a platform strips EXIF is the time it does not. For a full breakdown, see [which platforms strip EXIF and which don't](/blog/social-media-exif-stripping).
+Do not use an undated “yes/no” table as a privacy control. Remove metadata before sharing or test the exact source and received files. Our [platform metadata decision guide](/blog/social-media-exif-stripping) explains the evidence boundary and a reproducible test method.
 
 ## How to remove EXIF metadata
 
@@ -101,24 +80,24 @@ Some image editors have a "remove metadata" option in export settings. Works, bu
 
 **3. Browser-based tools**
 
-Drop images into a web tool, get cleaned files back. The catch: most "free EXIF removers" upload your photo to their server first — which means they see your metadata before you can remove it.
+Drop images into a web tool, get cleaned files back. Some tools upload the source for processing, while others process locally; inspect the tool's network behavior and privacy documentation.
 
-[PicShift's metadata cleaner](/metadata-remover) works differently. It runs entirely in your browser using WebAssembly — a local EXIF remover with no server upload. Your images never leave your device. You can verify this by turning off Wi-Fi — the tool still works.
+[PicShift's metadata cleaner](/metadata-remover) works differently. It processes source image content in your browser and does not upload that content for cleaning. To test offline reuse, first complete the same workflow online so its page resources and decoder are cached, then disconnect without clearing site data and repeat it.
 
 ## What stays after removal
 
-After stripping EXIF, the file contains only pixel data. No GPS, no device info, no timestamps, no software tags.
+PicShift decodes and re-encodes files whose recognized metadata is removed, so those detected EXIF fields are not copied to the cleaned output. Use an independent metadata inspector when the absence of a specific field is security-critical.
 
-The image looks identical. File size may change slightly (a few KB smaller, since the metadata block is gone). Visual quality is unaffected.
+Re-encoding can change file size and, for JPG output, pixel values. The cleaned file may be larger or smaller than the source; compare it when visual fidelity matters.
 
 One thing to be clear about: removing EXIF does not anonymize the image content itself. If the photo shows a recognizable building or street sign, that information is still visible. EXIF removal protects against hidden metadata, not visible content.
 
 ## Why you should care
 
-EXIF metadata is useful for photographers who want to track their settings. It is a privacy risk for everyone else sharing photos online.
+EXIF metadata is useful for photography workflows. It becomes a privacy risk when a file contains sensitive fields that the intended recipient does not need.
 
 The fix takes seconds. Check what is inside your photos, strip what you do not want to share, and download the clean version. That is it.
 
 [Remove EXIF data from your photos →](/metadata-remover)
 
-If you want to understand exactly what PicShift does and does not see, our [privacy and local processing guide](/docs/privacy) walks through the architecture: every conversion happens inside your browser, source images are never uploaded, and the small amount of traffic data we do receive is documented in plain English.
+If you want to understand exactly what PicShift does and does not see, our [privacy and local processing guide](/docs/privacy-local-processing) walks through the architecture: every conversion happens inside your browser, source images are never uploaded, and the small amount of traffic data we do receive is documented in plain English.

@@ -519,21 +519,20 @@ self.postMessage(earlyMsg);
 
 ### Code Splitting
 
-Rollup `manualChunks` splits large dependencies into separate chunks, keeping the main bundle lean:
+The ZIP dependency remains in a separate chunk. HEIC decoding loads the browser WASM bundle directly on demand, avoiding the package-root Node compatibility path and duplicate payloads:
 
 ```javascript
 // astro.config.mjs
 manualChunks: {
-  heic: ['libheif-js'],   // 1.4 MB — only loaded when HEIC files are processed
   zip: ['fflate'],
 }
 ```
 
-All WASM encoders also use `dynamic import()` for code splitting — a format's JS glue + WASM binary is only loaded when that specific format is actually needed.
+All WASM encoders and the HEIC browser bundle use `dynamic import()` — a format's JS glue and WASM binary are loaded only when that format is actually needed.
 
 ### Static WASM Hosting
 
-Six WASM files (totaling ~4.5 MB) are placed in `public/wasm/` as static assets, loaded on demand via `fetch()`. Browsers cache these with standard HTTP caching (typically `Cache-Control: immutable`), so repeat visits load from cache.
+Six WASM files (totaling ~4.5 MB) are placed in `public/wasm/` as static assets and loaded on demand via `fetch()`. Fixed-name assets must not be immutable: browsers revalidate them online, while the Service Worker uses NetworkFirst and retains successfully used codecs as the offline fallback for up to 90 days.
 
 | WASM file | Size | Encoder |
 |-----------|------|---------|
@@ -543,6 +542,14 @@ Six WASM files (totaling ~4.5 MB) are placed in `public/wasm/` as static assets,
 | `webp_enc.wasm` | 275 KB | libwebp (WebP) |
 | `webp_enc_simd.wasm` | 337 KB | libwebp SIMD (WebP accelerated) |
 | `avif_enc.wasm` | 3.3 MB | AV1 (AVIF) |
+
+### Lightweight PWA and First-Visit Offline Reliability
+
+The install precache contains only the root app shell, registration script, critical CSS, fonts, and icons. A build audit caps it at 24 entries and 512 KiB. Application JavaScript, workers, and WASM stay out of the install payload and enter runtime caches only after use, so visitors do not download codecs they never use.
+
+The registration helper downloads asynchronously from `<head>` and starts Service Worker registration as soon as it arrives, without blocking HTML parsing. If the current document, Astro island modules, or worker-internal codec dependencies load before first control, the page and conversion worker report the same-origin resources actually used. A durable global handoff preserves that list even when conversion finishes before the async helper arrives; after control, Workbox replays it and retries a transient warm-up failure up to twice. This also covers a first entry on a non-root path with referral parameters. Fingerprinted assets are matched by stable URL while ignoring `Vary: Origin`; static page caching ignores query variants that do not change content; fixed-name WASM files, `sw.js`, and `registerSW.js` revalidate online. Already-controlled navigations do not issue a second page or WASM warm-up request.
+
+The offline guarantee is intentionally scoped: complete a format workflow online once, then the same cached workflow can be repeated offline. A codec that has never been loaded still requires a network connection.
 
 ---
 
@@ -560,7 +567,7 @@ PicShift's core technical bet is bringing **professional C/C++/Rust encoders int
 | Parallel processing | Dynamic Worker Pool (up to 4 threads), task queue + auto-scaling |
 | ZIP packaging | fflate streaming STORE mode (skip double-compression), write-as-you-convert |
 | Memory control | ImageData nulling, ImageBitmap.close(), URL.revokeObjectURL, Worker termination for WASM heap release, Compare LRU cache |
-| Code loading | WASM lazy-load singletons, manualChunks code splitting, dynamic import on-demand loading |
+| Code loading | WASM lazy-load singletons, a separate ZIP chunk, dynamic imports, and runtime offline caching |
 
 ---
 

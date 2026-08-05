@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/layout/Header.astro';
 import Footer from '../../components/layout/Footer.astro';
+import { PICSHIFT_ORGANIZATION } from '../../lib/schemaEntities';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
@@ -11,6 +12,23 @@ const title = 'PicShift Blog — Image Format Guides, Conversion Tips, and Web O
 const description = 'Practical guides on choosing between PNG, JPG, WebP, AVIF, and HEIC. Learn when to convert, why files get larger, and how to optimize images for web delivery and privacy.';
 const canonical = 'https://picshift.app/blog';
 const pagePath = '/blog';
+const latestContentDate = posts.reduce(
+  (latest, post) => {
+    const date = post.data.updatedAt ?? post.data.publishedAt;
+    return date > latest ? date : latest;
+  },
+  new Date(0),
+);
+const collectionSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: title,
+  description,
+  url: canonical,
+  inLanguage: 'en',
+  dateModified: latestContentDate.toISOString(),
+  publisher: PICSHIFT_ORGANIZATION,
+});
 ---
 
 <Layout title={title} description={description} canonical={canonical} lang="en" pagePath={pagePath} noAlternate>
@@ -82,6 +100,8 @@ const pagePath = '/blog';
       </div>
     </div>
   </main>
+
+  <script type="application/ld+json" set:html={collectionSchema} />
 
   <Footer lang="en" />
 </Layout>

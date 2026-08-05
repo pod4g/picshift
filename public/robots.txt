@@ -1,10 +1,17 @@
 # PicShift robots.txt
-# Generative engines and AI crawlers are explicitly allowed; we benefit from
-# being cited in AI-generated answers and have nothing to hide from training.
+# Public pages are crawlable. Search discovery, user-triggered retrieval, and
+# model training are separate publisher choices; the explicit groups below
+# document PicShift's current policy for each published crawler token.
 # Source images are processed locally in the browser, so crawler access only
 # touches public marketing/documentation HTML and static assets.
 
 # OpenAI / ChatGPT
+# OAI-SearchBot is the crawler token publishers allow for eligibility in
+# ChatGPT search summaries and snippets; access does not guarantee inclusion.
+# GPTBot is the separate token for potential model training, not Search.
+# PicShift currently allows both. ChatGPT-User is listed separately for
+# user-triggered requests; OpenAI notes those requests may not follow robots.
+# https://developers.openai.com/api/docs/bots
 User-agent: GPTBot
 Allow: /
 
@@ -14,14 +21,16 @@ Allow: /
 User-agent: ChatGPT-User
 Allow: /
 
-# Anthropic / Claude
+# Anthropic / Claude: training, user-triggered retrieval, and search indexing
+# are separate controls.
+# https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler
 User-agent: ClaudeBot
 Allow: /
 
-User-agent: anthropic-ai
+User-agent: Claude-User
 Allow: /
 
-User-agent: Claude-Web
+User-agent: Claude-SearchBot
 Allow: /
 
 # Perplexity
@@ -31,7 +40,10 @@ Allow: /
 User-agent: Perplexity-User
 Allow: /
 
-# Google generative search (separate opt-in from Googlebot)
+# Google-Extended is a robots.txt control token for specified Gemini/Vertex AI
+# training and grounding uses; it has no separate HTTP user-agent string and
+# does not affect inclusion or ranking in Google Search.
+# https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers#google-extended
 User-agent: Google-Extended
 Allow: /
 
@@ -39,10 +51,7 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-# DuckDuckGo (search index + AI answer + favicon fetch)
-# DuckDuckBot feeds the core SERP; DuckAssistBot powers DuckAssist
-# (Anthropic Claude under the hood); DuckDuckGo-Favicons-Bot fetches
-# our site icon for SERP and the DuckDuckGo browser.
+# DuckDuckGo search, answer, and favicon crawlers
 User-agent: DuckDuckBot
 Allow: /
 
@@ -75,67 +84,8 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-# === Chinese AI assistants and search ecosystems ===
-# PicShift ships in Simplified Chinese and Traditional Chinese, so we want
-# to be discoverable inside Chinese LLM/search stacks too. Bot strings below
-# are the names most commonly observed in access logs (some of these vendors
-# do not publish official robots.txt docs; we still allow them as a positive
-# discoverability signal — the listed names appear in real-world UA strings).
-
-# ByteDance — Doubao (豆包) and the wider ByteDance crawler stack
-User-agent: Bytespider
-Allow: /
-
-User-agent: Doubaobot
-Allow: /
-
-# Alibaba — Qwen / Tongyi Qianwen (通义千问)
-User-agent: QwenBot
-Allow: /
-
-User-agent: TongyiBot
-Allow: /
-
-User-agent: AlibabaBot
-Allow: /
-
-User-agent: AliyunBot
-Allow: /
-
-# Baidu — ERNIE Bot (文心一言); Baiduspider feeds the ERNIE answer index
-User-agent: Baiduspider
-Allow: /
-
-User-agent: ERNIEBot
-Allow: /
-
-User-agent: YiyanBot
-Allow: /
-
-# Tencent — Hunyuan (混元) and Yuanbao
-User-agent: Hunyuan
-Allow: /
-
-# Zhipu AI / Z.ai — GLM / ChatGLM family (智谱)
-User-agent: ChatGLM-Spider
-Allow: /
-
-# Moonshot AI — Kimi (月之暗面)
-User-agent: Kimibot
-Allow: /
-
-User-agent: MoonshotBot
-Allow: /
-
-# DeepSeek
-User-agent: DeepSeekBot
-Allow: /
-
-# MiniMax (稀宇) — Hailuo / MiniMax assistant
-User-agent: MiniMaxBot
-Allow: /
-
-# Default — search engines and any other well-behaved crawler
+# Default — search engines and any other well-behaved crawler, including
+# vendors that do not publish a stable, independently verifiable token.
 User-agent: *
 Allow: /
 Allow: /llms.txt

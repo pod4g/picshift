@@ -46,7 +46,122 @@ async function collectTrailingSlashInternalLinks(page: Page): Promise<string[]> 
   );
 }
 
+type RobotsRule = { directive: 'allow' | 'disallow'; path: string };
+type RobotsGroup = { userAgents: string[]; rules: RobotsRule[] };
+
+function parseRobotsGroups(text: string): RobotsGroup[] {
+  const groups: RobotsGroup[] = [];
+  let userAgents: string[] = [];
+  let rules: RobotsRule[] = [];
+  let hasGroupDirective = false;
+  const flush = () => {
+    if (userAgents.length > 0) groups.push({ userAgents, rules });
+    userAgents = [];
+    rules = [];
+    hasGroupDirective = false;
+  };
+
+  for (const rawLine of text.split(/\r?\n/)) {
+    const line = rawLine.replace(/\s*#.*$/, '').trim();
+    if (!line) continue;
+    const separator = line.indexOf(':');
+    if (separator < 0) continue;
+    const directive = line.slice(0, separator).trim().toLowerCase();
+    const value = line.slice(separator + 1).trim();
+    if (directive === 'user-agent') {
+      if (hasGroupDirective) flush();
+      if (value) userAgents.push(value);
+    } else if (userAgents.length > 0 && directive !== 'sitemap') {
+      hasGroupDirective = true;
+      if (directive === 'allow' || directive === 'disallow') {
+        rules.push({ directive, path: value });
+      }
+    }
+  }
+  flush();
+  return groups;
+}
+
+function robotsRuleMatch(pathname: string, rulePath: string): number | null {
+  if (!rulePath) return null;
+  const endAnchored = rulePath.endsWith('$');
+  const rawPattern = endAnchored ? rulePath.slice(0, -1) : rulePath;
+  const escaped = rawPattern
+    .replace(/[.+?^${}()|[\]\\]/g, '\\$&')
+    .replace(/\*/g, '.*');
+  if (!new RegExp(`^${escaped}${endAnchored ? '$' : ''}`).test(pathname)) return null;
+  return rawPattern.replace(/\*/g, '').length;
+}
+
+function isRobotsPathAllowed(groups: RobotsGroup[], userAgent: string, pathname: string): boolean {
+  const normalizedAgent = userAgent.toLowerCase();
+  const candidates = groups.map((group) => ({
+    group,
+    specificity: Math.max(...group.userAgents.map((token) => {
+      const normalizedToken = token.toLowerCase();
+      if (normalizedToken === '*') return 0;
+      return normalizedAgent.includes(normalizedToken) ? normalizedToken.length : -1;
+    })),
+  })).filter(({ specificity }) => specificity >= 0);
+  if (candidates.length === 0) return true;
+
+  const mostSpecific = Math.max(...candidates.map(({ specificity }) => specificity));
+  const rules = candidates
+    .filter(({ specificity }) => specificity === mostSpecific)
+    .flatMap(({ group }) => group.rules);
+  let winner: (RobotsRule & { matchLength: number }) | null = null;
+  for (const rule of rules) {
+    const matchLength = robotsRuleMatch(pathname, rule.path);
+    if (matchLength === null) continue;
+    if (
+      !winner
+      || matchLength > winner.matchLength
+      || (matchLength === winner.matchLength && rule.directive === 'allow')
+    ) {
+      winner = { ...rule, matchLength };
+    }
+  }
+  return winner?.directive !== 'disallow';
+}
+
 test.describe('SEO/GEO 守卫', () => {
+  test('AI 引荐只记录规范化渠道，不上传完整 referrer', async ({ page }) => {
+    await page.route('https://cloud.umami.is/script.js', (route) => route.abort());
+    await page.addInitScript(() => {
+      (window as Window & { __aiReferralPayloads?: unknown[] }).__aiReferralPayloads = [];
+      window.umami = {
+        track: (payload) => {
+          if (typeof payload === 'function') {
+            (window as Window & { __aiReferralPayloads?: unknown[] }).__aiReferralPayloads?.push(
+              payload({
+                url: `${window.location.pathname}${window.location.search}`,
+                referrer: 'https://chatgpt.com/c/private-conversation?query=secret',
+              }),
+            );
+          }
+        },
+      };
+    });
+
+    await page.goto('/png-to-jpg?utm_source=chatgpt.com&utm_campaign=private-query');
+    await expect.poll(() => page.evaluate(() => (
+      (window as Window & { __aiReferralPayloads?: unknown[] }).__aiReferralPayloads?.length ?? 0
+    ))).toBe(1);
+
+    const payload = await page.evaluate(() => (
+      (window as Window & { __aiReferralPayloads?: Array<Record<string, unknown>> })
+        .__aiReferralPayloads?.[0]
+    ));
+    expect(payload).toMatchObject({
+      name: 'ai_referral',
+      data: { provider: 'chatgpt' },
+      url: '/png-to-jpg',
+    });
+    expect(JSON.stringify(payload)).not.toContain('private-query');
+    expect(JSON.stringify(payload)).not.toContain('private-conversation');
+    expect(payload).not.toHaveProperty('referrer');
+  });
+
   test('canonical 与 hreflang 在英文/多语言 docs 页面正确', async ({ page }) => {
     await pinEnglishLanguage(page);
 
@@ -84,6 +199,21 @@ test.describe('SEO/GEO 守卫', () => {
     await expect(page.locator('[data-lang-switch="zh"]').first()).toHaveAttribute('href', '/zh');
   });
 
+  test('404 页面不可索引且不存在路径返回 404', async ({ page, request }) => {
+    await pinEnglishLanguage(page);
+
+    await page.goto('/404');
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+      'content',
+      'noindex, follow',
+    );
+    await expect(page.locator('link[rel="alternate"]')).toHaveCount(0);
+
+    const missingRes = await request.get('/seo-check-definitely-missing-page');
+    expect(missingRes.status()).toBe(404);
+    expect(await missingRes.text()).toContain('noindex, follow');
+  });
+
   test('工具页与多语言页内部链接不保留尾斜杠', async ({ page }) => {
     await pinEnglishLanguage(page);
 
@@ -116,9 +246,33 @@ test.describe('SEO/GEO 守卫', () => {
     const robotsRes = await request.get('/robots.txt');
     expect(robotsRes.ok()).toBeTruthy();
     const robotsText = await robotsRes.text();
+    const robotsGroups = parseRobotsGroups(robotsText);
+    expect(robotsGroups.some((group) => group.userAgents.includes('*'))).toBe(true);
+    expect(robotsText).not.toMatch(/^\s*Disallow:\s*\/(?:\*\$?)?\s*(?:#.*)?$/mi);
     expect(robotsText).toContain('Allow: /llms.txt');
     expect(robotsText).toContain('Allow: /llms-full.txt');
     expect(robotsText).toContain('Sitemap: https://picshift.app/sitemap-index.xml');
+    const userAgentsToAudit = new Set([
+      '*',
+      'GPTBot',
+      'OAI-SearchBot',
+      'ChatGPT-User',
+      'ClaudeBot',
+      'Claude-User',
+      'Claude-SearchBot',
+      'PerplexityBot',
+      'Perplexity-User',
+      'Google-Extended',
+      ...robotsGroups.flatMap((group) => group.userAgents),
+    ]);
+    for (const userAgent of userAgentsToAudit) {
+      for (const pathname of ['/', '/llms.txt', '/llms-full.txt', '/docs/why-picshift']) {
+        expect(
+          isRobotsPathAllowed(robotsGroups, userAgent, pathname),
+          `${userAgent} should be allowed to crawl ${pathname}`,
+        ).toBe(true);
+      }
+    }
 
     const llmsShortRes = await request.get('/llms.txt');
     expect(llmsShortRes.ok()).toBeTruthy();
@@ -128,6 +282,8 @@ test.describe('SEO/GEO 守卫', () => {
     expect(llmsShort).toContain('## Related profiles');
     expect(llmsShort).toContain('## Lifecycle');
     expect(llmsShort).toContain('https://picshift.app/llms-full.txt');
+    expect(llmsShort).toContain("browser's createImageBitmap API");
+    expect(llmsShort).toContain('these output codecs are not used to decode source images');
 
     const llmsFullRes = await request.get('/llms-full.txt');
     expect(llmsFullRes.ok()).toBeTruthy();
@@ -137,5 +293,8 @@ test.describe('SEO/GEO 守卫', () => {
     expect(llmsFull).toContain('## Related profiles');
     expect(llmsFull).toContain('## Lifecycle');
     expect(llmsFull).toContain('https://picshift.app/llms.txt');
+    expect(llmsFull).toContain('libheif fallback for HEIC/HEIF decoding');
+    expect(llmsFull).toContain('@jsquash/webp for WebP output encoding only');
+    expect(llmsFull).not.toContain('@jsquash/webp (WebP encoding/decoding)');
   });
 });

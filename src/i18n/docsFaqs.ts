@@ -47,7 +47,7 @@ const DOCS_FAQ_MAP: Record<Locale, Record<DocsFaqKey, DocsFaqItem[]>> = {
       },
       {
         q: 'Why can PNG become larger after conversion?',
-        a: 'PNG is lossless. Converting from lossy formats such as JPG to PNG preserves exact pixel data and usually increases file size.',
+        a: 'PNG encoding is lossless, but PicShift quality affects preprocessing. At 95-100 it preserves decoded pixels and applies lossless optimization; below 95 palette quantization may reduce colors. A pixel-preserving PNG from a lossy source is often larger and cannot restore detail already lost.',
       },
       {
         q: 'How should I reduce file size without visible artifacts?',
@@ -68,7 +68,7 @@ const DOCS_FAQ_MAP: Record<Locale, Record<DocsFaqKey, DocsFaqItem[]>> = {
     ],
     'image-quality-vs-file-size': [
       { q: 'JPG 或 WebP 的默认质量建议是多少？', a: '在常见网页和分享场景中，质量 80 是实用起点。' },
-      { q: '为什么转成 PNG 后体积会变大？', a: 'PNG 是无损格式。从 JPG 这类有损格式转成 PNG 会保留完整像素数据，文件通常会变大。' },
+      { q: '为什么转成 PNG 后体积会变大？', a: 'PNG 编码本身是无损的，但 PicShift 的质量设置会改变预处理方式。质量 95-100 保留解码后的像素并做无损优化；低于 95 可能进行有损调色板量化。从有损源图生成的像素保留型 PNG 往往更大，也不能恢复源图已丢失的细节。' },
       { q: '如何减小体积又避免明显画质损失？', a: '每次小幅下调质量并检查关键细节，一旦重要区域出现可见伪影就停止继续下调。' },
     ],
   },
@@ -85,7 +85,7 @@ const DOCS_FAQ_MAP: Record<Locale, Record<DocsFaqKey, DocsFaqItem[]>> = {
     ],
     'image-quality-vs-file-size': [
       { q: 'JPG 或 WebP 的實用預設品質是多少？', a: '在常見網頁與分享場景中，品質 80 是實用起點。' },
-      { q: '為什麼轉成 PNG 後檔案會變大？', a: 'PNG 是無損格式。從 JPG 這類有損格式轉成 PNG 會保留完整像素資料，檔案通常會變大。' },
+      { q: '為什麼轉成 PNG 後檔案會變大？', a: 'PNG 編碼本身是無損的，但 PicShift 的品質設定會改變預處理方式。品質 95-100 保留解碼後的像素並做無損最佳化；低於 95 可能進行有損調色盤量化。從有損來源產生的像素保留型 PNG 往往更大，也不能恢復已丟失的細節。' },
       { q: '如何縮小檔案又避免明顯失真？', a: '每次小幅降低品質並檢查關鍵細節，一旦重要區域出現可見壓縮痕跡就停止。' },
     ],
   },
@@ -102,7 +102,7 @@ const DOCS_FAQ_MAP: Record<Locale, Record<DocsFaqKey, DocsFaqItem[]>> = {
     ],
     'image-quality-vs-file-size': [
       { q: '¿Qué calidad es un valor práctico por defecto para JPG o WebP?', a: 'Calidad 80 es un punto de partida práctico para JPG y WebP en escenarios comunes de web y compartición.' },
-      { q: '¿Por qué PNG puede ser más grande después de convertir?', a: 'PNG es sin pérdida. Convertir desde formatos con pérdida como JPG a PNG conserva datos de píxeles exactos y suele aumentar el tamaño.' },
+      { q: '¿Por qué PNG puede ser más grande después de convertir?', a: 'La codificación PNG es sin pérdida, pero la calidad de PicShift cambia el preprocesado. Entre 95 y 100 conserva los píxeles decodificados; por debajo de 95 puede reducir colores mediante cuantización con pérdida. Un PNG que conserva píxeles desde una fuente con pérdida suele ser mayor y no recupera detalle perdido.' },
       { q: '¿Cómo reduzco tamaño sin artefactos visibles?', a: 'Baja la calidad en pasos pequeños y compara detalles clave en cada paso. Detente cuando aparezcan artefactos visibles en zonas importantes.' },
     ],
   },
@@ -119,7 +119,7 @@ const DOCS_FAQ_MAP: Record<Locale, Record<DocsFaqKey, DocsFaqItem[]>> = {
     ],
     'image-quality-vs-file-size': [
       { q: 'Quel réglage de qualité est un bon défaut pour JPG ou WebP ?', a: 'La qualité 80 est un point de départ pratique pour JPG et WebP dans les usages web et partage courants.' },
-      { q: 'Pourquoi PNG peut-il devenir plus volumineux après conversion ?', a: 'PNG est sans perte. Convertir depuis un format avec perte comme JPG vers PNG conserve les données exactes des pixels et augmente généralement la taille.' },
+      { q: 'Pourquoi PNG peut-il devenir plus volumineux après conversion ?', a: 'L’encodage PNG est sans perte, mais la qualité PicShift change le prétraitement. Entre 95 et 100, les pixels décodés sont préservés ; sous 95, une quantification avec perte peut réduire les couleurs. Un PNG qui préserve les pixels d’une source avec perte est souvent plus grand sans restaurer les détails perdus.' },
       { q: 'Comment réduire la taille sans artefacts visibles ?', a: 'Réduisez la qualité par petits paliers et comparez les détails importants à chaque étape. Arrêtez dès que des artefacts deviennent visibles.' },
     ],
   },
@@ -136,7 +136,7 @@ const DOCS_FAQ_MAP: Record<Locale, Record<DocsFaqKey, DocsFaqItem[]>> = {
     ],
     'image-quality-vs-file-size': [
       { q: 'Welcher Qualitätswert ist ein praktischer Standard für JPG oder WebP?', a: 'Qualität 80 ist ein praxisnaher Startwert für JPG und WebP in typischen Web- und Sharing-Szenarien.' },
-      { q: 'Warum kann PNG nach der Konvertierung größer werden?', a: 'PNG ist verlustfrei. Die Konvertierung von verlustbehafteten Formaten wie JPG zu PNG erhält exakte Pixeldaten und erhöht die Dateigröße meist.' },
+      { q: 'Warum kann PNG nach der Konvertierung größer werden?', a: 'PNG-Kodierung ist verlustfrei, aber die PicShift-Qualität steuert die Vorverarbeitung. Bei 95-100 bleiben dekodierte Pixel erhalten; unter 95 kann verlustbehaftete Palettenquantisierung Farben reduzieren. Ein pixelerhaltendes PNG aus einer verlustbehafteten Quelle ist oft größer und stellt verlorene Details nicht wieder her.' },
       { q: 'Wie reduziere ich die Dateigröße ohne sichtbare Artefakte?', a: 'Senke die Qualität in kleinen Schritten und prüfe wichtige Details nach jedem Schritt. Stoppe, sobald sichtbare Artefakte auftreten.' },
     ],
   },
@@ -153,7 +153,7 @@ const DOCS_FAQ_MAP: Record<Locale, Record<DocsFaqKey, DocsFaqItem[]>> = {
     ],
     'image-quality-vs-file-size': [
       { q: 'JPG/WebP の実用的な初期品質は？', a: '一般的なWeb公開や共有用途では、品質 80 が実用的な開始値です。' },
-      { q: 'PNG へ変換するとサイズが大きくなるのはなぜ？', a: 'PNG は可逆形式です。JPG のような非可逆形式から変換すると、画素情報を保持するため通常はサイズが増加します。' },
+      { q: 'PNG へ変換するとサイズが大きくなるのはなぜ？', a: 'PNG の符号化自体は可逆ですが、PicShift の品質設定で前処理が変わります。95-100 はデコード後の画素を保持し、95 未満では非可逆のパレット量子化で色数を減らす場合があります。非可逆の元画像から画素を保持した PNG は大きくなりやすく、失われた細部は復元できません。' },
       { q: '目立つ劣化を避けながら容量を下げるには？', a: '品質を小刻みに下げ、各ステップで重要部分を比較します。重要領域に劣化が見えた時点で調整を止めます。' },
     ],
   },
@@ -170,7 +170,7 @@ const DOCS_FAQ_MAP: Record<Locale, Record<DocsFaqKey, DocsFaqItem[]>> = {
     ],
     'image-quality-vs-file-size': [
       { q: 'JPG/WebP의 실용적인 기본 품질은 얼마인가요?', a: '일반적인 웹/공유 워크플로에서는 품질 80이 실용적인 시작점입니다.' },
-      { q: 'PNG로 변환하면 왜 파일이 커질 수 있나요?', a: 'PNG는 무손실 포맷입니다. JPG 같은 손실 포맷에서 PNG로 변환하면 정확한 픽셀 데이터를 유지해 파일 크기가 보통 증가합니다.' },
+      { q: 'PNG로 변환하면 왜 파일이 커질 수 있나요?', a: 'PNG 인코딩 자체는 무손실이지만 PicShift 품질 설정이 전처리를 바꿉니다. 95-100은 디코딩된 픽셀을 유지하고, 95 미만은 손실 팔레트 양자화로 색상을 줄일 수 있습니다. 손실 원본에서 픽셀을 유지한 PNG는 더 커질 수 있으며 이미 사라진 디테일은 복원하지 못합니다.' },
       { q: '눈에 띄는 열화 없이 용량을 줄이려면?', a: '품질을 작은 단계로 낮추고 매 단계마다 핵심 디테일을 비교하세요. 중요한 영역에 아티팩트가 보이면 중단합니다.' },
     ],
   },
@@ -187,7 +187,7 @@ const DOCS_FAQ_MAP: Record<Locale, Record<DocsFaqKey, DocsFaqItem[]>> = {
     ],
     'image-quality-vs-file-size': [
       { q: 'Qual qualidade é um padrão prático para JPG ou WebP?', a: 'Qualidade 80 é um ponto de partida prático para JPG e WebP em cenários comuns de web e compartilhamento.' },
-      { q: 'Por que PNG pode ficar maior após a conversão?', a: 'PNG é sem perdas. Converter de formatos com perdas, como JPG, para PNG preserva dados exatos de pixel e geralmente aumenta o tamanho.' },
+      { q: 'Por que PNG pode ficar maior após a conversão?', a: 'A codificação PNG é sem perdas, mas a qualidade do PicShift altera o pré-processamento. Entre 95 e 100 preserva os pixels decodificados; abaixo de 95 pode reduzir cores com quantização com perdas. Um PNG que preserva pixels de uma fonte com perdas costuma ser maior e não recupera detalhes já perdidos.' },
       { q: 'Como reduzir o tamanho sem artefatos visíveis?', a: 'Reduza a qualidade em passos pequenos e compare os detalhes principais em cada etapa. Pare quando surgirem artefatos visíveis em áreas importantes.' },
     ],
   },
@@ -204,7 +204,7 @@ const DOCS_FAQ_MAP: Record<Locale, Record<DocsFaqKey, DocsFaqItem[]>> = {
     ],
     'image-quality-vs-file-size': [
       { q: 'Какое качество является практичным значением по умолчанию для JPG или WebP?', a: 'Качество 80 — практичная стартовая точка для JPG и WebP в типичных веб- и шаринг-сценариях.' },
-      { q: 'Почему после конвертации PNG может стать больше?', a: 'PNG — формат без потерь. Конвертация из форматов с потерями, таких как JPG, в PNG сохраняет точные пиксельные данные и обычно увеличивает размер файла.' },
+      { q: 'Почему после конвертации PNG может стать больше?', a: 'Кодирование PNG само по себе без потерь, но качество PicShift меняет предобработку. При 95-100 декодированные пиксели сохраняются; ниже 95 квантование палитры с потерями может уменьшить число цветов. Такой PNG из источника с потерями часто больше и не восстанавливает уже утраченные детали.' },
       { q: 'Как уменьшить размер без видимых артефактов?', a: 'Снижайте качество небольшими шагами и сравнивайте важные детали после каждого шага. Остановитесь, когда артефакты станут заметны в ключевых зонах.' },
     ],
   },
@@ -221,7 +221,7 @@ const DOCS_FAQ_MAP: Record<Locale, Record<DocsFaqKey, DocsFaqItem[]>> = {
     ],
     'image-quality-vs-file-size': [
       { q: 'ما قيمة الجودة العملية الافتراضية لـ JPG أو WebP؟', a: 'القيمة 80 هي نقطة بداية عملية في سيناريوهات الويب والمشاركة الشائعة.' },
-      { q: 'لماذا قد يصبح PNG أكبر بعد التحويل؟', a: 'PNG صيغة بدون فقدان. التحويل من صيغ فقدانية مثل JPG إلى PNG يحافظ على بيانات البكسل الدقيقة، لذلك يزداد الحجم غالبًا.' },
+      { q: 'لماذا قد يصبح PNG أكبر بعد التحويل؟', a: 'ترميز PNG نفسه بلا فقدان، لكن جودة PicShift تغيّر المعالجة المسبقة. من 95 إلى 100 تُحفَظ البكسلات بعد فك الترميز؛ وأقل من 95 قد يقلل الألوان بتكميم فقداني. قد يكون PNG المحافظ على البكسلات من مصدر فقداني أكبر، ولا يستعيد التفاصيل المفقودة أصلًا.' },
       { q: 'كيف أقلل الحجم دون ظهور تشوهات واضحة؟', a: 'اخفض الجودة بخطوات صغيرة وقارن التفاصيل المهمة في كل خطوة، وتوقف عند ظهور تشوهات مرئية في المناطق الأساسية.' },
     ],
   },
@@ -238,7 +238,7 @@ const DOCS_FAQ_MAP: Record<Locale, Record<DocsFaqKey, DocsFaqItem[]>> = {
     ],
     'image-quality-vs-file-size': [
       { q: 'Quale valore di qualità è un default pratico per JPG o WebP?', a: 'Qualità 80 è un punto di partenza pratico per JPG e WebP nei comuni flussi web e di condivisione.' },
-      { q: 'Perché PNG può diventare più grande dopo la conversione?', a: 'PNG è un formato lossless. Convertire da formati lossy come JPG a PNG preserva dati pixel esatti e di solito aumenta la dimensione del file.' },
+      { q: 'Perché PNG può diventare più grande dopo la conversione?', a: 'La codifica PNG è lossless, ma la qualità di PicShift cambia la pre-elaborazione. Tra 95 e 100 preserva i pixel decodificati; sotto 95 può ridurre i colori con quantizzazione lossy. Un PNG che preserva i pixel da una sorgente lossy è spesso più grande e non recupera dettagli già persi.' },
       { q: 'Come ridurre la dimensione senza artefatti visibili?', a: 'Riduci la qualità a piccoli passi e confronta i dettagli importanti dopo ogni passaggio. Fermati quando compaiono artefatti visibili nelle aree chiave.' },
     ],
   },

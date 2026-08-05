@@ -4,6 +4,7 @@ import Header from '../../components/layout/Header.astro';
 import Footer from '../../components/layout/Footer.astro';
 import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../lib/contentDates';
 import { htmlCanonicalUrl } from '../../lib/htmlCanonicalUrl';
+import { PICSHIFT_ORGANIZATION } from '../../lib/schemaEntities';
 
 const lang = 'en' as const;
 const title = 'PicShift Format Compatibility Guide';
@@ -22,8 +23,8 @@ const articleSchema = {
   inLanguage: 'en',
   datePublished,
   dateModified,
-  author: { '@type': 'Organization', name: 'PicShift' },
-  publisher: { '@type': 'Organization', name: 'PicShift', url: 'https://picshift.app' },
+  author: PICSHIFT_ORGANIZATION,
+  publisher: PICSHIFT_ORGANIZATION,
 };
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -96,9 +97,27 @@ const faqSchema = {
         This page lists practical compatibility facts for common image formats in PicShift. Use it as a quick
         reference when choosing output format for web publishing, sharing, or archive use.
       </p>
+      <div class="text-sm text-text-secondary mb-8 rounded-xl border border-border bg-card-bg p-4 space-y-2">
+        <p>
+          Scope: this table describes format properties and PicShift’s current conversion paths, not universal
+          application compatibility or measured compression savings. Support changes by browser, app, and version;
+          verify the environment where the output will be used.
+        </p>
+        <p>
+          Primary references:
+          <a href="https://developers.google.com/speed/webp" rel="noreferrer" class="text-primary-500 hover:underline">Google WebP documentation</a>,
+          <a href="https://aomediacodec.github.io/av1-avif/" rel="noreferrer" class="text-primary-500 hover:underline">AOMedia AVIF specification</a>, and
+          <a href="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types" rel="noreferrer" class="text-primary-500 hover:underline">MDN image-format guide</a>.
+        </p>
+      </div>
 
       <section class="mb-8">
         <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Supported formats</h2>
+        <div class="mb-4 rounded-xl border border-border bg-card-bg p-4 text-sm text-text-secondary space-y-1">
+          <p><strong class="text-text-primary">Accepted inputs:</strong> HEIC, HEIF, JPG, JPEG, PNG, WebP, AVIF, and BMP.</p>
+          <p><strong class="text-text-primary">Available outputs:</strong> JPG, PNG, WebP, and AVIF.</p>
+          <p>HEIC, HEIF, and BMP are input-only; PicShift does not currently export those formats.</p>
+        </div>
         <div class="overflow-x-auto rounded-xl border border-border bg-card-bg shadow-sm">
           <table class="w-full text-sm">
             <thead>
@@ -140,6 +159,12 @@ const faqSchema = {
                 <td class="py-3 px-4">Yes</td>
                 <td class="py-3 px-4">Lossy / Lossless</td>
               </tr>
+              <tr>
+                <td class="py-3 px-4 text-text-primary font-medium">BMP</td>
+                <td class="py-3 px-4">Legacy bitmap import (input only)</td>
+                <td class="py-3 px-4">Varies by BMP variant</td>
+                <td class="py-3 px-4">Usually uncompressed</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -150,7 +175,7 @@ const faqSchema = {
         <ul class="list-disc pl-5 space-y-2 text-text-secondary">
           <li>Choose JPG for broad compatibility and smaller files for photos.</li>
           <li>Choose PNG when you need sharp text or transparent backgrounds.</li>
-          <li>Choose WebP or AVIF for better web compression when target browsers support them.</li>
+          <li>Test WebP or AVIF when the target environment supports them; either may reduce transfer size, but the result depends on the source and settings.</li>
           <li>Use quality sliders to balance file size and visible detail.</li>
         </ul>
       </section>
@@ -160,8 +185,8 @@ const faqSchema = {
         <ul class="list-disc pl-5 space-y-2 text-text-secondary">
           <li>HEIC to JPG: easier sharing across legacy apps and websites.</li>
           <li>PNG to JPG: reduce file size for photographic content.</li>
-          <li>JPG to WebP: reduce web delivery size at equivalent visual quality.</li>
-          <li>WebP to HEIF: compatibility workflows for specific mobile ecosystems.</li>
+          <li>JPG to WebP: compare output quality and size; a reduction is common but not guaranteed for every source.</li>
+          <li>WebP to JPG: broader compatibility with older apps, upload forms, and print workflows.</li>
         </ul>
       </section>
 
@@ -197,12 +222,12 @@ const faqSchema = {
       <section>
         <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Back to tool pages</h2>
         <ul class="list-disc pl-5 space-y-2 text-text-secondary">
-          <li><a href="/webp-to-heif" class="text-primary-500 hover:underline">WebP to HEIF Converter</a></li>
-          <li><a href="/jpg-png-to-heic" class="text-primary-500 hover:underline">JPG/PNG to HEIC Converter</a></li>
+          <li><a href="/webp-to-jpg" class="text-primary-500 hover:underline">WebP to JPG Converter</a></li>
+          <li><a href="/jpg-png-to-heic" class="text-primary-500 hover:underline">JPG/PNG to HEIC support status</a></li>
           <li><a href="/heic-to-jpg" class="text-primary-500 hover:underline">HEIC to JPG Converter</a></li>
         </ul>
       </section>
-      <p class="text-sm text-text-secondary pt-4 border-t border-border">Last updated: {dateModified}</p>
+      <p class="text-sm text-text-secondary pt-4 border-t border-border">Last updated: <time datetime={dateModified} data-date-modified>{dateModified}</time></p>
     </article>
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

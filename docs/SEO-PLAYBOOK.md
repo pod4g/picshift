@@ -114,7 +114,7 @@
 
 > 写新文章前请**先扫一眼这张表**。每一行都是一次"看起来合理但其实是错的"教训。
 >
-> 工具脚本（`pnpm seo:audit`）会自动拦截**长度违规、文件名不匹配、cover 缺失**这几类问题，但**事实错误、AI 模板化、收尾雷同**仍然只能靠人工 review，必须按本表自查。
+> 工具脚本（`pnpm seo:audit`）会硬拦截最终 HTML 结构、canonical、hreflang、内部链接、JSON-LD、sitemap、页面日期以及 blog 文件结构等错误；title/description 字符长度只作为非阻断提示，因为 Google 没有固定字符数硬限制。**事实错误、AI 模板化、收尾雷同**仍然只能靠人工 review，必须按本表自查。
 
 ---
 
@@ -675,21 +675,28 @@ PicShift 已有的 EEAT 信号：
 - 在 about 页面或 docs 里增加开发者背景介绍
 - 获取更多权威外链（来自技术博客、测评文章）
 
-### GEO 优化工具和方法（来自教程总结）
+### GEO 优化工具和方法（官方边界与项目实践）
 
-对 PicShift 当前有用的 GEO 相关实践：
+截至 2026-08-04，先按官方文档划清边界：
 
-#### 已在做的
-- `llms.txt` / `llms-full.txt` — 大模型的快速参考文件
-- 结构化数据（JSON-LD）— SoftwareApplication、BreadcrumbList、ItemList、FAQPage
-- docs 作为 GEO 证据层 — privacy、format-compatibility、quality-vs-size
-- 可引用事实（quote-ready facts）— 在 llms.txt 中
+- [Google 生成式 AI 搜索优化指南](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)：生成式搜索仍建立在核心 Search 排名与质量系统上；不需要特殊 AI 标记，Google Search 明确忽略 `llms.txt`，该文件既不提升也不损害 Google Search 可见性或排名
+- [Google-Extended 官方说明](https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers#google-extended)：它是控制指定 Gemini / Vertex AI 训练与 grounding 用途的 robots token，不是独立请求 UA，也不影响 Google Search 收录或排名
+- [OpenAI 发布者与开发者 FAQ](https://help.openai.com/en/articles/12627856-publishers-and-developers-faq)：`OAI-SearchBot` 控制内容能否进入 ChatGPT 搜索摘要与片段，`GPTBot` 控制潜在训练使用，两者必须分开决策
 
-#### 可以继续做的
-- 保持 `llms.txt` 时间戳最新（每次内容大更新后同步）
-- blog 文章写得像"可被模型摘取的知识块"
-- 在 docs 和 blog 中提供数据化的事实（如"WebP 比 JPG 小 25-34%"），大模型更容易引用有具体数据的内容
-- 继续维护 preferred citations 列表，让大模型知道该引用哪个页面来支持哪个论点
+#### 当前有价值的基础
+
+- 保持可抓取、可索引、canonical 正确、内部链接清晰和移动端可用，这是 Google 生成式搜索与普通搜索的共同基础
+- 结构化数据继续服务常规 SEO 和符合条件的富结果，但不存在 GEO 专用 Schema；`FAQPage` 必须与可见内容一致，也不能被当作 AI 引用捷径
+- docs 继续作为事实证据层，优先承载 privacy、format compatibility、quality / size 边界、测试方法和更新时间
+- `llms.txt` / `llms-full.txt` 仅作为辅助实验，供主动读取它们的系统使用；它们不是 Google 排名要求，也不能替代页面正文和一手证据
+
+#### 后续执行原则
+
+- 只有核心产品事实、证据 URL 或辅助文件本身的口径发生变化时，才同步 `llms.txt`；普通文章更新不因未修改 `llms.txt` 阻断发布
+- 先在 HTML 页面提供独特、可靠、以用户为先的内容，再考虑机器可读摘要；不要为了 AI 单独切碎或重写内容
+- 百分比、性能和兼容性结论必须同时给出样本、codec 与参数、环境和测试日期；没有可复现实验时使用定性边界，不制造“更容易引用”的数字
+- preferred citations 只是 PicShift 的内部引用映射，不保证任何模型采纳；每条结论仍须链接到可核查的页面或一手测试
+- 使用 Search Console 的 Generative AI performance report、`utm_source=chatgpt.com` 引荐和已验证爬虫日志衡量结果，不用 `llms.txt` 是否存在代替效果数据
 
 ### Blog 排版细节标准
 
@@ -994,7 +1001,7 @@ SEMRush 标记的"你有排名但弱"的词，最容易提升：
 | tinify.com | 4.27% | TinyPNG 自家域名 |
 | yandex.ru | 4.00% | 俄罗斯搜索 |
 
-**最重要的发现：ChatGPT 是全行业最大的外链流量来源（28.55%）。** 这意味着 GEO（大模型可见性优化）已经不是"未来趋势"，而是当前最大的流量渠道之一。继续维护 `llms.txt` 和解释型内容是正确的。
+该表是第三方行业样本估算，不是 PicShift 的实际引荐数据，也不能证明 `llms.txt` 带来流量。它说明 AI 引荐值得单独测量；渠道优先级仍应由 PicShift 自己的引荐访问、落地页行为和转化数据决定。
 
 #### 地理分布（全行业）
 
@@ -1014,7 +1021,7 @@ PicShift 多语言已覆盖：日语、俄语、葡语（巴西）。尚未覆�
 
 #### 对策略的启示
 
-1. **GEO 是最大增长杠杆**：chatgpt.com 占行业外链流量 28.55%，继续优化 `llms.txt`、docs、blog 的可引用性
+1. **把 GEO 作为可测量渠道，而非预设的最大杠杆**：分别跟踪 ChatGPT 引荐、Google Generative AI 报表和 AI 爬虫可访问性，优先建设有一手证据的 docs / blog
 2. **iLoveIMG 才是最大竞品**：月访问 3580 万，后续写 Alternatives 时 `iLoveIMG alternatives` 可能比 `TinyPNG alternatives` 价值更大
 3. **巴西市场正在验证**：`/pt/jpg-to-png/` 已经爆发，SimilarWeb 数据显示巴西占全行业 8% 流量
 4. **`heic to jpg` 全球 205 万**：再次确认这是最大的单一关键词机会
@@ -1090,7 +1097,7 @@ PicShift 多语言已覆盖：日语、俄语、葡语（巴西）。尚未覆�
   - `canonical` 指向一种，边缘实际跳到另一种
   - 英文-only 页面拼出不存在的本地化路径
 
-### Sitemap lastmod 精确化：改了才更新，不改不动
+### Sitemap lastmod 精确化：只有真实内容日期才输出
 
 #### 为什么要做
 
@@ -1098,45 +1105,41 @@ Google 官方明确说过：如果 `lastmod` 不准确（每次构建都刷新�
 
 #### 精确 lastmod 的三个好处
 
-1. **爬虫效率**：Google 的 crawl budget 有限。精确的 lastmod 让爬虫只抓真正更新过的页面，386 个页面中改了 5 个就只标记 5 个，节省大量爬取预算
-2. **索引速度**：内容变更后，lastmod 更新 → Google 更快重新抓取和索引 → SEO 内容优化更快生效
-3. **信任信号**：Google 会逐渐信任"改了才变"的 lastmod，给它更高权重；反之，"每次都变"的 lastmod 会被彻底忽略
+1. **爬虫效率**：帮助搜索引擎优先发现真正变化的内容；
+2. **索引速度**：内容更新后提供稳定、可复核的更新时间信号；
+3. **信任信号**：避免每次构建刷新整站日期，降低 `lastmod` 被忽略的风险。
 
 #### PicShift 的实现方案
 
-**原理**：通过 `git log` 获取每个源文件的最后 commit 日期，构建时根据 URL → 源文件的映射关系，取所有关联文件中最晚的日期作为该 URL 的 lastmod。
+**原理**：只在能够给出页面级真实内容日期时输出 `lastmod`。如果一个共享模板或翻译文件会同时影响数百条路由，而无法证明每条页面内容都发生了实质变化，则宁可省略 `lastmod`，也不输出推断日期。
 
 **核心文件**：
-- `scripts/gen-lastmod.mjs` — 构建前运行，导出所有文件的 git 最后修改日期到 `src/.file-dates.json`
-- `astro.config.mjs` 的 `serialize` 函数 — 读取日期文件，按 URL 类型反推源文件，取 max 日期
+- `astro.config.mjs` 的 `serialize` 函数：按 URL 类型读取页面级内容日期；
+- `src/lib/contentDates.ts`：提供文档与隐私页共同使用的可见日期和结构化数据日期；
+- `src/content/blog/*.md`：以 `updatedAt` 为优先、`publishedAt` 为回退，文章页、Open Graph、JSON-LD 与 sitemap 共用同一日期来源。
 
-**URL → 源文件映射规则**：
+**当前输出规则**：
 
-| URL 类型 | 关联的源文件 |
+| URL 类型 | `lastmod` 来源 |
 |---|---|
-| `/` | `src/pages/index.astro` |
-| `/privacy` 等英文静态页 | `src/pages/privacy.astro`（只看自己的模板） |
-| `/heic-to-jpg` 等英文工具页 | `src/pages/[slug].astro` + `src/data/tools.ts` |
-| `/zh/privacy` 等非英文静态页 | `src/pages/[lang]/privacy.astro` + 对应语言翻译文件 |
-| `/zh/heic-to-jpg` 等非英文工具页 | `src/pages/[lang]/[slug].astro` + `tools.ts` + 翻译文件 + `toolSearchIntent.ts` + `toolFaqOverrides.ts` |
-| `/blog` 列表页 | `src/pages/blog/index.astro` + 所有 `src/content/blog/*.md` |
-| `/blog/xxx` 文章页 | 对应 `xxx.md` + `src/pages/blog/[slug].astro` |
-| `/docs/xxx` 英文文档 | `src/pages/docs/xxx.astro` |
-| `/zh/docs/xxx` 非英文文档 | `src/pages/[lang]/docs/xxx.astro` + 翻译文件 + `docsUi.ts` |
-
-**Cloudflare CI 兼容**：Cloudflare 做 shallow clone（depth 1），脚本自动 `git fetch --deepen=1` 获取父 commit，只合并本次 commit 真正改动的文件日期，其余保持已提交的基线文件。
+| `/blog/xxx` | 对应文章 frontmatter 的 `updatedAt`，没有时使用 `publishedAt` |
+| `/blog` | 全部文章真实内容日期中的最新值 |
+| `/docs/*`、各语言 `/docs/*`、`/privacy` | `CONTENT_DATE_MODIFIED`，与页面可见日期及 JSON-LD 完全一致 |
+| 首页、工具页及其他共享源路由 | 省略；共享文件的 Git 日期不能证明每条 URL 都真实更新 |
 
 **验证标准**：
-- 连续两次 build 不改文件 → sitemap 字节级一致（幂等性）
-- 改了 `tools.ts` → 只有工具页 lastmod 更新，blog/docs/privacy 不动
-- 新增 blog 文章 → 文章页和列表页 lastmod 更新，其他不动
-- 零 fallback：所有 386 个 URL 的 lastmod 都来自 git 历史，没有任何一个用当前构建时间
+- 连续两次 build 不改内容，sitemap 中的 URL 与 `lastmod` 保持一致；
+- 博客、文档和隐私页的页面日期、Open Graph、JSON-LD 与 sitemap 不得互相矛盾；
+- 首页、工具页及其他共享源路由不得因为构建时间或共享文件修改而被整批标新；
+- 不允许回退到 `new Date()` 或构建当天日期；
+- 最终 HTML SEO 审计必须同时检查 sitemap 日期覆盖范围与跨载体一致性。
 
 #### 注意事项
 
-- 新增语言时，需要在 `astro.config.mjs` 的 `NON_EN_LOCALES` 数组中添加
-- `.file-dates.json` 已提交到 git，不在 `.gitignore` 中（CI 需要读取）
-- 本地 build 会自动更新 `.file-dates.json`，记得一起 commit
+- 新增语言时，需要在 `astro.config.mjs` 的 `NON_EN_LOCALES` 数组中添加；
+- 博客发生实质内容更新时，应显式增加或修改 `updatedAt`；
+- 文档或隐私页发生实质内容更新时，应同步修改 `CONTENT_DATE_MODIFIED`；
+- `scripts/gen-lastmod.mjs` 与 `src/.file-dates.json` 属于旧实现，不再参与生产构建。
 
 ### 竞品分析与市场定位（来自 Beatable 验证报告）
 
@@ -1285,7 +1288,7 @@ PicShift 的差异化优势：
 
 #### Sitemap
 
-- 使用精确的 `lastmod`（基于 git 历史，不是构建时间）
+- 只在有真实页面级内容日期时输出精确 `lastmod`；共享模板路由宁可省略，也不使用构建时间或文件级 Git 时间推断
 - `robots.txt` 里的 `Sitemap:` 指向正确的 URL
 
 #### 404 页面
@@ -1307,7 +1310,7 @@ PicShift 的差异化优势：
 #### 其他
 
 - `robots.txt` — `Allow: /` + `Sitemap:` 绝对 URL
-- `llms.txt` / `llms-full.txt` — LLM 可读的站点说明，**每次内容大更新后必须同步时间戳和 Key pages（已连续两次漏掉，必须作为 push 前检查项）**
+- `llms.txt` / `llms-full.txt` — 可选的辅助实验；只有核心产品事实、证据 URL 或文件自身口径变化时才同步，不作为 Google 排名条件或通用发布阻断项
 - PWA manifest — 图标、名称、主题色
 - favicon 全套 — `favicon.ico` + PNG 16/32 + `apple-touch-icon` 180
 
@@ -1793,3 +1796,73 @@ curl 实测确认三种归一**早已生效**（非"未生效"）：
 3. `/ru/webp-to-jpg`：CTR 是否从 0.46% 升至 ≥2%；因只改 description，可直接判断该摘要是否有效。
 4. `/ja/image-compressor`：只观察是否稳定前十，不因单周 CTR 波动改文案。
 5. 整体：日均点击是否稳定 ≥20、CTR 是否站上 1%、加权排名是否维持 10–13。
+
+### 2026-08-04 迭代记录（四窗口复盘 + 查询级 CTR 单变量）
+
+> 按历史标准导出并复核 GSC 24 小时、7 天、28 天和 3 个月的七类 CSV，对照 2026-07-14 实验基线。原始导出见 `docs/gsc-export-2026-08-04/`，完整分析、数据限制、Semrush 估算口径和保护线见 `docs/SEO-ITERATION-SUMMARY-2026-08-04.md`。
+
+#### 整体结论：中期增长成立，短期 CTR 回落
+
+| 窗口 | 点击 | 展示 | CTR | 平均排名 |
+|---|---:|---:|---:|---:|
+| 24 小时 | 26 | 2,950 | 0.88% | 11.80 |
+| 近 7 天 | 116 | 15,327 | 0.76% | 12.37 |
+| 近 28 天 | 508 | 58,463 | 0.87% | 12.07 |
+| 近 3 个月 | 1,035 | 125,575 | 0.82% | 15.16 |
+
+- 最近 28 天相对前 28 天，点击增长 26.4%、展示增长 18.7%，平均排名从 12.32 改善到 12.07；
+- 最近 7 天相对前 7 天，展示增长 5.5%，点击下降 14.7%，CTR 从 0.94% 降到 0.76%，平均排名从 10.93 变为 12.37；
+- 因此当前是增长后的平台期伴随短期 CTR 回落，不是收录崩塌或全站 SEO 系统性退步；
+- 上轮三个整体目标中，平均排名 10–13 已达标，日均点击 ≥20 与 CTR ≥1% 尚未达标。
+
+GSC 查询 CSV 在 7 天、28 天和 3 个月窗口均封顶 1,000 行，只覆盖总展示约 78.1%、75.1% 和 70.5%。查询表与网页表也没有联合维度，因此本轮查询归属是高可信推断，不用于证明页面蚕食；实验结案前必须补目标页面精确 URL 过滤后的查询、国家和设备导出。
+
+#### 07-14 实验结案
+
+| 页面 | 四窗口证据 | 判定 |
+|---|---|---|
+| `/es/webp-to-jpg` | 3 个月、28 天、7 天、24 小时排名为 14.69、12.80、10.89、9.76；24 小时 1,105 展示、0 点击 | 排名恢复跨长短窗口一致；当前最强机会是 SERP CTR，进行 title-only 实验 |
+| `/ru/avif-to-jpg` | 7 天 CTR 1.53%，28 天 0.65%，3 个月 0.75%，24 小时 0% | 仅最近 7 天抬升，未形成稳定改善；不叠加变量 |
+| `/ru/webp-to-jpg` | 3 个月、28 天、7 天、24 小时 CTR 为 0.33%、0.35%、0.32%、0% | description-only 实验远低于 ≥2% 目标；回滚到 06-10 版本 |
+| `/ja/image-compressor` | 3 个月、28 天、7 天、24 小时排名为 10.34、9.10、9.66、9.29 | 中期赢家且排名稳定；冻结正文、meta 与内链 |
+
+#### 本轮改动
+
+| 类别 | 内容 | 文件 |
+|---|---|---|
+| **ES title-only** | `/es/webp-to-jpg` 的全站精确查询 `webp a jpg` 与 `convertir webp a jpg` 近 28 天合计 2,199 展示、仅 1 点击，最新 24 小时合计 501 展示、0 点击；title 改为 `Convertir WebP a JPG — gratis y sin subir archivos | PicShift`，description、H1、正文与内链不动 | `src/i18n/translations/es.ts` |
+| **RU title-only** | 全站精确查询 `уменьшить размер фото` 近 28 天 1,479 展示、CTR 0.27%、排名 9.31；`/ru/image-compressor` 只前置该查询到 title，description、H1、正文与内链不动 | `src/i18n/translations/ru.ts` |
+| **RU 摘要止损** | `/ru/webp-to-jpg` 仅回滚 description，结束未达标的 07-14 二次实验 | `src/i18n/translations/ru.ts` |
+| **404 技术卫生** | 404 输出 `noindex, follow` 且不再生成 11 个不存在的本地化 hreflang；新增随机不存在路径必须返回 404 的回归测试 | `src/layouts/Layout.astro`、`src/pages/404.astro`、`tests/e2e/seo-geo.spec.ts` |
+| **PWA 技术卫生** | 预缓存仅保留核心壳层；页面、指纹资源、codec 和编辑图片分别采用按需运行时缓存，避免首次访问下载未使用的多语言页面与 WASM | `astro.config.mjs`、`public/_headers`、`scripts/pwa-audit.mjs` |
+
+404 与 PWA 改动不属于单页 CTR 实验变量，后续不能把页面排名或点击变化归因给它们。
+
+#### 技术 SEO 与移动体验验收补充
+
+- 修复两篇博客指向已下线 `/docs/privacy` 的内部链接，统一改为 `/docs/privacy-local-processing`；
+- English-only 页面与 404 不再输出不存在的 `og:locale:alternate`，404 同时保持 `noindex, follow` 且不进入 sitemap；
+- sitemap 只为博客、文档和隐私页输出可证明的真实内容日期，共享模板驱动的首页与工具页省略 `lastmod`；
+- SEO 审计升级为最终产物门禁，覆盖全部 405 个 HTML 的 canonical、hreflang 互链、内部链接、JSON-LD、H1、noindex、sitemap 与日期一致性；
+- 首页转换器使用 Astro fallback 原子替换，消除移动端 hydration 期间“占位骨架与真实组件同时存在”导致的布局跳动；
+- PWA 预缓存从 66 项、8,911,401 bytes 缩减为 17 项、303,757 bytes，减少 96.59%；
+- 新增 Search Console API 导出器，固定支持 24 小时、7 天、28 天和 3 个日历月窗口，以及 `page × query × country × device` 联合维度、精确过滤、分页和可追溯 manifest；默认完整日窗口先读取 `first_incomplete_date`，覆盖率只与同为 `byPage` 的无维度基准比较。
+
+#### 保护对象与下一队列
+
+- 不修改 `/ja/image-compressor`，其核心查询跨 3 个月至 24 小时始终稳定在排名 8.5–8.8；
+- 不增加 RU authority pin，避免削弱 `/ru/heic-to-png`、`/ru/heic-to-webp` 等已验证赢家的站内入链；
+- `/ru/heic-to-jpg` 近 7 天为 1,933 展示、21 点击、排名 9.69，最新 24 小时为 332 展示、5 点击、排名 8.97，本轮先保护并列入下一轮观察；
+- `/ru/metadata-remover` 展示增长快但点击样本不足，只观察；`/png-to-jpg` 排名仍约 35，当前瓶颈不是 CTR；
+- 不同期缩短 `/ru/image-compressor` 的 193 字符 description，先保留 title-only 归因；最终 HTML 全量门禁已建立，但字符长度提示不自动转化为批量改写任务。
+
+#### 下次复盘
+
+1. 部署当天记录真实上线时间，并保存上线前四窗口基线；
+2. 7 天后只检查重抓、标题或摘要采用情况，不根据短窗口波动继续改文案；
+3. `/es/webp-to-jpg` 在 14 天后用页面过滤后的固定查询、国家和设备结案；排名保持前 15，CTR 目标从约 0.1% 提升到至少 0.5%；
+4. `/ru/image-compressor` 在 14 天只做安全检查，累计至少 1,000–1,500 次实验后展示或部署满 28 天后结案；核心查询排名保护线为 8–11，CTR 目标至少 0.8%；
+5. `/ru/webp-to-jpg` 在 14 天只做安全检查，部署满 28 天或达到足量展示后再判断；排名只是不跌出前 15 的保护线，成功标准是同排名区间下 CTR 改善；
+6. `/ja/image-compressor`、`/ru/heic-to-png` 和 `/ru/heic-to-jpg` 继续冻结；提交后重新构建并用最终 HTML 审计复查 sitemap `lastmod` 与页面日期一致性。
+
+自动化验证：`pnpm build` 生成 405 页；最终 HTML SEO 审计硬错误为 0；GEO 审计和 PWA 审计通过；PWA 预缓存为 17 项、303,757 bytes；单元测试 53/53 通过，其中 GSC 导出器测试 19/19；生产预览端到端测试 31/31 通过；TypeScript 无错误；上述检查均纳入统一 `pnpm verify` 门禁。

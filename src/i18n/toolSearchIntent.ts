@@ -34,11 +34,11 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     'heic-to-png': [
       {
         title: 'JPGではなくPNGを選ぶ理由',
-        body: 'JPGは共有向きですが、編集を繰り返すたびに画質が落ちます。PNGは可逆圧縮なので、何度保存しても劣化しません。加工・注釈・デザインレビュー用途にはPNGが安全です。',
+        body: 'PNGは編集・注釈・デザインレビューに使いやすい形式です。PicShiftでは品質95–100ならデコード後のピクセルを保持して可逆OxiPNG最適化だけを行い、95未満ではパレット量子化により色が減る場合があります。',
       },
       {
         title: 'ファイルが大きくなる理由',
-        body: 'HEICは高効率圧縮、PNGは全ピクセルをそのまま保存します。ファイルサイズが数倍になるのは正常です。画質優先なら当然のトレードオフです。',
+        body: 'HEICとPNGでは圧縮方法が異なるため、PNGが大きくなる場合があります。固定倍率はなく、元画像と品質設定で変わるので実際の出力を比較してください。',
       },
       {
         title: 'PNGが不要なケース',
@@ -56,13 +56,13 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
       },
       {
         title: 'リサイズだけで足りない時',
-        body: 'リサイズしても容量が重いなら、フォーマット変換も組み合わせてください。PNG 4000px → JPG 1200px にすると、8MB が 300KB まで落ちることもあります。',
+        body: 'リサイズしても容量が大きい場合は、フォーマット変換も比較してください。削減量は元画像、目標寸法、形式、品質設定、エンコーダーによって異なります。',
       },
     ],
     'png-to-avif': [
       {
         title: 'PNGからAVIFに変換するメリット',
-        body: 'AVIFはJPGより30-50%小さく、PNGの透過もサポートします。Webサイトの表示速度を上げたい時、PNGからAVIFへの変換は最も効果的な軽量化手段の一つです。',
+        body: 'AVIF は透過をサポートし、画像や設定によっては JPG や PNG より小さくなる場合があります。Web 用途では実際の表示品質とサイズを比較し、対象ブラウザーの対応を確認してください。',
       },
       {
         title: 'AVIFの対応状況',
@@ -122,7 +122,7 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     'jpg-to-png': [
       {
         title: 'Como converter JPG para PNG sem piorar mais a imagem',
-        body: 'JPG para PNG faz sentido quando você vai editar, assinar, anotar ou reenviar o arquivo várias vezes. PNG não recupera o que já se perdeu no JPG original, mas evita somar mais perda a cada novo salvamento.',
+        body: 'JPG para PNG faz sentido para edição e anotação, mas não recupera o que já se perdeu no JPG. No PicShift, qualidade 95–100 preserva os pixels decodificados com OxiPNG sem perdas; abaixo de 95 a quantização da paleta pode reduzir cores.',
       },
       {
         title: 'Quando JPG para PNG realmente vale a pena',
@@ -136,11 +136,11 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     'heic-to-png': [
       {
         title: 'Por que converter HEIC para PNG',
-        body: 'PNG é útil quando você precisa de um arquivo sem perda para edição, anotação, revisão de design ou entrega de produção. Não é a opção mais leve, mas é mais estável quando a qualidade da imagem não pode degradar.',
+        body: 'PNG é útil para edição, anotação e revisão. No PicShift, use qualidade 95–100 para preservar os pixels decodificados com OxiPNG sem perdas; abaixo de 95 a quantização da paleta pode reduzir cores.',
       },
       {
         title: 'Por que o arquivo PNG fica muito maior',
-        body: 'HEIC comprime fotos com eficiência, enquanto PNG guarda muito mais informação por pixel. O aumento de tamanho é esperado e normal quando a prioridade é qualidade sem perda.',
+        body: 'HEIC e PNG usam estratégias de compressão diferentes, por isso o PNG pode ficar maior. Não existe proporção fixa: compare o tamanho real conforme a imagem e a configuração.',
       },
       {
         title: 'Quando JPG ou WebP é a melhor escolha',
@@ -192,7 +192,7 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     'png-to-jpg': [
       {
         title: 'Por que esse PNG tá tão grande?',
-        body: 'PNG guarda cada pixel intacto — é lossless. Isso é ótimo pra qualidade, mas o preço é tamanho. Um print de 3 MB ou uma exportação de design de 5 MB vira 500 KB em JPG com qualidade 80-85. Se o arquivo não precisa de transparência, a conversão compensa quase sempre.',
+        body: 'PNG e JPG usam estratégias diferentes, então fotos em PNG podem ficar maiores. Não existe uma conversão típica de MB para KB: tamanho e mudança visual dependem da imagem, qualidade e codificador. Compare o resultado e lembre que JPG remove transparência.',
       },
       {
         title: 'E a transparência?',
@@ -220,7 +220,7 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     'image-compressor': [
       {
         title: 'Quando comprimir imagens é o caminho certo',
-        body: 'Se o problema é o peso do arquivo e não o tamanho em pixels, comprimir é o passo mais direto. Funciona pra subir foto num site que limita 2 MB, mandar anexo por e-mail sem o servidor reclamar, ou só aliviar a pasta de fotos. Em qualidade 80 a maioria das fotos perde 40–60% sem diferença visível na tela.',
+        body: 'Se o problema é o peso do arquivo e não o tamanho em pixels, comprimir é o passo mais direto. Funciona para sites com limite de 2 MB, anexos de e-mail ou para aliviar uma pasta. Qualidade 80 é um ponto de partida; compare o resultado porque a economia e os detalhes variam por imagem.',
       },
       {
         title: 'Por que às vezes a compressão entrega pouco',
@@ -308,7 +308,7 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     'png-to-jpg': [
       {
         title: 'Cuándo convertir PNG a JPG ahorra mucho peso',
-        body: 'PNG guarda cada píxel sin pérdida, lo que hace que las fotos en PNG terminen siendo innecesariamente pesadas. Con calidad 80–85, el JPG suele pesar un 60–80% menos sin diferencia visible — es la solución estándar cuando un correo, formulario o web rechaza tu archivo por exceso de tamaño.',
+        body: 'PNG y JPG comprimen de forma distinta, por lo que una foto PNG puede quedar más pesada. No existe un porcentaje fijo ni una diferencia visual garantizada: compara tamaño y detalles con la calidad elegida, y recuerda que JPG elimina la transparencia.',
       },
       {
         title: 'La advertencia clave: pierdes la transparencia',
@@ -322,7 +322,7 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     'jpg-to-png': [
       {
         title: 'Cuándo convertir JPG a PNG tiene sentido',
-        body: 'PNG ayuda cuando vas a editar, anotar o re-exportar la imagen y no quieres que cada nueva versión pierda calidad. No recupera nada del JPG original, pero evita que cada nuevo guardado degrade más.',
+        body: 'PNG ayuda para editar, anotar o reexportar, pero no recupera lo perdido en el JPG. En PicShift, calidad 95–100 conserva los píxeles decodificados con OxiPNG sin pérdida; por debajo de 95 la cuantización de paleta puede reducir colores.',
       },
       {
         title: 'Lo que no obtienes al pasar de JPG a PNG',
@@ -392,11 +392,11 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     'heic-to-png': [
       {
         title: 'Por qué convertir HEIC a PNG',
-        body: 'PNG es útil cuando necesitas un archivo sin pérdida para edición, anotaciones, revisión de diseño o reexportación. No es la opción más ligera, pero es más estable para flujos de trabajo que exigen calidad intacta.',
+        body: 'PNG es útil para edición, anotaciones y revisión. En PicShift, usa calidad 95–100 para conservar los píxeles decodificados con OxiPNG sin pérdida; por debajo de 95 la cuantización de paleta puede reducir colores.',
       },
       {
         title: 'Por qué el archivo PNG es mucho más grande',
-        body: 'HEIC comprime muy bien las fotos, mientras que PNG guarda mucha más información por píxel. El aumento de tamaño es normal y esperado cuando la prioridad es calidad sin pérdida y no un archivo ligero.',
+        body: 'HEIC y PNG usan estrategias de compresión diferentes, por lo que el PNG puede ser mayor. No hay una proporción fija: compara el tamaño real según la imagen y la configuración.',
       },
       {
         title: 'Cuándo conviene elegir JPG o WebP en lugar de PNG',
@@ -478,7 +478,7 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     'heic-to-webp': [
       {
         title: 'Когда HEIC лучше переводить в WebP, а не в JPG',
-        body: 'WebP стоит выбирать, когда снимок идёт на сайт или в веб-проект: страница грузится быстрее, а на глаз отличить его от JPG почти невозможно. Если же фото нужно просто переслать, открыть на чужом Windows или вложить в письмо, спокойнее взять JPG — он откроется где угодно.',
+        body: 'WebP подходит для веб-проектов, но размер и видимый результат зависят от снимка и настроек. Перед публикацией сравните файл и проверьте поддержку; для обмена со старыми программами JPG часто совместимее.',
       },
       {
         title: 'Где WebP может подвести',
@@ -486,17 +486,17 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
       },
       {
         title: 'Как убедиться, что качество не пострадало',
-        body: 'Перед скачиванием посмотрите результат в режиме сравнения — оригинал и WebP рядом. На обычных фотографиях разницу заметить трудно; присматривайтесь к мелкому тексту, контурам и плавным переходам, где артефакты видны раньше всего.',
+        body: 'Перед скачиванием сравните оригинал и WebP рядом. Результат зависит от снимка и качества; особенно проверьте мелкий текст, контуры и плавные переходы.',
       },
     ],
     'heic-to-png': [
       {
         title: 'Когда для HEIC подходит именно PNG',
-        body: 'PNG имеет смысл, если фото вы будете редактировать, подписывать или пересохранять несколько раз, если нужна прозрачность или если на изображении есть чёткий текст и тонкие линии — например, на скриншотах. PNG сжимает без потерь, поэтому качество не падает от повторных сохранений.',
+        body: 'PNG подходит для редактирования и прозрачности. В PicShift качество 95–100 сохраняет декодированные пиксели и применяет только OxiPNG без потерь; ниже 95 квантование палитры может уменьшить число цветов.',
       },
       {
         title: 'Почему PNG получается тяжелее JPG',
-        body: 'Это нормально: на обычных фотографиях PNG выходит в 2–5 раз больше JPG, потому что хранит каждый пиксель без потерь. Если важнее компактность, а не идеальное качество, для тех же снимков лучше выбрать JPG.',
+        body: 'HEIC, PNG и JPG используют разные способы сжатия, поэтому PNG может стать больше. Фиксированного соотношения нет: сравните фактический размер и детали при выбранных настройках.',
       },
       {
         title: 'Когда вместо PNG удобнее JPG или WebP',
@@ -536,11 +536,11 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     'jpg-to-png': [
       {
         title: 'Wann JPG in PNG umwandeln sinnvoll ist',
-        body: 'Diese Konvertierung ist nützlich, wenn Sie ein Bild stabiler bearbeiten, beschriften oder erneut exportieren möchten. PNG verhindert, dass beim nächsten Speichern weitere Qualität verloren geht.',
+        body: 'Diese Konvertierung ist für Bearbeitung und Beschriftung nützlich, stellt aber keine im JPG verlorenen Details wieder her. In PicShift bewahrt Qualität 95–100 die dekodierten Pixel mit verlustfreier OxiPNG-Optimierung; unter 95 kann Palettenquantisierung Farben reduzieren.',
       },
       {
         title: 'Was Sie bei der Dateigröße erwarten sollten',
-        body: 'PNG-Dateien sind in der Regel deutlich größer als JPG, weil PNG verlustfrei speichert. Der Größenzuwachs ist normal, wenn Bearbeitungsstabilität wichtiger ist als Dateigröße.',
+        body: 'PNG kann größer als JPG werden, doch es gibt kein festes Verhältnis. Das Ergebnis hängt vom Bild und den Einstellungen ab; vergleichen Sie die tatsächliche Ausgabe.',
       },
       {
         title: 'Wann JPG die bessere Wahl bleibt',
@@ -564,7 +564,7 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     'image-compressor': [
       {
         title: 'Wann ein Bildkomprimierer wirklich hilft',
-        body: 'Sobald eine E-Mail einen Anhang ablehnt, ein Bewerbungsportal weniger als 2 MB verlangt oder eine Webseite zu langsam lädt, ist Komprimieren der schnellste Hebel. Bei Qualität 80 schrumpft ein typisches Smartphone-JPG um 40–60 % — ohne dass du den Unterschied am Bildschirm siehst.',
+        body: 'Wenn eine E-Mail einen Anhang ablehnt, ein Portal weniger als 2 MB verlangt oder eine Webseite zu langsam lädt, ist Komprimieren ein direkter Ansatz. Qualität 80 ist ein Startwert; Einsparung und sichtbare Details hängen vom Bild ab und sollten verglichen werden.',
       },
       {
         title: 'Warum manche Bilder kaum kleiner werden',
@@ -594,11 +594,11 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     'jpg-to-png': [
       {
         title: 'Quando convertire JPG in PNG ha senso',
-        body: 'PNG aiuta quando devi modificare, annotare o riesportare un\u2019immagine e non vuoi che ogni nuova versione perda qualità. Non recupera nulla dal JPG di partenza, ma evita che ogni salvataggio successivo degradi ulteriormente l\u2019immagine.',
+        body: 'PNG è utile per modifica e annotazione, ma non recupera ciò che il JPG ha già perso. In PicShift, qualità 95–100 conserva i pixel decodificati con OxiPNG lossless; sotto 95 la quantizzazione della palette può ridurre i colori.',
       },
       {
         title: 'Cosa non ottieni passando da JPG a PNG',
-        body: 'Non migliora la qualità: ciò che è già andato perso nella compressione JPG non torna. Nemmeno il peso scende — al contrario, il PNG di solito è ben più grande. Il vantaggio reale è la stabilità per futuri ritocchi.',
+        body: 'Non migliora la qualità: ciò che è già andato perso nella compressione JPG non torna. Il PNG può risultare più grande, ma non esiste un rapporto fisso; confronta l’output reale.',
       },
       {
         title: 'Quando conviene restare su JPG',
@@ -636,11 +636,11 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
     'image-compressor': [
       {
         title: 'Come comprimere le foto: quando serve davvero',
-        body: 'Quando la mail rifiuta un allegato, un sito chiede meno di 2 MB o un caricamento si blocca per dimensioni, il primo passo è comprimere — non ridimensionare. A qualità 80 una foto JPG di smartphone perde tipicamente il 40–60% del peso senza differenze visibili a occhio.',
+        body: 'Quando la mail rifiuta un allegato, un sito chiede meno di 2 MB o un caricamento si blocca per dimensioni, il primo passo può essere comprimere. Qualità 80 è un punto di partenza: risparmio e dettagli visibili dipendono dall\'immagine e vanno confrontati.',
       },
       {
         title: 'Comprimere foto per email: i limiti reali',
-        body: 'Gmail accetta fino a 25 MB per messaggio, Outlook 20 MB, ma molte aziende tagliano già a 10 MB. Comprimere a 80 di solito basta per stare sotto questi limiti senza ridimensionare. Per allegati misti (foto + PDF) lascia un margine di 2–3 MB per altri file e firma automatica.',
+        body: 'I limiti degli allegati dipendono dal provider e dall’organizzazione e possono cambiare. Verifica il limite del destinatario, poi confronta qualità, dimensioni e formato; la qualità 80 è solo un punto di partenza e non garantisce di rientrare nel limite.',
       },
       {
         title: 'Quando ridurre il peso non basta più',
@@ -674,7 +674,7 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
       },
       {
         title: 'متى تكون PNG أو WebP أفضل من JPG',
-        body: 'إذا كنت تنوي تعديل الصورة لاحقًا أو كانت تحتوي على شفافية أو نص حاد (لقطات شاشة مثلًا)، فـ PNG يحافظ على الجودة بالكامل. وإذا كانت الصورة مخصصة لموقعك على الويب وتريد تحميلًا أسرع، فـ WebP يوفر حجمًا أصغر بنسبة 25-34%.',
+        body: 'إذا كنت تنوي تعديل الصورة لاحقًا أو كانت تحتوي على شفافية أو نص حاد، فقد يكون PNG أنسب. ولصور الويب قد يكون WebP أصغر، لكن مقدار التوفير يعتمد على الصورة والإعدادات؛ قارن الناتج الفعلي.',
       },
     ],
     'heif-to-jpg': [
@@ -688,13 +688,13 @@ const SEARCH_INTENT_MAP: Partial<Record<Locale, Partial<Record<string, ToolInten
       },
       {
         title: 'هل تفقد الصورة جودتها عند التحويل من HEIF إلى JPG',
-        body: 'JPG هو تنسيق يعتمد الضغط مع فقد جزئي، بينما HEIF يستخدم ضغطًا أكثر كفاءة. عند الجودة 85-95% يكون الفرق البصري غير ملحوظ تقريبًا، لكن الملف سيصبح عادةً أكبر بـ 1.5 إلى 2.5 مرة من ملف HEIF الأصلي.',
+        body: 'JPG يستخدم ضغطًا مع فقد جزئي، بينما يستخدم HEIF أسلوب ضغط مختلفًا. يعتمد التغير المرئي والحجم على الصورة وإعداد الجودة وبرنامج الترميز؛ قارن الناتج ولا تفترض فرقًا بصريًا أو نسبة حجم ثابتة.',
       },
     ],
     'jpg-to-png': [
       {
         title: 'متى يكون التحويل من JPG إلى PNG مفيدًا',
-        body: 'هذا التحويل مفيد عندما تريد ملفًا أكثر استقرارًا للتحرير أو المراجعة أو إعادة التصدير، وليس عندما يكون الهدف تصغير الحجم. PNG مناسب أكثر لسير العمل الذي يحتاج ملفًا أقل عرضة لفقد إضافي.',
+        body: 'هذا التحويل مفيد للتحرير والمراجعة، لكنه لا يستعيد ما فقده JPG. في PicShift تحافظ الجودة 95–100 على البكسلات بعد فك الترميز مع تحسين OxiPNG بلا فقد؛ تحت 95 قد يقلل تكميم لوحة الألوان عدد الألوان.',
       },
       {
         title: 'متى لا يكون PNG هو الخيار الأفضل',

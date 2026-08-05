@@ -551,21 +551,20 @@ self.postMessage({ id, status: 'progress', progress: 10, thumbnail: earlyThumb }
 
 6 个 WASM 文件加起来约 4.5 MB。全塞进主 bundle？首屏加载直接劝退。
 
-### manualChunks 代码分割
+### 按需加载与代码分割
 
 ```javascript
 // astro.config.mjs
 manualChunks: {
-  heic: ['libheif-js'],   // 1.4 MB，只有处理 HEIC 文件时才加载
   zip: ['fflate'],
 }
 ```
 
-所有 WASM 编码器本身就通过 `dynamic import()` 按需加载——用户只转 JPEG，就只加载 MozJPEG 那 246 KB。
+所有 WASM 编码器和 HEIC 浏览器 bundle 都通过 `dynamic import()` 按需加载——用户只转 JPEG，就只加载 MozJPEG 所需的链路；HEIC 不再经过会带入 Node 兼容代码的包根入口。
 
 ### WASM 文件静态托管 + HTTP 缓存
 
-6 个 `.wasm` 文件放在 `public/wasm/` 下作为静态资源，通过 `fetch()` 按需加载。浏览器会做 HTTP 缓存（强缓存 + immutable），第二次访问直接从磁盘缓存读取，零网络请求。
+6 个 `.wasm` 文件放在 `public/wasm/` 下作为静态资源，通过 `fetch()` 按需加载。固定文件名不使用 `immutable`，在线时由浏览器重新验证；Service Worker 使用 NetworkFirst，并把成功使用过的 codec 保留为最长 90 天的离线后备。
 
 | WASM 文件 | 大小 | 编码器 |
 |-----------|------|--------|
@@ -575,6 +574,14 @@ manualChunks: {
 | `webp_enc.wasm` | 275 KB | libwebp (WebP) |
 | `webp_enc_simd.wasm` | 337 KB | libwebp SIMD (WebP 加速) |
 | `avif_enc.wasm` | 3.3 MB | AV1 (AVIF) |
+
+### PWA 安装包不预缓存整套转换器
+
+PWA 安装阶段只预缓存首页壳、注册脚本、关键 CSS、字体和图标，构建审计把它限制在 24 个条目、512 KiB 以内。应用 JS、Worker 和 WASM 都在实际使用后进入运行时缓存，用户不会因为安装 PWA 就下载全部 codec。
+
+`<head>` 中的注册脚本异步下载，到达后立即注册 Service Worker，不阻塞 HTML 解析。首次访问中若当前页面、Astro island 或 Worker 内部 codec 依赖抢先加载，页面与 Worker 会报告实际使用过的同源资源；即使转换先于异步脚本完成，清单也会保存在全局待处理队列中，接管后再经过 Workbox，瞬时失败最多重试两次。非根路径和引荐 query 仍能命中同一静态页面缓存。指纹化资源按稳定 URL 匹配，避免 `Vary: Origin` 让预热请求和 ES module 请求落到不同缓存变体；已经受控的后续导航不会重复请求页面或 WASM。
+
+这里的离线边界很明确：先在线成功完成某格式转换，之后才能离线重复同一路径；从未加载过的 codec 不承诺离线可用。
 
 ---
 
@@ -590,7 +597,7 @@ manualChunks: {
 | 并行处理 | 动态 Worker Pool (最多 4 线程) | 充分利用多核 |
 | ZIP 打包 | fflate 流式 STORE 模式 | 边转换边打包，不二次压缩 |
 | 内存 | ImageData 置 null + bitmap.close() + URL.revoke + Worker 终止释放 WASM 堆 + LRU 缓存 | 200 张图不崩 |
-| 加载 | WASM 懒加载单例 + manualChunks + dynamic import | 首屏零 WASM 开销 |
+| 加载 | WASM 懒加载单例 + ZIP 独立 chunk + dynamic import + 运行时缓存 | 首屏零 WASM 开销，已用链路可离线复用 |
 
 所有代码来自 [PicShift](https://picshift.app) 的生产代码，纯前端、零上传、零服务器。
 

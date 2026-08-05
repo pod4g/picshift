@@ -76,7 +76,8 @@ const guides = [
 
       <div class="max-w-3xl mx-auto">
         <!-- Skeleton: visible until React mounts, prevents layout shift -->
-        <div id="converter-skeleton" class="rounded-xl border border-border bg-card-bg p-4 sm:p-6 shadow-sm">
+        <Converter client:only="react" fullPage lang={lang}>
+        <div slot="fallback" id="converter-skeleton" class="rounded-xl border border-border bg-card-bg p-4 sm:p-6 shadow-sm">
           <div class="mb-4 sm:mb-6 flex items-center justify-between gap-3 sm:gap-4">
             <div class="flex flex-wrap items-center gap-3 sm:gap-4">
               <div class="flex rounded-lg border border-primary-500/30 bg-primary-500/10 p-0.5">
@@ -109,6 +110,7 @@ const guides = [
             <p class="mt-3 text-xs text-text-secondary">{ui.dropFormats}</p>
           </div>
         </div>
+        </Converter>
         <script is:inline>
           (function() {
             try {
@@ -117,6 +119,7 @@ const guides = [
               var prefs = JSON.parse(raw);
               var fmt = prefs.outputFormat;
               var q = prefs.quality;
+              if (fmt === 'png' && q < 95) q = 100;
               if (fmt) {
                 var btns = document.querySelectorAll('#converter-skeleton [data-skel-fmt]');
                 btns.forEach(function(btn) {
@@ -136,7 +139,6 @@ const guides = [
             } catch(e) {}
           })();
         </script>
-        <Converter client:only="react" fullPage lang={lang} />
       </div>
     </section>
 

@@ -34,14 +34,14 @@ const localized: Record<Locale, {
   faq: Array<{ q: string; a: string }>;
 }> = {
   en: {
-    title: 'WebP to HEIF Converter - Support Status & Best Alternatives | PicShift',
+    title: 'WebP to HEIF Support Status & Best Alternatives | PicShift',
     description: "Need to convert WebP to HEIF/HEIC? PicShift currently doesn't export HEIF. See when WebP to HEIF is needed and use alternatives.",
     h1: 'WebP to HEIF: Is It Supported?',
     lead: 'PicShift currently does not export .heif/.heic. It supports HEIC/HEIF input, and outputs JPG, PNG, WebP, and AVIF.',
     alternativesTitle: 'Best alternatives right now',
     alternatives: [
       'WebP to JPG for widest compatibility',
-      'WebP to PNG for lossless workflows',
+      'WebP to PNG for transparency and editing; use quality 95-100 when decoded-pixel fidelity matters',
       'Image Compressor to reduce size before sharing',
     ],
     faqTitle: 'FAQ',
@@ -58,7 +58,7 @@ const localized: Record<Locale, {
     alternativesTitle: '当前可用替代方案',
     alternatives: [
       'WebP 转 JPG：兼容性最好',
-      'WebP 转 PNG：适合无损流程',
+      'WebP 转 PNG：适合透明与编辑流程；需要保留解码后像素时使用质量 95-100',
       '图片压缩工具：分享前先减小体积',
     ],
     faqTitle: '常见问题',
@@ -75,7 +75,7 @@ const localized: Record<Locale, {
     alternativesTitle: '目前可用替代方案',
     alternatives: [
       'WebP 轉 JPG：相容性最佳',
-      'WebP 轉 PNG：適合無損流程',
+      'WebP 轉 PNG：適合透明與編輯流程；需要保留解碼後像素時使用品質 95-100',
       '圖片壓縮工具：分享前先縮小檔案',
     ],
     faqTitle: '常見問題',
@@ -92,7 +92,7 @@ const localized: Record<Locale, {
     alternativesTitle: 'Mejores alternativas ahora',
     alternatives: [
       'WebP a JPG para máxima compatibilidad',
-      'WebP a PNG para flujos sin pérdida',
+      'WebP a PNG para transparencia y edición; usa calidad 95-100 si necesitas conservar los píxeles decodificados',
       'Compresor de imágenes para reducir tamaño antes de compartir',
     ],
     faqTitle: 'FAQ',
@@ -109,7 +109,7 @@ const localized: Record<Locale, {
     alternativesTitle: 'Meilleures alternatives pour le moment',
     alternatives: [
       'WebP vers JPG pour la compatibilité maximale',
-      'WebP vers PNG pour un flux sans perte',
+      'WebP vers PNG pour la transparence et l’édition ; utilisez 95-100 pour préserver les pixels décodés',
       "Compresseur d'images pour réduire la taille avant partage",
     ],
     faqTitle: 'FAQ',
@@ -126,7 +126,7 @@ const localized: Record<Locale, {
     alternativesTitle: 'Aktuell beste Alternativen',
     alternatives: [
       'WebP zu JPG für maximale Kompatibilität',
-      'WebP zu PNG für verlustfreie Workflows',
+      'WebP zu PNG für Transparenz und Bearbeitung; Qualität 95-100 bewahrt die dekodierten Pixel',
       'Bildkomprimierer für kleinere Dateien vor dem Teilen',
     ],
     faqTitle: 'FAQ',
@@ -143,7 +143,7 @@ const localized: Record<Locale, {
     alternativesTitle: '現在のおすすめ代替手段',
     alternatives: [
       'WebP→JPG：互換性を最優先する場合',
-      'WebP→PNG：可逆圧縮ワークフロー向け',
+      'WebP→PNG：透過や編集向け。デコード後の画素を保持する場合は品質 95-100',
       '画像圧縮ツール：共有前に容量を最適化',
     ],
     faqTitle: 'よくある質問',
@@ -160,7 +160,7 @@ const localized: Record<Locale, {
     alternativesTitle: '현재 추천 대안',
     alternatives: [
       'WebP→JPG: 호환성 우선',
-      'WebP→PNG: 무손실 워크플로',
+      'WebP→PNG: 투명도와 편집용. 디코딩된 픽셀 유지가 필요하면 품질 95-100',
       '이미지 압축: 공유 전 용량 줄이기',
     ],
     faqTitle: 'FAQ',
@@ -177,7 +177,7 @@ const localized: Record<Locale, {
     alternativesTitle: 'Melhores alternativas no momento',
     alternatives: [
       'WebP para JPG para maior compatibilidade',
-      'WebP para PNG para fluxo sem perdas',
+      'WebP para PNG para transparência e edição; use qualidade 95-100 para preservar os pixels decodificados',
       'Compressor de imagem para reduzir o tamanho antes de compartilhar',
     ],
     faqTitle: 'FAQ',
@@ -194,7 +194,7 @@ const localized: Record<Locale, {
     alternativesTitle: 'Лучшие альтернативы сейчас',
     alternatives: [
       'WebP в JPG для максимальной совместимости',
-      'WebP в PNG для сценариев без потерь',
+      'WebP в PNG для прозрачности и редактирования; качество 95-100 сохраняет декодированные пиксели',
       'Сжатие изображений перед отправкой',
     ],
     faqTitle: 'FAQ',
@@ -211,7 +211,7 @@ const localized: Record<Locale, {
     alternativesTitle: 'أفضل البدائل حاليًا',
     alternatives: [
       'WebP إلى JPG لأعلى توافق',
-      'WebP إلى PNG لسير عمل بدون فقدان',
+      'WebP إلى PNG للشفافية والتحرير؛ استخدم جودة 95-100 عند الحاجة إلى حفظ البكسلات بعد فك الترميز',
       'ضغط الصور لتقليل الحجم قبل المشاركة',
     ],
     faqTitle: 'الأسئلة الشائعة',
@@ -228,7 +228,7 @@ const localized: Record<Locale, {
     alternativesTitle: 'Migliori alternative al momento',
     alternatives: [
       'WebP in JPG per massima compatibilità',
-      'WebP in PNG per flussi lossless',
+      'WebP in PNG per trasparenza e modifica; usa qualità 95-100 per preservare i pixel decodificati',
       'Compressore immagini per ridurre il peso prima della condivisione',
     ],
     faqTitle: 'FAQ',

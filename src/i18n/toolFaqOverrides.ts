@@ -21,7 +21,7 @@ const TOOL_FAQ_OVERRIDES: Partial<Record<Locale, Partial<Record<string, ToolFaqI
     'webp-to-png': [
       {
         q: '¿La conversión de WebP a PNG pierde calidad?',
-        a: 'No. PNG es un formato sin pérdida, así que conserva todos los píxeles decodificados del WebP. El cambio busca un archivo más estable para trabajo o edición, no un archivo más pequeño.',
+        a: 'Depende del ajuste. Con calidad 95-100, PicShift conserva los píxeles ya decodificados y aplica optimización OxiPNG sin pérdida. Por debajo de 95, la cuantización de paleta puede reducir colores. La conversión tampoco recupera detalle que un WebP con pérdida ya haya descartado.',
       },
       {
         q: '¿Cuándo conviene convertir WebP a PNG?',
@@ -29,7 +29,7 @@ const TOOL_FAQ_OVERRIDES: Partial<Record<Locale, Partial<Record<string, ToolFaqI
       },
       {
         q: '¿Por qué el PNG convertido pesa más?',
-        a: 'Porque PNG prioriza salida sin pérdida y estabilidad, mientras WebP suele estar más optimizado para reducir peso. En esta conversión es normal ganar compatibilidad de flujo a costa de un archivo mayor.',
+        a: 'Con calidad 95-100, la salida conserva los píxeles decodificados y OxiPNG solo los optimiza sin pérdida, por lo que puede pesar más que el WebP de origen. Por debajo de 95, PicShift aplica cuantización de paleta con pérdida, así que el tamaño depende de la imagen y del ajuste.',
       },
     ],
   },

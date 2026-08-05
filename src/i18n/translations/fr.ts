@@ -3,9 +3,9 @@ import type { PageTranslations } from '../config'
 const fr: PageTranslations = {
   home: {
     title:
-      "PicShift - Convertisseur d'Images Gratuit | HEIC, WebP, PNG, JPG, AVIF | Sans Téléchargement",
+      'PicShift: Convertisseur d’image gratuit en ligne sans inscription',
     description:
-      "Convertissez vos images dans le navigateur : HEIC en JPG, WebP en PNG, AVIF et plus. 100% privé, hors ligne, gratuit, sans inscription.",
+      "Convertissez vos images localement dans le navigateur, sans envoi ni inscription. HEIC en JPG, WebP en PNG, AVIF et plus ; les parcours déjà chargés sont réutilisables hors ligne.",
   },
   privacy: {
     title: 'Politique de confidentialité — traitement local | PicShift',
@@ -42,7 +42,7 @@ const fr: PageTranslations = {
           'Cloudflare : fichiers statiques, CDN, Cloudflare Web Analytics',
           'Umami : statistiques web pensées pour rester raisonnables côté vie privée',
           'Ils traitent des données de requêtes web ; vos images, non',
-          'Dans notre configuration actuelle, Umami et Cloudflare Web Analytics conservent chacun les données d’analyse pendant six mois',
+          'La disponibilité et la conservation des données d’analyse suivent les politiques actuelles de chaque fournisseur et la configuration active du compte PicShift ; nous ne publions pas ici de délai fixe de suppression',
         ],
       },
       {
@@ -76,17 +76,17 @@ const fr: PageTranslations = {
           'Questions vie privée, corrections ou demandes liées aux données : privacy@picshift.app.',
       },
     ],
-    lastUpdated: 'Dernière mise à jour : avril 2026',
+    lastUpdated: 'Dernière mise à jour : août 2026',
   },
   tools: {
     'heic-to-jpg': {
       title:
         'Convertisseur HEIC en JPG - Gratuit, Prive, Sans Envoi | PicShift',
       description:
-        "Convertissez vos photos HEIC en JPG instantanément dans votre navigateur. 100% prive : les fichiers ne quittent jamais votre appareil. Gratuit, sans limite, sans inscription.",
+        "Convertissez HEIC en JPG dans le navigateur. Les images sources ne sont pas envoyées pour conversion. Limites : 50 Mo par fichier, 200 fichiers et 1 Go par lot.",
       h1: 'Convertir HEIC en JPG',
       introText:
-        "Convertissez vos photos HEIC d'iPhone en format JPG instantanément. Tout se passe dans votre navigateur : vos photos ne quittent jamais votre appareil.",
+        "Convertissez vos photos HEIC d'iPhone en JPG dans le navigateur ; les images sources ne sont pas envoyées à un serveur de conversion.",
       howToSteps: [
         'Glissez-déposez vos fichiers HEIC dans la zone ci-dessus, ou cliquez pour les parcourir.',
         "Vos photos sont converties instantanément dans votre navigateur, rien n'est envoyé.",
@@ -99,7 +99,7 @@ const fr: PageTranslations = {
         },
         {
           q: 'Est-il sûr de convertir mes photos ici ?',
-          a: "Oui. PicShift traite tout dans votre navigateur à l'aide de WebAssembly. Vos photos ne quittent jamais votre appareil : aucun fichier n'est envoyé à un serveur. Vous pouvez le vérifier en vous déconnectant d'internet et en essayant le convertisseur.",
+          a: "Les images sources sont traitées dans le navigateur et ne sont pas envoyées pour conversion. Le trafic normal et les signaux d’analyse sont décrits dans la politique de confidentialité. Après chargement réussi du parcours, vous pouvez le tester hors ligne.",
         },
         {
           q: 'Combien de fichiers puis-je convertir à la fois ?',
@@ -107,7 +107,7 @@ const fr: PageTranslations = {
         },
         {
           q: "Vais-je perdre en qualité d'image ?",
-          a: "Le réglage de qualité par défaut (85%) produit des fichiers visuellement identiques à l'original. Vous pouvez ajuster le curseur de qualité : des valeurs plus élevées signifient une meilleure qualité mais des fichiers plus volumineux.",
+          a: "JPG utilise une compression avec perte. La qualité 85 est un point de départ ; le rendu et la taille dépendent de la photo. Comparez les détails et ajustez avant de télécharger.",
         },
       ],
     },
@@ -115,23 +115,23 @@ const fr: PageTranslations = {
       title:
         'HEIC en PNG en ligne — lots, sans envoi | PicShift',
       description:
-        'Convertissez les photos HEIC (iPhone) en PNG sans perte pour l\u2019\u00e9dition ou l\u2019archivage. Jusqu\u2019\u00e0 200 fichiers dans le navigateur, sans t\u00e9l\u00e9versement vers un serveur.',
+        'Convertissez les photos HEIC en PNG pour l’édition. Qualité 100 par défaut, jusqu’à 200 fichiers dans le navigateur, sans envoi des images sources pour conversion.',
       h1: 'Convertir HEIC en PNG',
       introText:
-        "Convertissez vos photos HEIC d'iPhone en format PNG sans perte. Tout le traitement se fait localement dans votre navigateur.",
+        "Convertissez vos photos HEIC en PNG. La qualité 100 est utilisée par défaut ; entre 95 et 100, seuls les pixels décodés sont optimisés sans perte par OxiPNG. Sous 95, la quantification peut être avec perte.",
       howToSteps: [
         'Glissez-déposez vos fichiers HEIC dans la zone ci-dessus, ou cliquez pour les parcourir.',
-        'Les fichiers sont convertis en PNG sans perte instantanément dans votre navigateur.',
+        'Les fichiers sont convertis en PNG dans votre navigateur ; vérifiez le réglage et comparez la sortie.',
         'Cliquez sur Télécharger pour enregistrer chaque fichier, ou sur Tout télécharger pour obtenir un ZIP.',
       ],
       faqs: [
         {
           q: "Pourquoi convertir HEIC en PNG plutot qu'en JPG ?",
-          a: "PNG est un format sans perte, ce qui signifie qu'aucune qualité n'est perdue lors de la conversion. Choisissez PNG lorsque vous avez besoin d'une qualité parfaite ou de la prise en charge de la transparence. Choisissez JPG pour des fichiers plus petits.",
+          a: "PNG prend en charge la transparence. Entre qualité 95 et 100, PicShift conserve les pixels décodés et applique seulement OxiPNG sans perte ; sous 95, la quantification de palette peut introduire une perte.",
         },
         {
           q: 'Les fichiers PNG sont-ils plus volumineux que les JPG ?',
-          a: 'Oui, dans les workflows photo standards, les fichiers PNG sont 2 à 5 fois plus volumineux que les JPG car le PNG est sans perte. Si la taille du fichier compte plus que la qualité parfaite, convertissez en JPG.',
+          a: 'Le PNG peut être plus volumineux que le JPG, mais il n’existe pas de multiplicateur fixe. Le résultat dépend de la photo et du réglage ; comparez la taille et le rendu.',
         },
       ],
     },
@@ -139,10 +139,10 @@ const fr: PageTranslations = {
       title:
         'Convertisseur HEIC en WebP - Gratuit, Prive, Sans Envoi | PicShift',
       description:
-        'Convertissez vos photos HEIC en format WebP dans votre navigateur. Fichiers plus petits, excellente qualité, 100% prive.',
+        'Convertissez HEIC en WebP dans le navigateur. Taille et qualité dépendent de la source et des réglages ; les images sources ne sont pas envoyées pour conversion.',
       h1: 'Convertir HEIC en WebP',
       introText:
-        "Convertissez vos photos HEIC d'iPhone au format moderne WebP. WebP offre des fichiers 25 à 34% plus petits que le JPG a qualité egale.",
+        "Convertissez vos photos HEIC en WebP et comparez la taille et le rendu. Le résultat dépend de l’image, des réglages et de l’environnement cible.",
       howToSteps: [
         'Glissez-déposez vos fichiers HEIC dans la zone ci-dessus, ou cliquez pour les parcourir.',
         'Les fichiers sont convertis en WebP instantanément dans votre navigateur.',
@@ -151,7 +151,7 @@ const fr: PageTranslations = {
       faqs: [
         {
           q: "Qu'est-ce que WebP ?",
-          a: "WebP est un format d'image moderne développé par Google. Il offre des fichiers 25 à 34% plus petits que le JPG a qualité equivalente. WebP est pris en charge par tous les principaux navigateurs (96,5% de prise en charge mondiale).",
+          a: "WebP est un format développé par Google avec compression avec ou sans perte. Il peut être plus petit que JPG selon l’image et les réglages, sans pourcentage fixe. Vérifiez aussi la compatibilité de l’application cible.",
         },
         {
           q: 'Quand devrais-je utiliser WebP ?',
@@ -229,33 +229,33 @@ const fr: PageTranslations = {
     },
     'webp-to-png': {
       title:
-        'Convertisseur WebP en PNG - Sans perte, transparence préservee | PicShift',
+        'Convertisseur WebP en PNG - Qualité réglable, transparence | PicShift',
       description:
-        "Convertissez un WebP en PNG quand vous avez besoin de transparence, d'un fichier sans perte ou d'une image plus simple a retravailler.",
+        "Convertissez WebP en PNG pour la transparence ou l’édition. Qualité 100 par défaut ; le comportement change sous 95.",
       h1: 'Convertir WebP en PNG',
       introText:
-        "Convertissez un WebP en PNG lorsque vous voulez conserver la transparence, eviter une perte supplementaire ou reprendre l'image dans un outil d'edition. Le PNG est souvent plus lourd, mais il reste plus pratique dans certains flux.",
+        "Convertissez WebP en PNG pour conserver la transparence ou éditer l’image. Entre qualité 95 et 100, seuls les pixels décodés passent par OxiPNG sans perte ; sous 95, la quantification peut être avec perte.",
       howToSteps: [
         'Glissez-déposez vos fichiers WebP dans la zone ci-dessus, ou cliquez pour les parcourir.',
-        'Les fichiers sont convertis en PNG sans perte instantanément dans votre navigateur.',
+        'Les fichiers sont convertis en PNG dans le navigateur ; comparez la sortie avec le réglage choisi.',
         'Cliquez sur Télécharger pour enregistrer chaque fichier, ou sur Tout télécharger pour obtenir un ZIP.',
       ],
       faqs: [
         {
           q: 'La conversion de WebP en PNG entraîne-t-elle une perte de qualité ?',
-          a: 'Non. PNG est un format sans perte, donc la conversion préserve chaque pixel de la source WebP. Le fichier PNG résultant sera plus volumineux mais identique en qualité.',
+          a: 'Entre qualité 95 et 100, PicShift conserve les pixels décodés et applique uniquement OxiPNG sans perte. Sous 95, la quantification de palette peut introduire une perte. La taille dépend de l’image.',
         },
         {
           q: 'Quand faut-il convertir WebP en PNG ?',
-          a: "Choisissez PNG si vous avez besoin de transparence, d'une image plus stable pour l'edition ou d'un fichier sans perte pour un autre export ensuite.",
+          a: "Choisissez PNG pour la transparence ou l’édition. Utilisez qualité 95–100 pour éviter la quantification avec perte ; comparez le résultat avant un autre export.",
         },
         {
           q: 'Pourquoi le PNG est-il plus lourd que le WebP ?',
-          a: "Parce que le PNG compresse beaucoup moins agressivement et conserve davantage d'informations image. C'est normal d'obtenir un fichier plus gros quand vous privilegiez la stabilite plutot que la légerete.",
+          a: "PNG et WebP stockent l’image différemment. Le PNG peut être plus lourd, mais le résultat dépend de la source et du réglage ; aucune proportion fixe n’est garantie.",
         },
         {
           q: 'Quand JPG est-il plus adapte que PNG ?',
-          a: "Si vous n'avez pas besoin de transparence et que vous cherchez surtout un fichier plus léger a envoyér ou téléverser, le JPG est souvent plus adapte. Le PNG a plus de sens quand la qualité sans perte ou la retouche priment.",
+          a: "Si vous n’avez pas besoin de transparence, JPG peut être plus pratique. PNG convient à la transparence et à l’édition ; choisissez qualité 95–100 si vous voulez éviter la quantification avec perte.",
         },
       ],
     },
@@ -297,10 +297,10 @@ const fr: PageTranslations = {
     'jpg-to-png': {
       title: 'Convertisseur JPG en PNG - Edition, transparence et reprise | PicShift',
       description:
-        "Convertissez un JPG en PNG lorsque vous voulez un fichier plus stable pour l'edition, la retouche ou un nouvel export sans perte supplementaire.",
+        "Convertissez JPG en PNG pour l’édition ou un nouvel export. Qualité 100 par défaut ; sous 95, la quantification peut être avec perte.",
       h1: 'Convertir JPG en PNG',
       introText:
-        "Convertissez un JPG en PNG quand vous avez besoin d'un fichier plus pratique a retoucher, annoter ou réexporter. Cela n'améliore pas la qualité d'origine, mais evite d'ajouter une nouvelle compression avec perte a chaque sauvegarde.",
+        "Convertissez JPG en PNG pour retoucher ou annoter. Cela ne restaure pas le détail perdu dans le JPG. Entre qualité 95 et 100, seul OxiPNG sans perte est appliqué ; sous 95, la quantification peut être avec perte.",
       howToSteps: [
         'Glissez-déposez vos fichiers JPG dans la zone ci-dessus, ou cliquez pour les parcourir.',
         'Les fichiers sont convertis en PNG instantanément dans votre navigateur.',
@@ -309,7 +309,7 @@ const fr: PageTranslations = {
       faqs: [
         {
           q: 'Convertir JPG en PNG améliore-t-il la qualité ?',
-          a: "Non. Convertir de JPG en PNG ne restaure pas la qualité perdue lors de la compression JPG. Cependant, convertir en PNG empêche toute perte de qualité supplementaire si vous devez editer et ré-enregistrer l'image.",
+          a: "Non. La conversion ne restaure pas le détail perdu dans le JPG. À qualité 95–100, le flux PNG n’ajoute pas de quantification avec perte ; sous 95, il peut le faire. Comparez avant de télécharger.",
         },
         {
           q: 'Pourquoi convertir un JPG en PNG ?',
@@ -332,7 +332,7 @@ const fr: PageTranslations = {
         'Convertissez un JPG en WebP pour obtenir des images plus légeres sur le web et accélérer le chargement des pages.',
       h1: 'Convertir JPG en WebP',
       introText:
-        "Convertissez un JPG en WebP lorsque vous cherchez a alléger une page web sans changer visiblement l'image. C'est souvent la meilleure option pour des photos de produits, des articles, des galeries ou des pages d'atterrissage.",
+        "Convertissez JPG en WebP pour le web, puis comparez taille et rendu. Le résultat varie selon l’image et la qualité choisie.",
       howToSteps: [
         'Glissez-déposez vos fichiers JPG dans la zone ci-dessus, ou cliquez pour les parcourir.',
         'Les fichiers sont convertis en WebP instantanément dans votre navigateur.',
@@ -341,7 +341,7 @@ const fr: PageTranslations = {
       faqs: [
         {
           q: 'Quelle reduction de taille offre WebP par rapport a JPG ?',
-          a: 'WebP est 25 à 34% plus petit que JPG a qualité visuelle egale dans les comparaisons de référence. Un JPG de 1 Mo devient 650-750 Ko en WebP sans difference visible.',
+          a: 'WebP peut être plus petit que JPG à rendu proche, mais aucune réduction fixe ne vaut pour toutes les images. Comparez le fichier et les détails avant publication.',
         },
         {
           q: 'Pourquoi convertir JPG en WebP ?',
@@ -381,19 +381,19 @@ const fr: PageTranslations = {
       title:
         'Convertisseur AVIF en PNG - Gratuit, Prive, Sans Envoi | PicShift',
       description:
-        'Convertissez vos images AVIF en format PNG sans perte dans votre navigateur. Gratuit, prive, sans envoi.',
+        'Convertissez AVIF en PNG dans le navigateur, avec qualité 100 par défaut et sans envoyer les images sources pour conversion.',
       h1: 'Convertir AVIF en PNG',
       introText:
-        'Convertissez vos images AVIF en format PNG sans perte. Parfait pour préserver la qualité maximale.',
+        'Convertissez AVIF en PNG. Entre qualité 95 et 100, seuls les pixels décodés passent par OxiPNG sans perte ; sous 95, la quantification peut être avec perte.',
       howToSteps: [
         'Glissez-déposez vos fichiers AVIF dans la zone ci-dessus, ou cliquez pour les parcourir.',
-        'Les fichiers sont convertis en PNG sans perte instantanément dans votre navigateur.',
+        'Les fichiers sont convertis en PNG dans le navigateur ; vérifiez le réglage et comparez la sortie.',
         'Cliquez sur Télécharger pour enregistrer chaque fichier, ou sur Tout télécharger pour obtenir un ZIP.',
       ],
       faqs: [
         {
           q: 'Pourquoi convertir AVIF en PNG ?',
-          a: 'AVIF a une prise en charge limitee dans certaines applications. Convertir en PNG vous donne un format sans perte et universellement compatible qui fonctionne partout.',
+          a: 'PNG peut être mieux pris en charge dans les applications qui refusent AVIF. Vérifiez l’environnement cible et utilisez qualité 95–100 pour limiter le traitement à OxiPNG sans perte.',
         },
       ],
     },
@@ -432,7 +432,7 @@ const fr: PageTranslations = {
         'Compressez JPG, PNG, WebP, HEIC et AVIF pour r\u00e9duire le poids avant envoi ou t\u00e9l\u00e9versement. Jusqu\u2019\u00e0 200 fichiers par lot dans le navigateur, sans serveur.',
       h1: 'Compresser des Images Gratuitement',
       introText:
-        "Réduisez la taille de vos fichiers image tout en conservant la qualité visuelle. Ajustez le curseur de qualité pour trouver l'équilibre idéal.",
+        "Réduisez la taille des images et comparez le rendu. Le résultat dépend de la source, du format et du réglage ; ajustez le curseur avant de télécharger.",
       howToSteps: [
         'Glissez-déposez vos images dans la zone ci-dessus, ou cliquez pour les parcourir.',
         'Ajustez le curseur de qualité pour contrôler le niveau de compression.',
@@ -445,7 +445,7 @@ const fr: PageTranslations = {
         },
         {
           q: 'De combien puis-je compresser mes images ?',
-          a: "Le resultat de compression depend de l'image source. Un réglage de qualité à 80% réduit la taille des fichiers JPG de 40 à 60% dans les comparaisons de référence, avec une difference visible minimale. Utilisez la vue de comparaison pour vérifier la qualité avant de télécharger.",
+          a: "Le résultat dépend de l’image, du format et du réglage. Qualité 80 est un point de départ, pas une réduction garantie ; utilisez la comparaison pour vérifier taille et détails avant de télécharger.",
         },
         {
           q: 'Quels formats puis-je compresser ?',
@@ -459,20 +459,20 @@ const fr: PageTranslations = {
         "Supprimez EXIF, géolocalisation GPS, modèle d'appareil et autres métadonnées des images JPG, PNG, WebP, HEIC, AVIF. Traitement local dans le navigateur, aucun envoi.",
       h1: 'Supprimer les métadonnées image',
       introText:
-        "Supprimez les métadonnées cachées de vos photos avant de les partager. Les photos prises avec un téléphone ou un appareil photo contiennent par défaut des coordonnées GPS, le modèle de l'appareil, la date et l'heure de prise de vue et des balises logicielles. Cet outil supprime tout localement dans votre navigateur — l'image ne quitte jamais votre appareil.",
+        "Inspectez les métadonnées avant partage. PicShift réencode l’image dans le navigateur sans copier volontairement les champs pris en charge qu’il détecte ; le contenu de l’image source n’est pas envoyé pour cette opération.",
       howToSteps: [
         'Glissez-déposez vos images dans la zone ci-dessus, ou cliquez pour les parcourir.',
-        'Les métadonnées sont supprimées instantanément dans votre navigateur, rien n\'est envoyé.',
-        'Cliquez sur Télécharger pour enregistrer les images nettoyées, ou sur Tout télécharger pour obtenir un ZIP.',
+        'Examinez les champs de métadonnées pris en charge détectés localement.',
+        'Lancez le réencodage puis téléchargez les résultats réussis séparément ou dans un ZIP.',
       ],
       faqs: [
         {
           q: 'Quelles métadonnées sont supprimées ?',
-          a: "Toutes les données EXIF sont supprimées : coordonnées GPS, marque et modèle de l'appareil, informations sur l'objectif, horodatage, balises logicielles et miniatures intégrées. L'image résultante ne contient aucune métadonnée.",
+          a: "L’analyse peut détecter les coordonnées GPS, les données d’appareil et d’objectif, les dates, les balises logicielles et les miniatures. Le réencodage ne copie pas volontairement ces champs, mais des données ajoutées par l’encodeur du navigateur ou le profil colorimétrique peuvent subsister ; vérifiez séparément tout résultat critique.",
         },
         {
           q: "La suppression des métadonnées affecte-t-elle la qualité de l'image ?",
-          a: "Non. La suppression des métadonnées ne retire que les données non visuelles intégrées dans le fichier. Le contenu en pixels de votre image reste identique.",
+          a: "L’outil vise les données non visuelles. Certains formats peuvent nécessiter un réencodage ; comparez la sortie si vous exigez une fidélité stricte. Le résultat dépend du format source.",
         },
         {
           q: 'Pourquoi supprimer les métadonnées avant de partager des photos ?',
@@ -490,9 +490,9 @@ const fr: PageTranslations = {
       detailSections: [
         {
           title: 'Périmètre et limites',
-          body: 'Cet outil supprime les métadonnées intégrées dans le fichier lui-même. Il ne modifie pas les pixels visibles de l’image : il sert donc a éliminer les fuites d’informations cachées, pas a effacer ce qui apparaît déjà a l’écran.',
+          body: 'Cet outil cible les métadonnées intégrées au fichier. Le réencodage n’efface pas les objets ou textes visibles, mais peut modifier les valeurs de pixels dans les formats avec perte ; il traite les informations cachées, pas le contenu déjà visible.',
           items: [
-            'Il peut supprimer les coordonnées GPS, le modèle de l’appareil, la date, l’heure et les balises logicielles, mais il ne retire pas les visages, plaques, filigranes ou textes déjà visibles dans l’image.',
+            'Les champs détectés peuvent inclure les coordonnées GPS, le modèle de l’appareil, la date, l’heure et les balises logicielles ; le nettoyage ne retire pas les visages, plaques, filigranes ou textes visibles.',
             'Les JPG, PNG, WebP et AVIF sont téléchargés dans le même format. Les HEIC et HEIF nettoyés sont fournis en JPG, car le navigateur ne sait pas encore les réécrire de manière fiable en HEIC ou HEIF.',
             'Certaines applications et plateformes sociales retirent une partie des métadonnées après envoi, mais ce comportement reste variable et peut changer. Le plus sûr est donc de nettoyer le fichier vous-même avant de l’utiliser.',
           ],
@@ -502,7 +502,7 @@ const fr: PageTranslations = {
           body: 'Le principe est simple : verifiez d’abord ce que contient le fichier, nettoyez-le ensuite, puis utilisez la copie nettoyee quand vous en avez besoin.',
           items: [
             'Deposez l’image dans l’outil pour voir exactement quelles informations le fichier contient.',
-            'Si le fichier n’affiche que la largeur, la hauteur ou l’espace colorimetrique, vous verrez 0 donnee sensible. S’il contient des coordonnées GPS, des details sur l’appareil ou des horodatages, ces elements seront signales comme sensibles.',
+            'Un résultat de 0 signifie qu’aucun champ pris en charge n’a été détecté, pas que tout bloc possible est absent. Les champs GPS, appareil ou date détectés sont signalés comme sensibles.',
             'Téléchargéz le fichier nettoye et utilisez cette version lorsque vous voulez l’enregistrer, l’envoyér, la mettre en ligne ou simplement la conserver.',
           ],
         },

@@ -7,8 +7,9 @@ import { getDocsFaqs } from '../../../i18n/docsFaqs';
 import { getDocsUi } from '../../../i18n/docsUi';
 import { SUPPORTED_LOCALES, localePath } from '../../../i18n';
 import { getPageTranslations } from '../../../i18n/translations';
-import type { Locale } from '../../../i18n/config';
+import { LOCALE_CONFIG, type Locale } from '../../../i18n/config';
 import { htmlCanonicalUrl } from '../../../lib/htmlCanonicalUrl';
+import { PICSHIFT_ORGANIZATION } from '../../../lib/schemaEntities';
 
 export function getStaticPaths() {
   return SUPPORTED_LOCALES
@@ -50,15 +51,15 @@ const formatDocContent = {
     recommendations: [
       'Choose JPG for broad compatibility and smaller files for photos.',
       'Choose PNG when you need sharp text or transparent backgrounds.',
-      'Choose WebP or AVIF for better web compression when target browsers support them.',
+      'Test WebP or AVIF when the target environment supports them; either may reduce transfer size depending on the source and settings.',
       'Use quality sliders to balance file size and visible detail.',
     ],
     commonConversionPaths: 'Common conversion paths',
     conversionPaths: [
       'HEIC to JPG: easier sharing across legacy apps and websites.',
       'PNG to JPG: reduce file size for photographic content.',
-      'JPG to WebP: reduce web delivery size at equivalent visual quality.',
-      'WebP to HEIF: compatibility workflows for specific mobile ecosystems.',
+      'JPG to WebP: compare output quality and size; a reduction is common but not guaranteed for every source.',
+      'WebP to JPG: broader compatibility with older apps, upload forms, and print workflows.',
     ],
   },
   zh: {
@@ -77,15 +78,15 @@ const formatDocContent = {
     recommendations: [
       '照片和广泛兼容场景优先使用 JPG。',
       '需要文字边缘清晰或透明背景时优先使用 PNG。',
-      '目标浏览器支持时，网页交付优先选择 WebP 或 AVIF 以降低传输体积。',
+      '目标环境支持时可测试 WebP 或 AVIF；是否减小传输体积取决于源图与设置。',
       '使用质量滑块平衡文件大小和可见细节。',
     ],
     commonConversionPaths: '常见转换路径',
     conversionPaths: [
       'HEIC 转 JPG：便于在旧版应用和网站中分享与使用。',
       'PNG 转 JPG：适合照片类内容的体积压缩。',
-      'JPG 转 WebP：在相近视觉质量下减小网页传输体积。',
-      'WebP 转 HEIF：适用于特定移动生态的兼容流程。',
+      'JPG 转 WebP：请比较实际画质与体积；常见情况下可减小，但并非对所有源图都成立。',
+      'WebP 转 JPG：提高与旧应用、上传表单和打印流程的兼容性。',
     ],
   },
   'zh-Hant': {
@@ -104,15 +105,15 @@ const formatDocContent = {
     recommendations: [
       '照片與廣泛相容場景優先使用 JPG。',
       '需要文字邊緣清晰或透明背景時優先使用 PNG。',
-      '目標瀏覽器支援時，網頁傳遞優先選擇 WebP 或 AVIF 以降低傳輸體積。',
+      '目標環境支援時可測試 WebP 或 AVIF；是否減少傳輸體積取決於來源圖片與設定。',
       '使用品質滑桿平衡檔案大小與可見細節。',
     ],
     commonConversionPaths: '常見轉換路徑',
     conversionPaths: [
       'HEIC 轉 JPG：便於在舊版應用與網站中分享與使用。',
       'PNG 轉 JPG：適合照片內容的體積壓縮。',
-      'JPG 轉 WebP：在相近視覺品質下減小網頁傳輸體積。',
-      'WebP 轉 HEIF：適用於特定行動生態的相容流程。',
+      'JPG 轉 WebP：請比較實際畫質與體積；常見情況可減少，但並非所有來源圖片都成立。',
+      'WebP 轉 JPG：提高與舊版應用程式、上傳表單及列印流程的相容性。',
     ],
   },
   es: {
@@ -131,15 +132,15 @@ const formatDocContent = {
     recommendations: [
       'Usa JPG para alta compatibilidad y archivos más pequeños en fotos.',
       'Usa PNG cuando necesites texto nítido o fondos transparentes.',
-      'Usa WebP o AVIF para mejor compresión web cuando los navegadores objetivo lo soporten.',
+      'Prueba WebP o AVIF si el entorno objetivo los admite; la reducción depende de la imagen y los ajustes.',
       'Ajusta el control de calidad para equilibrar tamaño y detalle visible.',
     ],
     commonConversionPaths: 'Rutas de conversión comunes',
     conversionPaths: [
       'HEIC a JPG: facilita compartir en apps y sitios heredados.',
       'PNG a JPG: reduce tamaño en contenido fotográfico.',
-      'JPG a WebP: reduce transferencia web con calidad visual equivalente.',
-      'WebP a HEIF: flujo de compatibilidad para ecosistemas móviles específicos.',
+      'JPG a WebP: compara calidad y tamaño; la reducción es frecuente, pero no está garantizada para todas las imágenes.',
+      'WebP a JPG: mayor compatibilidad con apps antiguas, formularios y flujos de impresión.',
     ],
   },
   fr: {
@@ -158,15 +159,15 @@ const formatDocContent = {
     recommendations: [
       'Choisissez JPG pour une large compatibilité et des photos plus légères.',
       'Choisissez PNG pour du texte net ou des arrière-plans transparents.',
-      'Choisissez WebP ou AVIF pour une meilleure compression web si les navigateurs cibles les prennent en charge.',
+      'Testez WebP ou AVIF si l’environnement cible les accepte ; le gain dépend de la source et des réglages.',
       'Utilisez le réglage de qualité pour équilibrer taille et détail visible.',
     ],
     commonConversionPaths: 'Conversions courantes',
     conversionPaths: [
       'HEIC vers JPG : partage plus simple avec applications et sites anciens.',
       'PNG vers JPG : réduction de taille pour contenu photo.',
-      'JPG vers WebP : réduction du poids web à qualité visuelle équivalente.',
-      'WebP vers HEIF : flux de compatibilité pour certains écosystèmes mobiles.',
+      'JPG vers WebP : comparez qualité et taille ; une réduction est fréquente mais pas garantie pour chaque source.',
+      'WebP vers JPG : compatibilité plus large avec anciennes applications, formulaires et impression.',
     ],
   },
   de: {
@@ -185,15 +186,15 @@ const formatDocContent = {
     recommendations: [
       'Wähle JPG für breite Kompatibilität und kleinere Dateien bei Fotos.',
       'Wähle PNG für scharfen Text oder transparente Hintergründe.',
-      'Wähle WebP oder AVIF für bessere Web-Kompression, wenn Zielbrowser sie unterstützen.',
+      'WebP oder AVIF testen, wenn die Zielumgebung sie unterstützt; die Größenreduktion hängt von Quelle und Einstellungen ab.',
       'Nutze den Qualitätsregler, um Dateigröße und sichtbare Details auszubalancieren.',
     ],
     commonConversionPaths: 'Häufige Konvertierungspfade',
     conversionPaths: [
       'HEIC zu JPG: einfacheres Teilen in älteren Apps und Websites.',
       'PNG zu JPG: kleinere Dateien für fotobasierten Inhalt.',
-      'JPG zu WebP: geringere Web-Transfergröße bei vergleichbarer visueller Qualität.',
-      'WebP zu HEIF: Kompatibilitäts-Workflows für bestimmte mobile Ökosysteme.',
+      'JPG zu WebP: Qualität und Größe vergleichen; eine Reduktion ist häufig, aber nicht für jede Quelle garantiert.',
+      'WebP zu JPG: breitere Kompatibilität mit älteren Apps, Upload-Formularen und Druckabläufen.',
     ],
   },
   ja: {
@@ -212,15 +213,15 @@ const formatDocContent = {
     recommendations: [
       '写真と広い互換性を重視するなら JPG を選びます。',
       '文字のシャープさや透過背景が必要なら PNG を選びます。',
-      '対象ブラウザが対応している場合は、Web 配信に WebP または AVIF を選びます。',
+      '対象環境が対応していれば WebP または AVIF を試します。サイズ削減は元画像と設定に依存します。',
       '品質スライダーでファイルサイズと見た目のディテールを調整します。',
     ],
     commonConversionPaths: 'よく使う変換パス',
     conversionPaths: [
       'HEIC -> JPG: 旧アプリやWebサイトで共有しやすくなります。',
       'PNG -> JPG: 写真系コンテンツのファイルサイズを下げます。',
-      'JPG -> WebP: 近い見た目品質でWeb転送サイズを下げます。',
-      'WebP -> HEIF: 特定モバイル環境向けの互換ワークフローに使います。',
+      'JPG -> WebP: 実際の画質とサイズを比較します。削減できることは多いものの、すべての元画像で保証されません。',
+      'WebP -> JPG: 古いアプリ、アップロードフォーム、印刷処理との互換性を高めます。',
     ],
   },
   ko: {
@@ -239,15 +240,15 @@ const formatDocContent = {
     recommendations: [
       '사진과 광범위한 호환성이 필요하면 JPG를 선택합니다.',
       '선명한 텍스트나 투명 배경이 필요하면 PNG를 선택합니다.',
-      '대상 브라우저가 지원하면 웹 압축에 WebP 또는 AVIF를 선택합니다.',
+      '대상 환경이 지원하면 WebP 또는 AVIF를 시험합니다. 크기 감소는 원본과 설정에 따라 달라집니다.',
       '품질 슬라이더로 파일 크기와 시각적 디테일의 균형을 맞춥니다.',
     ],
     commonConversionPaths: '자주 쓰는 변환 경로',
     conversionPaths: [
       'HEIC -> JPG: 구형 앱과 웹사이트에서 공유가 쉬워집니다.',
       'PNG -> JPG: 사진 콘텐츠의 파일 크기를 줄입니다.',
-      'JPG -> WebP: 유사한 화질로 웹 전송 크기를 줄입니다.',
-      'WebP -> HEIF: 특정 모바일 생태계 호환 워크플로에 사용합니다.',
+      'JPG -> WebP: 실제 화질과 크기를 비교하세요. 줄어드는 경우가 많지만 모든 원본에서 보장되지는 않습니다.',
+      'WebP -> JPG: 구형 앱, 업로드 양식, 인쇄 작업과의 호환성을 넓힙니다.',
     ],
   },
   pt: {
@@ -266,15 +267,15 @@ const formatDocContent = {
     recommendations: [
       'Escolha JPG para ampla compatibilidade e arquivos menores em fotos.',
       'Escolha PNG quando precisar de texto nítido ou fundo transparente.',
-      'Escolha WebP ou AVIF para melhor compressão web quando o navegador alvo suportar.',
+      'Teste WebP ou AVIF quando o ambiente alvo suportar; a redução depende da origem e das configurações.',
       'Use o controle de qualidade para equilibrar tamanho e detalhe visível.',
     ],
     commonConversionPaths: 'Caminhos de conversão comuns',
     conversionPaths: [
       'HEIC para JPG: facilita compartilhamento em apps e sites legados.',
       'PNG para JPG: reduz o tamanho em conteúdo fotográfico.',
-      'JPG para WebP: reduz tamanho de entrega web com qualidade visual equivalente.',
-      'WebP para HEIF: fluxo de compatibilidade para ecossistemas mobile específicos.',
+      'JPG para WebP: compare qualidade e tamanho; a redução é comum, mas não garantida para toda origem.',
+      'WebP para JPG: compatibilidade mais ampla com apps antigos, formulários e impressão.',
     ],
   },
   ru: {
@@ -293,15 +294,15 @@ const formatDocContent = {
     recommendations: [
       'Выбирайте JPG для широкой совместимости и меньшего размера фото.',
       'Выбирайте PNG для четкого текста или прозрачного фона.',
-      'Выбирайте WebP или AVIF для лучшей веб-компрессии, если целевые браузеры поддерживают эти форматы.',
+      'Тестируйте WebP или AVIF, если целевая среда их поддерживает; выигрыш зависит от исходника и настроек.',
       'Используйте ползунок качества, чтобы балансировать размер и видимые детали.',
     ],
     commonConversionPaths: 'Частые пути конвертации',
     conversionPaths: [
       'HEIC в JPG: проще делиться в старых приложениях и на сайтах.',
       'PNG в JPG: уменьшение размера для фотографического контента.',
-      'JPG в WebP: уменьшение веб-трафика при сопоставимом визуальном качестве.',
-      'WebP в HEIF: сценарии совместимости для отдельных мобильных экосистем.',
+      'JPG в WebP: сравнивайте качество и размер; уменьшение встречается часто, но не гарантировано для каждого исходника.',
+      'WebP в JPG: более широкая совместимость со старыми приложениями, формами и печатью.',
     ],
   },
   ar: {
@@ -320,15 +321,15 @@ const formatDocContent = {
     recommendations: [
       'اختر JPG للتوافق الواسع وحجم أصغر للصور.',
       'اختر PNG عندما تحتاج نصًا حادًا أو خلفية شفافة.',
-      'اختر WebP أو AVIF لضغط ويب أفضل عندما تدعمها المتصفحات المستهدفة.',
+      'اختبر WebP أو AVIF عندما تدعمهما البيئة المستهدفة؛ يعتمد انخفاض الحجم على المصدر والإعدادات.',
       'استخدم منزلق الجودة لموازنة الحجم والتفاصيل المرئية.',
     ],
     commonConversionPaths: 'مسارات تحويل شائعة',
     conversionPaths: [
       'HEIC إلى JPG: مشاركة أسهل عبر التطبيقات والمواقع القديمة.',
       'PNG إلى JPG: تقليل الحجم لمحتوى الصور الفوتوغرافية.',
-      'JPG إلى WebP: تقليل حجم التسليم للويب مع جودة بصرية مكافئة.',
-      'WebP إلى HEIF: مسارات توافق لأنظمة جوال محددة.',
+      'JPG إلى WebP: قارن الجودة والحجم الفعليين؛ الانخفاض شائع لكنه غير مضمون لكل صورة.',
+      'WebP إلى JPG: توافق أوسع مع التطبيقات القديمة ونماذج الرفع والطباعة.',
     ],
   },
   it: {
@@ -347,15 +348,15 @@ const formatDocContent = {
     recommendations: [
       'Scegli JPG per ampia compatibilità e file più piccoli nelle foto.',
       'Scegli PNG quando servono testo nitido o sfondi trasparenti.',
-      'Scegli WebP o AVIF per migliore compressione web quando i browser target li supportano.',
+      'Prova WebP o AVIF se l’ambiente target li supporta; il risparmio dipende da sorgente e impostazioni.',
       'Usa il cursore qualità per bilanciare dimensione file e dettaglio visibile.',
     ],
     commonConversionPaths: 'Percorsi di conversione comuni',
     conversionPaths: [
       'HEIC in JPG: condivisione più semplice su app e siti legacy.',
       'PNG in JPG: riduce la dimensione per contenuti fotografici.',
-      'JPG in WebP: riduce il peso web a qualità visiva equivalente.',
-      'WebP in HEIF: workflow di compatibilità per specifici ecosistemi mobili.',
+      'JPG in WebP: confronta qualità e dimensione; la riduzione è comune ma non garantita per ogni sorgente.',
+      'WebP in JPG: compatibilità più ampia con app meno recenti, moduli e stampa.',
     ],
   },
 }[lang] ?? {
@@ -374,17 +375,99 @@ const formatDocContent = {
   recommendations: [
     'Choose JPG for broad compatibility and smaller files for photos.',
     'Choose PNG when you need sharp text or transparent backgrounds.',
-    'Choose WebP or AVIF for better web compression when target browsers support them.',
+    'Test WebP or AVIF when the target environment supports them; either may reduce transfer size depending on the source and settings.',
     'Use quality sliders to balance file size and visible detail.',
   ],
   commonConversionPaths: 'Common conversion paths',
   conversionPaths: [
     'HEIC to JPG: easier sharing across legacy apps and websites.',
     'PNG to JPG: reduce file size for photographic content.',
-    'JPG to WebP: reduce web delivery size at equivalent visual quality.',
-    'WebP to HEIF: compatibility workflows for specific mobile ecosystems.',
+    'JPG to WebP: compare output quality and size; a reduction is common but not guaranteed for every source.',
+    'WebP to JPG: broader compatibility with older apps, upload forms, and print workflows.',
   ],
 };
+
+const formatSupportText = {
+  zh: {
+    inputLabel: '接受的输入格式', outputLabel: '可用的输出格式',
+    inputOnlyNote: 'HEIC、HEIF 和 BMP 仅支持输入；PicShift 目前不导出这些格式。',
+    bmpUse: '旧式位图导入（仅输入）', bmpTransparency: '因 BMP 变体而异', bmpCompression: '通常未压缩',
+  },
+  'zh-Hant': {
+    inputLabel: '接受的輸入格式', outputLabel: '可用的輸出格式',
+    inputOnlyNote: 'HEIC、HEIF 與 BMP 僅支援輸入；PicShift 目前不匯出這些格式。',
+    bmpUse: '舊式點陣圖匯入（僅輸入）', bmpTransparency: '依 BMP 變體而異', bmpCompression: '通常未壓縮',
+  },
+  es: {
+    inputLabel: 'Formatos de entrada', outputLabel: 'Formatos de salida',
+    inputOnlyNote: 'HEIC, HEIF y BMP son solo de entrada; PicShift no los exporta actualmente.',
+    bmpUse: 'Importación de mapa de bits heredado (solo entrada)', bmpTransparency: 'Varía según la variante BMP', bmpCompression: 'Normalmente sin compresión',
+  },
+  fr: {
+    inputLabel: 'Formats d’entrée', outputLabel: 'Formats de sortie',
+    inputOnlyNote: 'HEIC, HEIF et BMP sont acceptés uniquement en entrée ; PicShift ne les exporte pas actuellement.',
+    bmpUse: 'Import bitmap ancien (entrée uniquement)', bmpTransparency: 'Varie selon la variante BMP', bmpCompression: 'Généralement non compressé',
+  },
+  de: {
+    inputLabel: 'Eingabeformate', outputLabel: 'Ausgabeformate',
+    inputOnlyNote: 'HEIC, HEIF und BMP werden nur als Eingabe unterstützt; PicShift exportiert diese Formate derzeit nicht.',
+    bmpUse: 'Import älterer Bitmap-Dateien (nur Eingabe)', bmpTransparency: 'Je nach BMP-Variante', bmpCompression: 'Üblicherweise unkomprimiert',
+  },
+  ja: {
+    inputLabel: '入力形式', outputLabel: '出力形式',
+    inputOnlyNote: 'HEIC、HEIF、BMP は入力専用です。PicShift は現在これらの形式を書き出しません。',
+    bmpUse: '従来のビットマップ読み込み（入力専用）', bmpTransparency: 'BMP の種類による', bmpCompression: '通常は非圧縮',
+  },
+  ko: {
+    inputLabel: '입력 포맷', outputLabel: '출력 포맷',
+    inputOnlyNote: 'HEIC, HEIF, BMP는 입력 전용이며 PicShift는 현재 이 포맷으로 내보내지 않습니다.',
+    bmpUse: '레거시 비트맵 가져오기(입력 전용)', bmpTransparency: 'BMP 변형에 따라 다름', bmpCompression: '일반적으로 비압축',
+  },
+  pt: {
+    inputLabel: 'Formatos de entrada', outputLabel: 'Formatos de saída',
+    inputOnlyNote: 'HEIC, HEIF e BMP são apenas de entrada; o PicShift não exporta esses formatos atualmente.',
+    bmpUse: 'Importação de bitmap legado (somente entrada)', bmpTransparency: 'Varia conforme a variante BMP', bmpCompression: 'Normalmente sem compressão',
+  },
+  ru: {
+    inputLabel: 'Входные форматы', outputLabel: 'Выходные форматы',
+    inputOnlyNote: 'HEIC, HEIF и BMP поддерживаются только на входе; PicShift сейчас не экспортирует эти форматы.',
+    bmpUse: 'Импорт устаревших растровых файлов (только вход)', bmpTransparency: 'Зависит от варианта BMP', bmpCompression: 'Обычно без сжатия',
+  },
+  ar: {
+    inputLabel: 'صيغ الإدخال', outputLabel: 'صيغ الإخراج',
+    inputOnlyNote: 'صيغ HEIC وHEIF وBMP مخصصة للإدخال فقط؛ ولا يصدّر PicShift هذه الصيغ حاليًا.',
+    bmpUse: 'استيراد صور نقطية قديمة (إدخال فقط)', bmpTransparency: 'تختلف حسب نوع BMP', bmpCompression: 'عادةً بلا ضغط',
+  },
+  it: {
+    inputLabel: 'Formati di input', outputLabel: 'Formati di output',
+    inputOnlyNote: 'HEIC, HEIF e BMP sono supportati solo in input; PicShift al momento non li esporta.',
+    bmpUse: 'Importazione bitmap legacy (solo input)', bmpTransparency: 'Varia in base alla variante BMP', bmpCompression: 'Di solito non compresso',
+  },
+  en: {
+    inputLabel: 'Accepted inputs', outputLabel: 'Available outputs',
+    inputOnlyNote: 'HEIC, HEIF, and BMP are input-only; PicShift does not currently export those formats.',
+    bmpUse: 'Legacy bitmap import (input only)', bmpTransparency: 'Varies by BMP variant', bmpCompression: 'Usually uncompressed',
+  },
+}[lang] ?? {
+  inputLabel: 'Accepted inputs', outputLabel: 'Available outputs',
+  inputOnlyNote: 'HEIC, HEIF, and BMP are input-only; PicShift does not currently export those formats.',
+  bmpUse: 'Legacy bitmap import (input only)', bmpTransparency: 'Varies by BMP variant', bmpCompression: 'Usually uncompressed',
+};
+
+const compatibilityScopeNote = {
+  zh: '本表描述格式属性和 PicShift 当前转换路径，不代表所有应用都兼容，也不是压缩率基准测试。浏览器、应用与版本支持会变化，请在实际目标环境中验证。',
+  'zh-Hant': '本表描述格式屬性與 PicShift 目前的轉換路徑，不代表所有應用程式都相容，也不是壓縮率基準測試。瀏覽器、應用程式與版本支援會變動，請在實際目標環境中驗證。',
+  es: 'La tabla describe propiedades de formato y las rutas actuales de PicShift; no garantiza compatibilidad universal ni mide ahorros de compresión. Verifica el navegador, la app y la versión de destino.',
+  fr: 'Le tableau décrit les propriétés des formats et les parcours actuels de PicShift ; il ne garantit pas une compatibilité universelle et ne mesure pas les gains de compression. Vérifiez l’application et sa version.',
+  de: 'Die Tabelle beschreibt Formateigenschaften und aktuelle PicShift-Abläufe, nicht universelle App-Kompatibilität oder gemessene Einsparungen. Zielbrowser, App und Version müssen geprüft werden.',
+  ja: 'この表は形式の特性と現在の PicShift 変換経路を示すもので、すべてのアプリの互換性や圧縮率を保証するベンチマークではありません。対象のブラウザー、アプリ、バージョンで確認してください。',
+  ko: '이 표는 포맷 특성과 현재 PicShift 변환 경로를 설명하며 모든 앱의 호환성이나 압축 절감률을 보장하는 벤치마크가 아닙니다. 대상 브라우저·앱·버전에서 확인하세요.',
+  pt: 'A tabela descreve propriedades dos formatos e os fluxos atuais do PicShift; não garante compatibilidade universal nem mede economia de compressão. Valide o navegador, app e versão de destino.',
+  ru: 'Таблица описывает свойства форматов и текущие пути PicShift, а не универсальную совместимость или измеренную экономию. Проверяйте целевой браузер, приложение и версию.',
+  ar: 'يصف الجدول خصائص الصيغ ومسارات PicShift الحالية، ولا يضمن توافق كل التطبيقات ولا يمثل اختبارًا لوفورات الضغط. تحقّق من المتصفح والتطبيق والإصدار المستهدف.',
+  it: 'La tabella descrive proprietà dei formati e percorsi attuali di PicShift; non garantisce compatibilità universale né misura il risparmio di compressione. Verifica browser, app e versione target.',
+  en: 'This table describes format properties and current PicShift paths, not universal app compatibility or measured compression savings. Verify the target browser, app, and version.',
+}[lang] ?? 'This table describes format properties and current PicShift paths, not universal app compatibility or measured compression savings. Verify the target browser, app, and version.';
 
 const articleSchema = {
   '@context': 'https://schema.org',
@@ -392,11 +475,11 @@ const articleSchema = {
   headline: title,
   description,
   url: canonical,
-  inLanguage: lang,
+  inLanguage: LOCALE_CONFIG[lang].hrefLang,
   datePublished,
   dateModified,
-  author: { '@type': 'Organization', name: 'PicShift' },
-  publisher: { '@type': 'Organization', name: 'PicShift', url: 'https://picshift.app' },
+  author: PICSHIFT_ORGANIZATION,
+  publisher: PICSHIFT_ORGANIZATION,
 };
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -455,9 +538,23 @@ const faqSchema = {
       <p class="text-base sm:text-lg text-text-secondary mb-8">
         {formatDocContent.intro}
       </p>
+      <div class="text-sm text-text-secondary mb-8 rounded-xl border border-border bg-card-bg p-4 space-y-2">
+        <p>{compatibilityScopeNote}</p>
+        <p>
+          Sources:
+          <a href="https://developers.google.com/speed/webp" rel="noreferrer" class="text-primary-500 hover:underline">Google WebP</a>,
+          <a href="https://aomediacodec.github.io/av1-avif/" rel="noreferrer" class="text-primary-500 hover:underline">AOMedia AVIF</a>,
+          <a href="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types" rel="noreferrer" class="text-primary-500 hover:underline">MDN image formats</a>.
+        </p>
+      </div>
 
       <section class="mb-8">
         <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">{formatDocContent.supportedFormats}</h2>
+        <div class="mb-4 rounded-xl border border-border bg-card-bg p-4 text-sm text-text-secondary space-y-1">
+          <p><strong class="text-text-primary">{formatSupportText.inputLabel}:</strong> HEIC, HEIF, JPG, JPEG, PNG, WebP, AVIF, BMP.</p>
+          <p><strong class="text-text-primary">{formatSupportText.outputLabel}:</strong> JPG, PNG, WebP, AVIF.</p>
+          <p>{formatSupportText.inputOnlyNote}</p>
+        </div>
         <div class="overflow-x-auto rounded-xl border border-border bg-card-bg shadow-sm">
           <table class="w-full text-sm">
             <thead>
@@ -477,6 +574,12 @@ const faqSchema = {
                   <td class="py-3 px-4">{row[3]}</td>
                 </tr>
               ))}
+              <tr>
+                <td class="py-3 px-4 text-text-primary font-medium">BMP</td>
+                <td class="py-3 px-4">{formatSupportText.bmpUse}</td>
+                <td class="py-3 px-4">{formatSupportText.bmpTransparency}</td>
+                <td class="py-3 px-4">{formatSupportText.bmpCompression}</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -529,7 +632,7 @@ const faqSchema = {
           <li><a href={`/${lang}/png-to-jpg`} class="text-primary-500 hover:underline">{pageTranslations.tools['png-to-jpg']?.h1 || 'PNG to JPG Converter'}</a></li>
         </ul>
       </section>
-      <p class="text-sm text-text-secondary pt-4 border-t border-border">{docsUi.lastUpdated}: {dateModified}</p>
+      <p class="text-sm text-text-secondary pt-4 border-t border-border">{docsUi.lastUpdated}: <time datetime={dateModified} data-date-modified>{dateModified}</time></p>
     </article>
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

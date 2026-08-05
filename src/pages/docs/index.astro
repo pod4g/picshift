@@ -5,6 +5,7 @@ import Footer from '../../components/layout/Footer.astro';
 import RelatedToolsBlock from '../../components/docs/RelatedToolsBlock.astro';
 import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../lib/contentDates';
 import { htmlCanonicalUrl } from '../../lib/htmlCanonicalUrl';
+import { PICSHIFT_ORGANIZATION } from '../../lib/schemaEntities';
 
 const lang = 'en' as const;
 const title = 'PicShift Docs — Image Format, Quality and Privacy Guides';
@@ -23,7 +24,7 @@ const articleSchema = {
   inLanguage: 'en',
   datePublished,
   dateModified,
-  publisher: { '@type': 'Organization', name: 'PicShift', url: 'https://picshift.app' },
+  publisher: PICSHIFT_ORGANIZATION,
 };
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -114,7 +115,7 @@ const docsItemListSchema = {
       </div>
       <RelatedToolsBlock lang={lang} />
 
-      <p class="text-sm text-text-secondary pt-4 border-t border-border mt-6">Last updated: {dateModified}</p>
+      <p class="text-sm text-text-secondary pt-4 border-t border-border mt-6">Last updated: <time datetime={dateModified} data-date-modified>{dateModified}</time></p>
     </section>
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

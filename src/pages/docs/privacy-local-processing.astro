@@ -5,6 +5,7 @@ import Footer from '../../components/layout/Footer.astro';
 import { CONTENT_DATE_MODIFIED, DOCS_DATE_PUBLISHED } from '../../lib/contentDates';
 import { htmlCanonicalUrl } from '../../lib/htmlCanonicalUrl';
 import { getVerificationUi } from '../../i18n/verificationUi';
+import { PICSHIFT_ORGANIZATION } from '../../lib/schemaEntities';
 
 const lang = 'en' as const;
 const title = 'How PicShift Handles Privacy and Local Processing';
@@ -24,8 +25,8 @@ const articleSchema = {
   inLanguage: 'en',
   datePublished,
   dateModified,
-  author: { '@type': 'Organization', name: 'PicShift' },
-  publisher: { '@type': 'Organization', name: 'PicShift', url: 'https://picshift.app' },
+  author: PICSHIFT_ORGANIZATION,
+  publisher: PICSHIFT_ORGANIZATION,
 };
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -122,7 +123,7 @@ const faqSchema = {
         <ul class="list-disc pl-5 space-y-2 text-text-secondary">
           <li>Small interface preferences such as theme, language, and default quality may be stored in browser localStorage.</li>
           <li>PicShift also sees ordinary website traffic records such as page URL, referrer, approximate country, browser type, and whether a button or internal link was clicked.</li>
-          <li>Under the current setup, both Umami and Cloudflare Web Analytics retain analytics data for 6 months.</li>
+          <li>Analytics reporting availability and retention follow each provider’s current policy and the active PicShift account configuration; PicShift does not publish a fixed deletion period here.</li>
         </ul>
       </section>
 
@@ -209,11 +210,11 @@ const faqSchema = {
         <h2 class="text-xl sm:text-2xl font-semibold text-text-primary mb-3">Back to tool pages</h2>
         <ul class="list-disc pl-5 space-y-2 text-text-secondary">
           <li><a href="/heic-to-jpg" class="text-primary-500 hover:underline">HEIC to JPG Converter</a></li>
-          <li><a href="/webp-to-heif" class="text-primary-500 hover:underline">WebP to HEIF Converter</a></li>
+          <li><a href="/webp-to-heif" class="text-primary-500 hover:underline">WebP to HEIF support status</a></li>
           <li><a href="/image-compressor" class="text-primary-500 hover:underline">Image Compressor</a></li>
         </ul>
       </section>
-      <p class="text-sm text-text-secondary pt-4 border-t border-border">Last updated: {dateModified}</p>
+      <p class="text-sm text-text-secondary pt-4 border-t border-border">Last updated: <time datetime={dateModified} data-date-modified>{dateModified}</time></p>
     </article>
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

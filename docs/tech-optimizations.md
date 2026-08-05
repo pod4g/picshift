@@ -492,21 +492,20 @@ self.postMessage(earlyMsg);
 
 ### 10.1 代码分割
 
-通过 Rollup `manualChunks` 将大型依赖分离为独立 chunk，避免主 bundle 过大：
+ZIP 依赖保留为独立 chunk；HEIC 解码直接按需加载浏览器 WASM bundle，避免从包根入口引入 Node 兼容代码和重复 payload：
 
 ```javascript
 // astro.config.mjs
 manualChunks: {
-  heic: ['libheif-js'],  // 1.4 MB，仅 HEIC 文件触发加载
-  zip: ['fflate'],        // ZIP 库
+  zip: ['fflate'], // ZIP 库
 }
 ```
 
-所有 WASM 编码器也通过 `dynamic import()` 实现代码分割，只有实际需要某种格式编码时才加载对应的 JS 胶水 + WASM 二进制。
+所有 WASM 编码器和 HEIC 浏览器 bundle 都通过 `dynamic import()` 实现代码分割，只有实际需要某种格式时才加载对应的 JS 胶水与 WASM 二进制。
 
 ### 10.2 WASM 文件静态托管
 
-6 个 WASM 文件（总计约 4.5 MB）放在 `public/wasm/` 目录下作为静态资源，通过 `fetch()` 按需加载。浏览器会对这些文件做 HTTP 缓存（通常是强缓存 + immutable），二次访问时直接从缓存读取。
+6 个 WASM 文件（总计约 4.5 MB）放在 `public/wasm/` 目录下作为静态资源，通过 `fetch()` 按需加载。固定文件名不能使用 `immutable`：浏览器在线时必须重新验证；Service Worker 使用 NetworkFirst，并把成功使用过的 codec 保留为最长 90 天的离线后备。
 
 | WASM 文件 | 大小 | 对应编码器 |
 |-----------|------|-----------|
@@ -516,6 +515,14 @@ manualChunks: {
 | `webp_enc.wasm` | 275 KB | libwebp（WebP） |
 | `webp_enc_simd.wasm` | 337 KB | libwebp SIMD（WebP 加速） |
 | `avif_enc.wasm` | 3.3 MB | AV1（AVIF） |
+
+### 10.3 轻量 PWA 与首次访问离线闭环
+
+安装阶段只预缓存首页壳、注册脚本、关键 CSS、字体和图标，并由构建审计限制在 24 个条目、512 KiB 以内。应用 JavaScript、Worker 与 WASM 不进入安装预缓存，而是在实际使用后由运行时缓存保存，避免为未使用的格式支付下载成本。
+
+`<head>` 中的注册辅助脚本异步下载，到达后立即注册 Service Worker，不阻塞 HTML 解析。首次访问中若当前文档、Astro island 或 Worker 内部 codec 依赖先于 Service Worker 接管完成加载，页面与 Worker 会报告实际使用过的同源资源；即使转换早于异步脚本完成，资源清单也会先进入全局待处理队列，待接管后重新经过 Workbox，瞬时失败最多重试两次。这同时覆盖带引荐参数的非根路径首次进入。指纹化资源按稳定 URL 匹配并忽略 `Vary: Origin` 的响应差异；静态页面缓存忽略不改变内容的 query 变体；固定文件名的 WASM、`sw.js` 与 `registerSW.js` 在线时必须重新验证。已受控的后续导航不再重复预热当前页面或 WASM。
+
+离线承诺以“成功在线使用过的转换路径”为边界：用户先在线完成一次某格式转换，随后才能可靠地离线重复同一路径；从未加载过的 codec 仍需要网络。
 
 ---
 
@@ -533,4 +540,4 @@ PicShift 的核心技术选择是**将专业级 C/C++/Rust 编码器通过 WebAs
 | 并行处理 | 动态 Worker Pool（最多 4 线程），任务队列 + 自动伸缩 |
 | ZIP 打包 | fflate 流式 STORE 模式（跳过二次压缩），边转换边打包 |
 | 内存控制 | ImageData 主动释放、ImageBitmap.close()、URL.revokeObjectURL、Worker 终止释放 WASM 堆、Compare LRU 缓存 |
-| 代码加载 | WASM 懒加载单例、manualChunks 代码分割、dynamic import 按需加载 |
+| 代码加载 | WASM 懒加载单例、ZIP 独立 chunk、dynamic import 按需加载、运行时离线缓存 |

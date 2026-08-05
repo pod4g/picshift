@@ -3,6 +3,7 @@ import { SUPPORTED_LOCALES, LOCALE_CONFIG } from '../i18n/config';
 import type { Locale } from '../i18n/config';
 import { htmlCanonicalUrl } from '../lib/htmlCanonicalUrl';
 import { buildHomeWebApplicationSchema } from '../lib/softwareApplicationSchema';
+import { PICSHIFT_ORGANIZATION, PICSHIFT_WEBSITE_ID } from '../lib/schemaEntities';
 
 interface Props {
   title: string;
@@ -12,6 +13,7 @@ interface Props {
   pagePath?: string;
   ogType?: 'website' | 'article';
   ogImage?: string;
+  noIndex?: boolean;
   noAlternate?: boolean;
   ogArticleMeta?: {
     publishedTime: string;
@@ -21,7 +23,7 @@ interface Props {
   };
 }
 
-const { title, description, canonical, lang = 'en', pagePath = '/', ogType = 'website', ogImage, noAlternate = false, ogArticleMeta } = Astro.props;
+const { title, description, canonical, lang = 'en', pagePath = '/', ogType = 'website', ogImage, noIndex = false, noAlternate = false, ogArticleMeta } = Astro.props;
 const siteBase = 'https://picshift.app';
 
 function buildPageUrl(locale: Locale, currentPagePath: string): string {
@@ -65,9 +67,11 @@ const orgSchema = isHome
 const websiteSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
+  '@id': PICSHIFT_WEBSITE_ID,
   name: 'PicShift',
   url: siteBase,
   inLanguage: SUPPORTED_LOCALES.map((l) => LOCALE_CONFIG[l].hrefLang),
+  publisher: PICSHIFT_ORGANIZATION,
 });
 
 import '../styles/global.css';
@@ -144,6 +148,7 @@ import '../styles/global.css';
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noIndex && <meta name="robots" content="noindex, follow" />}
     {ogArticleMeta && <meta name="author" content={ogArticleMeta.author} />}
     <link rel="canonical" href={canonicalUrl} />
 
@@ -168,7 +173,7 @@ import '../styles/global.css';
     <meta property="og:image:alt" content={title} />
     <meta property="og:site_name" content="PicShift" />
     <meta property="og:locale" content={OG_LOCALE[lang] || 'en_US'} />
-    {SUPPORTED_LOCALES.filter((l) => l !== lang).map((l) => (
+    {!noAlternate && SUPPORTED_LOCALES.filter((l) => l !== lang).map((l) => (
       <meta property="og:locale:alternate" content={OG_LOCALE[l] || 'en_US'} />
     ))}
     {ogArticleMeta && (
@@ -210,8 +215,13 @@ import '../styles/global.css';
     <!-- Analytics: Cloudflare Web Analytics -->
     {import.meta.env.PROD && <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "55349de43bae4234983bd69de095874d"}'></script>}
 
+    <script>
+      import { trackAiReferral } from '../lib/trackAiReferral';
+      trackAiReferral();
+    </script>
+
     <!-- PWA: Service Worker registration (production only) -->
-    {import.meta.env.PROD && <script is:inline src="/registerSW.js"></script>}
+    {import.meta.env.PROD && <script is:inline async src="/registerSW.js"></script>}
   </head>
   <body class="min-h-screen flex flex-col bg-page-bg text-text-primary font-sans">
     <script is:inline>

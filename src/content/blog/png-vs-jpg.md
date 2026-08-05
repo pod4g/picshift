@@ -1,8 +1,9 @@
 ---
 title: "PNG or JPG: Which Format to Pick and Why (Full Comparison)"
-description: "Photos: JPG, almost always. Logos, screenshots, transparency: PNG. Why PNG files are 5-10x bigger, when that matters, and when you should convert between them."
+description: "Photos often suit JPG; logos, screenshots, and transparency often suit PNG. Learn why results depend on image content and when to compare another format."
 cover: "/blog/png-vs-jpg-cover.webp"
 publishedAt: 2026-03-28
+updatedAt: 2026-08-04
 author: "PicShift"
 tags: ["png", "jpg", "format-comparison", "guide"]
 relatedTools: ["png-to-jpg", "jpg-to-png", "jpg-to-webp"]
@@ -14,26 +15,26 @@ PNG or JPG? It depends on what the image is for. One is not "better" — they so
 
 ## Why PNG files are usually larger than JPG
 
-PNG is lossless. Every pixel stays exactly as it is, and the file pays for that in size.
+PNG encoding is lossless: it can reproduce the pixels supplied to the encoder exactly, as defined by the [W3C PNG specification](https://www.w3.org/TR/png-3/). That does not restore detail already discarded by a lossy source, and PicShift preserves decoded pixels only when PNG quality is 95–100; lower values may quantize the palette.
 
-JPG is lossy — it drops information your eyes probably will not notice. A 5 MB PNG photo often compresses down to 800 KB as JPG with no visible difference on screen.
+JPG is lossy — it drops information according to an encoder quality setting. A photographic PNG can become much smaller as JPG, but the amount saved and the visible change depend on the source and settings.
 
-The gap gets bigger with photographs. A photo saved as PNG can be 3 to 5 times larger than the same photo at JPG quality 85. For screenshots with flat colors and sharp text, the gap shrinks — PNG can even be competitive there.
+The gap is often larger for photographs. For screenshots with flat colors and sharp text, PNG can be competitive or smaller. There is no fixed ratio that applies to every image.
 
-**Short version:** photographs → JPG is almost always smaller. Screenshots, icons, graphics with sharp edges → PNG holds up better.
+**Short version:** photographs often produce smaller JPG files. Screenshots, icons, and graphics with sharp edges are usually better candidates for PNG, but compare the actual output.
 
 ## When to convert PNG to JPG
 
 Usually because the PNG is too large.
 
-This happens constantly: someone takes a screenshot or exports from a design tool and ends up with a 3 MB file when 500 KB would do. Converting to JPG at quality 80–85 fixes that without visible loss.
+This happens constantly: someone takes a screenshot or exports from a design tool and gets a file that exceeds an upload limit. Converting photographic content to JPG at quality 80–85 is a reasonable starting test, not a guarantee of a particular size or invisible loss.
 
 Cases where PNG → JPG makes sense:
 
 - **Upload forms with a size limit.** CMS editors, social platforms, and web forms often cap file size. JPG gets you under the limit fast.
 - **Email attachments.** Large PNGs slow down delivery and annoy people. JPG is lighter for photos in email.
-- **Web pages where transparency is irrelevant.** A product photo on a white background does not need PNG. JPG loads faster.
-- **Batch processing.** Preparing 50 product shots for an e-commerce site? PNG → JPG can cut total page weight by more than half.
+- **Web pages where transparency is irrelevant.** A product photo on a white background does not need PNG. A smaller JPG may reduce transfer time.
+- **Batch processing.** Preparing many photographic PNGs for an e-commerce site? Converting a representative sample to JPG lets you measure the size and visual trade-off before processing the batch.
 
 [PicShift's PNG to JPG converter](/png-to-jpg) runs this locally in your browser — nothing gets uploaded.
 
@@ -41,7 +42,7 @@ Cases where PNG → JPG makes sense:
 
 JPG → PNG is not about saving space. It is about protecting quality for editing.
 
-Every time you open a JPG, edit it, and save again, it loses a little more quality. After a few rounds, the image looks soft or blocky. Converting to PNG first stops that cycle — PNG is lossless, so you can re-save as many times as needed without further degradation.
+Every time you decode, edit, and re-encode a JPG, another lossy generation can change pixel values. Converting to PNG at PicShift quality 95–100 preserves the decoded pixels for subsequent lossless PNG saves; it cannot recover detail the JPG already lost. Lower PNG quality values may quantize the palette.
 
 Reasons to go JPG → PNG:
 
@@ -57,9 +58,9 @@ One thing to be clear about: converting JPG to PNG does not magically restore qu
 
 Both formats are from the 1990s. Modern alternatives beat them in specific situations.
 
-**WebP** is the strongest option for web delivery right now. Files come out 25–34% smaller than JPG at the same visual quality, and it supports transparency like PNG. Browser support is above 96% globally. If images are going on a website, [converting JPG to WebP](/jpg-to-webp) is one of the easiest performance wins available.
+**WebP** supports lossy and lossless compression plus transparency. It can be smaller than JPG for some sources and settings, but the result is not a fixed percentage. If images are going on a website, [convert JPG to WebP](/jpg-to-webp), compare the actual files, and verify support in the target environment.
 
-**AVIF** compresses even harder — often 30–50% smaller than JPG — but tool and browser support is still catching up. Good for performance-focused sites that can serve AVIF with a JPG fallback.
+**AVIF** may produce a smaller result for some images, but it can also cost more encoding time and target support varies. It is an option for sites that generate and compare outputs and provide a fallback.
 
 **Practical approach:** WebP for web delivery, PNG for editing and transparency, JPG as the universal fallback when maximum compatibility matters.
 

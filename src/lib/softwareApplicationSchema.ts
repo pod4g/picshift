@@ -1,28 +1,42 @@
 import type { InputFormat, OutputFormatKey, ToolPageConfig } from '../types';
+import {
+  PICSHIFT_ORGANIZATION,
+  PICSHIFT_WEB_APPLICATION_ID,
+  PICSHIFT_WEBSITE_REFERENCE,
+} from './schemaEntities';
 
 /**
- * Map every supported format to the WebAssembly library / codec that performs
- * the in-browser encode/decode. These names are surfaced via schema.org
- * `mentions` so that LLM/AI crawlers can build an accurate capability graph
- * (e.g. "PicShift uses libheif for HEIC decoding in the browser").
+ * Input decoding and output encoding are intentionally modelled separately.
+ * Standard inputs use the browser's createImageBitmap decoder. HEIC/HEIF first
+ * use that native path where available and fall back to libheif. MozJPEG and
+ * JSquash are output encoders, so they must never be attributed to input
+ * decoding in structured data.
  */
-const FORMAT_TECH_MAP: Record<string, string[]> = {
-  heic: ['libheif'],
-  heif: ['libheif'],
-  jpg: ['MozJPEG'],
-  jpeg: ['MozJPEG'],
-  png: ['OxiPNG'],
-  webp: ['JSquash WebP'],
-  avif: ['JSquash AVIF'],
-  bmp: [],
+const BROWSER_DECODE_ENTITY = 'Browser createImageBitmap decoding';
+const INPUT_TECH_MAP: Record<InputFormat, string[]> = {
+  heic: [BROWSER_DECODE_ENTITY, 'libheif HEIC/HEIF decoding'],
+  heif: [BROWSER_DECODE_ENTITY, 'libheif HEIC/HEIF decoding'],
+  jpg: [BROWSER_DECODE_ENTITY],
+  jpeg: [BROWSER_DECODE_ENTITY],
+  png: [BROWSER_DECODE_ENTITY],
+  webp: [BROWSER_DECODE_ENTITY],
+  avif: [BROWSER_DECODE_ENTITY],
+  bmp: [BROWSER_DECODE_ENTITY],
+};
+
+const OUTPUT_TECH_MAP: Record<OutputFormatKey, string[]> = {
+  jpg: ['MozJPEG output encoding'],
+  png: ['OxiPNG output optimization'],
+  webp: ['JSquash WebP output encoding'],
+  avif: ['JSquash AVIF output encoding'],
 };
 
 const BASE_TECH_ENTITIES = ['WebAssembly', 'Web Workers', 'Service Worker'];
 
 const COMMON_FEATURES = [
   'Process images locally in the browser without uploading source files to a server',
-  'Continue working offline after first page load via service worker caching',
-  'Batch process up to 200 images per session',
+  'Reuse a conversion workflow offline after that workflow and its codec have loaded successfully online',
+  'Batch process up to 200 images per batch',
   'No account, sign-in, watermark, or paid tier required',
 ];
 
@@ -38,11 +52,11 @@ function buildFeatureList(tool: ToolPageConfig): string[] {
 
   if (tool.slug === 'metadata-remover') {
     features.push(
-      'Remove EXIF, GPS coordinates, camera model, and timestamp metadata from images locally'
+      'Re-encode images locally without intentionally copying detected EXIF, GPS, camera, or timestamp fields'
     );
   } else if (tool.slug === 'image-compressor') {
     features.push(
-      'Compress JPG, PNG, WebP, HEIC, and AVIF photos with adjustable quality settings'
+      'Compress JPG, WebP, and AVIF outputs with adjustable quality settings; PNG uses lossy palette quantization below quality 95 and lossless OxiPNG optimization at quality 95-100'
     );
   } else if (tool.slug === 'image-resizer') {
     // Only describe capabilities the ResizeSelector UI actually exposes
@@ -77,10 +91,10 @@ function buildMentions(
   const techNames = new Set<string>(BASE_TECH_ENTITIES);
 
   if (inputFormat) {
-    for (const t of FORMAT_TECH_MAP[inputFormat] || []) techNames.add(t);
+    for (const t of INPUT_TECH_MAP[inputFormat]) techNames.add(t);
   }
   if (outputFormat) {
-    for (const t of FORMAT_TECH_MAP[outputFormat] || []) techNames.add(t);
+    for (const t of OUTPUT_TECH_MAP[outputFormat]) techNames.add(t);
   }
 
   return Array.from(techNames).map((name) => ({ '@type': 'Thing' as const, name }));
@@ -96,8 +110,8 @@ export interface BuildToolSoftwareApplicationSchemaInput {
 
 /**
  * Build a schema.org SoftwareApplication payload for a tool landing page.
- * Includes featureList and mentions to give generative engines a richer
- * capability graph than the minimal default schema.
+ * The feature list and implementation mentions are kept aligned with the
+ * visible tool and its supported input/output configuration.
  */
 export function buildToolSoftwareApplicationSchema({
   tool,
@@ -109,6 +123,7 @@ export function buildToolSoftwareApplicationSchema({
   return {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
+    '@id': `${canonical}#software-application`,
     name: h1,
     applicationCategory: 'MultimediaApplication',
     applicationSubCategory: 'Image Converter',
@@ -122,19 +137,15 @@ export function buildToolSoftwareApplicationSchema({
     description,
     inLanguage: lang,
     url: canonical,
+    isPartOf: PICSHIFT_WEBSITE_REFERENCE,
     featureList: buildFeatureList(tool),
     mentions: buildMentions(tool.defaultInputFormat, tool.defaultOutputFormat),
-    publisher: {
-      '@type': 'Organization',
-      name: 'PicShift',
-      url: 'https://picshift.app',
-    },
+    publisher: PICSHIFT_ORGANIZATION,
   };
 }
 
 /**
- * Build the homepage WebApplication schema. This is the entity-level signal
- * for the whole product, so featureList enumerates all major capabilities
+ * Build the homepage WebApplication schema. Its featureList enumerates major capabilities
  * (conversion, compression, resizing, metadata removal) rather than a
  * single tool's scope.
  */
@@ -154,8 +165,10 @@ export function buildHomeWebApplicationSchema({
   return {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
+    '@id': PICSHIFT_WEB_APPLICATION_ID,
     name: 'PicShift',
     url,
+    isPartOf: PICSHIFT_WEBSITE_REFERENCE,
     applicationCategory: 'MultimediaApplication',
     applicationSubCategory: 'Image Converter',
     operatingSystem: 'Any',
@@ -165,22 +178,24 @@ export function buildHomeWebApplicationSchema({
     image: imageUrl,
     inLanguage,
     featureList: [
-      'Convert between HEIC, HEIF, JPG, PNG, WebP, and AVIF in any direction',
-      'Compress JPG, PNG, WebP, HEIC, and AVIF photos with adjustable quality',
+      'Convert HEIC, HEIF, JPG, PNG, WebP, AVIF, and BMP inputs to JPG, PNG, WebP, or AVIF outputs',
+      'Compress JPG, WebP, and AVIF outputs with adjustable quality settings; PNG uses lossy palette quantization below quality 95 and lossless OxiPNG optimization at quality 95-100',
       'Resize images by pixel dimensions or percentage with preset and custom sizes',
-      'Remove EXIF, GPS coordinates, camera model, and timestamps from images locally',
-      'Process images entirely in the browser using WebAssembly codecs',
-      'Continue working offline after first page load via service worker caching',
-      'Batch process up to 200 images per session',
+      'Re-encode images locally without intentionally copying detected EXIF, GPS, camera, or timestamp fields',
+      'Decode supported inputs with browser createImageBitmap, with a libheif fallback for HEIC/HEIF when native decoding is unavailable',
+      'Use MozJPEG for JPG output and JSquash for WebP/AVIF output when available, with browser-native output encoding as fallback; optimize PNG output with OxiPNG when available',
+      'Reuse a conversion workflow offline after that workflow and its codec have loaded successfully online',
+      'Batch process up to 200 images per batch',
       'No account, sign-in, watermark, or paid tier required',
     ],
-    mentions: BASE_TECH_ENTITIES.concat(['libheif', 'MozJPEG', 'OxiPNG', 'JSquash']).map(
-      (name) => ({ '@type': 'Thing' as const, name })
-    ),
-    publisher: {
-      '@type': 'Organization',
-      name: 'PicShift',
-      url: 'https://picshift.app',
-    },
+    mentions: BASE_TECH_ENTITIES.concat([
+      BROWSER_DECODE_ENTITY,
+      'libheif HEIC/HEIF decoding',
+      'MozJPEG output encoding',
+      'OxiPNG output optimization',
+      'JSquash WebP output encoding',
+      'JSquash AVIF output encoding',
+    ]).map((name) => ({ '@type': 'Thing' as const, name })),
+    publisher: PICSHIFT_ORGANIZATION,
   };
 }

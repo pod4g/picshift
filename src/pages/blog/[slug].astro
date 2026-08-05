@@ -6,6 +6,7 @@ import Footer from '../../components/layout/Footer.astro';
 import TableOfContents from '../../components/blog/TableOfContents.astro';
 import RelatedTools from '../../components/blog/RelatedTools.astro';
 import { TOOL_PAGES } from '../../data/tools';
+import { PICSHIFT_ORGANIZATION, PICSHIFT_WEBSITE_REFERENCE } from '../../lib/schemaEntities';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -38,8 +39,9 @@ const articleSchema = JSON.stringify({
   image: cover ? `https://picshift.app${cover}` : undefined,
   datePublished: publishedAt.toISOString(),
   dateModified: (updatedAt ?? publishedAt).toISOString(),
-  author: { '@type': 'Organization', name: author, url: 'https://picshift.app' },
-  publisher: { '@type': 'Organization', name: 'PicShift', url: 'https://picshift.app' },
+  author: PICSHIFT_ORGANIZATION,
+  publisher: PICSHIFT_ORGANIZATION,
+  isPartOf: PICSHIFT_WEBSITE_REFERENCE,
   mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
 });
 const breadcrumbSchema = JSON.stringify({
@@ -109,6 +111,8 @@ const nextPost = currentIdx > 0 ? allPosts[currentIdx - 1] : null;
               {description}
             </p>
             <div class="flex items-center gap-3 text-sm text-text-secondary font-sans">
+              <span>By <a href="/" rel="author" class="hover:text-text-primary hover:underline">PicShift</a></span>
+              <span class="text-border">·</span>
               <time datetime={publishedAt.toISOString()}>{dateStr}</time>
               <span class="text-border">·</span>
               <span>{readingTime} min read</span>
