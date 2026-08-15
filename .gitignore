@@ -36,5 +36,8 @@ test-results/
 # local ad-hoc image generation tests (kept out of git)
 .tmp/
 
+# local scratch files from unrelated work (kept out of project verification)
+tmp/
+
 # 第三方公司 SEO 参考资料（商务邮件/docx，仅本地参考，不入库）
 docs/Solvely SEO/

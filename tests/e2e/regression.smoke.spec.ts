@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures';
 import { CONTENT_DATE_MODIFIED } from '../../src/lib/contentDates';
 
 const coreDocs = [

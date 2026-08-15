@@ -607,11 +607,13 @@ for (const file of htmlFiles) {
     (attributes.rel ?? '').toLowerCase().split(/\s+/).includes('canonical'),
   );
   let canonical = null;
-  if (canonicals.length !== 1) {
+  if (route === '/404' && canonicals.length !== 0) {
+    finalErrors.push(`${label}: 404 page must not emit a canonical`);
+  } else if (route !== '/404' && canonicals.length !== 1) {
     finalErrors.push(`${label}: expected exactly one canonical, found ${canonicals.length}`);
-  } else if (!canonicals[0].attributes.href) {
+  } else if (route !== '/404' && !canonicals[0].attributes.href) {
     finalErrors.push(`${label}: canonical is missing href`);
-  } else {
+  } else if (route !== '/404') {
     canonical = normalizeSiteUrl(
       canonicals[0].attributes.href,
       `${label} canonical`,

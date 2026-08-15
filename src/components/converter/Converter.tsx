@@ -3,7 +3,7 @@ import { useConverter } from '../../hooks/useConverter';
 import { loadPreferences, savePreferences } from '../../lib/preferences';
 import { formatSize } from '../../lib/format-utils';
 import type { InputFormat, OutputFormatKey, ResizeOption } from '../../types';
-import { trackFileAdd, trackFileFormat, trackFormatSelect, trackConvertComplete, trackPwaInstall } from '../../lib/analytics';
+import { trackConvertComplete, trackPwaInstall } from '../../lib/analytics';
 import { LangProvider } from '../../i18n/LangContext';
 import { getUI } from '../../i18n/ui';
 import type { Locale } from '../../i18n/config';
@@ -98,6 +98,7 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
   const [showInstallBanner, setShowInstallBanner] = useState(false);
   const userSelectedFormat = useRef(!!defaultOutputFormat || initPrefs.outputFormat !== 'jpg');
   const conversionStartRef = useRef<number | null>(null);
+  const conversionTrackedRef = useRef(false);
   const confettiFiredRef = useRef(false);
   const fileListEndRef = useRef<HTMLDivElement>(null);
   const downloadRef = useRef<HTMLDivElement>(null);
@@ -133,7 +134,6 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
       userSelectedFormat.current = true;
       if (!keepSmaller && fmt === 'png' && quality < 95) setQuality(100);
       setOutputFormat(fmt);
-      trackFormatSelect(fmt);
     },
     [keepSmaller, quality, setOutputFormat, setQuality],
   );
@@ -141,22 +141,12 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
   // Smart default: when first files are added and user hasn't manually picked a format, guess from input
   // Skip in compress mode — each file keeps its own format
   const handleAddFiles = useCallback(
-    (incoming: File[], source: 'drop' | 'click' | 'paste' = 'click') => {
+    (incoming: File[]) => {
       if (!keepSmaller && files.length === 0 && !defaultOutputFormat && !userSelectedFormat.current && incoming.length > 0) {
         const guessed = guessOutputFormat(incoming[0].name);
         setOutputFormat(guessed);
       }
       addFiles(incoming);
-
-      // Analytics
-      const totalSizeKb = incoming.reduce((sum, f) => sum + f.size, 0) / 1024;
-      trackFileAdd(incoming.length, source, totalSizeKb);
-      const formatCounts: Record<string, number> = {};
-      incoming.forEach((f) => {
-        const ext = f.name.split('.').pop()?.toLowerCase() ?? 'unknown';
-        formatCounts[ext] = (formatCounts[ext] || 0) + 1;
-      });
-      Object.entries(formatCounts).forEach(([fmt, count]) => trackFileFormat(fmt, count));
     },
     [addFiles, files.length, defaultOutputFormat, setOutputFormat, keepSmaller],
   );
@@ -171,10 +161,12 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
     }
     if (isConverting && conversionStartRef.current === null) {
       conversionStartRef.current = Date.now();
+      conversionTrackedRef.current = false;
       setConversionTimeMs(null);
     }
     if (allFinished && conversionStartRef.current !== null && conversionTimeMs === null) {
       setConversionTimeMs(Date.now() - conversionStartRef.current);
+      conversionStartRef.current = null;
     }
   }, [isConverting, allFinished, totalCount, conversionTimeMs]);
 
@@ -190,14 +182,15 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
     }
   }, [allFinished, completedCount, installPrompt]);
 
-  // Scroll download button into view once summary bar has rendered
+  // A single-file result is already visible in its card. Auto-scrolling that
+  // flow makes the mobile page appear to jump; only reveal the batch action.
   useEffect(() => {
-    if (allFinished && conversionTimeMs !== null && downloadRef.current) {
+    if (allFinished && totalCount > 1 && conversionTimeMs !== null && downloadRef.current) {
       requestAnimationFrame(() => {
-        downloadRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        downloadRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       });
     }
-  }, [allFinished, conversionTimeMs]);
+  }, [allFinished, conversionTimeMs, totalCount]);
 
   // Scroll to latest file when new files are added
   useEffect(() => {
@@ -212,17 +205,6 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
     if (allFinished && completedCount > 0 && !confettiFiredRef.current) {
       confettiFiredRef.current = true;
 
-      // Analytics: convert_complete
-      const totalInput = files.reduce((sum, f) => sum + f.size, 0);
-      const totalOutput = files.filter(f => f.status === 'done').reduce((sum, f) => sum + f.outputSize, 0);
-      trackConvertComplete({
-        count: completedCount,
-        to: outputFormat,
-        duration_ms: conversionTimeMs ?? 0,
-        input_kb: totalInput / 1024,
-        output_kb: totalOutput / 1024,
-        saved_pct: totalInput > 0 ? (1 - totalOutput / totalInput) * 100 : 0,
-      });
       void import('canvas-confetti')
         .then(({ default: confetti }) => {
           const duration = 1500;
@@ -255,13 +237,21 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
     }
   }, [allFinished, completedCount, totalCount]);
 
+  // Keep exactly one compact completion event for each conversion batch.
+  useEffect(() => {
+    if (allFinished && completedCount > 0 && !conversionTrackedRef.current) {
+      conversionTrackedRef.current = true;
+      trackConvertComplete(keepSmaller ? undefined : outputFormat);
+    }
+  }, [allFinished, completedCount, keepSmaller, outputFormat]);
+
   // Paste from clipboard
   useEffect(() => {
     const onPaste = (e: ClipboardEvent) => {
       const items = e.clipboardData?.files;
       if (!items || items.length === 0) return;
       e.preventDefault();
-      handleAddFiles(Array.from(items), 'paste');
+      handleAddFiles(Array.from(items));
     };
     document.addEventListener('paste', onPaste);
     return () => document.removeEventListener('paste', onPaste);
@@ -308,7 +298,7 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
       const target = e.target as HTMLElement;
       if (target.closest?.('[data-dropzone]')) return;
       if (e.dataTransfer?.files.length) {
-        handleAddFiles(Array.from(e.dataTransfer.files), 'drop');
+        handleAddFiles(Array.from(e.dataTransfer.files));
       }
     };
 
@@ -359,7 +349,7 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
       {/* Main card */}
       <div className="rounded-xl border border-border bg-card-bg p-4 sm:p-6 shadow-sm">
         {/* Controls */}
-        <div className="mb-4 sm:mb-6 flex items-center justify-between gap-3 sm:gap-4">
+        <div className="mb-4 sm:mb-6 flex items-center gap-3 sm:gap-4">
           <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             {!defaultOutputFormat && !keepSmaller && (
               <FormatSelector
@@ -403,15 +393,6 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
               </button>
             )}
           </div>
-          {hasFiles && (
-            <button
-              type="button"
-              onClick={clearAll}
-              className="shrink-0 cursor-pointer text-xs text-text-secondary transition-colors hover:text-error focus:outline-none"
-            >
-              {t.clearAll}
-            </button>
-          )}
         </div>
 
         {/* Drop zone or file list */}
@@ -419,7 +400,18 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
           <DropZone onFiles={handleAddFiles} accept={acceptExtensions} />
         ) : (
           <div className="flex flex-col gap-4">
-            <DropZone onFiles={handleAddFiles} accept={acceptExtensions} />
+            <div className="flex items-center gap-3">
+              <div className="min-w-0 flex-1">
+                <DropZone onFiles={handleAddFiles} accept={acceptExtensions} compact />
+              </div>
+              <button
+                type="button"
+                onClick={clearAll}
+                className="min-h-11 shrink-0 cursor-pointer whitespace-nowrap px-2 text-xs text-text-secondary transition-colors hover:text-error focus:outline-none"
+              >
+                {t.clearAll}
+              </button>
+            </div>
             <FileList
               files={files}
               quality={quality}
@@ -432,28 +424,6 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
           </div>
         )}
       </div>
-
-      {/* Dropped files warning toast — fixed to bottom center of viewport */}
-      {droppedCount > 0 && (
-        <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2">
-          <div className="flex items-center gap-3 rounded-lg border border-warning/30 bg-card-bg shadow-lg px-4 py-3 max-w-lg w-[calc(100vw-2rem)]">
-            <svg className="h-5 w-5 shrink-0 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
-            </svg>
-            <p className="flex-1 text-sm text-text-primary">{tpl(t.maxFilesWarning, { dropped: droppedCount })}</p>
-            <button
-              type="button"
-              onClick={dismissDroppedWarning}
-              className="shrink-0 rounded-md p-1 text-text-secondary transition-colors hover:text-text-primary"
-              aria-label="Dismiss"
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* Batch summary */}
       {allFinished && completedCount > 0 && conversionTimeMs !== null && (() => {
@@ -496,41 +466,63 @@ export default function Converter({ defaultInputFormat, defaultOutputFormat, ful
         </div>
       )}
 
-      {/* PWA install banner */}
-      {showInstallBanner && (
-        <div className="flex items-center gap-3 rounded-lg border border-primary-500/20 bg-primary-500/10 px-4 py-3">
-          <svg className="h-5 w-5 shrink-0 text-primary-700 dark:text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M12 1.5v11.25m0 0 3-3m-3 3-3-3" />
-          </svg>
-          <p className="flex-1 text-sm text-text-primary">{t.pwaInstallPrompt}</p>
-          <button
-            type="button"
-            onClick={async () => {
-              trackPwaInstall();
-              try {
-                await installPrompt.prompt();
-                await installPrompt.userChoice;
-              } catch {}
-              setShowInstallBanner(false);
-              setInstallPrompt(null);
-            }}
-            className="shrink-0 rounded-md bg-primary-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-primary-600"
-          >
-            {t.pwaInstallButton}
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              localStorage.setItem('picshift_pwa_dismissed', 'true');
-              setShowInstallBanner(false);
-            }}
-            className="shrink-0 rounded-md p-1 text-text-secondary transition-colors hover:text-text-primary"
-            aria-label="Dismiss"
-          >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-            </svg>
-          </button>
+      {/* Fixed notices share one stack so simultaneous messages never overlap. */}
+      {(droppedCount > 0 || showInstallBanner) && (
+        <div data-notice-stack className="pointer-events-none fixed bottom-6 left-1/2 z-50 flex w-[calc(100vw-2rem)] max-w-lg -translate-x-1/2 flex-col gap-3">
+          {droppedCount > 0 && (
+            <div className="pointer-events-auto flex items-center gap-3 rounded-lg border border-warning/30 bg-card-bg px-4 py-3 shadow-lg" role="status">
+              <svg className="h-5 w-5 shrink-0 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+              </svg>
+              <p className="flex-1 text-sm text-text-primary">{tpl(t.maxFilesWarning, { dropped: droppedCount })}</p>
+              <button
+                type="button"
+                onClick={dismissDroppedWarning}
+                className="shrink-0 rounded-md p-1 text-text-secondary transition-colors hover:text-text-primary"
+                aria-label={t.dismissNotice}
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          )}
+          {showInstallBanner && (
+            <div data-pwa-install-banner className="pointer-events-auto flex items-center gap-3 rounded-lg border border-primary-500/20 bg-card-bg px-4 py-3 shadow-lg" role="status" aria-live="polite">
+              <svg className="h-5 w-5 shrink-0 text-primary-700 dark:text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M12 1.5v11.25m0 0 3-3m-3 3-3-3" />
+              </svg>
+              <p className="flex-1 text-sm text-text-primary">{t.pwaInstallPrompt}</p>
+              <button
+                type="button"
+                onClick={async () => {
+                  trackPwaInstall();
+                  try {
+                    await installPrompt.prompt();
+                    await installPrompt.userChoice;
+                  } catch {}
+                  setShowInstallBanner(false);
+                  setInstallPrompt(null);
+                }}
+                className="shrink-0 rounded-md bg-primary-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-primary-600"
+              >
+                {t.pwaInstallButton}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  localStorage.setItem('picshift_pwa_dismissed', 'true');
+                  setShowInstallBanner(false);
+                }}
+                className="shrink-0 rounded-md p-1 text-text-secondary transition-colors hover:text-text-primary"
+                aria-label={t.dismissNotice}
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          )}
         </div>
       )}
 

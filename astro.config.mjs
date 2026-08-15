@@ -114,7 +114,7 @@ export default defineConfig({
           'favicon*.{ico,png}',
           'apple-touch-icon.png',
           'android-chrome-*.png',
-          'logo-mark-{28,56,dark}.png',
+          'logo-mark-{28,56}.png',
         ],
         globIgnores: ['_routes.json', '_worker.js/**', '_headers', '_redirects', '**/*avif_enc*'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,

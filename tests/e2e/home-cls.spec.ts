@@ -1,10 +1,11 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page } from './fixtures';
 
 type HomeLayoutMetrics = {
   cls: number;
   sawFallback: boolean;
   sawMountedConverter: boolean;
   sawDuplicateConverter: boolean;
+  shifts: Array<{ value: number; at: number; sources: string[] }>;
 };
 
 async function installHomeLayoutObserver(page: Page) {
@@ -14,6 +15,7 @@ async function installHomeLayoutObserver(page: Page) {
       sawFallback: false,
       sawMountedConverter: false,
       sawDuplicateConverter: false,
+      shifts: [],
     };
 
     Object.defineProperty(window, '__homeLayoutMetrics', {
@@ -48,9 +50,20 @@ async function installHomeLayoutObserver(page: Page) {
       for (const entry of list.getEntries() as Array<PerformanceEntry & {
         hadRecentInput: boolean;
         value: number;
+        sources?: Array<{ node?: Node | null }>;
       }>) {
         if (entry.hadRecentInput) continue;
         metrics.cls += entry.value;
+        metrics.shifts.push({
+          value: entry.value,
+          at: entry.startTime,
+          sources: (entry.sources ?? []).map(({ node }) => {
+            if (!(node instanceof Element)) return node?.nodeName ?? 'unknown';
+            if (node.id) return `#${node.id}`;
+            const classes = Array.from(node.classList).slice(0, 3).join('.');
+            return `${node.tagName.toLowerCase()}${classes ? `.${classes}` : ''}`;
+          }),
+        });
       }
     }).observe({ type: 'layout-shift', buffered: true });
   });
@@ -147,6 +160,47 @@ test.describe('首页转换器布局稳定性', () => {
       expect(metrics.cls).toBeLessThan(0.1);
     });
   }
+
+  test('移动端单图转换完成后不会把后续首页内容明显推移', async ({ page }) => {
+    await installHomeLayoutObserver(page);
+    await page.addInitScript(() => {
+      const NativeWorker = window.Worker;
+      class DelayedWorker extends NativeWorker {
+        postMessage(message: any, transfer: Transferable[]): void;
+        postMessage(message: any, options?: StructuredSerializeOptions): void;
+        postMessage(message: any, optionsOrTransfer?: StructuredSerializeOptions | Transferable[]) {
+          window.setTimeout(() => {
+            if (Array.isArray(optionsOrTransfer)) super.postMessage(message, optionsOrTransfer);
+            else super.postMessage(message, optionsOrTransfer);
+          }, 750);
+        }
+      }
+      Object.defineProperty(window, 'Worker', { value: DelayedWorker });
+    });
+    await page.goto('/zh');
+    await expect(page.locator('[data-converter-mounted]')).toBeVisible({ timeout: 30_000 });
+    await expect(page.locator('#converter-skeleton')).toHaveCount(0);
+
+    await page.evaluate(() => {
+      window.__homeLayoutMetrics.cls = 0;
+    });
+
+    await page.waitForTimeout(750);
+    await page.evaluate(async () => {
+      const source = await fetch('/favicon-32x32.png').then((response) => response.blob());
+      const transfer = new DataTransfer();
+      transfer.items.add(new File([source], 'fixture.png', { type: 'image/png' }));
+      const input = document.querySelector<HTMLInputElement>('input[aria-label="Upload image files"]');
+      if (!input) throw new Error('Upload input not found');
+      input.files = transfer.files;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    await expect(page.getByTitle('Download converted file').first()).toBeVisible({ timeout: 90_000 });
+    await page.waitForTimeout(1_000);
+
+    const metrics = await readHomeLayoutMetrics(page);
+    expect(metrics.cls, JSON.stringify(metrics.shifts)).toBeLessThan(0.05);
+  });
 });
 
 declare global {

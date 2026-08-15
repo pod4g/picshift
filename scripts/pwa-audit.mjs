@@ -75,6 +75,7 @@ check(!urls.some((url) => url.endsWith('.js') && url !== 'registerSW.js'), 'appl
 check(!urls.some((url) => url.endsWith('.wasm')), 'WASM codecs must be runtime-cached');
 check(!urls.some((url) => url.startsWith('blog/')), 'blog images must be cached on access');
 check(!urls.includes('og-image.png'), 'the Open Graph image must be cached on access');
+check(!urls.includes('logo-mark-dark.png'), 'the unused dark logo must not enter the install precache');
 check(
   registration.includes("navigator.serviceWorker.register('/sw.js', { scope: '/' })"),
   'the registration script does not start Service Worker registration immediately',
@@ -259,12 +260,17 @@ for (const line of headers.split(/\r?\n/)) {
   }
 }
 const astroHeaders = (headerBlocks.get('/_astro/*') ?? []).join('\n');
+const workboxHeaders = (headerBlocks.get('/workbox-*.js') ?? []).join('\n');
 const wasmHeaders = (headerBlocks.get('/wasm/*') ?? []).join('\n');
 const serviceWorkerHeaders = (headerBlocks.get('/sw.js') ?? []).join('\n');
 const registrationHeaders = (headerBlocks.get('/registerSW.js') ?? []).join('\n');
 check(
   /Cache-Control:[^\n]*max-age=31536000[^\n]*immutable/i.test(astroHeaders),
   '/_astro headers are not one-year immutable',
+);
+check(
+  /Cache-Control:[^\n]*max-age=31536000[^\n]*immutable/i.test(workboxHeaders),
+  'fingerprinted Workbox runtime headers are not one-year immutable',
 );
 check(/max-age=0/.test(wasmHeaders), '/wasm headers must revalidate fixed-name codecs online');
 check(/must-revalidate/.test(wasmHeaders), '/wasm headers are missing must-revalidate');

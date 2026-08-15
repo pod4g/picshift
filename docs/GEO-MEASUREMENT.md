@@ -9,7 +9,7 @@
 | 发现 | AI crawler 请求、状态码、路径 | Cloudflare AI Crawl Control | 证明抓取发生，不代表已被引用 |
 | 引用 | 被引用页面、引用次数、grounding query | Bing Webmaster Tools AI Performance；Google Search Console Generative AI 报表（开放后） | 证明进入支持范围内的 AI 答案，不代表点击或转化 |
 | 引荐 | `ai_referral` 事件、landing URL、provider | Umami | 证明 AI 渠道带来访问，不记录完整 referrer 或用户问题 |
-| 使用 | `file_add`、`convert_complete`、`download_single`、`metadata_download` | Umami | 用于判断 AI 引荐是否完成核心工具任务 |
+| 使用 | `convert_complete`、`download_single`、`download_zip`、`metadata_download` | Umami | 用于判断 AI 引荐是否完成核心工具结果，不采集文件添加和中间交互 |
 
 ## Umami 事件口径
 
@@ -27,12 +27,15 @@
 
 每个落地会话最多记录一次 `ai_referral`。自定义数据只包含 `provider`；事件 URL 被强制规范为不带 query/hash 的 pathname，referrer 字段会被移除，因此 UTM campaign、完整引荐地址和用户问题不会进入该事件 payload。
 
+生产脚本仅在 `picshift.app` 域名发送数据，并保留 Umami 自动 Pageview 与 Web Vitals。转换类自定义事件遵循最小口径：`convert_complete` 每批一次且最多包含 `to`，`convert_error` 只包含规范化 `reason`，下载、metadata 最终下载和 PWA 安装事件均不带自定义属性。文件添加、单文件转换、格式选择、比较、清空、工具卡片、Blog 内链以及 metadata 扫描/清理中间事件不再采集。
+
 建议漏斗：
 
 1. `ai_referral`
-2. `file_add` 或 `metadata_scan`
-3. `convert_complete` 或 `metadata_clean`
-4. `download_single`、`download_zip` 或 `metadata_download`
+2. `convert_complete`，普通转换工具完成一批转换
+3. `download_single` 或 `download_zip`
+
+metadata-remover 的结果口径使用 `ai_referral` → `metadata_download`。精简模式不再测量扫描或清理步骤的中途流失，Pageview 与最终结果之间的差值只能解释为“未观察到最终下载”，不能归因到某个具体步骤。
 
 ## Cloudflare 验收
 
@@ -74,3 +77,4 @@ Bing Webmaster Tools 完成站点验证后，导出 AI Performance 中的 cited 
 - `pnpm e2e:prod`
 - Cloudflare 中 OAI-SearchBot 无新增 403、429 或 5xx
 - Umami 中测试会话只产生一次 `ai_referral`，且 payload 不含完整查询参数
+- 转换测试每批只产生一次 `convert_complete`，下载与 metadata 最终结果事件不包含多余属性

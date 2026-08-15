@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page } from './fixtures';
 import path from 'node:path';
 
 const fixturePng16 = path.join(process.cwd(), 'public', 'favicon-16x16.png');
@@ -59,6 +59,46 @@ test.describe('PicShift 核心 E2E', () => {
       downloadAllButton.click(),
     ]);
     expect(zipDownload.suggestedFilename().toLowerCase()).toContain('.zip');
+  });
+
+  test('移动端 PWA 提示不会遮挡批量下载按钮', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await gotoHomeAndWaitConverter(page);
+    await page.evaluate(() => {
+      const event = new Event('beforeinstallprompt');
+      Object.defineProperties(event, {
+        prompt: { value: async () => undefined },
+        userChoice: { value: Promise.resolve({ outcome: 'dismissed' }) },
+      });
+      window.dispatchEvent(event);
+    });
+
+    await page.getByLabel('Upload image files').setInputFiles([fixturePng16, fixturePng32]);
+    const downloadAllButton = page.getByRole('button', { name: /Download All as ZIP \(\d+\)/ });
+    const installBanner = page.locator('[data-pwa-install-banner]');
+    await expect(downloadAllButton).toBeEnabled({ timeout: 90_000 });
+    await expect(installBanner).toBeVisible();
+    await page.waitForTimeout(500);
+
+    const buttonBox = await downloadAllButton.boundingBox();
+    const bannerBox = await installBanner.boundingBox();
+    expect(buttonBox).not.toBeNull();
+    expect(bannerBox).not.toBeNull();
+    const overlap = !(
+      buttonBox!.y + buttonBox!.height <= bannerBox!.y ||
+      bannerBox!.y + bannerBox!.height <= buttonBox!.y ||
+      buttonBox!.x + buttonBox!.width <= bannerBox!.x ||
+      bannerBox!.x + bannerBox!.width <= buttonBox!.x
+    );
+    expect(overlap).toBe(false);
+
+    const hitDownloadButton = await page.evaluate(({ x, y }) => {
+      return document.elementFromPoint(x, y)?.closest('button')?.textContent?.includes('Download All') ?? false;
+    }, {
+      x: buttonBox!.x + buttonBox!.width / 2,
+      y: buttonBox!.y + buttonBox!.height / 2,
+    });
+    expect(hitDownloadButton).toBe(true);
   });
 
   test('工具页与多语言页面路由正常', async ({ page }) => {

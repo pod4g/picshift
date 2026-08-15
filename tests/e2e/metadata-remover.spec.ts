@@ -1,4 +1,4 @@
-import { expect, test, type Download, type Page } from '@playwright/test';
+import { expect, test, type Download, type Page } from './fixtures';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
@@ -121,6 +121,18 @@ async function createAvifFixture(page: Page): Promise<Uint8Array> {
 
 test.describe('Metadata Remover 安全边界', () => {
   test('未知 PNG ancillary chunk 即使未被扫描识别也必须重编码并移除', async ({ page }) => {
+    await page.route('https://cloud.umami.is/script.js', (route) => route.abort());
+    await page.addInitScript(() => {
+      (window as Window & { __metadataAnalytics?: Array<Record<string, unknown>> })
+        .__metadataAnalytics = [];
+      window.umami = {
+        track: (payload) => {
+          if (typeof payload !== 'function') return;
+          (window as Window & { __metadataAnalytics?: Array<Record<string, unknown>> })
+            .__metadataAnalytics?.push(payload({ url: window.location.pathname }));
+        },
+      };
+    });
     const input = injectAfterIhdr(
       fixturePng,
       'ruSt',
@@ -143,6 +155,15 @@ test.describe('Metadata Remover 安全边界', () => {
     expect(equalBytes(output, input)).toBe(false);
     expect(includesBytes(output, textEncoder.encode('ruSt'))).toBe(false);
     expect(equalBytes(output.subarray(0, 8), fixturePng.subarray(0, 8))).toBe(true);
+    await expect.poll(() => page.evaluate(() => (
+      (window as Window & { __metadataAnalytics?: Array<Record<string, unknown>> })
+        .__metadataAnalytics?.map((payload) => payload.name) ?? []
+    ))).toEqual(['metadata_download']);
+    const payload = await page.evaluate(() => (
+      (window as Window & { __metadataAnalytics?: Array<Record<string, unknown>> })
+        .__metadataAnalytics?.[0]
+    ));
+    expect(payload).not.toHaveProperty('data');
   });
 
   test('解析异常会明确显示，仍可安全重编码且不会保留损坏的 eXIf chunk', async ({ page }) => {

@@ -1,11 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import type { Locale } from '../../i18n/config'
-import {
-  trackMetadataScan,
-  trackMetadataClean,
-  trackMetadataDownload,
-  trackMetadataClear,
-} from '../../lib/analytics'
+import { trackMetadataDownload } from '../../lib/analytics'
 import { createClientId } from '../../lib/clientId'
 import {
   applyFileLimits,
@@ -1401,9 +1396,6 @@ export default function MetadataRemoverTool({
             current.includes(fileId) ? current : [...current, fileId],
           )
         }
-        const totalFields = prev.reduce((s, f) => s + f.totalCount, 0)
-        const sensitiveFields = prev.reduce((s, f) => s + f.highCount, 0)
-        trackMetadataScan(prev.length, totalFields, sensitiveFields)
         return prev
       })
     },
@@ -1467,8 +1459,6 @@ export default function MetadataRemoverTool({
     setCleaning(true)
     setCleanProgress({ current: 0, total: totalToClean })
     await waitForNextPaint()
-    const totalFields = files.reduce((s, f) => s + f.totalCount, 0)
-    trackMetadataClean(files.length, totalFields)
     const updatedFiles = [...files]
     let processedCount = 0
 
@@ -1505,10 +1495,6 @@ export default function MetadataRemoverTool({
   const handleDownloadAll = useCallback(async () => {
     const cleaned = files.filter((f) => f.cleanedBlob)
     if (cleaned.length === 0) return
-    trackMetadataDownload(
-      cleaned.length,
-      cleaned.length === 1 ? 'single' : 'zip',
-    )
 
     if (cleaned.length === 1) {
       const f = cleaned[0]
@@ -1520,6 +1506,7 @@ export default function MetadataRemoverTool({
       a.download = `${baseName}_clean.${ext}`
       a.click()
       URL.revokeObjectURL(url)
+      trackMetadataDownload()
       return
     }
 
@@ -1542,18 +1529,18 @@ export default function MetadataRemoverTool({
     a.download = `picshift-cleaned-${ts}.zip`
     a.click()
     URL.revokeObjectURL(url)
+    trackMetadataDownload()
   }, [files])
 
   const handleClear = useCallback(() => {
     if (cleaning) return
-    trackMetadataClear(files.length)
     setFiles([])
     filesRef.current = []
     setExpandedIds([])
     setCleanProgress(null)
     setAllDone(false)
     setUploadNotice(null)
-  }, [cleaning, files.length])
+  }, [cleaning])
 
   const hasFiles = files.length > 0
   const scannedCount = files.filter(

@@ -88,6 +88,7 @@ export interface UIStrings {
   // PWA install prompt
   pwaInstallPrompt: string;
   pwaInstallButton: string;
+  dismissNotice: string;
   // Tech showcase
   techSectionTitle: string;
   techSectionSubtitle: string;

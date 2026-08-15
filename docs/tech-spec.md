@@ -181,19 +181,14 @@ src/
 
 ### 7.3 Analytics
 
-`src/lib/analytics.ts` 当前事件：
+Umami 生产脚本通过 `data-domains="picshift.app"` 排除本地与预览环境，同时保留自动 Pageview 和 `data-performance` Web Vitals。`src/lib/analytics.ts` 当前自定义事件：
 
-- file_add
-- file_format
-- format_select
-- convert_file
-- convert_complete
-- convert_error
-- download_single
-- download_zip
-- compare_open
-- clear_all
-- pwa_install_click
+- `ai_referral`：每个 AI 引荐会话一次，仅包含规范化 `provider`
+- `convert_complete`：每批转换一次，最多包含目标格式 `to`
+- `convert_error`：仅包含规范化 `reason`，不上传原始错误文本
+- `download_single`、`download_zip`：最终下载动作，不带自定义属性
+- `metadata_download`：元数据重编码后的最终下载结果，不带自定义属性
+- `pwa_install_click`：安装按钮点击，不带自定义属性
 
 ---
 

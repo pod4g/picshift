@@ -15,6 +15,7 @@ interface Props {
   ogImage?: string;
   noIndex?: boolean;
   noAlternate?: boolean;
+  noCanonical?: boolean;
   ogArticleMeta?: {
     publishedTime: string;
     modifiedTime: string;
@@ -23,7 +24,7 @@ interface Props {
   };
 }
 
-const { title, description, canonical, lang = 'en', pagePath = '/', ogType = 'website', ogImage, noIndex = false, noAlternate = false, ogArticleMeta } = Astro.props;
+const { title, description, canonical, lang = 'en', pagePath = '/', ogType = 'website', ogImage, noIndex = false, noAlternate = false, noCanonical = false, ogArticleMeta } = Astro.props;
 const siteBase = 'https://picshift.app';
 
 function buildPageUrl(locale: Locale, currentPagePath: string): string {
@@ -150,7 +151,7 @@ import '../styles/global.css';
     <meta name="description" content={description} />
     {noIndex && <meta name="robots" content="noindex, follow" />}
     {ogArticleMeta && <meta name="author" content={ogArticleMeta.author} />}
-    <link rel="canonical" href={canonicalUrl} />
+    {!noCanonical && <link rel="canonical" href={canonicalUrl} />}
 
     <!-- Hreflang alternate links -->
     {!noAlternate && SUPPORTED_LOCALES.map((locale) => (
@@ -165,7 +166,7 @@ import '../styles/global.css';
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalUrl} />
+    {!noCanonical && <meta property="og:url" content={canonicalUrl} />}
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:type" content={ogImageType} />
     <meta property="og:image:width" content="1200" />
@@ -209,6 +210,7 @@ import '../styles/global.css';
         defer
         src="https://cloud.umami.is/script.js"
         data-website-id="5e8e298a-edc6-4bb7-a7cb-04714bffc9c0"
+        data-domains="picshift.app"
         data-performance="true"
       />
     )}

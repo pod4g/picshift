@@ -4,11 +4,12 @@ import { useLang } from '../../i18n/LangContext';
 import { getUI } from '../../i18n/ui';
 
 interface DropZoneProps {
-  onFiles: (files: File[], source?: 'drop' | 'click' | 'paste') => void;
+  onFiles: (files: File[]) => void;
   accept?: string;
+  compact?: boolean;
 }
 
-export default function DropZone({ onFiles, accept = '.heic,.heif,.jpg,.jpeg,.png,.webp,.avif,.bmp' }: DropZoneProps) {
+export default function DropZone({ onFiles, accept = '.heic,.heif,.jpg,.jpeg,.png,.webp,.avif,.bmp', compact = false }: DropZoneProps) {
   const lang = useLang();
   const t = getUI(lang);
   const {
@@ -24,7 +25,7 @@ export default function DropZone({ onFiles, accept = '.heic,.heif,.jpg,.jpeg,.pn
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
     if (files && files.length > 0) {
-      onFiles(Array.from(files), 'click');
+      onFiles(Array.from(files));
       e.target.value = '';
     }
   }
@@ -46,8 +47,8 @@ export default function DropZone({ onFiles, accept = '.heic,.heif,.jpg,.jpeg,.pn
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={`
-        relative flex min-h-[160px] sm:min-h-[200px] cursor-pointer flex-col items-center justify-center
-        rounded-xl border-2 border-dashed p-5 sm:p-8 transition-all duration-200
+        relative flex cursor-pointer items-center justify-center rounded-xl border-2 border-dashed transition-all duration-200
+        ${compact ? 'min-h-16 flex-row gap-3 p-3' : 'min-h-[160px] flex-col p-5 sm:min-h-[200px] sm:p-8'}
         focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
         ${
           isDragOver
@@ -57,7 +58,7 @@ export default function DropZone({ onFiles, accept = '.heic,.heif,.jpg,.jpeg,.pn
       `}
     >
       <svg
-        className={`mb-3 sm:mb-4 h-10 w-10 sm:h-12 sm:w-12 transition-colors duration-200 ${
+        className={`${compact ? 'h-6 w-6' : 'mb-3 h-10 w-10 sm:mb-4 sm:h-12 sm:w-12'} shrink-0 transition-colors duration-200 ${
           isDragOver ? 'text-primary-500' : 'text-text-secondary'
         }`}
         fill="none"
@@ -72,15 +73,15 @@ export default function DropZone({ onFiles, accept = '.heic,.heif,.jpg,.jpeg,.pn
         />
       </svg>
 
-      <p className="text-base font-medium text-text-primary">
-        {t.dropDrag}
-      </p>
-      <p className="mt-1 text-sm text-text-secondary">
-        {t.dropClick}
-      </p>
-      <p className="mt-3 text-xs text-text-secondary">
-        {t.dropFormats}
-      </p>
+      {compact ? (
+        <p className="text-sm font-medium text-text-primary">{t.dropClick}</p>
+      ) : (
+        <>
+          <p className="text-base font-medium text-text-primary">{t.dropDrag}</p>
+          <p className="mt-1 text-sm text-text-secondary">{t.dropClick}</p>
+          <p className="mt-3 text-xs text-text-secondary">{t.dropFormats}</p>
+        </>
+      )}
 
       <input
         ref={fileInputRef}

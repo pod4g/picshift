@@ -1866,3 +1866,16 @@ GSC 查询 CSV 在 7 天、28 天和 3 个月窗口均封顶 1,000 行，只覆�
 6. `/ja/image-compressor`、`/ru/heic-to-png` 和 `/ru/heic-to-jpg` 继续冻结；提交后重新构建并用最终 HTML 审计复查 sitemap `lastmod` 与页面日期一致性。
 
 自动化验证：`pnpm build` 生成 405 页；最终 HTML SEO 审计硬错误为 0；GEO 审计和 PWA 审计通过；PWA 预缓存为 17 项、303,757 bytes；单元测试 53/53 通过，其中 GSC 导出器测试 19/19；生产预览端到端测试 31/31 通过；TypeScript 无错误；上述检查均纳入统一 `pnpm verify` 门禁。
+
+### 2026-08-15 Umami 精简口径
+
+Umami 月度额度的主要消耗来自事件属性，因此现行口径优先保证 SEO/GEO 的落地与最终结果可测量，不再记录可从页面 URL 推导或对决策价值较低的中间交互。`2026-04-06` 等历史迭代记录中的旧事件名只描述当时实现，不代表当前测量合同。
+
+- 生产脚本仅允许 `picshift.app`，保留自动 Pageview 与 Web Vitals
+- `ai_referral` 每个引荐会话最多一次，仅保留规范化 `provider`
+- `convert_complete` 每批一次，最多保留目标格式 `to`
+- `convert_error` 只保留规范化 `reason`，不上传浏览器或 codec 原始错误文本
+- `download_single`、`download_zip`、`metadata_download` 与 `pwa_install_click` 不带自定义属性
+- 停止采集文件添加、单文件转换、格式选择、比较、清空、工具卡片、Blog 内链以及 metadata 扫描/清理等中间事件
+
+GEO 漏斗解释边界：普通转换页使用 `ai_referral` → `convert_complete` → 最终下载；metadata-remover 使用 `ai_referral` → `metadata_download`。Pageview 与最终结果之间的差值不能再归因到具体中间步骤。

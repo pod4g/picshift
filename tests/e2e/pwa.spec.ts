@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page } from './fixtures';
 import path from 'node:path';
 
 const fixturePng = path.join(process.cwd(), 'public', 'favicon-32x32.png');
@@ -50,7 +50,7 @@ async function readCacheEvidence(page: Page) {
 test.describe('PWA 生产离线契约', () => {
   test.skip(!isProductionPreview, 'Service Worker is emitted only by the production build');
 
-  test('非根路径首次进入后会补齐当前页面缓存', async ({ context, page }) => {
+  test('非根路径首次进入后会补齐页面与水合资源缓存', async ({ context, page }) => {
     await page.goto('/es?utm_source=chatgpt.com');
     await waitForConverter(page);
     await expect.poll(
@@ -59,8 +59,27 @@ test.describe('PWA 生产离线契约', () => {
     ).toBe(true);
     await expect.poll(async () => {
       const { urls } = await readCacheEvidence(page);
-      return urls.some((url) => new URL(url).pathname === '/es');
-    }, { timeout: 30_000 }).toBe(true);
+      const islandAssets = await page.evaluate(() => {
+        const island = document.querySelector('astro-island');
+        return [
+          island?.getAttribute('component-url'),
+          island?.getAttribute('renderer-url'),
+        ].filter((value): value is string => Boolean(value));
+      });
+      return {
+        page: urls.some((url) => new URL(url).pathname === '/es'),
+        converter: islandAssets.some((asset) => (
+          /\/Converter\..*\.js$/.test(asset) && urls.some((url) => new URL(url).pathname === asset)
+        )),
+        renderer: islandAssets.some((asset) => (
+          /\/client\..*\.js$/.test(asset) && urls.some((url) => new URL(url).pathname === asset)
+        )),
+      };
+    }, { timeout: 30_000 }).toEqual({
+      page: true,
+      converter: true,
+      renderer: true,
+    });
 
     const cdp = await context.newCDPSession(page);
     await cdp.send('Network.clearBrowserCache');

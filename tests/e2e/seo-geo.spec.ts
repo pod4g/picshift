@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page } from './fixtures';
 
 function pinStoredLanguage(page: Page, lang: string) {
   // 通过预置语言偏好，稳定地验证页面的实际跳转与链接行为
@@ -207,6 +207,7 @@ test.describe('SEO/GEO 守卫', () => {
       'content',
       'noindex, follow',
     );
+    await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
     await expect(page.locator('link[rel="alternate"]')).toHaveCount(0);
 
     const missingRes = await request.get('/seo-check-definitely-missing-page');

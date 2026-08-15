@@ -104,19 +104,14 @@ PicShift 是一个浏览器端图片处理工具，定位为「隐私优先、�
 
 ## 5. 数据与埋点（当前）
 
-已实现 Umami 事件封装，覆盖：
+Umami 仅加载于 `picshift.app` 生产域名，保留自动 Pageview 与 Web Vitals。自定义事件收敛为：
 
-- file_add
-- file_format
-- format_select
-- convert_file
-- convert_complete
-- convert_error
-- download_single
-- download_zip
-- compare_open
-- clear_all
-- pwa_install_click
+- `ai_referral`，仅包含规范化 `provider`
+- `convert_complete`，每批一次，最多包含目标格式 `to`
+- `convert_error`，仅包含低基数的规范化 `reason`
+- `download_single` 与 `download_zip`，不带自定义属性
+- `metadata_download`，表示元数据工具完成重编码后的最终下载，不带自定义属性
+- `pwa_install_click`，不带自定义属性
 
 ---
 
@@ -140,7 +135,7 @@ PicShift 是一个浏览器端图片处理工具，定位为「隐私优先、�
 ### P1（建议）
 
 - 文件校验当前主要依赖扩展名，建议补充 magic-bytes 校验
-- 埋点字段标准可进一步统一，便于长期分析
+- 事件数量与属性数量需保持精简，避免分析额度挤占核心结果数据
 
 ### P2（优化）
 
