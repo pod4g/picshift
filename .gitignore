@@ -28,6 +28,7 @@ benchmarks/
 
 # local Search Console exports (may contain page/query performance data)
 /.local-data/gsc-api-export/
+/.local-data/gsc-ui-export/
 
 # e2e artifacts
 playwright-report/

@@ -225,6 +225,22 @@ test('editorial format claims stay within implemented product behavior', () => {
   );
 });
 
+test('the privacy guide links to a directly relevant supported tool', () => {
+  const privacyGuide = read('src/pages/docs/privacy-local-processing.astro');
+
+  assert.match(privacyGuide, /href="\/metadata-remover"[^>]*>Metadata Remover<\/a>/);
+  assert.doesNotMatch(privacyGuide, /href="\/webp-to-heif"/);
+});
+
+test('the HEIC to WebP title experiment changes only the title promise', () => {
+  const englishTranslations = read('src/i18n/translations/en.ts');
+  const block = englishTranslations.match(/'heic-to-webp': \{([\s\S]*?)\n    \},/)?.[1] ?? '';
+
+  assert.match(block, /title: 'HEIC to WebP Converter — Free, No Upload \| PicShift'/);
+  assert.match(block, /description:\s*\n\s*'Convert HEIC photos to WebP and compare the actual size and visual result\./);
+  assert.match(block, /h1: 'Convert HEIC to WebP'/);
+});
+
 test('schema entity references resolve to emitted stable ids and a visible author', () => {
   const entities = read('src/lib/schemaEntities.ts');
   const layout = read('src/layouts/Layout.astro');

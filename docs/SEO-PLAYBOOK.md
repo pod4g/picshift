@@ -1879,3 +1879,9 @@ Umami 月度额度的主要消耗来自事件属性，因此现行口径优先�
 - 停止采集文件添加、单文件转换、格式选择、比较、清空、工具卡片、Blog 内链以及 metadata 扫描/清理等中间事件
 
 GEO 漏斗解释边界：普通转换页使用 `ai_referral` → `convert_complete` → 最终下载；metadata-remover 使用 `ai_referral` → `metadata_download`。Pageview 与最终结果之间的差值不能再归因到具体中间步骤。
+
+### 2026-08-15 页面级 SEO 实验
+
+本轮使用 GSC 精确网页过滤，而不是从全站查询表推断页面归属。完整基线、查询分层、候选页排除理由、`webp-to-heif` 集群结论和验收规则见 `docs/SEO-ITERATION-SUMMARY-2026-08-15.md`。
+
+唯一工具页 meta 实验是 `/heic-to-webp` 的 title-only 改动：近 28 天 2,093 展示、CTR 0.53%、排名 8.33；核心查询 `heic to webp` 1,350 展示、CTR 0.37%、排名 8.20。title 从 `HEIC to WebP Converter - Smaller Web Images | PicShift` 改为 `HEIC to WebP Converter — Free, No Upload | PicShift`，description、H1、正文、FAQ 和指向该页的新链接全部冻结。

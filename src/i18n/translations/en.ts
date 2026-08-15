@@ -135,7 +135,7 @@ const en: PageTranslations = {
       ],
     },
     'heic-to-webp': {
-      title: 'HEIC to WebP Converter - Smaller Web Images | PicShift',
+      title: 'HEIC to WebP Converter — Free, No Upload | PicShift',
       description:
         'Convert HEIC photos to WebP and compare the actual size and visual result. Output depends on the source and encoder settings.',
       h1: 'Convert HEIC to WebP',
