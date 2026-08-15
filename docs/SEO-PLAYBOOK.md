@@ -1885,3 +1885,5 @@ GEO 漏斗解释边界：普通转换页使用 `ai_referral` → `convert_comple
 本轮使用 GSC 精确网页过滤，而不是从全站查询表推断页面归属。完整基线、查询分层、候选页排除理由、`webp-to-heif` 集群结论和验收规则见 `docs/SEO-ITERATION-SUMMARY-2026-08-15.md`。
 
 唯一工具页 meta 实验是 `/heic-to-webp` 的 title-only 改动：近 28 天 2,093 展示、CTR 0.53%、排名 8.33；核心查询 `heic to webp` 1,350 展示、CTR 0.37%、排名 8.20。title 从 `HEIC to WebP Converter - Smaller Web Images | PicShift` 改为 `HEIC to WebP Converter — Free, No Upload | PicShift`，description、H1、正文、FAQ 和指向该页的新链接全部冻结。生产环境于 2026-08-15 16:44（Asia/Shanghai）验证生效，实验窗口从该时点起算。
+
+同日经项目所有者确认，已将 `/metadata-remover` 提交至 NoUploadTools 人工审核，并创建 awesome-devtools [PR #425](https://github.com/moimikey/awesome-devtools/pull/425)。两项外部动作均不指向 `/heic-to-webp`，不改变本轮 title-only 归因边界。

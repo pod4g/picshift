@@ -60,6 +60,15 @@
 - 若 Google 未采用新标题，不把 CTR 波动归因于 title
 - 实验期不新增指向 `/heic-to-webp` 的站内或外部深链
 
-## 外部权威工作边界
+## 外部权威执行结果
 
-今天已准备 Metadata Remover 的目录提交与定制外联材料，但公开编辑 DEV 文章、提交目录、创建 GitHub PR 或发送邮件都属于对外代表性操作，必须在实际提交前由项目所有者确认。`/heic-to-webp` 的新增深链延后到本次 title-only 实验结案后。
+项目所有者确认后，于 2026-08-15 完成两项只指向 `/metadata-remover` 的公开提交，不会污染 `/heic-to-webp` 的 title-only 实验。联系人邮箱只提交给目录审核方，没有写入仓库或 GitHub PR。
+
+| 渠道 | 提交内容 | 当前状态 |
+|---|---|---|
+| NoUploadTools | PicShift Metadata Remover，Images 分类；勾选 No upload、Zero login、No ads、Mobile friendly | 16:52 收到 `Submission received`，等待人工审核，页面说明通常为 1–3 天 |
+| awesome-devtools | 在 Image 分类增加 Metadata Remover 直接工具链接 | [PR #425](https://github.com/moimikey/awesome-devtools/pull/425) 已创建，结构机器人通过，PR 可合并 |
+
+awesome-devtools 的链接检查失败不是 PicShift URL 失败，而是上游 `pull_request_target` 工作流未允许 checkout fork PR；日志在 checkout 阶段终止，尚未执行链接检查。该问题属于上游工作流配置，本轮不通过评论或绕过安全保护强行处理。
+
+公开编辑 DEV 文章和指向 `/heic-to-webp` 的新增深链继续延后到 title-only 实验结案后。高校资源页外联尚未发送，因为需要单独确定发件身份与签名。
